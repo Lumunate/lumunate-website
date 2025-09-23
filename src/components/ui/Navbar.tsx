@@ -38,6 +38,19 @@ const projects = [
     { name: "Ace My Exam", href: "/projects/ace-my-exams" },
 ];
 
+const navButtonSx = {
+    color: "#bdbdbd",
+    fontWeight: 400,
+    fontSize: "1rem",
+    textTransform: "none",
+};
+
+const navLinks = [
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
+];
+
 export default function Navbar() {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -80,63 +93,29 @@ export default function Navbar() {
                     {/* Desktop Menu */}
                     {!isMobile && (
                         <MenuBox>
-                            {/* Divider before Home */}
                             <VerticalDivider />
 
-                            <Button
-                                LinkComponent={Link}
-                                href="/"
-                                color="inherit"
-                                sx={{
-                                    color: "#bdbdbd",
-                                    fontWeight: 400,
-                                    fontSize: "1rem",
-                                    textTransform: "none",
-                                }}
-                            >
-                                Home
-                            </Button>
-                            <Button
-                                LinkComponent={Link}
-                                href="/about"
-                                color="inherit"
-                                sx={{
-                                    color: "#bdbdbd",
-                                    fontWeight: 400,
-                                    fontSize: "1rem",
-                                    textTransform: "none",
-                                }}
-                            >
-                                About
-                            </Button>
-                            <Button
-                                LinkComponent={Link}
-                                href="/contact"
-                                color="inherit"
-                                sx={{
-                                    color: "#bdbdbd",
-                                    fontWeight: 400,
-                                    fontSize: "1rem",
-                                    textTransform: "none",
-                                }}
-                            >
-                                Contact
-                            </Button>
+                            {navLinks.map((link) => (
+                                <Button
+                                    key={link.label}
+                                    LinkComponent={Link}
+                                    href={link.href}
+                                    color="inherit"
+                                    sx={navButtonSx}
+                                >
+                                    {link.label}
+                                </Button>
+                            ))}
+
                             <Button
                                 color="inherit"
                                 endIcon={<KeyboardArrowDownIcon fontSize="small" />}
                                 onClick={handleMenuOpen}
-                                sx={{
-                                    color: "#bdbdbd",
-                                    fontWeight: 400,
-                                    fontSize: "1rem",
-                                    textTransform: "none",
-                                }}
+                                sx={navButtonSx}
                             >
                                 Case Studies
                             </Button>
 
-                            {/* Divider after Case Studies */}
                             <VerticalDivider />
 
                             <Menu
@@ -171,10 +150,7 @@ export default function Navbar() {
                             </Menu>
                         </MenuBox>
                     )}
-
-                    {/* Right Side */}
                     <RightBox>
-
                         <Button
                             component="a"
                             href="https://calendly.com/saad-b-javaid22/consultation"
@@ -229,33 +205,17 @@ export default function Navbar() {
                     }}
                 >
                     <List>
-                        <ListItem disablePadding>
-                            <ListItemButton
-                                LinkComponent={Link}
-                                href="/"
-                                onClick={toggleDrawer(false)}
-                            >
-                                <ListItemText primary="Home" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton
-                                LinkComponent={Link}
-                                href="/about"
-                                onClick={toggleDrawer(false)}
-                            >
-                                <ListItemText primary="About" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton
-                                LinkComponent={Link}
-                                href="/contact"
-                                onClick={toggleDrawer(false)}
-                            >
-                                <ListItemText primary="Contact" />
-                            </ListItemButton>
-                        </ListItem>
+                        {navLinks.map((link) => (
+                            <ListItem key={link.label} disablePadding>
+                                <ListItemButton
+                                    LinkComponent={Link}
+                                    href={link.href}
+                                    onClick={toggleDrawer(false)}
+                                >
+                                    <ListItemText primary={link.label} />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
 
                         {/* Projects Dropdown */}
                         <ListItem disablePadding>
