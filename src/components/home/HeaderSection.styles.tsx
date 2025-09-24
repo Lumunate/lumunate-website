@@ -55,10 +55,10 @@ export const ContentBox = styled(Box)(({ theme }) => ({
 export const StyledH1 = styled(Typography)(({ theme }) => ({
     ...theme.typography.h1,
     color: "#fff",
-    maxWidth: 500,
+    maxWidth: 585,
     lineHeight: 1.1,
     [theme.breakpoints.down("lg")]: {
-        fontSize: "50px",
+        fontSize: "70px",
     },
     [theme.breakpoints.down("md")]: {
         fontSize: "32px",
@@ -73,7 +73,7 @@ export const LeftBox = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start",
-    marginLeft: theme.spacing(14), 
+    marginLeft: theme.spacing(2), 
     [theme.breakpoints.down("md")]: {
         justifyContent: "center",
         marginLeft: 0,
@@ -88,7 +88,7 @@ export const RightBox = styled(Box)(({ theme }) => ({
     alignItems: "flex-end",
     justifyContent: "center",
     gap: theme.spacing(3),
-    marginRight: theme.spacing(14), 
+    marginRight: theme.spacing(2), 
     [theme.breakpoints.down("md")]: {
         alignItems: "center",
         marginRight: 0,

@@ -23,7 +23,7 @@ export const LogosRow = styled(Box)(({ theme }) => ({
     justifyContent: "center",
     flexWrap: "wrap",
     width: "100%",
-    maxWidth: "1200px",
+    maxWidth: "1920px",
     [theme.breakpoints.down("md")]: {
         gap: theme.spacing(4),
         maxWidth: "900px",

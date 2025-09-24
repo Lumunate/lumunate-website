@@ -21,13 +21,13 @@ export const TestimonialContent = styled(Box)(({ theme }) => ({
     alignItems: "flex-start",
     justifyContent: "space-between",
     width: "100%",
-    maxWidth: "1440px",
+    maxWidth: "1654px",
     margin: "0 auto",
     padding: 0,
     gap: theme.spacing(8),
     [theme.breakpoints.down("lg")]: {
-        maxWidth: "1000px",
-        gap: theme.spacing(4),
+        maxWidth: "1098px",
+        gap: theme.spacing(2),
     },
     [theme.breakpoints.down("md")]: {
         flexDirection: "column",
@@ -48,9 +48,9 @@ export const TestimonialHeading = styled(Typography)(({ theme }) => ({
     color: "#fff",
     fontWeight: 400,
     maxWidth: 900,
-    marginLeft: theme.spacing(14), 
+    marginLeft: theme.spacing(2), 
     [theme.breakpoints.down("md")]: {
-        fontSize: "2rem",
+        fontSize: "50px",
         maxWidth: "100%",
         marginLeft: 0,
     },
@@ -65,7 +65,7 @@ export const TestimonialBox = styled(Box)(({ theme }) => ({
     flexDirection: "column",
     alignItems: "flex-start",
     maxWidth: 420,
-    marginRight: theme.spacing(14), 
+    marginRight: theme.spacing(2), 
     [theme.breakpoints.down("md")]: {
         alignItems: "center",
         maxWidth: "100%",
@@ -81,7 +81,7 @@ export const StarsRow = styled(Box)(({ theme }) => ({
 
 export const TestimonialText = styled(Typography)(({ theme }) => ({
     ...theme.typography.body1,
-    color: "#fff",
+    color: "#9F9F9F",
     marginBottom: theme.spacing(2),
     fontSize: "1rem",
     [theme.breakpoints.down("sm")]: {
@@ -99,7 +99,7 @@ export const AuthorAvatar = styled(Box)(({ theme }) => ({
     width: 48,
     height: 48,
     borderRadius: "50%",
-    background: "#ccc",
+    background: "#9F9F9F",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
