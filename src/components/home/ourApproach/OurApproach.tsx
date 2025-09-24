@@ -7,15 +7,18 @@ import {
 } from "./OurApproach.style";
 import { Box, Typography } from "@mui/material";
 
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 
 const OurApproach = () => {
   return (
     <OurApproachContainer>
-        <video autoPlay loop muted playsInline>
-    <source src="/approachbg.mp4" type="video/mp4" />
-  </video>
-
+      <video autoPlay loop muted playsInline>
+        <source
+          src="https://res.cloudinary.com/dqvzaju7x/video/upload/approachbg_g7xwx5.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
 
       <SubContainer>
         <Typography variant="h1">Our Approach</Typography>
@@ -27,20 +30,37 @@ const OurApproach = () => {
               justifyContent: "center",
               display: "flex",
               flexDirection: "column",
-              borderBottom:"0.4px solid #B4B4B4",
-              height:"100%"
+              borderBottom: "0.4px solid #B4B4B4",
+              height: "100%",
             }}
           >
             <Box>
-
-            <Typography sx={{fontSize:"180px", fontWeight:400 }}>01</Typography>
-            <Typography sx={{marginTop:"-65px"}} variant="h1" >Visual Identity & Branding</Typography>
+              <Typography sx={{ fontSize: "180px", fontWeight: 400 }}>
+                01
+              </Typography>
+              <Typography sx={{ marginTop: "-65px" }} variant="h1">
+                Visual Identity & Branding
+              </Typography>
             </Box>
           </Box>
-          <Box sx={{borderLeft:"0.4px solid #B4B4B4", borderBottom:"0.4px solid #B4B4B4",  height:"100%"}}></Box>
-          <Box sx={{ height:"100%"}}></Box>
-          <Box sx={{ borderLeft:"0.4px solid #B4B4B4", padding:"42px 60px"}}><Typography variant="h5">Define your digital presence with distinctive branding that resonates and converts.</Typography>
-          <DiscoverButton> Discover <ArrowOutwardIcon sx={{fontSize:"17px", marginLeft:"6px"}} /></DiscoverButton>
+          <Box
+            sx={{
+              borderLeft: "0.4px solid #B4B4B4",
+              borderBottom: "0.4px solid #B4B4B4",
+              height: "100%",
+            }}
+          ></Box>
+          <Box sx={{ height: "100%" }}></Box>
+          <Box sx={{ borderLeft: "0.4px solid #B4B4B4", padding: "42px 60px" }}>
+            <Typography variant="h5">
+              Define your digital presence with distinctive branding that
+              resonates and converts.
+            </Typography>
+            <DiscoverButton>
+              {" "}
+              Discover{" "}
+              <ArrowOutwardIcon sx={{ fontSize: "17px", marginLeft: "6px" }} />
+            </DiscoverButton>
           </Box>
         </ContentWrapper>
       </SubContainer>

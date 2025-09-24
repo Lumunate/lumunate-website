@@ -5,6 +5,7 @@ import { Box } from "@mui/material"
 
 export const ReadyContainer = styled(Box)({
   position: "relative",
+  marginTop: "140px",
   width: "100%",
   height: "100vh",
   overflow: "hidden",
@@ -35,7 +36,6 @@ export const TextWrapper = styled(Box)({
   position: "relative",
   display: "flex",
   justifyContent: "center",
-  paddingTop: "140px",
   maxWidth: "1100px",
   margin: "0 auto",
   flexDirection: "column",
