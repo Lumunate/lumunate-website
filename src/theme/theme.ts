@@ -2,7 +2,7 @@
 
 import { createTheme } from '@mui/material/styles';
 
-const colorSchemes = { light: true, dark: false };
+const colorSchemes = { light: false, dark: true };
 
 const breakpoints = {
   values: {
@@ -40,24 +40,24 @@ const breakpoints = {
 
 const typography = {
   h1: {
-    fontSize: '50px',
-    fontWeight: 900,
+    fontSize: '56px',
+    fontWeight: 400,
   },
   h2: {
     fontSize: '40px',
     fontWeight: 900,
   },
   h3: {
-    fontSize: '36px',
-    fontWeight: 900,
+    fontSize: '38px',
+    fontWeight: 400,
   },
   h4: {
     fontSize: '28px',
-    fontWeight: 900,
+    fontWeight: 400,
   },
   h5: {
-    fontSize: '24px',
-    fontWeight: 900,
+    fontSize: '22px',
+    fontWeight: 400,
   },
   h6: {
     fontSize: '1.125rem',
