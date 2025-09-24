@@ -36,14 +36,14 @@ export default function HeaderSection() {
 
                     <SocialStack>
                         <a
-                            href="https://linkedin.com"
+                            href="https://www.linkedin.com/company/lumunate/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
                             <LinkedInIcon fontSize="large" sx={{ color: "#fff" }} />
                         </a>
                         <a
-                            href="https://instagram.com"
+                            href="https://instagram.com/company/lumunate/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >

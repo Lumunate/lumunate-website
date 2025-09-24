@@ -77,7 +77,7 @@ export default function Navbar() {
             color="transparent"
             elevation={0}
             sx={{
-                mt: { xs: 1, md: 3 },
+                width: "100vw",
                 zIndex: 30,
                 background: "transparent",
                 boxShadow: "none",
@@ -163,7 +163,7 @@ export default function Navbar() {
                                 px: 2,
                                 py: 1,
                                 fontWeight: 600,
-                                bgcolor: "#232323",
+                                bgcolor: "#015B3F",
                                 color: "#bdbdbd",
                                 borderRadius: 0,
                                 "&:hover": {
