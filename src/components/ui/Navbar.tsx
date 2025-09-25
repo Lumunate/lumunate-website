@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Logo from "./logo";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
     AppBar,
     IconButton,
@@ -17,6 +17,7 @@ import {
     Typography,
     useTheme,
     useMediaQuery,
+    Box,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -30,12 +31,15 @@ import {
 } from "./Navbar.styles";
 
 const projects = [
-    { name: "Ayse", href: "/projects/ayse" },
-    { name: "Zeal", href: "/projects/zeal" },
-    { name: "Koinfolio", href: "/projects/koinfolio" },
-    { name: "Fast Clean", href: "/projects/fast-clean" },
-    { name: "Map Mavens", href: "/projects/map-mavens" },
-    { name: "Ace My Exam", href: "/projects/ace-my-exams" },
+    { name: "Airbot – AI-Powered Hospitality Assistant", href: "/projects/airbot" },
+    { name: "Koinfolio – Cryptocurrency Portfolio Manager", href: "/projects/koinfolio" },
+    { name: "Allfred – Healthcare ERP", href: "/projects/allfred" },
+    { name: "Ayse – Concert Discovery App", href: "/projects/ayse" },
+    { name: "Map Mavens – Interactive Mapping Tool", href: "/projects/map-mavens" },
+    { name: "Cut Connect – Men’s Grooming SaaS Platform", href: "/projects/cut-connect" },
+    { name: "Zeal – AI-Driven Healthcare Platform", href: "/projects/zeal" },
+    { name: "Fast Clean Service – Car Detailing Platform", href: "/projects/fast-clean" },
+    { name: "Poppynz – On-Demand Family Support", href: "/projects/poppynz" },
 ];
 
 const navButtonSx = {
@@ -62,26 +66,21 @@ export default function Navbar() {
     const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
+    const handleMenuClose = () => setAnchorEl(null);
 
     const toggleDrawer = (open: boolean) => () => {
         setDrawerOpen(open);
         setMobileProjectsOpen(false);
     };
 
+    const centerRef = useRef<HTMLDivElement | null>(null);
+
     return (
         <AppBar
             position="static"
             color="transparent"
             elevation={0}
-            sx={{
-                width: "100vw",
-                zIndex: 30,
-                background: "transparent",
-                boxShadow: "none",
-            }}
+            sx={{ width: "100vw", zIndex: 30, background: "transparent", boxShadow: "none" }}
         >
             <NavContainer>
                 <StyledToolbar disableGutters>
@@ -94,7 +93,6 @@ export default function Navbar() {
                     {!isMobile && (
                         <MenuBox>
                             <VerticalDivider />
-
                             {navLinks.map((link) => (
                                 <Button
                                     key={link.label}
@@ -115,41 +113,64 @@ export default function Navbar() {
                             >
                                 Case Studies
                             </Button>
-
                             <VerticalDivider />
 
                             <Menu
                                 anchorEl={anchorEl}
                                 open={Boolean(anchorEl)}
                                 onClose={handleMenuClose}
-                                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-                                transformOrigin={{ vertical: "top", horizontal: "left" }}
+                                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                                transformOrigin={{ vertical: "top", horizontal: "center" }}
+                                MenuListProps={{ disablePadding: true }}
                                 PaperProps={{
                                     sx: {
-                                        bgcolor: "#181818",
+                                        bgcolor: "#343434",
                                         color: "#bdbdbd",
+                                        border: "1px solid #343434",
+                                        borderRadius: 0,
+                                        boxShadow: "0px 8px 20px rgba(0,0,0,0.25)",
+                                        mt: 0,
+                                        p: 0,
+                                        minWidth: { xs: 320, md: 660, lg: 1560 },
+                                        left: "40% !important",
+                                        transform: "translateX(-50%) !important",
                                     },
                                 }}
                             >
-                                {projects.map((proj) => (
-                                    <MenuItem
-                                        key={proj.name}
-                                        LinkComponent={Link}
-                                        href={proj.href}
-                                        onClick={handleMenuClose}
-                                        sx={{
-                                            color: "#bdbdbd",
-                                            "&:hover": {
-                                                bgcolor: "#232323",
-                                            },
-                                        }}
-                                    >
-                                        {proj.name}
-                                    </MenuItem>
-                                ))}
+                                <Box
+                                    sx={{
+                                        display: "grid",
+                                        gridTemplateColumns: { xs: "1fr", md: "1fr 1fr", lg: "1fr 1fr 1fr" },
+                                        gap: 0,
+                                    }}
+                                >
+                                    {projects.map((proj) => (
+                                        <MenuItem
+                                            key={proj.name}
+                                            component={Link}
+                                            href={proj.href}
+                                            onClick={handleMenuClose}
+                                            disableGutters
+                                            sx={{
+                                                px: 2.5,
+                                                py: 1.75,
+                                                fontSize: "0.95rem",
+                                                lineHeight: 1.4,
+                                                color: "#bdbdbd",
+                                                borderTop: "1px solid #2B2B2B",
+                                                borderLeft: "1px solid #2B2B2B",
+                                                "&:hover": { bgcolor: "#232323", color: "#fff" },
+                                            }}
+                                        >
+                                            {proj.name}
+                                        </MenuItem>
+                                    ))}
+
+                                </Box>
                             </Menu>
                         </MenuBox>
                     )}
+
                     <RightBox>
                         <Button
                             component="a"
@@ -166,13 +187,12 @@ export default function Navbar() {
                                 bgcolor: "#015B3F",
                                 color: "#bdbdbd",
                                 borderRadius: 0,
-                                "&:hover": {
-                                    bgcolor: "#333",
-                                },
+                                "&:hover": { bgcolor: "#333" },
                             }}
                         >
                             Get Started
                         </Button>
+
                         {isMobile && (
                             <IconButton
                                 edge="end"
@@ -195,33 +215,20 @@ export default function Navbar() {
                     onClose={toggleDrawer(false)}
                     slotProps={{
                         paper: {
-                            sx: {
-                                width: 260,
-                                bgcolor: "#181818",
-                                color: "#bdbdbd",
-                                p: 2,
-                            },
+                            sx: { width: 260, bgcolor: "#181818", color: "#bdbdbd", p: 2 },
                         },
                     }}
                 >
                     <List>
                         {navLinks.map((link) => (
                             <ListItem key={link.label} disablePadding>
-                                <ListItemButton
-                                    LinkComponent={Link}
-                                    href={link.href}
-                                    onClick={toggleDrawer(false)}
-                                >
+                                <ListItemButton LinkComponent={Link} href={link.href} onClick={toggleDrawer(false)}>
                                     <ListItemText primary={link.label} />
                                 </ListItemButton>
                             </ListItem>
                         ))}
-
-                        {/* Projects Dropdown */}
                         <ListItem disablePadding>
-                            <ListItemButton
-                                onClick={() => setMobileProjectsOpen((open) => !open)}
-                            >
+                            <ListItemButton onClick={() => setMobileProjectsOpen((open) => !open)}>
                                 <ListItemText primary="Projects" />
                                 <Typography variant="body2" sx={{ ml: 1 }}>
                                     {mobileProjectsOpen ? "▲" : "▼"}
@@ -231,11 +238,7 @@ export default function Navbar() {
                         {mobileProjectsOpen &&
                             projects.map((proj) => (
                                 <ListItem key={proj.name} disablePadding sx={{ pl: 3 }}>
-                                    <ListItemButton
-                                        LinkComponent={Link}
-                                        href={proj.href}
-                                        onClick={toggleDrawer(false)}
-                                    >
+                                    <ListItemButton LinkComponent={Link} href={proj.href} onClick={toggleDrawer(false)}>
                                         <ListItemText primary={proj.name} />
                                     </ListItemButton>
                                 </ListItem>
