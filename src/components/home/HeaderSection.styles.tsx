@@ -33,7 +33,7 @@ export const ContentBox = styled(Box)(({ theme }) => ({
     width: "100%",
     maxWidth: "1440px",
     margin: "0 auto",
-    padding: 0, 
+    padding: 0,
     position: "relative",
     zIndex: 1,
     [theme.breakpoints.down("lg")]: {
@@ -73,7 +73,7 @@ export const LeftBox = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start",
-    marginLeft: theme.spacing(2), 
+    marginLeft: theme.spacing(2),
     [theme.breakpoints.down("md")]: {
         justifyContent: "center",
         marginLeft: 0,
@@ -88,7 +88,7 @@ export const RightBox = styled(Box)(({ theme }) => ({
     alignItems: "flex-end",
     justifyContent: "center",
     gap: theme.spacing(3),
-    marginRight: theme.spacing(2), 
+    marginRight: theme.spacing(2),
     [theme.breakpoints.down("md")]: {
         alignItems: "center",
         marginRight: 0,
@@ -102,7 +102,7 @@ export const StyledParagraph = styled(Typography)(({ theme }) => ({
     lineHeight: 1.6,
     [theme.breakpoints.down("lg")]: {
         fontSize: "16px",
-        maxWidth: 350,
+        maxWidth: 550,
     },
     [theme.breakpoints.down("md")]: {
         textAlign: "center",
@@ -115,12 +115,19 @@ export const StyledParagraph = styled(Typography)(({ theme }) => ({
 }));
 
 export const SocialStack = styled(Stack)(({ theme }) => ({
+    position: "absolute",
+    bottom: theme.spacing(-14),   
+    right: theme.spacing(4),  
     flexDirection: "column",
     gap: theme.spacing(1.5),
     alignItems: "flex-end",
+    zIndex: 2,
+
     [theme.breakpoints.down("md")]: {
+        position: "static",       
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
+        marginTop: theme.spacing(3),
     },
 }));

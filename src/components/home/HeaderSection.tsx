@@ -40,14 +40,14 @@ export default function HeaderSection() {
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <LinkedInIcon fontSize="large" sx={{ color: "#fff" }} />
+                            <LinkedInIcon fontSize="medium" sx={{ color: "#fff" }} />
                         </a>
                         <a
                             href="https://instagram.com/company/lumunate/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <InstagramIcon fontSize="large" sx={{ color: "#fff" }} />
+                            <InstagramIcon fontSize="medium" sx={{ color: "#fff" }} />
                         </a>
                     </SocialStack>
                 </RightBox>
