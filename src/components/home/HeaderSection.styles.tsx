@@ -3,7 +3,7 @@
 import { Box, Typography, Stack, styled } from "@mui/material";
 
 // Root container full height and width
-export const HeaderRoot = styled(Box)(({ theme }) => ({
+export const HeaderRoot = styled(Box)(({  }) => ({
     width: "100vw",
     minHeight: "100vh",
     position: "relative",

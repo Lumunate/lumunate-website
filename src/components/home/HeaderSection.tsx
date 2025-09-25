@@ -38,7 +38,7 @@ export default function HeaderSection() {
                 <RightBox>
                     <StyledParagraph variant="body1">
                         Transform ideas into scalable digital products that grow with your
-                        business. From AI-powered platforms to enterprise solutions, we're
+                        business. From AI-powered platforms to enterprise solutions, we&apos;re
                         the technology partner that turns vision into velocity.
                     </StyledParagraph>
 

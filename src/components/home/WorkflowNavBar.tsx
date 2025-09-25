@@ -2,19 +2,25 @@
 
 import { WorkflowBarRoot, NavItem } from "./WorkflowBar.styles";
 
-interface WorkflowNavBarProps {
-    sections: {
-        tag: string;
-        title: string;
-        description: string;
-        video: string;
-        buttonText: string;
-    }[];
-    activeSection: any;
-    setActiveSection: (section: any) => void;
+interface Section {
+    tag: string;
+    title: string;
+    description: string;
+    video: string;
+    buttonText: string;
 }
 
-export default function WorkflowNavBar({ sections, activeSection, setActiveSection }: WorkflowNavBarProps) {
+interface WorkflowNavBarProps {
+    sections: Section[];
+    activeSection: Section;
+    setActiveSection: (section: Section) => void;
+}
+
+export default function WorkflowNavBar({
+    sections,
+    activeSection,
+    setActiveSection,
+}: WorkflowNavBarProps) {
     return (
         <WorkflowBarRoot>
             {sections.map((section) => (

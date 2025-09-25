@@ -48,18 +48,18 @@ export const CardLeft = styled(Box)(({ theme }) => ({
 }));
 
 
-export const CardRight = styled(Box)(({ theme }) => ({
+export const CardRight = styled(Box)(({ }) => ({
     flex: 1,
     display: "flex",
-    alignItems: "stretch",   // make child (video) fill vertically
+    alignItems: "stretch",   
     justifyContent: "center",
 }));
 
-export const WorkflowVideo = styled("video")(({ theme }) => ({
+export const WorkflowVideo = styled("video")(({ }) => ({
     width: "100%",
-    height: "100%",          // fill parent height
-    objectFit: "cover",      // crop/scale nicely
-    borderRadius: 0,         // remove rounding so it aligns edge-to-edge
+    height: "100%",         
+    objectFit: "cover",      
+    borderRadius: 0,      
 }));
 
 

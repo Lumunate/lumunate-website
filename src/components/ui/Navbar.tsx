@@ -73,7 +73,7 @@ export default function Navbar() {
         setMobileProjectsOpen(false);
     };
 
-    const centerRef = useRef<HTMLDivElement | null>(null);
+    // const centerRef = useRef<HTMLDivElement | null>(null);
 
     return (
         <AppBar

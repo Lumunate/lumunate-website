@@ -1,7 +1,7 @@
 import { Box, styled, Toolbar } from "@mui/material";
 
 // Main Navbar container with background and borders
-export const NavContainer = styled(Box)(({ theme }) => ({
+export const NavContainer = styled(Box)(({ }) => ({
     maxWidth: "1920px",
     margin: "0 auto",
     padding: "0 32px",
@@ -20,7 +20,7 @@ export const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     padding: 0,
 }));
 
-export const LogoBox = styled(Box)(({ theme }) => ({
+export const LogoBox = styled(Box)(({ }) => ({
     display: "flex",
     alignItems: "center",
     minWidth: 180,

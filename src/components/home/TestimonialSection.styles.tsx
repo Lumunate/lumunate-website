@@ -95,7 +95,7 @@ export const AuthorRow = styled(Box)(({ theme }) => ({
     gap: theme.spacing(2),
 }));
 
-export const AuthorAvatar = styled(Box)(({ theme }) => ({
+export const AuthorAvatar = styled(Box)(({ }) => ({
     width: 48,
     height: 48,
     borderRadius: "50%",
@@ -117,13 +117,13 @@ export const AuthorInfo = styled(Box)(({ theme }) => ({
     },
 }));
 
-export const AuthorName = styled(Typography)(({ theme }) => ({
+export const AuthorName = styled(Typography)(({ }) => ({
     color: "#fff",
     fontWeight: 700,
     fontSize: "1rem",
 }));
 
-export const AuthorTitle = styled(Typography)(({ theme }) => ({
+export const AuthorTitle = styled(Typography)(({ }) => ({
     color: "#bdbdbd",
     fontSize: "0.95rem",
 }));
