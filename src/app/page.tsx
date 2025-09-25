@@ -1,5 +1,5 @@
 
-  import HeaderSection from "@/components/home/HeaderSection";
+import HeaderSection from "@/components/home/HeaderSection";
   import LogosSection from "@/components/home/LogosSection";
   import TestimonialSection from "@/components/home/TestimonialSection";
   import WorkflowSection from "@/components/home/WorkflowSection";
@@ -15,7 +15,7 @@
         <TestimonialSection />
 
         <WorkflowSection />
-        
+      
         
       </>
     );
