@@ -13,16 +13,18 @@ export const HeaderRoot = styled(Box)(({ theme }) => ({
     justifyContent: "center",
 }));
 
-// Background image
+// Background video container
 export const SvgBg = styled(Box)(() => ({
-    position: "absolute",
-    inset: 0,
-    zIndex: -1,
-    "& img": {
-        width: "100%",
-        height: "100%",
-        objectFit: "cover",
-    },
+  position: "absolute",
+  inset: 0,
+  zIndex: -1,
+  overflow: "hidden",
+
+  "& video": {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",   
+  },
 }));
 
 // Content container

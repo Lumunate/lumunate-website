@@ -14,10 +14,17 @@ import {
 export default function HeaderSection() {
     return (
         <HeaderRoot>
-            {/* Background Image */}
+            {/* Background Video */}
             <SvgBg>
-                <img src="/home-header.svg" alt="Background" />
+                <video
+                    src="/home-header-video.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                />
             </SvgBg>
+
 
             {/* Content */}
             <ContentBox>
