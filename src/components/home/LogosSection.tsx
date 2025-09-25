@@ -1,3 +1,5 @@
+import Image from "next/image";
+import { Typography } from "@mui/material";
 import {
     LogosRoot,
     LogosRow,
@@ -21,8 +23,16 @@ export default function LogosSection() {
             <LogosRow>
                 {logos.map((logo) => (
                     <LogoItem key={logo.src}>
-                        <img src={logo.src} alt={logo.label || "logo"} />
-                        <span>{logo.label}</span>
+                        <Image
+                            src={logo.src}
+                            alt={logo.label || "logo"}
+                            width={60}
+                            height={60}
+                            style={{ objectFit: "contain" }}
+                        />
+                        <Typography variant="body2" sx={{ mt: 1, color: "text.secondary" }}>
+                            {logo.label}
+                        </Typography>
                     </LogoItem>
                 ))}
             </LogosRow>
