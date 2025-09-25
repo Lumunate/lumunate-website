@@ -3,7 +3,7 @@ import { styled, Box } from "@mui/material";
 import Link from "next/link";
 
 /* Root container */
-export const FooterRoot = styled("footer")(({ theme }) => ({
+export const FooterRoot = styled("footer")(({ }) => ({
     backgroundColor: "#0E0E0E",
     borderTop: "1px solid #222",
     color: "#bdbdbd",

@@ -48,7 +48,7 @@ export const ContactForm = styled("form")(({ theme }) => ({
     },
 }));
 
-export const ContactTextField = styled(TextField)(({ theme }) => ({
+export const ContactTextField = styled(TextField)(({ }) => ({
     "& .MuiInputBase-root": {
         color: "#fff",
     },
