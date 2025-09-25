@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Logo from "./logo";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import {
     AppBar,
     IconButton,
@@ -72,8 +72,6 @@ export default function Navbar() {
         setDrawerOpen(open);
         setMobileProjectsOpen(false);
     };
-
-    // const centerRef = useRef<HTMLDivElement | null>(null);
 
     return (
         <AppBar
