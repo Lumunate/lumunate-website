@@ -10,6 +10,7 @@ import {
     StyledParagraph,
     SocialStack,
 } from "./HeaderSection.styles";
+import Link from "next/link";
 
 export default function HeaderSection() {
     return (
@@ -42,20 +43,20 @@ export default function HeaderSection() {
                     </StyledParagraph>
 
                     <SocialStack>
-                        <a
+                        <Link
                             href="https://www.linkedin.com/company/lumunate/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
                             <LinkedInIcon fontSize="medium" sx={{ color: "#fff" }} />
-                        </a>
-                        <a
+                        </Link>
+                        <Link
                             href="https://instagram.com/company/lumunate/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
                             <InstagramIcon fontSize="medium" sx={{ color: "#fff" }} />
-                        </a>
+                        </Link>
                     </SocialStack>
                 </RightBox>
             </ContentBox>

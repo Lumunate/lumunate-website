@@ -1,8 +1,9 @@
 "use client";
 
+import { Box } from "@mui/material";
 import DiscoverButton from "../ui/DiscoverButton";
 import {
-    WorkflowCardRoot,   
+    WorkflowCardRoot,
     CardLeft,
     CardRight,
     TopText,
@@ -27,11 +28,11 @@ export default function WorkflowCard({ activeSection }: WorkflowCardProps) {
     return (
         <WorkflowCardRoot>
             <CardLeft>
-                <div>
+                <Box>
                     <TopText variant="h6">{activeSection.tag}</TopText>
                     <Title variant="h4">{activeSection.title}</Title>
                     <Description>{activeSection.description}</Description>
-                </div>
+                </Box>
                 <DiscoverButton>{activeSection.buttonText}</DiscoverButton>
             </CardLeft>
 
