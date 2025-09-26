@@ -2,6 +2,7 @@
 
 import { createTheme } from '@mui/material/styles';
 
+
 const colorSchemes = { light: false, dark: true };
 
 const breakpoints = {
@@ -85,3 +86,4 @@ const theme = createTheme({
 });
 
 export default theme;
+

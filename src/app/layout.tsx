@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@mui/material";
 import theme from "@/theme/theme";
 import CssBaseline from '@mui/material/CssBaseline';
+import Navbar from "../../src/components/ui/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,7 +18,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Lumunate",
-  description: "",
+  description:
+    "We specialize in web and mobile development, systems integration and digital marketing to help businesses thrive in today’s fast-paced digital world.",
+  icons: {
+    icon: "/favicon.ico.svg",
+  },
 };
 
 export default function RootLayout({
@@ -27,9 +32,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ThemeProvider theme={theme} >
+
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+         <ThemeProvider theme={theme} >
            <CssBaseline />
+        <Navbar />
         {children}
         </ThemeProvider>
       </body>
