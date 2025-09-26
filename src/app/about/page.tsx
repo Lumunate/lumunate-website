@@ -1,5 +1,6 @@
 import Different from '@/components/about/different/Different'
 import Hero from '@/components/about/hero/Hero'
+import SuccessStories from '@/components/about/successStories/SuccessStories'
 import React from 'react'
 
 const page = () => {
@@ -7,6 +8,7 @@ const page = () => {
     <div>
       <Hero />
       <Different />
+      <SuccessStories />
     </div>
   )
 }
