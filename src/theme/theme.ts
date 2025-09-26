@@ -2,17 +2,18 @@
 
 import { createTheme } from '@mui/material/styles';
 
-const colorSchemes = { light: true, dark: false };
+
+const colorSchemes = { light: false, dark: true };
 
 const breakpoints = {
-    values: {
-        xs: 0,
-        sm: 576,
-        md: 768,
-        lg: 1024,
-        xl: 1200,
-        xxl: 1400,
-    },
+  values: {
+    xs: 0,
+    sm: 576,
+    md: 768,
+    lg: 1024,
+    xl: 1200,
+    xxl: 1400,
+  },
 };
 
 // const palette = {
@@ -39,49 +40,50 @@ const breakpoints = {
 // };
 
 const typography = {
-    h1: {
-        fontSize: '50px',
-        fontWeight: 900,
-    },
-    h2: {
-        fontSize: '40px',
-        fontWeight: 900,
-    },
-    h3: {
-        fontSize: '36px',
-        fontWeight: 900,
-    },
-    h4: {
-        fontSize: '28px',
-        fontWeight: 900,
-    },
-    h5: {
-        fontSize: '24px',
-        fontWeight: 900,
-    },
-    h6: {
-        fontSize: '1.125rem',
-        fontWeight: 600,
-    },
-    body1: {
-        fontSize: '18px',
-        fontWeight: 400,
-    },
-    body2: {
-        fontSize: '16px',
-        fontWeight: 400,
-    },
-    caption: {
-        fontSize: '12px',
-        fontWeight: 400,
-    },
+  h1: {
+    fontSize: '56px',
+    fontWeight: 400,
+  },
+  h2: {
+    fontSize: '40px',
+    fontWeight: 900,
+  },
+  h3: {
+    fontSize: '38px',
+    fontWeight: 400,
+  },
+  h4: {
+    fontSize: '28px',
+    fontWeight: 400,
+  },
+  h5: {
+    fontSize: '22px',
+    fontWeight: 400,
+  },
+  h6: {
+    fontSize: '1.125rem',
+    fontWeight: 600,
+  },
+  body1: {
+    fontSize: '18px',
+    fontWeight: 400,
+  },
+  body2: {
+    fontSize: '16px',
+    fontWeight: 400,
+  },
+  caption: {
+    fontSize: '12px',
+    fontWeight: 400,
+  },
 };
 
 const theme = createTheme({
-    //   palette,
-    colorSchemes,
-    breakpoints,
-    typography,
+//   palette,
+  colorSchemes,
+  breakpoints,
+  typography,
 });
 
 export default theme;
+
