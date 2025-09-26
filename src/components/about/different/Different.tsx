@@ -39,20 +39,20 @@ const Different = () => {
             <Box
               key={index}
               sx={{
-                borderRight: '1px solid #757575',
-                borderBottom: '1px solid #757575',
+                borderRight: index === 0 || index === 2 ? '1px solid #757575' : "none",
+                borderBottom: index === 0 || index === 1 ? '1px solid #757575' :"none",
                 padding: '160px 32px',
-                borderRadius: isGifBackground ? '12px' : 0,
                 backgroundImage: isGifBackground ? 'url(/aboutCardBg.gif)' : 'none',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 color: '#fff', // make text readable
+                borderRadius: index ===3 ? "12px":"none",
               }}
             >
               <Typography variant="h1">{item.title}</Typography>
               <Typography
                 variant="h5"
-                sx={{ marginTop: '32px', color: isGifBackground ? '#f1f1f1' : '#CBCBCB' }}
+                sx={{ marginTop: '32px', color: isGifBackground ? '#f1f1f1' : '#CBCBCB', borderRadius:"12px" }}
               >
                 {item.description}
               </Typography>
