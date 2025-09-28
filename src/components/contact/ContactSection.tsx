@@ -8,6 +8,7 @@ import {
     VideoHeader,
     BackgroundVideo,
 } from "./ContactSection.styles";
+import Ready from "../home/ready/Ready";
 
 const interests = [
     "Creative & UI/UX Design",
@@ -46,7 +47,7 @@ export default function ContactSection() {
                         textAlign: "left",
                         alignSelf: "flex-start",
                         mb: 4,
-                        ml: 5,
+                        ml: 12,
                     }}
                 >
                     Get in Touch
@@ -165,9 +166,13 @@ export default function ContactSection() {
             </Typography>
 
 
-            {/* .... */}
-            {/* After the Form, There will be a re-usable component (Ready/Ready.tsx) which is created by Zubair in the Homepage section and we will use here once his PR get merged.... */}
-            {/* .... */}
+            <Ready
+                title="Tell us about your vision"
+                description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions that drive real results."
+                linkText="Let's Connect"
+                linkHref="/contact"
+            />
+
 
         </>
     );
