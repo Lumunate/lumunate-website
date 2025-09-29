@@ -64,16 +64,15 @@ const Works = () => {
 
       <Grid sx={{marginTop:"65px"}} container rowSpacing="32px" columnSpacing="16px">
         {projects.map((project, index) => (
-          <Grid size={6} key={index}>
+          <Grid  size={{ xs: 12, md: 6 }} key={index}>
             <TitleWrapper>
-            <Typography variant='h3'>{project.title}</Typography>
+            <Typography sx={{fontSize: {xs:"28px", sm:"38px"}}} variant='h3'>{project.title}</Typography>
             <Typography variant='h5' sx={{color:"#CAC8C8"}}>{project.year}</Typography>
             </TitleWrapper>
            {/* Wrap the image in a fixed-size container */}
       <Box
         sx={{
           width: "100%",
-          height: "591px", // <-- same height for all
           borderRadius: "12px",
           overflow: "hidden",
           marginTop:"24px"
@@ -92,9 +91,6 @@ const Works = () => {
 
       </Grid>
 
-      {/* <ProjectsWrapper>
-    
-      </ProjectsWrapper> */}
     </WorkWrapper>
   )
 }

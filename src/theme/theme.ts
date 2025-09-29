@@ -8,7 +8,7 @@ const colorSchemes = { light: false, dark: true };
 const breakpoints = {
   values: {
     xs: 0,
-    sm: 576,
+    sm: 600,
     md: 768,
     lg: 1024,
     xl: 1200,

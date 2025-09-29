@@ -18,7 +18,7 @@ const SuccessStories = () => {
       <ContentContainer>
         <Typography variant='h5' >Client Success Stories</Typography>
         <Box sx={{marginTop:"65px"}}>
-            <Typography sx={{fontSize:"78px"}} >“The team at Lumunate is simply the best. They do the best jobs as always and have brought our idea for Koinfolio to life. Will continue the work with them for sure!</Typography>
+            <Typography sx={{fontSize:{xs:"32px", sm:"46px",md:"56px",lg:"66px",xl:"78px"}}} >“The team at Lumunate is simply the best. They do the best jobs as always and have brought our idea for Koinfolio to life. Will continue the work with them for sure!</Typography>
         </Box>
         <Box sx={{marginTop:"65px"}}>
             <Typography sx={{fontWeight:700}} variant='body2'>{`// Ebrahim`}</Typography>

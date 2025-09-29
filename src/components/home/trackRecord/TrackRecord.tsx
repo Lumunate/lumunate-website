@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { DiscoverButton, StatusCard, StatusWrapper, TitleWrapper, TrackContainer  } from './TrackRecord.style'
+import { DiscoverButton, NumberText, StatusCard, StatusWrapper, TitleWrapper, TrackContainer  } from './TrackRecord.style'
 import { Typography } from '@mui/material'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
@@ -24,10 +24,10 @@ const TrackRecord = () => {
   return (
     <TrackContainer >
     <TitleWrapper>
-        <Typography variant='h1'>
+        <Typography sx={{fontSize:{xs:"32px", md:"56px"}}} variant='h1'>
             Proven Track Record
         </Typography>
-        <Typography sx={{color:"#AAAAAA"}} variant='h5'>
+        <Typography  sx={{color:"#AAAAAA", fontSize:{xs:"18px", md:"22px"}}} variant='h5'>
             We&#39;re not just developers. We&#39;re your growth partners from concept to scale.
         </Typography>
         <DiscoverButton>
@@ -46,20 +46,27 @@ const TrackRecord = () => {
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 },
+                ...(index === 1 && {
+                  borderTopRightRadius: { sm: '12px', lg: "0px" },
+                }),
+                ...(index === 2 && {
+                  borderBottomLeftRadius: { sm: '12px', lg: 0 },
+                }),
                 ...(index === 0 && {
                   borderTopLeftRadius: "12px",
-                  borderBottomLeftRadius: "12px",
+                  borderBottomLeftRadius: {  sm: 0, lg: "12px" },
                 }),
                 ...(index === statusData.length - 1 && {
-                  borderTopRightRadius: "12px",
+                  borderTopRightRadius: {  sm: 0, lg: "12px" },
                   borderBottomRightRadius: "12px",
+                  borderBottomLeftRadius: { xs:"12px" ,sm: 0},
                 }),
               }}
             >
-              <Typography sx={{fontSize:"85px", color: "white"}}>
+              <NumberText>
                 {item.total}
-              </Typography>
-              <Typography sx={{color:"#FFFFFF"}} variant='h5'>{item.title}</Typography>
+              </NumberText>
+              <Typography sx={{color:"#FFFFFF", fontSize: {xs:"18px", md:'22px'}}} variant='h5'>{item.title}</Typography>
             </StatusCard>
           )
         })}

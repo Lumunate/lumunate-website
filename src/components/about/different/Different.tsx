@@ -1,6 +1,6 @@
-import React from 'react'
-import { ContentContainer, DifferentContainer } from './Different.style'
-import { Box, Typography } from '@mui/material'
+import React from "react";
+import { ContentContainer, DifferentContainer } from "./Different.style";
+import { Box, Typography } from "@mui/material";
 
 const Different = () => {
   const data = [
@@ -24,44 +24,78 @@ const Different = () => {
       description:
         "Your success is our success. We're invested in your long-term growth, not just project completion. That's why our clients keep coming back.",
     },
-  ]
+  ];
 
   return (
     <DifferentContainer>
-      <Box sx={{ paddingBottom: '65px' }}>
-        <Typography variant="h1">What Makes Us Different</Typography>
+      <Box sx={{ paddingBottom: "65px" }}>
+        <Typography sx={{ fontSize: { xs: "32px", sm: "56px" } }} variant="h1">
+          What Makes Us Different
+        </Typography>
       </Box>
 
       <ContentContainer>
         {data.map((item, index) => {
-          const isGifBackground = index === 0 || index === 3
+          const isGifBackground = index === 0 || index === 3;
           return (
             <Box
               key={index}
               sx={{
-                borderRight: index === 0 || index === 2 ? '1px solid #757575' : "none",
-                borderBottom: index === 0 || index === 1 ? '1px solid #757575' :"none",
-                padding: '160px 32px',
-                backgroundImage: isGifBackground ? 'url(/aboutCardBg.gif)' : 'none',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                color: '#fff', // make text readable
-                borderRadius: index ===3 ? "12px":"none",
+                borderRight:
+                  index === 0 || index === 2 ? "1px solid #757575" : "none",
+                borderBottom: {
+                  xs:
+                    index === 0 || index === 1 || index === 2
+                      ? "1px solid #757575"
+                      : "none", // 👈 xs & sm
+                  md: index === 0 || index === 1 ? "1px solid #757575" : "none", // 👈 md and up
+                },
+                padding: { xs: "40px 20px", sm: "80px 28px", lg: "160px 32px" },
+                backgroundImage: isGifBackground
+                  ? "url(/aboutCardBg.gif)"
+                  : "none",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                color: "#fff",
+                borderRadius: {
+                  xs:
+                    index === 0
+                      ? "12px 12px 0 0" // only top corners rounded for index 0
+                      : index === 3
+                      ? "12px" // no radius for index 3 on small screens
+                      : "0",
+                  md:
+                    index === 0
+                      ? "12px 0 0 0" // top-left only for index 0
+                      : index === 3
+                      ? "0 0 12px 0" // bottom-right only for index 3
+                      : "0",
+                },
               }}
             >
-              <Typography variant="h1">{item.title}</Typography>
+              <Typography
+                sx={{ fontSize: { xs: "32px", md: "45px", lg: "56px" } }}
+                variant="h1"
+              >
+                {item.title}
+              </Typography>
               <Typography
                 variant="h5"
-                sx={{ marginTop: '32px', color: isGifBackground ? '#f1f1f1' : '#CBCBCB', borderRadius:"12px" }}
+                sx={{
+                  fontSize: { xs: "18px", md: "22px" },
+                  marginTop: "32px",
+                  color: isGifBackground ? "#f1f1f1" : "#CBCBCB",
+                  borderRadius: "12px",
+                }}
               >
                 {item.description}
               </Typography>
             </Box>
-          )
+          );
         })}
       </ContentContainer>
     </DifferentContainer>
-  )
-}
+  );
+};
 
-export default Different
+export default Different;

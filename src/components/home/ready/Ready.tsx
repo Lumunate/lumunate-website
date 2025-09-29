@@ -33,7 +33,7 @@ const Ready = () => {
       <TextWrapper>
         <Typography
           sx={{
-            fontSize: { xs: "32px", md: "78px" },
+            fontSize: { xs: "32px",sm:"56px", md: "78px" },
             color: "#fff",
             fontWeight: 700,
           }}
