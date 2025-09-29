@@ -43,7 +43,7 @@ const Ready = ({
           sx={{
             fontSize: { xs: "32px", md: "78px" },
             color: "#fff",
-            fontWeight: 700,
+            fontWeight: 400,
           }}
         >
           {title}

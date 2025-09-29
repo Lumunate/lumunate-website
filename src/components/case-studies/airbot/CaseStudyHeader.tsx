@@ -14,28 +14,10 @@ import {
   MetaValue,
 } from "./CaseStudyHeader.styles";
 
-/** ---------- Types ---------- */
-
-type MetaSimple = {
-  /** Left-side label (e.g., "Year") */
-  label: string;
-  /** Right-side value (e.g., "2025") */
-  value: ReactNode;
-};
-
-type MetaGroupItem = {
-  /** Optional small label before the value (e.g., "MVP –") */
-  label?: string;
-  value: ReactNode;
-};
-
-type MetaGroup = {
-  /** Left-side label (e.g., "Timeline") */
-  label: string;
-  /** Right-side list of mini items (e.g., MVP, Version 2…) */
-  items: MetaGroupItem[];
-};
-
+/** Types */
+type MetaSimple = { label: string; value: ReactNode };
+type MetaGroupItem = { label?: string; value: ReactNode };
+type MetaGroup = { label: string; items: MetaGroupItem[] };
 type Meta = MetaSimple | MetaGroup;
 
 type Background =
@@ -43,35 +25,18 @@ type Background =
   | { kind: "image"; src: string; alt?: string };
 
 export interface CaseStudyHeaderProps {
-  /** Background video or image */
   background: Background;
-
-  /** Main title */
   title: string;
-
-  /** Secondary title */
   subtitle?: string;
-
-  /** Rich description paragraph */
   description?: ReactNode;
-
-  /** Right-column meta in either simple rows or grouped rows */
   meta?: Meta[];
-
-  /** Spacing between meta label & value columns (css length) */
   metaColumnGap?: string;
-
-  /** Optional overlay darkness (0–1), default 0.4 */
   overlayOpacity?: number;
-
-  /** Optional: right column max width */
   rightMaxWidth?: number | string;
 }
 
-/** ---------- Helpers ---------- */
 const isGroup = (m: Meta): m is MetaGroup => (m as MetaGroup).items !== undefined;
 
-/** ---------- Component ---------- */
 export default function CaseStudyHeader({
   background,
   title,
@@ -84,27 +49,16 @@ export default function CaseStudyHeader({
 }: CaseStudyHeaderProps) {
   return (
     <HeaderRoot>
-      {/* Background */}
-      {background.kind === "video" ? (
-        <BackgroundVideo
-          autoPlay={background.autoPlay ?? true}
-          muted={background.muted ?? true}
-          loop={background.loop ?? true}
-          playsInline
-          poster={background.poster}
-          aria-label="Background video"
-        >
-          <source src={background.src} type={background.type ?? "video/mp4"} />
-        </BackgroundVideo>
-      ) : (
-        <BackgroundImage
-          src={background.src}
-          alt={background.alt ?? "Case study background"}
-          aria-label="Background image"
-        />
-      )}
+      {/* Background (MUI Box wrappers) */}
+      <BackgroundVideo
+        component="video"
+        src="/case-studies/airbot-header.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+      />
 
-      {/* Overlay content */}
       <HeaderContent overlayopacity={overlayOpacity}>
         {/* Left column */}
         <HeaderLeft>
@@ -130,14 +84,16 @@ export default function CaseStudyHeader({
                 columnGap: metaColumnGap,
               }}
             >
-              {/* Left labels */}
+              {/* Labels */}
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 {meta.map((m, idx) => (
-                  <MetaLabel key={`label-${idx}`}>{m.label}</MetaLabel>
+                  <MetaLabel key={`label-${idx}`} variant="body2">
+                    {m.label}
+                  </MetaLabel>
                 ))}
               </Box>
 
-              {/* Right values */}
+              {/* Values */}
               <Box
                 sx={{
                   display: "flex",
@@ -150,11 +106,12 @@ export default function CaseStudyHeader({
               >
                 {meta.map((m, idx) => {
                   if (!isGroup(m)) {
-                    // Simple value row
-                    return <MetaValue key={`value-${idx}`}>{m.value}</MetaValue>;
+                    return (
+                      <MetaValue key={`value-${idx}`} variant="body2">
+                        {m.value}
+                      </MetaValue>
+                    );
                   }
-
-                  // Grouped list (e.g., MVP – 20 weeks; Version 2 – ongoing)
                   return (
                     <Box
                       key={`group-${idx}`}
@@ -162,17 +119,21 @@ export default function CaseStudyHeader({
                         display: "flex",
                         flexDirection: "column",
                         gap: 0.5,
-                        textAlign: "right",   // ⬅️ ensures inner group is right-aligned
+                        textAlign: "right",
                         alignItems: "flex-end",
                       }}
                     >
                       {m.items.map((it, j) => (
                         <Box
                           key={`group-item-${idx}-${j}`}
-                          sx={{ display: "flex", gap: 0.5, justifyContent: "flex-end" }}  // ⬅️ push items right
+                          sx={{ display: "flex", gap: 0.5, justifyContent: "flex-end" }}
                         >
-                          {it.label && <MetaLabel sx={{ marginRight: "4px" }}>{it.label}</MetaLabel>}
-                          <MetaValue>{it.value}</MetaValue>
+                          {it.label && (
+                            <MetaLabel variant="body2" sx={{ mr: "4px" }}>
+                              {it.label}
+                            </MetaLabel>
+                          )}
+                          <MetaValue variant="body2">{it.value}</MetaValue>
                         </Box>
                       ))}
                     </Box>
@@ -183,6 +144,6 @@ export default function CaseStudyHeader({
           )}
         </HeaderRight>
       </HeaderContent>
-    </HeaderRoot >
+    </HeaderRoot>
   );
 }

@@ -24,8 +24,7 @@ export default function ImpactSection({
     services,
 }: ImpactSectionProps) {
     return (
-        <SectionRoot as="section">
-
+        <SectionRoot>
             <InnerContainer maxWidth="lg">
                 {/* Group 1: Impact */}
                 <RowGrid>

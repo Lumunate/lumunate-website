@@ -1,7 +1,7 @@
 "use client";
-import { styled, Box } from "@mui/material";
+import { styled, Box, Typography } from "@mui/material";
 
-/* Root */
+/* Root as real <section> */
 export const HeaderRoot = styled("section")(() => ({
     position: "relative",
     width: "100%",
@@ -10,8 +10,8 @@ export const HeaderRoot = styled("section")(() => ({
     color: "#fff",
 }));
 
-/* Background video */
-export const BackgroundVideo = styled("video")(() => ({
+/* Background Video (Box with component="video") */
+export const BackgroundVideo = styled(Box)(({ theme }) => ({
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -20,10 +20,10 @@ export const BackgroundVideo = styled("video")(() => ({
     objectFit: "cover",
     transform: "translate(-50%, -50%)",
     zIndex: 0,
-}));
+})) as typeof Box;
 
-/* Background image */
-export const BackgroundImage = styled("img")(() => ({
+/* Background Image (Box with component="img") */
+export const BackgroundImage = styled(Box)(({ theme }) => ({
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -32,9 +32,9 @@ export const BackgroundImage = styled("img")(() => ({
     objectFit: "cover",
     transform: "translate(-50%, -50%)",
     zIndex: 0,
-}));
+})) as typeof Box;
 
-/* Main container with configurable overlay */
+/* Overlay content */
 export const HeaderContent = styled(Box, {
     shouldForwardProp: (prop) => prop !== "overlayopacity",
 })<{ overlayopacity?: number }>(({ theme, overlayopacity = 0.4 }) => ({
@@ -54,16 +54,12 @@ export const HeaderContent = styled(Box, {
     },
 }));
 
-/* Left column */
 export const HeaderLeft = styled(Box)(({ theme }) => ({
     flex: 1,
     marginBottom: theme.spacing(17),
-    [theme.breakpoints.down("md")]: {
-        marginBottom: theme.spacing(4),
-    },
+    [theme.breakpoints.down("md")]: { marginBottom: theme.spacing(4) },
 }));
 
-/* Right column */
 export const HeaderRight = styled(Box)(() => ({
     flex: 1,
     display: "flex",
@@ -71,8 +67,7 @@ export const HeaderRight = styled(Box)(() => ({
     alignItems: "flex-start",
 }));
 
-/* Description Paragraph */
-export const Description = styled("p")(({ theme }) => ({
+export const Description = styled(Typography)(({ theme }) => ({
     fontFamily: "Manrope, sans-serif",
     fontWeight: 400,
     fontSize: "15px",
@@ -82,19 +77,17 @@ export const Description = styled("p")(({ theme }) => ({
     opacity: 0.9,
     marginBottom: theme.spacing(4),
     maxWidth: "900px",
-    [theme.breakpoints.down("md")]: {
-        fontSize: "16px",
-    },
+    [theme.breakpoints.down("md")]: { fontSize: "16px" },
 }));
 
-export const MetaLabel = styled("span")(() => ({
+export const MetaLabel = styled(Typography)(() => ({
     fontFamily: "Montserrat, sans-serif",
     fontWeight: 400,
     fontSize: "1rem",
     color: "#B8B8B8",
 }));
 
-export const MetaValue = styled("span")(() => ({
+export const MetaValue = styled(Typography)(() => ({
     fontFamily: "Montserrat, sans-serif",
     fontWeight: 400,
     fontSize: "1rem",

@@ -2,7 +2,7 @@
 
 import { Box, styled } from "@mui/material";
 
-export const SuccessStoriesContainer = styled(Box)(({ }) => ({
+export const SuccessStoriesContainer = styled(Box)(() => ({
   width: "100%",
   minHeight: "100vh",
   marginTop: "50px",
@@ -23,12 +23,17 @@ export const BackgroundVideo = styled("video")({
   zIndex: 0,
 });
 
-
-export const ContentContainer = styled(Box)(({ }) => ({
+export const ContentContainer = styled(Box)(() => ({
   maxWidth: "1620px",
   width: "100%",
   padding: "0 20px",
   margin: "0 auto",
   position: "relative",
-  zIndex: 2, // ensure content appears above video + overlay
+  zIndex: 2, // above video
+}));
+
+export const StarsWrapper = styled(Box)(() => ({
+  marginTop: "20px",
+  display: "flex",
+  gap: "6px",
 }));
