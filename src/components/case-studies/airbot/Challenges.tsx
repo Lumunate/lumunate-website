@@ -59,7 +59,10 @@ export default function Challenges({
                 {/* Single image */}
                 {imageSrc && !imageLeftSrc && !imageRightSrc && (
                     <ImageWrapper>
-                        <Image src={imageSrc} alt={imageAlt} />
+                        <Image src={imageSrc} alt={imageAlt}
+                            width={600}
+                            height={400}
+                        />
                     </ImageWrapper>
                 )}
 
@@ -67,10 +70,16 @@ export default function Challenges({
                 {imageLeftSrc && imageRightSrc && (
                     <ImageGridWrapper>
                         <Box>
-                            <Image src={imageLeftSrc} alt="Left Illustration" />
+                            <Image src={imageLeftSrc}
+                                width={600}
+                                height={400}
+                                alt="Left Illustration" />
                         </Box>
                         <Box>
-                            <Image src={imageRightSrc} alt="Right Illustration" />
+                            <Image src={imageRightSrc}
+                                width={600}
+                                height={400}
+                                alt="Right Illustration" />
                         </Box>
                     </ImageGridWrapper>
                 )}
