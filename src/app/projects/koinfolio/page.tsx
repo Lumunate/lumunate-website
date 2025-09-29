@@ -17,7 +17,7 @@ export default function KoinfolioPage() {
                 title={koinfolioData.header.title}
                 subtitle={koinfolioData.header.subtitle}
                 description={koinfolioData.header.description}
-                meta={koinfolioData.header.meta}
+                metaItems={koinfolioData.header.meta}
             />
 
             <Challenges

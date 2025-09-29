@@ -19,7 +19,7 @@ export default function AirbotCaseStudyPage() {
                         Airbot is an AI-native web application designed to help businesses streamline workflows and accelerate digital adoption. By combining custom SaaS development, AI/ML-driven automation, and end-to-end onboarding flows, Airbot enables organizations to integrate intelligent tools without technical overhead. With a library of 35+ AI-powered applications, seamless checkout, and optimized discovery, Airbot reflects Lumunate’s expertise in building scalable, AI-first digital platforms.
                     </>
                 }
-                meta={[
+                metaItems={[
                     { label: "Year", value: "2025" },
                     {
                         label: "Timeline",
