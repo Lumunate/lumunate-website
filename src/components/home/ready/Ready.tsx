@@ -26,7 +26,7 @@ const Ready = ({
   videoSrc = "https://res.cloudinary.com/dqvzaju7x/video/upload/ctabg_crlgz3.mp4",
   poster = "/ready-poster.jpg",
   linkText = "Let’s Connect",
-  linkHref = "/",
+  linkHref = "/contact",
 }: ReadyProps) => {
   return (
     <ReadyContainer>
