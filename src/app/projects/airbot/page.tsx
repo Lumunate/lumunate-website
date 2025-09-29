@@ -2,8 +2,9 @@ import SuccessStories from "@/components/about/successStories/SuccessStories";
 import CaseStudyHeader from "@/components/case-studies/airbot/CaseStudyHeader";
 import Challenges from "@/components/case-studies/airbot/Challenges";
 import ImpactSection from "@/components/case-studies/airbot/ImpactSection";
+import { Explore } from "@/components/case-studies/Explore.styles";
 import Ready from "@/components/home/ready/Ready";
-import { Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
 export default function AirbotCaseStudyPage() {
     return (
@@ -65,28 +66,11 @@ export default function AirbotCaseStudyPage() {
                 showStars={true}
             />
 
-            <Typography
-                variant="h1"
-                component="div"
-                sx={{
-                    width: "100%",
-                    textAlign: "center",
-                    mt: 0,
-                    pb: 8,
-                    fontWeight: 300,
-                    fontFamily: "Montserrat, sans-serif",
-                    fontSize: "clamp(2rem, 7.3vw, 12rem)",
-                    whiteSpace: "nowrap",
-                    color: "#FFFFFF08",
-                    bgcolor: "#0E0E0E",
-                    letterSpacing: "0.05em",
-                    filter: "blur(1px)",
-                    userSelect: "none",
-                    lineHeight: 1.2,
-                }}
-            >
-                Explore. Engineer. Evolve.
-            </Typography>
+            <Box component="section">
+                <Explore variant="h1">
+                    Explore. Engineer. Evolve.
+                </Explore>
+            </Box>
 
             <Ready
                 title="Ready to Build What's Next?"

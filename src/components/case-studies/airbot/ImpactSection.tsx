@@ -9,6 +9,7 @@ import {
     ListWrapper,
     ServicesWrapper,
     ServiceChip,
+    ListItemStyled,
 } from "./ImpactSection.styles";
 
 type ImpactSectionProps = {
@@ -37,7 +38,7 @@ export default function ImpactSection({
                     >
                         <ListWrapper>
                             {impactPoints.map((point, idx) => (
-                                <li key={idx}>{point}</li>
+                                <ListItemStyled key={idx}>{point}</ListItemStyled>
                             ))}
                         </ListWrapper>
                     </Box>

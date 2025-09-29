@@ -2,7 +2,7 @@
 import { styled, Box, Typography } from "@mui/material";
 
 /* Root as real <section> */
-export const HeaderRoot = styled("section")(() => ({
+export const HeaderRoot = styled(Box)(() => ({
     position: "relative",
     width: "100%",
     height: "100vh",
