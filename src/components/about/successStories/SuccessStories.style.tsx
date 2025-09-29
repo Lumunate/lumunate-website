@@ -2,7 +2,7 @@
 
 import { Box, styled } from "@mui/material";
 
-export const SuccessStoriesContainer = styled(Box)(({ theme }) => ({
+export const SuccessStoriesContainer = styled(Box)(({ }) => ({
   width: "100%",
   minHeight: "100vh",
   marginTop: "50px",
@@ -24,7 +24,7 @@ export const BackgroundVideo = styled("video")({
 });
 
 
-export const ContentContainer = styled(Box)(({ theme }) => ({
+export const ContentContainer = styled(Box)(({ }) => ({
   maxWidth: "1620px",
   width: "100%",
   padding: "0 20px",

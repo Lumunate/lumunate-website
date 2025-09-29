@@ -5,6 +5,7 @@ import { ThemeProvider } from "@mui/material";
 import theme from "@/theme/theme";
 import CssBaseline from '@mui/material/CssBaseline';
 import Navbar from "../../src/components/ui/Navbar";
+import Footer from "@/components/ui/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,6 +41,7 @@ export default function RootLayout({
            <CssBaseline />
         <Navbar />
         {children}
+        <Footer />
         </ThemeProvider>
       </body>
     </html>
