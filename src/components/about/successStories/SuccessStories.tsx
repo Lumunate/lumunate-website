@@ -69,7 +69,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
             sx={{ fontWeight: 700, color: "#fff", marginBottom: "4px" }}
             variant="body2"
           >
-            // {name}
+            {name}
           </Typography>
           <Typography variant="body1" sx={{ color: "#ccc" }}>
             {role}

@@ -10,8 +10,7 @@ export const HeaderRoot = styled("section")(() => ({
     color: "#fff",
 }));
 
-/* Background Video (Box with component="video") */
-export const BackgroundVideo = styled(Box)(({ theme }) => ({
+export const BackgroundVideo = styled(Box)(({ }) => ({
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -22,8 +21,7 @@ export const BackgroundVideo = styled(Box)(({ theme }) => ({
     zIndex: 0,
 })) as typeof Box;
 
-/* Background Image (Box with component="img") */
-export const BackgroundImage = styled(Box)(({ theme }) => ({
+export const BackgroundImage = styled(Box)(({ }) => ({
     position: "absolute",
     top: "50%",
     left: "50%",

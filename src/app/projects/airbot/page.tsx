@@ -1,7 +1,6 @@
 import SuccessStories from "@/components/about/successStories/SuccessStories";
 import CaseStudyHeader from "@/components/case-studies/airbot/CaseStudyHeader";
 import Challenges from "@/components/case-studies/airbot/Challenges";
-import AirbotChallenge from "@/components/case-studies/airbot/Challenges";
 import ImpactSection from "@/components/case-studies/airbot/ImpactSection";
 import Ready from "@/components/home/ready/Ready";
 import { Typography } from "@mui/material";

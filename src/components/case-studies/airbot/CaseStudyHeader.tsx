@@ -5,7 +5,6 @@ import { Box, Typography } from "@mui/material";
 import {
   HeaderRoot,
   BackgroundVideo,
-  BackgroundImage,
   HeaderContent,
   HeaderLeft,
   HeaderRight,
@@ -38,7 +37,6 @@ export interface CaseStudyHeaderProps {
 const isGroup = (m: Meta): m is MetaGroup => (m as MetaGroup).items !== undefined;
 
 export default function CaseStudyHeader({
-  background,
   title,
   subtitle,
   description,

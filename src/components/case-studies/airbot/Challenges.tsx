@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {
     SectionRoot,
     InnerContainer,
@@ -58,7 +59,7 @@ export default function Challenges({
                 {/* Single image */}
                 {imageSrc && !imageLeftSrc && !imageRightSrc && (
                     <ImageWrapper>
-                        <img src={imageSrc} alt={imageAlt} />
+                        <Image src={imageSrc} alt={imageAlt} />
                     </ImageWrapper>
                 )}
 
@@ -66,10 +67,10 @@ export default function Challenges({
                 {imageLeftSrc && imageRightSrc && (
                     <ImageGridWrapper>
                         <Box>
-                            <img src={imageLeftSrc} alt="Left Illustration" />
+                            <Image src={imageLeftSrc} alt="Left Illustration" />
                         </Box>
                         <Box>
-                            <img src={imageRightSrc} alt="Right Illustration" />
+                            <Image src={imageRightSrc} alt="Right Illustration" />
                         </Box>
                     </ImageGridWrapper>
                 )}

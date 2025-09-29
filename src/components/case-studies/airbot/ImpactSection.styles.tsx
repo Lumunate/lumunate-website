@@ -64,7 +64,7 @@ export const ServicesWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const ServiceChip = styled(Chip)(({ theme }) => ({
+export const ServiceChip = styled(Chip)(({ }) => ({
   backgroundColor: "#00000033",
   color: "#EDEDED",
   border: "1px solid rgba(255,255,255,0.15)",
