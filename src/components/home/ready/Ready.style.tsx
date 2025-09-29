@@ -27,7 +27,7 @@ export const Overlay = styled(Box)({
   left: 0,
   width: "100%",
   height: "100%",
-  background: "rgba(0,0,0,0.45)", // optional darken for text contrast
+  background: "rgba(0,0,0,0.45)", 
   zIndex: 1,
 });
 
