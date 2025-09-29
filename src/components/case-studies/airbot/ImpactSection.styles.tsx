@@ -13,17 +13,19 @@ export const InnerContainer = styled(Container)(() => ({}));
 
 export const RowGrid = styled(Box)(({ theme }) => ({
   display: "grid",
-  gridTemplateColumns: "1fr 2fr",
+  gridTemplateColumns: "1fr 3fr",  
   alignItems: "start",
-  gap: theme.spacing(2),
-  marginBottom: theme.spacing(2),
+  gap: theme.spacing(12),           // bigger gap
+
+  marginBottom: theme.spacing(4),
 
   [theme.breakpoints.down("md")]: {
-    gridTemplateColumns: "1fr",
+    gridTemplateColumns: "1fr",   
     gap: theme.spacing(2),
     textAlign: "center",
   },
 }));
+
 
 export const TitleText = styled(Typography)(({ theme }) => ({
   fontFamily: "Montserrat, sans-serif",
@@ -32,12 +34,15 @@ export const TitleText = styled(Typography)(({ theme }) => ({
   color: "#EDEDED",
 
   [theme.breakpoints.down("md")]: {
-    marginBottom: theme.spacing(1),
+    fontSize: "20px",
+    marginBottom: theme.spacing(2),
+    textAlign: "center", 
   },
 }));
 
+
 export const ListWrapper = styled("ul")(({ theme }) => ({
-  maxWidth: "900px",
+  maxWidth: "100%",  
   marginBottom: theme.spacing(3),
   fontSize: "15px",
   lineHeight: 1.6,
@@ -49,7 +54,7 @@ export const ListWrapper = styled("ul")(({ theme }) => ({
   },
 
   [theme.breakpoints.down("md")]: {
-    paddingLeft: theme.spacing(0),
+    paddingLeft: theme.spacing(2), 
     textAlign: "left",
   },
 }));

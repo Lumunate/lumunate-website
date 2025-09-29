@@ -8,7 +8,7 @@ export const SectionRoot = styled(Box, {
     position: "relative",
     backgroundColor: "#0E0E0E",
     color: "#fff",
-    paddingTop: theme.spacing(3),     // ~8px (smaller top space)
+    paddingTop: theme.spacing(1),     // ~8px (smaller top space)
     paddingBottom: theme.spacing(1),  // ~8px (smaller bottom space)
 }));
 
@@ -34,27 +34,24 @@ export const DescText = styled(Typography)(() => ({
     lineHeight: 1.6,
     fontFamily: "Manrope, sans-serif",
     fontWeight: 400,
-    fontSize: "18px",
+    fontSize: "15px",
 }));
 
 export const ImageWrapper = styled(Box)(() => ({
-    width: "100%",
-    textAlign: "center",
-    marginTop: "8px",
-
-    "& img": {
-        width: "100%",
-        height: "auto",
-        borderRadius: "12px",
-        objectFit: "cover",
-    },
+    position: "relative",
+    width: "100%",  
+    height: "100vh", 
+    overflow: "hidden",
 }));
-export const ImageGridWrapper = styled(Box)(() => ({
+
+
+export const ImageGridWrapper = styled(Box)(({ theme }) => ({
     display: "grid",
-    gridTemplateColumns: "1fr 1fr",  // each image ~52% width
-    justifyContent: "space-between",       // push them apart nicely
-    gap: "0px",
-    marginTop: "8px",
+    gridTemplateColumns: "1fr 1fr",  
+    gap: theme.spacing(1),           
+    width: "100vw",                   
+    marginLeft: "calc(-50vw + 50%)",  
+    marginTop: theme.spacing(2),
 
     "& img": {
         width: "100%",
@@ -63,3 +60,4 @@ export const ImageGridWrapper = styled(Box)(() => ({
         objectFit: "cover",
     },
 }));
+

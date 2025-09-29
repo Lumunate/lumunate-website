@@ -29,15 +29,14 @@ export default function Challenges({
 }: ChallengesProps) {
     return (
         <SectionRoot component="section">
-            <InnerContainer maxWidth="lg">
+            <InnerContainer maxWidth="xl">
                 <TopStrip>
                     <Box
                         sx={{
                             display: "grid",
                             gridTemplateColumns: {
-                                xs: "1fr",       // 📱 small screens: stack title & desc
-                                sm: "1fr",       // 📱 same stacking on sm
-                                md: "1fr 1fr",   // 🖥 md+: keep side by side
+                                xs: "1fr", // stack on small
+                                md: "1fr 1fr", // side by side on desktop
                             },
                             gap: 2,
                         }}
@@ -49,41 +48,52 @@ export default function Challenges({
 
                         {/* Description */}
                         <Box>
-                            <Typography sx={{ color: "#CBCBCB" }} variant="body1">
+                            <Typography
+                                sx={{ color: "#CBCBCB", maxWidth: "900px", fontSize: "15px" }}
+                                variant="body1"
+                            >
                                 {description}
                             </Typography>
                         </Box>
                     </Box>
                 </TopStrip>
-
-                {/* Single image */}
-                {imageSrc && !imageLeftSrc && !imageRightSrc && (
-                    <ImageWrapper>
-                        <Image src={imageSrc} alt={imageAlt}
-                            width={600}
-                            height={400}
-                        />
-                    </ImageWrapper>
-                )}
-
-                {/* Two images side by side */}
-                {imageLeftSrc && imageRightSrc && (
-                    <ImageGridWrapper>
-                        <Box>
-                            <Image src={imageLeftSrc}
-                                width={600}
-                                height={400}
-                                alt="Left Illustration" />
-                        </Box>
-                        <Box>
-                            <Image src={imageRightSrc}
-                                width={600}
-                                height={400}
-                                alt="Right Illustration" />
-                        </Box>
-                    </ImageGridWrapper>
-                )}
             </InnerContainer>
+
+            {/* Full screen image */}
+            {imageSrc && !imageLeftSrc && !imageRightSrc && (
+                <ImageWrapper>
+                    <Image
+                        src={imageSrc}
+                        alt={imageAlt}
+                        fill
+                        style={{
+                            objectFit: "cover",
+                        }}
+                        priority
+                    />
+                </ImageWrapper>
+            )}
+
+            {/* Two images side by side (stay inside container) */}
+            {imageLeftSrc && imageRightSrc && (
+                <ImageGridWrapper>
+                    <Image
+                        src={imageLeftSrc}
+                        alt="Left Illustration"
+                        width={1200}
+                        height={800}
+                        style={{ objectFit: "cover" }}
+                    />
+                    <Image
+                        src={imageRightSrc}
+                        alt="Right Illustration"
+                        width={1200}
+                        height={800}
+                        style={{ objectFit: "cover" }}
+                    />
+                </ImageGridWrapper>
+            )}
+
         </SectionRoot>
     );
 }

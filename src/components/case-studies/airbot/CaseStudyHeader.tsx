@@ -82,34 +82,46 @@ export default function CaseStudyHeader({
                 columnGap: metaColumnGap,
               }}
             >
-              {/* Labels */}
+              {/* Left column (labels only) */}
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                {meta.map((m, idx) => (
-                  <MetaLabel key={`label-${idx}`} variant="body2">
-                    {m.label}
-                  </MetaLabel>
-                ))}
+                {meta.map((m, idx) => {
+                  let marginTop = 0;
+                  if (m.label === "MAUs") marginTop = 4;
+                  if (m.label === "Revenue") marginTop = 1;
+
+                  return (
+                    <MetaLabel key={`label-${idx}`} variant="body2" sx={{ mt: marginTop }}>
+                      {m.label}
+                    </MetaLabel>
+                  );
+                })}
               </Box>
 
-              {/* Values */}
+              {/* Right column (values only) */}
               <Box
                 sx={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: 2,
+                  gap: 1, // keeps spacing consistent
                   alignItems: "flex-end",
                   textAlign: "right",
                   minWidth: 200,
                 }}
               >
                 {meta.map((m, idx) => {
+                  let marginTop = 0;
+                  if (m.label === "MAUs") marginTop = 1;
+                  if (m.label === "Revenue") marginTop = 0;
+
                   if (!isGroup(m)) {
                     return (
-                      <MetaValue key={`value-${idx}`} variant="body2">
+                      <MetaValue key={`value-${idx}`} variant="body2" sx={{ mt: marginTop }}>
                         {m.value}
                       </MetaValue>
                     );
                   }
+
+                  // Timeline (grouped rows)
                   return (
                     <Box
                       key={`group-${idx}`}
@@ -138,7 +150,10 @@ export default function CaseStudyHeader({
                   );
                 })}
               </Box>
+
+
             </Box>
+
           )}
         </HeaderRight>
       </HeaderContent>
