@@ -4,12 +4,17 @@ import {
   DiscoverButton,
   NumberTypography,
   OurApproachContainer,
+  RightBottomBox,
   SubContainer,
+  SubContentWrapper,
+  SubTitle,
+  TitleText,
 } from "./OurApproach.style";
 import { Box, Typography } from "@mui/material";
 
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import Image from "next/image";
+import { DescriptionText } from "../trackRecord/TrackRecord.style";
 
 const OurApproach = () => {
   return (
@@ -23,28 +28,19 @@ const OurApproach = () => {
       </video>
 
       <SubContainer>
-        <Typography sx={{ position: "relative", zIndex: "3", fontSize:{xs:"32px", sm:"56px"} }} variant="h1">
+        <TitleText variant="h1">
           Our Approach
-        </Typography>
+        </TitleText>
 
         <ContentWrapper>
-          <Box
-            sx={{
-              alignItems: {xs:"start",md:"center"},
-              justifyContent: "center",
-              display: "flex",
-              flexDirection: "column",
-              borderBottom: "0.4px solid #B4B4B4",
-              height: "100%",
-            }}
-          >
+          <SubContentWrapper>
             <Box>
               <NumberTypography>01</NumberTypography>
-              <Typography sx={{ marginTop: {xs:"-30px",sm:"-65px"}, fontSize:{xs:"32px", sm:"56px"} }} variant="h1">
+              <SubTitle variant="h1">
                 Visual Identity & Branding
-              </Typography>
+              </SubTitle>
             </Box>
-          </Box>
+          </SubContentWrapper>
           <Box
             sx={{
               borderLeft: "0.4px solid #B4B4B4",
@@ -59,36 +55,20 @@ const OurApproach = () => {
                display: {xs:"none", md:"block"},
             }}
           ></Box>
-          <Box sx={{ borderLeft: {xs:"none",md:"0.4px solid #B4B4B4"}, padding: {xs:'42px 0', sm:"42px 60px"} }}>
-            <Typography variant="h5">
+          <RightBottomBox>
+            <DescriptionText variant="h5">
               Define your digital presence with distinctive branding that
               resonates and converts.
-            </Typography>
+            </DescriptionText>
             <DiscoverButton>
               {" "}
               Discover{" "}
               <ArrowOutwardIcon sx={{ fontSize: "17px", marginLeft: "6px" }} />
             </DiscoverButton>
-          </Box>
+          </RightBottomBox>
         </ContentWrapper>
       </SubContainer>
-      {/* <Image
-        style={{ position: "absolute", top: "-30%", zIndex: 1 }}
-        src="/approchBlur1.svg"
-        alt="blur"
-        width={100}
-        height={100}
-        layout="responsive"
-      />
-
-      <Image
-        style={{ position: "absolute", bottom: "-40%", zIndex: 1 }}
-        src="/approchBlur1.svg"
-        alt="blur"
-        width={100}
-        height={100}
-        layout="responsive"
-      /> */}
+      
     </OurApproachContainer>
   );
 };

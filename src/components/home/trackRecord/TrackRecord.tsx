@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { DiscoverButton, NumberText, StatusCard, StatusWrapper, TitleWrapper, TrackContainer  } from './TrackRecord.style'
+import { DescriptionText, DiscoverButton, NumberText, StatusCard, StatusWrapper, TitleText, TitleWrapper, TrackContainer  } from './TrackRecord.style'
 import { Typography } from '@mui/material'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
@@ -24,12 +24,12 @@ const TrackRecord = () => {
   return (
     <TrackContainer >
     <TitleWrapper>
-        <Typography sx={{fontSize:{xs:"32px", md:"56px"}}} variant='h1'>
+        <TitleText variant='h1'>
             Proven Track Record
-        </Typography>
-        <Typography  sx={{color:"#AAAAAA", fontSize:{xs:"18px", md:"22px"}}} variant='h5'>
+        </TitleText>
+        <DescriptionText  variant='h5'>
             We&#39;re not just developers. We&#39;re your growth partners from concept to scale.
-        </Typography>
+        </DescriptionText>
         <DiscoverButton>
             Discover <ArrowOutwardIcon sx={{fontSize:"17px", marginLeft:"6px"}} />
         </DiscoverButton>
@@ -66,7 +66,7 @@ const TrackRecord = () => {
               <NumberText>
                 {item.total}
               </NumberText>
-              <Typography sx={{color:"#FFFFFF", fontSize: {xs:"18px", md:'22px'}}} variant='h5'>{item.title}</Typography>
+              <DescriptionText sx={{color:"#FFFFFF" }} variant='h5'>{item.title}</DescriptionText>
             </StatusCard>
           )
         })}

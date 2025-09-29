@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, styled } from "@mui/material";
+import { Box, Button, styled, Typography } from "@mui/material";
 
 export const TrackContainer = styled(Box)({
   width: "100%",
@@ -12,6 +12,21 @@ export const TrackContainer = styled(Box)({
 export const TitleWrapper = styled(Box)({
   marginBottom: "40px",
 });
+
+export const TitleText = styled(Typography)(({ theme }) => ({
+fontSize:"56px",
+[theme.breakpoints.down("md")]:{
+fontSize:"32px",
+}
+}))
+
+export const DescriptionText = styled(Typography)(({theme})=>({
+color: theme.palette.text.secondary,
+fontSize:"22px",
+[theme.breakpoints.down("sm")]:{
+  fontSize:"18px"
+}
+}));
 
 export const DiscoverButton = styled(Button)({
   backgroundColor: "#015B3F",
@@ -48,7 +63,7 @@ export const StatusCard = styled(Box)(({ theme }) => ({
 export const NumberText = styled(Box)(({ theme }) => ({
   fontSize: "85px",
   color: "white",
-  [theme.breakpoints.down("xxl")]: {
+  "@media (max-width: 1300px)": {
   fontSize: "55px",
   },
   [theme.breakpoints.down("xl")]: {

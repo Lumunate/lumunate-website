@@ -40,7 +40,6 @@ export const OurApproachContainer = styled(Box)({
   },
 });
 
-
 export const SubContainer = styled(Box)({
   maxWidth: "1698px",
   width: "100%",
@@ -49,16 +48,52 @@ export const SubContainer = styled(Box)({
   height: "100vh",
 });
 
-export const ContentWrapper = styled(Box)(({theme})=>({
+export const TitleText = styled(Typography)(({ theme }) => ({
+  position: "relative",
+  zIndex: "3",
+  fontSize: "56px",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "32px",
+  },
+}));
+
+export const ContentWrapper = styled(Box)(({ theme }) => ({
   gridTemplateColumns: "repeat(2, 1fr)",
   display: "grid",
   alignItems: "stretch",
   height: "90%",
-  // "@media (max-width: 992px)": {
-  //   gridTemplateColumns: "repeat(1, 1fr)",
-  // },
-  [theme.breakpoints.down("md")]:{
+  [theme.breakpoints.down("md")]: {
     gridTemplateColumns: "repeat(1, 1fr)",
+  },
+}));
+
+export const SubContentWrapper = styled(Box)(({ theme }) => ({
+  justifyContent: "center",
+  display: "flex",
+  flexDirection: "column",
+  borderBottom: "0.4px solid #B4B4B4",
+  height: "100%",
+  alignItems: "center",
+  [theme.breakpoints.down("md")]: {
+    alignItems: "start",
+  },
+}));
+
+export const SubTitle = styled(Typography)(({theme})=>({ 
+  marginTop:"-65px",
+  fontSize:"56px",
+  [theme.breakpoints.down("sm")]:{
+    marginTop:"-30px",
+    fontSize:"32px",
+  }
+}))
+
+export const RightBottomBox = styled(Box)(({theme})=>({
+  borderLeft: `0.4px solid ${theme.palette.text.disabled}`,
+  padding: "42px 60px",
+  [theme.breakpoints.down("sm")]: {
+    borderLeft: "none",
+    padding: "42px 0px",
   }
 }));
 
@@ -72,7 +107,7 @@ export const DiscoverButton = styled(Button)({
   borderRadius: "16px",
 });
 
-export const NumberTypography = styled(Typography)(({theme})=>({
+export const NumberTypography = styled(Typography)(({ theme }) => ({
   fontSize: "180px",
   fontWeight: 400,
   background: "linear-gradient(to bottom, #FFFFFF 0%, #000000 100%)",
