@@ -82,15 +82,14 @@ export default function Challenges({
                         alt="Left Illustration"
                         width={1200}
                         height={800}
-                        style={{ objectFit: "cover" }}
                     />
                     <Image
                         src={imageRightSrc}
                         alt="Right Illustration"
                         width={1200}
                         height={800}
-                        style={{ objectFit: "cover" }}
                     />
+
                 </ImageGridWrapper>
             )}
 

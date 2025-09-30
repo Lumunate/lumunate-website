@@ -39,25 +39,26 @@ export const DescText = styled(Typography)(() => ({
 
 export const ImageWrapper = styled(Box)(() => ({
     position: "relative",
-    width: "100%",  
-    height: "100vh", 
+    width: "100%",
+    height: "100vh",
     overflow: "hidden",
 }));
 
 
 export const ImageGridWrapper = styled(Box)(({ theme }) => ({
     display: "grid",
-    gridTemplateColumns: "1fr 1fr",  
-    gap: theme.spacing(1),           
-    width: "100vw",                   
-    marginLeft: "calc(-50vw + 50%)",  
+    gridTemplateColumns: "1fr 1fr",
+    gap: theme.spacing(0),   // reduce gap
+    width: "100%",             // keep inside container
     marginTop: theme.spacing(2),
 
     "& img": {
         width: "100%",
-        height: "auto",
+        height: "100%",         // force equal height
+        aspectRatio: "19/12",    // ensures consistent proportion
         borderRadius: "12px",
         objectFit: "cover",
     },
 }));
+
 
