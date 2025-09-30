@@ -11,44 +11,52 @@ import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 
-const Ready = () => {
+type ReadyProps = {
+  title: string;
+  description: string;
+  videoSrc?: string;
+  poster?: string;
+  linkText?: string;
+  linkHref?: string;
+};
+
+const Ready = ({
+  title,
+  description,
+  videoSrc = "https://res.cloudinary.com/dqvzaju7x/video/upload/ctabg_crlgz3.mp4",
+  poster = "/ready-poster.jpg",
+  linkText = "Let’s Connect",
+  linkHref = "/contact",
+}: ReadyProps) => {
   return (
     <ReadyContainer>
-      <BackgroundVideo
-        autoPlay
-        muted
-        loop
-        playsInline
-        poster="/ready-poster.jpg"
-      >
-        <source
-          src="https://res.cloudinary.com/dqvzaju7x/video/upload/ctabg_crlgz3.mp4"
-          type="video/mp4"
-        />
+      <BackgroundVideo autoPlay muted loop playsInline poster={poster}>
+        <source src={videoSrc} type="video/mp4" />
         Your browser does not support the video tag.
       </BackgroundVideo>
 
       <Overlay />
 
       <TextWrapper>
+        {/* Title */}
         <Typography
           sx={{
             fontSize: { xs: "32px",sm:"56px", md: "78px" },
             color: "#fff",
-            fontWeight: 700,
+            fontWeight: 400,
           }}
         >
-          Ready to Build What&apos;s Next?
+          {title}
         </Typography>
 
+        {/* Description */}
         <Typography sx={{ color: "#AAAAAA", mt: 2 }} variant="body2">
-          Every great product starts with a conversation. Let&apos;s discuss how
-          we can accelerate your digital transformation and turn your ideas into
-          scalable solutions that drive real results.
+          {description}
         </Typography>
 
+        {/* CTA Link */}
         <Box sx={{ marginTop: "38px" }}>
-          <Link style={{ color: "white", textDecoration: "none" }} href="/">
+          <Link style={{ color: "white", textDecoration: "none" }} href={linkHref}>
             <Typography
               variant="h4"
               sx={{
@@ -57,8 +65,7 @@ const Ready = () => {
                 color: "#fff",
               }}
             >
-              Let’s Connect{" "}
-              <ArrowOutwardIcon sx={{ fontSize: "26px", ml: 1 }} />
+              {linkText} <ArrowOutwardIcon sx={{ fontSize: "26px", ml: 1 }} />
             </Typography>
           </Link>
         </Box>

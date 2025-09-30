@@ -1,5 +1,5 @@
 import React from 'react'
-import { ProjectsWrapper, TitleWrapper, WorkWrapper } from './work.style'
+import { TitleWrapper, WorkWrapper } from './work.style'
 import { Box, Grid, Typography } from '@mui/material'
 import Image from 'next/image'
 

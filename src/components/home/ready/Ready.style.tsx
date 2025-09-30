@@ -5,7 +5,7 @@ import { Box } from "@mui/material"
 
 export const ReadyContainer = styled(Box)({
   position: "relative",
-  marginTop: "140px",
+  marginTop: "40px",
   width: "100%",
   height: "100vh",
   overflow: "hidden",
@@ -18,7 +18,6 @@ export const BackgroundVideo = styled("video")({
   width: "100%",
   height: "100%",
   objectFit: "cover",
-  // keep non-negative z-index (safer across browsers)
   zIndex: 0,
 });
 
@@ -28,7 +27,7 @@ export const Overlay = styled(Box)({
   left: 0,
   width: "100%",
   height: "100%",
-  background: "rgba(0,0,0,0.45)", // optional darken for text contrast
+  background: "rgba(0,0,0,0.45)", 
   zIndex: 1,
 });
 
