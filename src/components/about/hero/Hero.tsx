@@ -16,14 +16,14 @@ const Hero = () => {
       </BackgroundVideo>
 
       <ContentContainer>
-        <Box sx={{display:"flex", justifyContent:"space-between", width:"100%", alignItems:"center"}}>
+        <Box sx={{display:"flex", flexDirection:{xs:"column",md:"row"} ,justifyContent:"space-between", width:"100%", alignItems:{xs:"start",md:"center"}, gap:{xs:"50px",md:"20px"}}}>
 
         <Box>
-          <Typography sx={{fontSize:"90px"}} >About Us</Typography>
-          <Typography variant='h5'>Born from a vision to democratize innovation</Typography>
+          <Typography sx={{fontSize:{xs:"52px",md:"66px",xl:"90px"}}} >About Us</Typography>
+          <Typography sx={{fontSize:{xs:"18px",sm:"22px"}}} variant='h5'>Born from a vision to democratize innovation</Typography>
         </Box>
         <Box>
-          <Typography sx={{maxWidth:"668px"}} variant='body1' >Every unicorn startup, every industry-disrupting platform, every enterprise transformation—they all started with a team that understood technology isn&apos;t just about code. It&apos;s about momentum.</Typography>
+          <Typography sx={{maxWidth:"668px", fontSize:{xs:"16px",sm:"18px"}}} variant='body1' >Every unicorn startup, every industry-disrupting platform, every enterprise transformation—they all started with a team that understood technology isn&apos;t just about code. It&apos;s about momentum.</Typography>
         </Box>
         </Box>
       </ContentContainer>

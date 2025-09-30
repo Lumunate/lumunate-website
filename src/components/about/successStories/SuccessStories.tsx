@@ -35,6 +35,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
       </BackgroundVideo>
 
       <ContentContainer>
+
         {/* Small heading */}
         <Typography variant="h6" sx={{ color: "#fff", fontWeight: 400 }}>
           Client Success Stories
@@ -61,6 +62,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
           >
             “{storyText}”
           </Typography>
+
         </Box>
 
         {/* Name + role */}

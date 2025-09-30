@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, styled } from "@mui/material";
+import { alignItems } from "@mui/system";
 
 export const HeroContainer = styled(Box)({
   height: "100vh",
@@ -20,7 +21,7 @@ export const BackgroundVideo = styled("video")({
 });
 
 
-export const ContentContainer = styled(Box)({
+export const ContentContainer = styled(Box)(({theme})=>({
   height: "100%",
   maxWidth: "1698px",
   width: "100%",
@@ -31,5 +32,6 @@ export const ContentContainer = styled(Box)({
   paddingBottom: "100px",
   justifyContent: "space-between",
   position: "relative",
-  zIndex: 2, // make sure content is above video
-});
+  zIndex: 2,
+  
+}));

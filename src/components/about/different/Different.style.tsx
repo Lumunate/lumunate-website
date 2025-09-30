@@ -9,7 +9,7 @@ export const DifferentContainer= styled(Box)({
     padding: '65px 20px',
 })
 
-export const ContentContainer= styled(Box)({
+export const ContentContainer= styled(Box)(({theme})=>({
     maxWidth:"1620px",
     width:"100%",
     margin:"0 auto",
@@ -17,5 +17,7 @@ export const ContentContainer= styled(Box)({
     gridTemplateColumns:"repeat(2, 1fr)",
     border:"1px solid #757575",
     borderRadius:"12px",
-
-})
+    [theme.breakpoints.down('md')]: {
+      gridTemplateColumns:"repeat(1, 1fr)",
+    },
+}));

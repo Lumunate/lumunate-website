@@ -2,10 +2,16 @@ import React from "react";
 import {
   ContentWrapper,
   DiscoverButton,
+  NumberTypography,
   OurApproachContainer,
+  RightBottomBox,
   SubContainer,
+  SubContentWrapper,
+  SubTitle,
+  TitleText,
+  DescriptionText
 } from "./OurApproach.style";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 
@@ -21,49 +27,47 @@ const OurApproach = () => {
       </video>
 
       <SubContainer>
-        <Typography variant="h1">Our Approach</Typography>
+        <TitleText variant="h1">
+          Our Approach
+        </TitleText>
 
         <ContentWrapper>
-          <Box
-            sx={{
-              alignItems: "center",
-              justifyContent: "center",
-              display: "flex",
-              flexDirection: "column",
-              borderBottom: "0.4px solid #B4B4B4",
-              height: "100%",
-            }}
-          >
+          <SubContentWrapper>
             <Box>
-              <Typography sx={{ fontSize: "180px", fontWeight: 400 }}>
-                01
-              </Typography>
-              <Typography sx={{ marginTop: "-65px" }} variant="h1">
+              <NumberTypography>01</NumberTypography>
+              <SubTitle variant="h1">
                 Visual Identity & Branding
-              </Typography>
+              </SubTitle>
             </Box>
-          </Box>
+          </SubContentWrapper>
           <Box
             sx={{
               borderLeft: "0.4px solid #B4B4B4",
               borderBottom: "0.4px solid #B4B4B4",
               height: "100%",
+               display: {xs:"none", md:"block"},
             }}
           ></Box>
-          <Box sx={{ height: "100%" }}></Box>
-          <Box sx={{ borderLeft: "0.4px solid #B4B4B4", padding: "42px 60px" }}>
-            <Typography variant="h5">
+          <Box
+            sx={{
+              height: "100%",
+               display: {xs:"none", md:"block"},
+            }}
+          ></Box>
+          <RightBottomBox>
+            <DescriptionText variant="h5">
               Define your digital presence with distinctive branding that
               resonates and converts.
-            </Typography>
+            </DescriptionText>
             <DiscoverButton>
               {" "}
               Discover{" "}
               <ArrowOutwardIcon sx={{ fontSize: "17px", marginLeft: "6px" }} />
             </DiscoverButton>
-          </Box>
+          </RightBottomBox>
         </ContentWrapper>
       </SubContainer>
+      
     </OurApproachContainer>
   );
 };
