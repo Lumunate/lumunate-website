@@ -56,9 +56,9 @@ export const ContentBox = styled(Box)(({ theme }) => ({
 
 export const StyledH1 = styled(Typography)(({ theme }) => ({
     ...theme.typography.h1,
-    color: "#fff",
+    color: "#ffffff",
     maxWidth: 400,
-    lineHeight: 1.1,
+    lineHeight: "97%",
     [theme.breakpoints.down("lg")]: {
         fontSize: "90px",
     },
@@ -98,23 +98,24 @@ export const RightBox = styled(Box)(({ theme }) => ({
 }));
 
 export const StyledParagraph = styled(Typography)(({ theme }) => ({
-    ...theme.typography.body1,
-    maxWidth: 420,
-    color: "#9F9F9F",
-    lineHeight: 1.6,
-    [theme.breakpoints.down("lg")]: {
-        fontSize: "18px",
-        maxWidth: 550,
-    },
-    [theme.breakpoints.down("md")]: {
-        textAlign: "center",
-        fontSize: "15px",
-        maxWidth: "100%",
-    },
-    [theme.breakpoints.down("sm")]: {
-        fontSize: "13px",
-    },
+  ...theme.typography.body1,       // global font size/weight
+  color: theme.palette.text.secondary, // global text color
+  maxWidth: 420,
+  lineHeight: 1.6,
+  [theme.breakpoints.down("lg")]: {
+    fontSize: "18px",
+    maxWidth: 550,
+  },
+  [theme.breakpoints.down("md")]: {
+    textAlign: "center",
+    fontSize: "15px",
+    maxWidth: "100%",
+  },
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "13px",
+  },
 }));
+ 
 
 export const SocialStack = styled(Stack)(({ theme }) => ({
     position: "absolute",

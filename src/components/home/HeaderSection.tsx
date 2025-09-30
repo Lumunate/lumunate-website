@@ -1,5 +1,4 @@
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import InstagramIcon from "@mui/icons-material/Instagram";
+
 import {
     HeaderRoot,
     SvgBg,
@@ -10,7 +9,6 @@ import {
     StyledParagraph,
     SocialStack,
 } from "./HeaderSection.styles";
-import Link from "next/link";
 import { IconButton } from "@mui/material";
 import Image from "next/image";
 
