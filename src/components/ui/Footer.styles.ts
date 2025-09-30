@@ -3,10 +3,10 @@ import { styled, Box } from "@mui/material";
 import Link from "next/link";
 
 /* Root container */
-export const FooterRoot = styled("footer")(({ }) => ({
-    backgroundColor: "#0E0E0E",
-    borderTop: "1px solid #222",
-    color: "#bdbdbd",
+export const FooterRoot = styled("footer")(({ theme }) => ({
+    backgroundColor: theme.palette.background.default, // ✅ theme bg
+    borderTop: `1px solid ${theme.palette.divider ?? "#222"}`,
+    color: theme.palette.text.secondary, // ✅ theme text
     width: "100%",
 }));
 
@@ -14,14 +14,14 @@ export const FooterTop = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    borderBottom: "1px solid #2B2B2B",
+    borderBottom: `1px solid ${theme.palette.divider ?? "#2B2B2B"}`,
     padding: theme.spacing(0, 2),
     maxWidth: "1280px",
     margin: "0 auto",
     width: "100%",
-    height: "56px",
+    height: 56,
     [theme.breakpoints.down("sm")]: {
-        height: "48px",
+        height: 48,
         padding: theme.spacing(0, 1.5),
     },
 }));
@@ -30,14 +30,16 @@ export const FooterNavItem = styled(Link)(({ theme }) => ({
     position: "relative",
     display: "inline-flex",
     alignItems: "center",
-    fontSize: "0.9rem",
-    color: "#bdbdbd",
+    fontSize: theme.typography.body2.fontSize,
+    color: theme.palette.text.secondary,
     textDecoration: "none",
     padding: "0 30px",
     transition: "color .25s ease",
     height: "100%",
 
-    "&:hover": { color: "#fff" },
+    "&:hover": {
+        color: theme.palette.text.primary,
+    },
 
     "&::before, &::after": {
         content: '""',
@@ -45,7 +47,7 @@ export const FooterNavItem = styled(Link)(({ theme }) => ({
         top: 0,
         bottom: 0,
         width: "1px",
-        backgroundColor: "#2B2B2B",
+        backgroundColor: theme.palette.divider ?? "#2B2B2B",
     },
     "&::before": { left: 0 },
     "&::after": { right: 0 },
@@ -67,11 +69,11 @@ export const FooterBottom = styled(Box)(({ theme }) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    borderTop: "1px solid #2B2B2B",
+    borderTop: `1px solid ${theme.palette.divider ?? "#2B2B2B"}`,
     maxWidth: "1280px",
     margin: "0 auto",
     width: "100%",
-    height: "56px",
+    height: 56,
     [theme.breakpoints.down("sm")]: {
         flexDirection: "column",
         height: "auto",
@@ -98,7 +100,7 @@ export const FooterSection = styled(Box)(({ theme }) => ({
             top: 0,
             bottom: 0,
             width: "1px",
-            backgroundColor: "#2B2B2B",
+            backgroundColor: theme.palette.divider ?? "#2B2B2B",
         },
         "&::before": { left: 0 },
         "&::after": { right: 0 },
@@ -111,12 +113,9 @@ export const FooterSection = styled(Box)(({ theme }) => ({
     },
 }));
 
-export const FooterText = styled("span")(() => ({
-    fontSize: "0.9rem",
-    color: "#bdbdbd",
+export const FooterText = styled("span")(({ theme }) => ({
+    fontSize: theme.typography.body2.fontSize,
+    color: theme.palette.text.secondary,
 }));
 
-export const FooterIconBox = styled(FooterSection)(() => ({
-
-}));
-
+export const FooterIconBox = styled(FooterSection)(() => ({}));

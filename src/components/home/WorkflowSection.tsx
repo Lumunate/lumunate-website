@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import WorkflowNavBar from "./WorkflowNavBar";
 import WorkflowCard from "./WorkflowCard";
 import { NavBarContainer, WorkflowSectionRoot } from "./WorkflowSection.styles";
 import { NavItem } from "./WorkflowBar.styles";

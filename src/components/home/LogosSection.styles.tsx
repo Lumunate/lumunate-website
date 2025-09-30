@@ -4,7 +4,7 @@ import { Box, styled } from "@mui/material";
 
 export const LogosRoot = styled(Box)(({ theme }) => ({
     width: "100vw",
-    background: "#181818",
+    backgroundColor: theme.palette.background.default,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -24,6 +24,7 @@ export const LogosRow = styled(Box)(({ theme }) => ({
     flexWrap: "wrap",
     width: "100%",
     maxWidth: "1920px",
+
     [theme.breakpoints.down("md")]: {
         gap: theme.spacing(4),
         maxWidth: "900px",
@@ -40,17 +41,19 @@ export const LogoItem = styled(Box)(({ theme }) => ({
     alignItems: "center",
     minWidth: 40,
     maxWidth: 90,
+
     "& img": {
         width: 70,
         height: 60,
         objectFit: "contain",
         filter: "grayscale(1)",
-        opacity: "64%",
+        opacity: 0.64,
         display: "block",
     },
+
     "& span": {
-        color: theme.palette.text.secondary || "#bdbdbd",
-        fontSize: "0.9rem",
+        color: theme.palette.text.secondary,
+        fontSize: theme.typography.body2.fontSize,
         marginTop: theme.spacing(1),
         textAlign: "center",
     },

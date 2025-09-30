@@ -1,14 +1,15 @@
 "use client";
 
 import { Box, styled } from "@mui/material";
-import { alignItems } from "@mui/system";
 
-export const HeroContainer = styled(Box)({
+export const HeroContainer = styled(Box)(({ theme }) => ({
   height: "100vh",
   width: "100%",
   position: "relative",
   overflow: "hidden",
-});
+  backgroundColor: theme.palette.background.default, // ✅ theme background
+  color: theme.palette.text.primary, // ✅ theme text
+}));
 
 export const BackgroundVideo = styled("video")({
   position: "absolute",
@@ -20,18 +21,29 @@ export const BackgroundVideo = styled("video")({
   zIndex: 0,
 });
 
-
-export const ContentContainer = styled(Box)(({theme})=>({
+export const ContentContainer = styled(Box)(({ theme }) => ({
   height: "100%",
   maxWidth: "1698px",
   width: "100%",
-  padding: "0 20px",
+  padding: theme.spacing(0, 2.5), // 20px → theme spacing
   display: "flex",
-  alignItems: "end",
+  alignItems: "flex-end",
   margin: "0 auto",
-  paddingBottom: "100px",
+  paddingBottom: theme.spacing(12.5), // 100px → theme spacing
   justifyContent: "space-between",
   position: "relative",
   zIndex: 2,
-  
+
+  [theme.breakpoints.down("lg")]: {
+    paddingBottom: theme.spacing(8),
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    textAlign: "center",
+    gap: theme.spacing(4),
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    paddingBottom: theme.spacing(6),
+  },
 }));

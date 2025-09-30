@@ -116,7 +116,7 @@ export default function Navbar() {
                                 Case Studies
                             </Button>
 
-                            <VerticalDivider /> {/* Divider after Case Studies */}
+                            <VerticalDivider /> 
 
                             {/* ✅ Desktop Case Studies Dropdown */}
                             <Menu
@@ -128,11 +128,11 @@ export default function Navbar() {
                                 MenuListProps={{ disablePadding: true }}
                                 PaperProps={{
                                     sx: {
-                                        bgcolor: "#181818",
-                                        color: "#bdbdbd",
-                                        border: "1px solid #343434",
+                                        bgcolor: theme.palette.background.paper,
+                                        color: theme.palette.text.secondary,
+                                        border: `1px solid ${theme.palette.divider}`,
                                         borderRadius: 0,
-                                        boxShadow: "0px 8px 20px rgba(0,0,0,0.25)",
+                                        boxShadow: theme.shadows[8],
                                         mt: 2,
                                         p: 0,
                                         width: { xs: "90vw", md: "800px", lg: "950px" },
@@ -140,6 +140,8 @@ export default function Navbar() {
                                         transform: "translateX(-50%) !important",
                                     },
                                 }}
+
+
                             >
                                 <Box
                                     sx={{
@@ -158,14 +160,18 @@ export default function Navbar() {
                                             sx={{
                                                 px: 2,
                                                 py: 1.5,
-                                                fontSize: "0.9rem",
+                                                fontSize: theme.typography.body2.fontSize,
                                                 lineHeight: 1.3,
                                                 whiteSpace: "nowrap",
-                                                color: "#bdbdbd",
-                                                borderTop: "1px solid #2B2B2B",
-                                                borderLeft: "1px solid #2B2B2B",
-                                                "&:hover": { bgcolor: "#232323", color: "#fff" },
+                                                color: theme.palette.text.secondary,
+                                                borderTop: `1px solid ${theme.palette.divider}`,
+                                                borderLeft: `1px solid ${theme.palette.divider}`,
+                                                "&:hover": {
+                                                    bgcolor: theme.palette.action.hover, // ✅ theme hover
+                                                    color: theme.palette.text.primary,   // ✅ theme text
+                                                },
                                             }}
+
                                         >
                                             {proj.name}
                                         </MenuItem>
@@ -177,7 +183,6 @@ export default function Navbar() {
 
                     {/* Right Section */}
                     <RightBox>
-                        {/* Show hamburger only on mobile */}
                         {isMobile && (
                             <IconButton
                                 edge="end"
@@ -191,7 +196,7 @@ export default function Navbar() {
 
                         {!isMobile && (
                             <>
-                            
+
                                 <Button
                                     component="a"
                                     href="https://calendly.com/saad-b-javaid22/consultation"

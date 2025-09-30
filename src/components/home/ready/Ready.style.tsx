@@ -1,15 +1,22 @@
-"use client"
+"use client";
 
-import styled from "@emotion/styled"
-import { Box } from "@mui/material"
+import { Box } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
-export const ReadyContainer = styled(Box)({
+export const ReadyContainer = styled(Box)(({ theme }) => ({
   position: "relative",
-  marginTop: "40px",
+  marginTop: theme.spacing(5), 
   width: "100%",
   height: "100vh",
   overflow: "hidden",
-});
+
+  [theme.breakpoints.down("md")]: {
+    height: "80vh",
+  },
+  [theme.breakpoints.down("sm")]: {
+    height: "70vh",
+  },
+}));
 
 export const BackgroundVideo = styled("video")({
   position: "absolute",
@@ -21,17 +28,19 @@ export const BackgroundVideo = styled("video")({
   zIndex: 0,
 });
 
-export const Overlay = styled(Box)({
+export const Overlay = styled(Box)(({ theme }) => ({
   position: "absolute",
   top: 0,
   left: 0,
   width: "100%",
   height: "100%",
-  background: "rgba(0,0,0,0.45)", 
+  background: theme.palette.mode === "dark"
+    ? "rgba(0,0,0,0.45)" // dark overlay
+    : "rgba(255,255,255,0.25)", // light overlay (if needed)
   zIndex: 1,
-});
+}));
 
-export const TextWrapper = styled(Box)({
+export const TextWrapper = styled(Box)(({ theme }) => ({
   position: "relative",
   display: "flex",
   justifyContent: "center",
@@ -39,5 +48,10 @@ export const TextWrapper = styled(Box)({
   margin: "0 auto",
   flexDirection: "column",
   textAlign: "center",
-  zIndex: 2, // above video and overlay
-});
+  zIndex: 2, 
+  padding: theme.spacing(0, 2), 
+
+  [theme.breakpoints.down("md")]: {
+    maxWidth: "90%",
+  },
+}));
