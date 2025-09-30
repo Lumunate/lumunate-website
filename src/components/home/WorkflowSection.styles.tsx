@@ -1,5 +1,3 @@
-"use client";
-
 import { Box, styled } from "@mui/material";
 
 export const WorkflowSectionRoot = styled(Box)(({ theme }) => ({
@@ -56,6 +54,6 @@ export const NavItem = styled(Box)(({ theme }) => ({
     },
 
     [theme.breakpoints.down("md")]: {
-        padding: `${theme.spacing(1.5)} ${theme.spacing(3)}`,
+        padding: `${theme.spacing(1.5)} 20px`, 
     },
 }));
