@@ -9,12 +9,11 @@ import {
   SubContentWrapper,
   SubTitle,
   TitleText,
+  DescriptionText
 } from "./OurApproach.style";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
-import Image from "next/image";
-import { DescriptionText } from "../trackRecord/TrackRecord.style";
 
 const OurApproach = () => {
   return (

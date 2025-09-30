@@ -121,3 +121,11 @@ export const NumberTypography = styled(Typography)(({ theme }) => ({
     fontSize: "120px",
   },
 }));
+
+export const DescriptionText = styled(Typography)(({theme})=>({
+  color: theme.palette.text.disabled,
+fontSize:"22px",
+[theme.breakpoints.down("sm")]:{
+  fontSize:"18px"
+}
+}))
