@@ -1,5 +1,6 @@
 "use client";
 
+import { Box } from "@mui/material";
 import {
     SectionRoot,
     InnerContainer,
@@ -8,6 +9,7 @@ import {
     ListWrapper,
     ServicesWrapper,
     ServiceChip,
+    ListItemStyled,
 } from "./ImpactSection.styles";
 
 type ImpactSectionProps = {
@@ -25,27 +27,39 @@ export default function ImpactSection({
 }: ImpactSectionProps) {
     return (
         <SectionRoot>
-            <InnerContainer maxWidth="lg">
+            <InnerContainer maxWidth="xl">
                 {/* Group 1: Impact */}
                 <RowGrid>
                     <TitleText variant="h6">{impactTitle}</TitleText>
-                    <ListWrapper>
-                        {impactPoints.map((point, idx) => (
-                            <li key={idx}>{point}</li>
-                        ))}
-                    </ListWrapper>
+                    <Box
+                        sx={{
+                            pl: { xs: 0, md: 6, lg: 16 },
+                        }}
+                    >
+                        <ListWrapper>
+                            {impactPoints.map((point, idx) => (
+                                <ListItemStyled key={idx}>{point}</ListItemStyled>
+                            ))}
+                        </ListWrapper>
+                    </Box>
                 </RowGrid>
 
-                {/* Group 2: Services Provided */}
                 <RowGrid>
                     <TitleText variant="h6">{servicesTitle}</TitleText>
-                    <ServicesWrapper>
-                        {services.map((service, idx) => (
-                            <ServiceChip key={idx} label={service} />
-                        ))}
-                    </ServicesWrapper>
+                    <Box
+                        sx={{
+                            pl: { xs: 0, md: 6, lg: 16 },
+                        }}
+                    >
+                        <ServicesWrapper>
+                            {services.map((service, idx) => (
+                                <ServiceChip key={idx} label={service} />
+                            ))}
+                        </ServicesWrapper>
+                    </Box>
                 </RowGrid>
+
             </InnerContainer>
-        </SectionRoot>
+        </SectionRoot >
     );
 }

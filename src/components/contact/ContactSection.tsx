@@ -1,6 +1,6 @@
 "use client";
 
-import { Typography, MenuItem, Button } from "@mui/material";
+import { Typography, MenuItem, Button, Box } from "@mui/material";
 import {
     ContactRoot,
     ContactForm,
@@ -9,6 +9,7 @@ import {
     BackgroundVideo,
 } from "./ContactSection.styles";
 import Ready from "../home/ready/Ready";
+import { Explore } from "../case-studies/Explore.styles";
 
 const interests = [
     "Creative & UI/UX Design",
@@ -142,28 +143,11 @@ export default function ContactSection() {
 
             </ContactRoot>
 
-            <Typography
-                variant="h1"
-                component="div"
-                sx={{
-                    width: "100%",
-                    textAlign: "center",
-                    mt: 0,
-                    pb: 8,
-                    fontWeight: 300,
-                    fontFamily: "Montserrat, sans-serif",
-                    fontSize: "clamp(2rem, 7.3vw, 12rem)",
-                    whiteSpace: "nowrap",
-                    color: "#FFFFFF08",
-                    bgcolor: "#0E0E0E",
-                    letterSpacing: "0.05em",
-                    filter: "blur(1px)",
-                    userSelect: "none",
-                    lineHeight: 1.2,
-                }}
-            >
-                Explore. Engineer. Evolve.
-            </Typography>
+            <Box component="section">
+                <Explore variant="h1">
+                    Explore. Engineer. Evolve.
+                </Explore>
+            </Box>
 
 
             <Ready

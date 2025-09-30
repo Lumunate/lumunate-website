@@ -28,19 +28,20 @@ export interface CaseStudyHeaderProps {
   title: string;
   subtitle?: string;
   description?: ReactNode;
-  meta?: Meta[];
+  metaItems?: Meta[];           
   metaColumnGap?: string;
   overlayOpacity?: number;
   rightMaxWidth?: number | string;
 }
 
-const isGroup = (m: Meta): m is MetaGroup => (m as MetaGroup).items !== undefined;
+const isGroup = (metaItem: Meta): metaItem is MetaGroup =>
+  (metaItem as MetaGroup).items !== undefined;
 
 export default function CaseStudyHeader({
   title,
   subtitle,
   description,
-  meta = [],
+  metaItems = [],                
   metaColumnGap = "80px",
   overlayOpacity = 0.4,
   rightMaxWidth = 900,
@@ -74,7 +75,7 @@ export default function CaseStudyHeader({
         <HeaderRight sx={{ maxWidth: rightMaxWidth }}>
           {description && <Description>{description}</Description>}
 
-          {meta.length > 0 && (
+          {metaItems.length > 0 && (
             <Box
               sx={{
                 display: "grid",
@@ -82,37 +83,49 @@ export default function CaseStudyHeader({
                 columnGap: metaColumnGap,
               }}
             >
-              {/* Labels */}
+              {/* Left column (labels only) */}
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                {meta.map((m, idx) => (
-                  <MetaLabel key={`label-${idx}`} variant="body2">
-                    {m.label}
-                  </MetaLabel>
-                ))}
+                {metaItems.map((metaItem, metaIndex) => {
+                  let marginTop = 0;
+                  if (metaItem.label === "MAUs") marginTop = 4;
+                  if (metaItem.label === "Revenue") marginTop = 1;
+
+                  return (
+                    <MetaLabel key={`label-${metaIndex}`} variant="body2" sx={{ mt: marginTop }}>
+                      {metaItem.label}
+                    </MetaLabel>
+                  );
+                })}
               </Box>
 
-              {/* Values */}
+              {/* Right column (values only) */}
               <Box
                 sx={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: 2,
+                  gap: 1,
                   alignItems: "flex-end",
                   textAlign: "right",
                   minWidth: 200,
                 }}
               >
-                {meta.map((m, idx) => {
-                  if (!isGroup(m)) {
+                {metaItems.map((metaItem, metaIndex) => {
+                  let marginTop = 0;
+                  if (metaItem.label === "MAUs") marginTop = 1;
+                  if (metaItem.label === "Revenue") marginTop = 0;
+
+                  if (!isGroup(metaItem)) {
                     return (
-                      <MetaValue key={`value-${idx}`} variant="body2">
-                        {m.value}
+                      <MetaValue key={`value-${metaIndex}`} variant="body2" sx={{ mt: marginTop }}>
+                        {metaItem.value}
                       </MetaValue>
                     );
                   }
+
+                  // Timeline (grouped rows)
                   return (
                     <Box
-                      key={`group-${idx}`}
+                      key={`group-${metaIndex}`}
                       sx={{
                         display: "flex",
                         flexDirection: "column",
@@ -121,17 +134,17 @@ export default function CaseStudyHeader({
                         alignItems: "flex-end",
                       }}
                     >
-                      {m.items.map((it, j) => (
+                      {metaItem.items.map((groupItem, groupItemIndex) => (
                         <Box
-                          key={`group-item-${idx}-${j}`}
+                          key={`group-item-${metaIndex}-${groupItemIndex}`}
                           sx={{ display: "flex", gap: 0.5, justifyContent: "flex-end" }}
                         >
-                          {it.label && (
+                          {groupItem.label && (
                             <MetaLabel variant="body2" sx={{ mr: "4px" }}>
-                              {it.label}
+                              {groupItem.label}
                             </MetaLabel>
                           )}
-                          <MetaValue variant="body2">{it.value}</MetaValue>
+                          <MetaValue variant="body2">{groupItem.value}</MetaValue>
                         </Box>
                       ))}
                     </Box>

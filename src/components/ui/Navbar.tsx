@@ -40,6 +40,7 @@ const projects = [
     { name: "Zeal – AI-Driven Healthcare Platform", href: "/projects/zeal" },
     { name: "Fast Clean Service – Car Detailing Platform", href: "/projects/fast-clean" },
     { name: "Poppynz – On-Demand Family Support", href: "/projects/poppynz" },
+    { name: "Zeal – AI-Driven Healthcare Platform 2", href: "/projects/zeal-2" },
 ];
 
 const navButtonSx = {
@@ -127,10 +128,10 @@ export default function Navbar() {
                                         border: "1px solid #343434",
                                         borderRadius: 0,
                                         boxShadow: "0px 8px 20px rgba(0,0,0,0.25)",
-                                        mt: 0,
+                                        mt: 2,
                                         p: 0,
-                                        minWidth: { xs: 320, md: 660, lg: 1560 },
-                                        left: "40% !important",
+                                        width: { xs: "90vw", md: "800px", lg: "950px" },
+                                        left: "50.55% !important",
                                         transform: "translateX(-50%) !important",
                                     },
                                 }}
@@ -150,10 +151,11 @@ export default function Navbar() {
                                             onClick={handleMenuClose}
                                             disableGutters
                                             sx={{
-                                                px: 2.5,
-                                                py: 1.75,
-                                                fontSize: "0.95rem",
-                                                lineHeight: 1.4,
+                                                px: 2,
+                                                py: 1.5,
+                                                fontSize: "0.9rem",
+                                                lineHeight: 1.3,
+                                                whiteSpace: "nowrap",
                                                 color: "#bdbdbd",
                                                 borderTop: "1px solid #2B2B2B",
                                                 borderLeft: "1px solid #2B2B2B",
@@ -163,9 +165,9 @@ export default function Navbar() {
                                             {proj.name}
                                         </MenuItem>
                                     ))}
-
                                 </Box>
                             </Menu>
+
                         </MenuBox>
                     )}
 

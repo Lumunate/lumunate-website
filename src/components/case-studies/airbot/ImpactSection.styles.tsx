@@ -1,8 +1,8 @@
 "use client";
 
-import { styled, Container, Typography, Box, Chip } from "@mui/material";
+import { styled, Container, Typography, Box, Chip, List, ListItem } from "@mui/material";
 
-export const SectionRoot = styled("section")(({ theme }) => ({
+export const SectionRoot = styled(Box)(({ theme }) => ({
   position: "relative",
   backgroundColor: "#0E0E0E",
   color: "#fff",
@@ -13,10 +13,11 @@ export const InnerContainer = styled(Container)(() => ({}));
 
 export const RowGrid = styled(Box)(({ theme }) => ({
   display: "grid",
-  gridTemplateColumns: "1fr 2fr",
+  gridTemplateColumns: "1fr 3fr",
   alignItems: "start",
-  gap: theme.spacing(2),
-  marginBottom: theme.spacing(2),
+  gap: theme.spacing(12),           // bigger gap
+
+  marginBottom: theme.spacing(4),
 
   [theme.breakpoints.down("md")]: {
     gridTemplateColumns: "1fr",
@@ -25,6 +26,7 @@ export const RowGrid = styled(Box)(({ theme }) => ({
   },
 }));
 
+
 export const TitleText = styled(Typography)(({ theme }) => ({
   fontFamily: "Montserrat, sans-serif",
   fontWeight: 500,
@@ -32,27 +34,36 @@ export const TitleText = styled(Typography)(({ theme }) => ({
   color: "#EDEDED",
 
   [theme.breakpoints.down("md")]: {
-    marginBottom: theme.spacing(1),
+    fontSize: "20px",
+    marginBottom: theme.spacing(2),
+    textAlign: "center",
   },
 }));
 
-export const ListWrapper = styled("ul")(({ theme }) => ({
-  maxWidth: "900px",
+
+export const ListWrapper = styled(List)(({ theme }) => ({
+  maxWidth: "100%",
   marginBottom: theme.spacing(3),
   fontSize: "15px",
   lineHeight: 1.6,
   paddingLeft: theme.spacing(3),
-
-  "& li": {
-    marginBottom: theme.spacing(1),
-    color: "rgba(255,255,255,0.85)",
-  },
+  listStyleType: "disc",  //  bullets....
+  paddingInlineStart: theme.spacing(3),
 
   [theme.breakpoints.down("md")]: {
-    paddingLeft: theme.spacing(0),
+    paddingLeft: theme.spacing(2),
     textAlign: "left",
   },
 }));
+
+export const ListItemStyled = styled(ListItem)(() => ({
+  display: "list-item",   // ensures bullet is visible...
+  padding: 0,
+  color: "rgba(255,255,255,0.85)",
+  fontSize: "15px",
+  lineHeight: 1.6,
+}));
+
 
 export const ServicesWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
