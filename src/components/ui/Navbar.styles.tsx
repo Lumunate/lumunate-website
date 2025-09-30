@@ -11,14 +11,13 @@ export const NavContainer = styled(Box)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-
 export const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     justifyContent: "space-between",
     minHeight: 64,
     [theme.breakpoints.up("md")]: {
         minHeight: 80,
     },
-    padding: "0",
+    padding: 0,
 }));
 
 export const LogoBox = styled(Box)(() => ({
@@ -27,7 +26,7 @@ export const LogoBox = styled(Box)(() => ({
     flex: 1,
 }));
 
-export const MenuBox = styled(Box)(() => ({
+export const MenuBox = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -43,8 +42,6 @@ export const RightBox = styled(Box)(() => ({
     justifyContent: "flex-end",
     flex: 1,
 }));
-
-
 
 export const VerticalDivider = styled(Box)(({ theme }) => ({
     width: "1px",
