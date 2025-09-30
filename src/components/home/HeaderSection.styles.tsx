@@ -35,7 +35,7 @@ export const ContentBox = styled(Box)(({ theme }) => ({
     width: "100%",
     maxWidth: "1440px",
     margin: "0 auto",
-    padding: 0,
+    padding: "0 50px",  
     position: "relative",
     zIndex: 1,
     [theme.breakpoints.down("lg")]: {
@@ -57,10 +57,10 @@ export const ContentBox = styled(Box)(({ theme }) => ({
 export const StyledH1 = styled(Typography)(({ theme }) => ({
     ...theme.typography.h1,
     color: "#fff",
-    maxWidth: 585,
+    maxWidth: 400,
     lineHeight: 1.1,
     [theme.breakpoints.down("lg")]: {
-        fontSize: "70px",
+        fontSize: "90px",
     },
     [theme.breakpoints.down("md")]: {
         fontSize: "32px",
@@ -103,7 +103,7 @@ export const StyledParagraph = styled(Typography)(({ theme }) => ({
     color: "#9F9F9F",
     lineHeight: 1.6,
     [theme.breakpoints.down("lg")]: {
-        fontSize: "16px",
+        fontSize: "18px",
         maxWidth: 550,
     },
     [theme.breakpoints.down("md")]: {
@@ -118,11 +118,12 @@ export const StyledParagraph = styled(Typography)(({ theme }) => ({
 
 export const SocialStack = styled(Stack)(({ theme }) => ({
     position: "absolute",
-    bottom: theme.spacing(-14),   
+    top: theme.spacing(28),   
     right: theme.spacing(4),  
     flexDirection: "column",
     gap: theme.spacing(1.5),
     alignItems: "flex-end",
+    padding: "0 50px",  
     zIndex: 2,
 
     [theme.breakpoints.down("md")]: {

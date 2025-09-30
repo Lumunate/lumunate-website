@@ -57,7 +57,7 @@ export const ListWrapper = styled(List)(({ theme }) => ({
 }));
 
 export const ListItemStyled = styled(ListItem)(() => ({
-  display: "list-item",   // ensures bullet is visible...
+  display: "list-item",  
   padding: 0,
   color: "rgba(255,255,255,0.85)",
   fontSize: "15px",
@@ -69,6 +69,7 @@ export const ServicesWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   gap: theme.spacing(1.5),
   flexWrap: "wrap",
+    cursor: "pointer",
 
   [theme.breakpoints.down("md")]: {
     justifyContent: "center",
@@ -81,7 +82,6 @@ export const ServiceChip = styled(Chip)(({ }) => ({
   border: "1px solid rgba(255,255,255,0.15)",
   borderRadius: "16px",
   fontSize: "14px",
-
   "&:hover": {
     backgroundColor: "rgba(255,255,255,0.15)",
   },

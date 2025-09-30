@@ -39,13 +39,13 @@ export const LogoItem = styled(Box)(({ theme }) => ({
     flexDirection: "column",
     alignItems: "center",
     minWidth: 40,
-    maxWidth: 60,
+    maxWidth: 90,
     "& img": {
-        width: 60,
+        width: 70,
         height: 60,
         objectFit: "contain",
         filter: "grayscale(1)",
-        opacity: 0.7,
+        opacity: "64%",
         display: "block",
     },
     "& span": {
