@@ -11,6 +11,8 @@ import {
     SocialStack,
 } from "./HeaderSection.styles";
 import Link from "next/link";
+import { IconButton } from "@mui/material";
+import Image from "next/image";
 
 export default function HeaderSection() {
     return (
@@ -43,20 +45,34 @@ export default function HeaderSection() {
                     </StyledParagraph>
 
                     <SocialStack>
-                        <Link
+                        <IconButton
+                            size="small"
+                            color="inherit"
+                            href="https://www.instagram.com/company/lumunate/"
+                            target="_blank"
+                            className="icon-item"
+                        >
+                            <Image
+                                src="/icons/instagram.svg"
+                                alt="Instagram"
+                                width={20}
+                                height={20}
+                            />
+                        </IconButton>
+                        <IconButton
+                            size="small"
+                            color="inherit"
                             href="https://www.linkedin.com/company/lumunate/"
                             target="_blank"
-                            rel="noopener noreferrer"
+                            className="icon-item"
                         >
-                            <LinkedInIcon fontSize="medium" sx={{ color: "#fff" }} />
-                        </Link>
-                        <Link
-                            href="https://instagram.com/company/lumunate/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <InstagramIcon fontSize="medium" sx={{ color: "#fff" }} />
-                        </Link>
+                            <Image
+                                src="/icons/linkedin.svg"
+                                alt="LinkedIn"
+                                width={20}
+                                height={20}
+                            />
+                        </IconButton>
                     </SocialStack>
                 </RightBox>
             </ContentBox>

@@ -44,10 +44,12 @@ const projects = [
 ];
 
 const navButtonSx = {
-    color: "#bdbdbd",
-    fontWeight: 400,
+    color: "#E0E0E0",
+    fontWeight: 500,
     fontSize: "1rem",
     textTransform: "none",
+    letterSpacing: "0.5px",
+    "&:hover": { color: "#fff" },
 };
 
 const navLinks = [
@@ -91,7 +93,8 @@ export default function Navbar() {
                     {/* Desktop Menu */}
                     {!isMobile && (
                         <MenuBox>
-                            <VerticalDivider />
+                            <VerticalDivider /> {/* Divider before Home */}
+
                             {navLinks.map((link) => (
                                 <Button
                                     key={link.label}
@@ -112,8 +115,10 @@ export default function Navbar() {
                             >
                                 Case Studies
                             </Button>
-                            <VerticalDivider />
 
+                            <VerticalDivider /> {/* Divider after Case Studies */}
+
+                            {/* ✅ Desktop Case Studies Dropdown */}
                             <Menu
                                 anchorEl={anchorEl}
                                 open={Boolean(anchorEl)}
@@ -123,7 +128,7 @@ export default function Navbar() {
                                 MenuListProps={{ disablePadding: true }}
                                 PaperProps={{
                                     sx: {
-                                        bgcolor: "#343434",
+                                        bgcolor: "#181818",
                                         color: "#bdbdbd",
                                         border: "1px solid #343434",
                                         borderRadius: 0,
@@ -167,43 +172,47 @@ export default function Navbar() {
                                     ))}
                                 </Box>
                             </Menu>
-
                         </MenuBox>
                     )}
 
+                    {/* Right Section */}
                     <RightBox>
-                        <Button
-                            component="a"
-                            href="https://calendly.com/saad-b-javaid22/consultation"
-                            target="_blank"
-                            variant="contained"
-                            color="success"
-                            sx={{
-                                boxShadow: 1,
-                                textTransform: "none",
-                                px: 2,
-                                py: 1,
-                                fontWeight: 600,
-                                bgcolor: "#015B3F",
-                                color: "#bdbdbd",
-                                borderRadius: 0,
-                                "&:hover": { bgcolor: "#333" },
-                            }}
-                        >
-                            Get Started
-                        </Button>
-
+                        {/* Show hamburger only on mobile */}
                         {isMobile && (
                             <IconButton
                                 edge="end"
                                 color="inherit"
-                                aria-label="menu"
                                 onClick={toggleDrawer(true)}
-                                size="large"
-                                sx={{ color: "#bdbdbd" }}
+                                sx={{ color: "#E0E0E0" }}
                             >
                                 <MenuIcon />
                             </IconButton>
+                        )}
+
+                        {!isMobile && (
+                            <>
+                            
+                                <Button
+                                    component="a"
+                                    href="https://calendly.com/saad-b-javaid22/consultation"
+                                    target="_blank"
+                                    variant="contained"
+                                    color="success"
+                                    sx={{
+                                        boxShadow: 1,
+                                        textTransform: "none",
+                                        px: 2,
+                                        py: 1,
+                                        fontWeight: 600,
+                                        bgcolor: "#015B3F",
+                                        color: "#bdbdbd",
+                                        borderRadius: 0,
+                                        "&:hover": { bgcolor: "#333" },
+                                    }}
+                                >
+                                    Get Started
+                                </Button>
+                            </>
                         )}
                     </RightBox>
                 </StyledToolbar>
@@ -222,27 +231,59 @@ export default function Navbar() {
                     <List>
                         {navLinks.map((link) => (
                             <ListItem key={link.label} disablePadding>
-                                <ListItemButton LinkComponent={Link} href={link.href} onClick={toggleDrawer(false)}>
+                                <ListItemButton
+                                    LinkComponent={Link}
+                                    href={link.href}
+                                    onClick={toggleDrawer(false)}
+                                >
                                     <ListItemText primary={link.label} />
                                 </ListItemButton>
                             </ListItem>
                         ))}
+
                         <ListItem disablePadding>
                             <ListItemButton onClick={() => setMobileProjectsOpen((open) => !open)}>
-                                <ListItemText primary="Projects" />
+                                <ListItemText primary="Case Studies" />
                                 <Typography variant="body2" sx={{ ml: 1 }}>
                                     {mobileProjectsOpen ? "▲" : "▼"}
                                 </Typography>
                             </ListItemButton>
                         </ListItem>
+
                         {mobileProjectsOpen &&
                             projects.map((proj) => (
                                 <ListItem key={proj.name} disablePadding sx={{ pl: 3 }}>
-                                    <ListItemButton LinkComponent={Link} href={proj.href} onClick={toggleDrawer(false)}>
+                                    <ListItemButton
+                                        LinkComponent={Link}
+                                        href={proj.href}
+                                        onClick={toggleDrawer(false)}
+                                    >
                                         <ListItemText primary={proj.name} />
                                     </ListItemButton>
                                 </ListItem>
                             ))}
+                        <Box sx={{ mt: 2, textAlign: "center" }}>
+                            <Button
+                                component="a"
+                                href="https://calendly.com/saad-b-javaid22/consultation"
+                                target="_blank"
+                                variant="contained"
+                                color="success"
+                                fullWidth
+                                sx={{
+                                    boxShadow: 1,
+                                    textTransform: "none",
+                                    py: 1,
+                                    fontWeight: 600,
+                                    bgcolor: "#015B3F",
+                                    color: "#fff",
+                                    borderRadius: 0,
+                                    "&:hover": { bgcolor: "#333" },
+                                }}
+                            >
+                                Get Started
+                            </Button>
+                        </Box>
                     </List>
                 </Drawer>
             </NavContainer>

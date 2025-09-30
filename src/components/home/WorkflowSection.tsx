@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import WorkflowNavBar from "./WorkflowNavBar";   // renamed for clarity
+import WorkflowNavBar from "./WorkflowNavBar";
 import WorkflowCard from "./WorkflowCard";
-import { WorkflowSectionRoot } from "./WorkflowSection.styles";
+import { NavBarContainer, WorkflowSectionRoot } from "./WorkflowSection.styles";
+import { NavItem } from "./WorkflowBar.styles";
 
 
 const workflowSections = [
@@ -56,11 +57,20 @@ export default function WorkflowSection() {
 
   return (
     <WorkflowSectionRoot>
-      <WorkflowNavBar
-        sections={workflowSections}
-        activeSection={activeSection}
-        setActiveSection={setActiveSection}
-      />
+      {/*Full-width NavBar */}
+      <NavBarContainer>
+        {workflowSections.map((section) => (
+          <NavItem
+            key={section.title}
+            onClick={() => setActiveSection(section)}
+            className={activeSection.title === section.title ? "active" : ""}
+          >
+            {section.title}
+          </NavItem>
+        ))}
+      </NavBarContainer>
+
+      {/* 🔹 Content */}
       <WorkflowCard activeSection={activeSection} />
     </WorkflowSectionRoot>
   );

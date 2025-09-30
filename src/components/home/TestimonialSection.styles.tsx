@@ -13,7 +13,7 @@ export const TestimonialRoot = styled(Box)(({ theme }) => ({
     right: "50%",
     marginLeft: "-50vw",
     marginRight: "-50vw",
-    padding: `${theme.spacing(12)} 0`,
+    padding: `${theme.spacing(12)} 50px`,
 }));
 
 export const TestimonialContent = styled(Box)(({ theme }) => ({
@@ -47,7 +47,7 @@ export const TestimonialHeading = styled(Typography)(({ theme }) => ({
     ...theme.typography.h2,
     color: "#fff",
     fontWeight: 400,
-    maxWidth: 900,
+    maxWidth: 450,
     marginLeft: theme.spacing(2), 
     [theme.breakpoints.down("md")]: {
         fontSize: "50px",

@@ -11,6 +11,8 @@ import {
   Description,
   MetaLabel,
   MetaValue,
+  Title,
+  SubTitle,
 } from "./CaseStudyHeader.styles";
 
 /** Types */
@@ -28,7 +30,7 @@ export interface CaseStudyHeaderProps {
   title: string;
   subtitle?: string;
   description?: ReactNode;
-  metaItems?: Meta[];           
+  metaItems?: Meta[];
   metaColumnGap?: string;
   overlayOpacity?: number;
   rightMaxWidth?: number | string;
@@ -41,14 +43,14 @@ export default function CaseStudyHeader({
   title,
   subtitle,
   description,
-  metaItems = [],                
+  metaItems = [],
   metaColumnGap = "80px",
   overlayOpacity = 0.4,
   rightMaxWidth = 900,
 }: CaseStudyHeaderProps) {
   return (
     <HeaderRoot>
-      {/* Background (MUI Box wrappers) */}
+      {/* Background video...*/}
       <BackgroundVideo
         component="video"
         src="/case-studies/airbot-header.mp4"
@@ -61,14 +63,9 @@ export default function CaseStudyHeader({
       <HeaderContent overlayopacity={overlayOpacity}>
         {/* Left column */}
         <HeaderLeft>
-          <Typography variant="h2" sx={{ fontWeight: 600, maxWidth: 520 }}>
-            {title}
-          </Typography>
-          {subtitle && (
-            <Typography variant="h5" sx={{ fontWeight: 300, mt: 1, maxWidth: 516 }}>
-              {subtitle}
-            </Typography>
-          )}
+          <Title>{title}</Title>
+          {subtitle && <SubTitle>{subtitle}</SubTitle>}
+
         </HeaderLeft>
 
         {/* Right column */}
