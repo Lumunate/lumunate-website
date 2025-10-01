@@ -28,7 +28,7 @@ export default function ImpactSection({
     return (
         <SectionRoot>
             <InnerContainer maxWidth="xl">
-                {/* Group 1: Impact */}
+
                 <RowGrid>
                     <TitleText variant="h6">{impactTitle}</TitleText>
                     <Box

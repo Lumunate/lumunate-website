@@ -5,7 +5,6 @@ import WorkflowCard from "./WorkflowCard";
 import { NavBarContainer, WorkflowSectionRoot } from "./WorkflowSection.styles";
 import { NavItem } from "./WorkflowBar.styles";
 
-
 const workflowSections = [
   {
     tag: "/UI & UX",
@@ -56,7 +55,6 @@ export default function WorkflowSection() {
 
   return (
     <WorkflowSectionRoot>
-      {/*Full-width NavBar */}
       <NavBarContainer>
         {workflowSections.map((section) => (
           <NavItem
@@ -68,8 +66,6 @@ export default function WorkflowSection() {
           </NavItem>
         ))}
       </NavBarContainer>
-
-      {/* 🔹 Content */}
       <WorkflowCard activeSection={activeSection} />
     </WorkflowSectionRoot>
   );

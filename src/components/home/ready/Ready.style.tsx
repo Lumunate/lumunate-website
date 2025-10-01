@@ -9,7 +9,7 @@ export const ReadyContainer = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100vh",
   overflow: "hidden",
-  backgroundColor: theme.palette.background.default, // theme background fallback
+  backgroundColor: theme.palette.background.default,
 
   [theme.breakpoints.down("md")]: {
     height: "80vh",
@@ -37,8 +37,8 @@ export const Overlay = styled(Box)(({ theme }) => ({
   height: "100%",
   background:
     theme.palette.mode === "dark"
-      ? "rgba(0,0,0,0.45)" // dark mode overlay
-      : "rgba(255,255,255,0.25)", // light mode overlay
+      ? "rgba(0,0,0,0.45)"
+      : "rgba(255,255,255,0.25)",
   zIndex: 1,
 }));
 
@@ -56,12 +56,12 @@ export const TextWrapper = styled(Box)(({ theme }) => ({
   color: theme.palette.text.primary,
 
   "& h1, & h2, & .MuiTypography-root": {
-    lineHeight: 1.1, // tighter default line-height
+    lineHeight: 1.1,
     [theme.breakpoints.down("md")]: {
-      lineHeight: 1.05, // slightly tighter on tablets
+      lineHeight: 1.05,
     },
     [theme.breakpoints.down("sm")]: {
-      lineHeight: 1.02, // even tighter on phones
+      lineHeight: 1.02,
     },
   },
 

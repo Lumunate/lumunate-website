@@ -4,7 +4,7 @@ import { Box, Typography, styled } from "@mui/material";
 
 export const TestimonialRoot = styled(Box)(({ theme }) => ({
     width: "100vw",
-    background: theme.palette.background.default, // use global bg
+    background: theme.palette.background.default,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -13,7 +13,7 @@ export const TestimonialRoot = styled(Box)(({ theme }) => ({
     right: "50%",
     marginLeft: "-50vw",
     marginRight: "-50vw",
-    padding: `${theme.spacing(12)} ${theme.spacing(6)}`, // theme spacing
+    padding: `${theme.spacing(12)} ${theme.spacing(6)}`,
 }));
 
 export const TestimonialContent = styled(Box)(({ theme }) => ({
@@ -44,8 +44,8 @@ export const TestimonialContent = styled(Box)(({ theme }) => ({
 }));
 
 export const TestimonialHeading = styled(Typography)(({ theme }) => ({
-    ...theme.typography.h2, // global h2 style
-    color: theme.palette.text.primary, // used text color
+    ...theme.typography.h2,
+    color: theme.palette.text.primary,
     fontWeight: 400,
     maxWidth: 450,
     marginLeft: theme.spacing(2),
@@ -81,9 +81,9 @@ export const StarsRow = styled(Box)(({ theme }) => ({
 
 export const TestimonialText = styled(Typography)(({ theme }) => ({
     ...theme.typography.body1,
-    color: theme.palette.text.secondary, // use secondary text
+    color: theme.palette.text.secondary,
     marginBottom: theme.spacing(2),
-    fontSize: theme.typography.body1.fontSize, // from theme
+    fontSize: theme.typography.body1.fontSize,
     [theme.breakpoints.down("sm")]: {
         fontSize: theme.typography.body2.fontSize,
     },
@@ -99,13 +99,13 @@ export const AuthorAvatar = styled(Box)(({ theme }) => ({
     width: 48,
     height: 48,
     borderRadius: "50%",
-    background: theme.palette.text.secondary, // fallback grey
+    background: theme.palette.text.secondary,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     fontWeight: theme.typography.fontWeightBold,
     fontSize: "1.2rem",
-    color: theme.palette.background.default, // contrast
+    color: theme.palette.background.default,
 }));
 
 export const AuthorInfo = styled(Box)(({ theme }) => ({

@@ -16,8 +16,6 @@ export const OurApproachContainer = styled(Box)(() => ({
     objectFit: "cover",
     zIndex: -3,
   },
-
-  // 🔹 black overlay (top → bottom)
   "&::before": {
     content: '""',
     position: "absolute",
@@ -64,14 +62,14 @@ export const SubContentWrapper = styled(Box)(({ theme }) => ({
   justifyContent: "center",
   display: "flex",
   flexDirection: "column",
-  borderBottom: "0.4px solid #B4B4B4", // ✅ keep horizontal line
+  borderBottom: "0.4px solid #B4B4B4",
   height: "100%",
   alignItems: "center",
-  padding: theme.spacing(6, 8), // ✅ same padding as RightBottomBox
+  padding: theme.spacing(6, 8),
   [theme.breakpoints.down("md")]: {
     alignItems: "flex-start",
     textAlign: "left",
-    padding: theme.spacing(5, 2), // smaller padding on mobile
+    padding: theme.spacing(5, 2),
   },
 }));
 
@@ -88,7 +86,7 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
 }));
 
 export const RightBottomBox = styled(Box)(({ theme }) => ({
-  borderLeft: "0.4px solid #B4B4B4", // ✅ keep original border
+  borderLeft: "0.4px solid #B4B4B4",
   padding: theme.spacing(6, 8),
   display: "flex",
   flexDirection: "column",
@@ -101,7 +99,7 @@ export const RightBottomBox = styled(Box)(({ theme }) => ({
 }));
 
 export const DiscoverButton = styled(Button)(({ theme }) => ({
-  backgroundColor: "#015B3F", // ✅ keep original green
+  backgroundColor: "#015B3F",
   padding: theme.spacing(2, 4),
   fontSize: theme.typography.body1.fontSize,
   fontWeight: theme.typography.h6.fontWeight,

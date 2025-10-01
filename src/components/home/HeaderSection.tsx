@@ -15,7 +15,6 @@ import Image from "next/image";
 export default function HeaderSection() {
     return (
         <HeaderRoot>
-            {/* Background Video */}
             <SvgBg>
                 <video
                     src="/home-header-video.mp4"
@@ -25,16 +24,10 @@ export default function HeaderSection() {
                     playsInline
                 />
             </SvgBg>
-
-
-            {/* Content */}
             <ContentBox>
-                {/* Left Side - Heading */}
                 <LeftBox>
                     <StyledH1 variant="h1">Your digital evolution partner</StyledH1>
                 </LeftBox>
-
-                {/* Right Side - Text + Social Icons */}
                 <RightBox>
                     <StyledParagraph variant="body1">
                         Transform ideas into scalable digital products that grow with your

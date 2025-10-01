@@ -4,8 +4,8 @@ import { styled, Container, Typography, Box, Chip, List, ListItem } from "@mui/m
 
 export const SectionRoot = styled(Box)(({ theme }) => ({
   position: "relative",
-  backgroundColor: theme.palette.background.default,   // theme background
-  color: theme.palette.text.primary,                  // theme text
+  backgroundColor: theme.palette.background.default,
+  color: theme.palette.text.primary,
   paddingTop: theme.spacing(6),
   paddingBottom: theme.spacing(6),
   paddingLeft: theme.spacing(10),
@@ -30,10 +30,10 @@ export const RowGrid = styled(Box)(({ theme }) => ({
 }));
 
 export const TitleText = styled(Typography)(({ theme }) => ({
-  ...theme.typography.h5,                  // use theme
+  ...theme.typography.h5,
   fontFamily: "Montserrat, sans-serif",
   fontWeight: 500,
-  color: theme.palette.text.primary,       // text color from theme
+  color: theme.palette.text.primary,
   [theme.breakpoints.down("md")]: {
     fontSize: "20px",
     marginBottom: theme.spacing(2),
@@ -44,7 +44,7 @@ export const TitleText = styled(Typography)(({ theme }) => ({
 export const ListWrapper = styled(List)(({ theme }) => ({
   maxWidth: "100%",
   marginBottom: theme.spacing(3),
-  ...theme.typography.body2,              // consistent text style
+  ...theme.typography.body2,
   lineHeight: 1.6,
   paddingLeft: theme.spacing(3),
   listStyleType: "disc",
@@ -59,7 +59,7 @@ export const ListWrapper = styled(List)(({ theme }) => ({
 export const ListItemStyled = styled(ListItem)(({ theme }) => ({
   display: "list-item",
   padding: 0,
-  color: theme.palette.text.secondary,     // theme text
+  color: theme.palette.text.secondary,
   fontSize: theme.typography.body2.fontSize,
   lineHeight: 1.6,
 }));
@@ -75,12 +75,12 @@ export const ServicesWrapper = styled(Box)(({ theme }) => ({
 }));
 
 export const ServiceChip = styled(Chip)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,     // use theme paper bg
-  color: theme.palette.text.primary,                  // text from theme
-  border: `1px solid ${theme.palette.divider}`,       // theme divider
+  backgroundColor: theme.palette.background.paper,
+  color: theme.palette.text.primary,
+  border: `1px solid ${theme.palette.divider}`,
   borderRadius: "16px",
   fontSize: "14px",
   "&:hover": {
-    backgroundColor: theme.palette.action.hover,      // hover state
+    backgroundColor: theme.palette.action.hover,
   },
 }));

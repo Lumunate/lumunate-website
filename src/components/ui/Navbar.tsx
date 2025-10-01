@@ -85,15 +85,13 @@ export default function Navbar() {
         >
             <NavContainer>
                 <StyledToolbar disableGutters>
-                    {/* Logo */}
+
                     <LogoBox>
                         <Logo />
                     </LogoBox>
-
-                    {/* Desktop Menu */}
                     {!isMobile && (
                         <MenuBox>
-                            <VerticalDivider /> {/* Divider before Home */}
+                            <VerticalDivider />
 
                             {navLinks.map((link) => (
                                 <Button
@@ -116,9 +114,7 @@ export default function Navbar() {
                                 Case Studies
                             </Button>
 
-                            <VerticalDivider /> 
-
-                            {/* ✅ Desktop Case Studies Dropdown */}
+                            <VerticalDivider />
                             <Menu
                                 anchorEl={anchorEl}
                                 open={Boolean(anchorEl)}
@@ -167,8 +163,8 @@ export default function Navbar() {
                                                 borderTop: `1px solid ${theme.palette.divider}`,
                                                 borderLeft: `1px solid ${theme.palette.divider}`,
                                                 "&:hover": {
-                                                    bgcolor: theme.palette.action.hover, // ✅ theme hover
-                                                    color: theme.palette.text.primary,   // ✅ theme text
+                                                    bgcolor: theme.palette.action.hover,
+                                                    color: theme.palette.text.primary,
                                                 },
                                             }}
 
@@ -180,8 +176,6 @@ export default function Navbar() {
                             </Menu>
                         </MenuBox>
                     )}
-
-                    {/* Right Section */}
                     <RightBox>
                         {isMobile && (
                             <IconButton
@@ -221,8 +215,6 @@ export default function Navbar() {
                         )}
                     </RightBox>
                 </StyledToolbar>
-
-                {/* Mobile Drawer */}
                 <Drawer
                     anchor="right"
                     open={drawerOpen}
