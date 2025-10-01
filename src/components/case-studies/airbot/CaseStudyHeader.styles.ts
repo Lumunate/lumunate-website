@@ -63,35 +63,6 @@ export const HeaderLeft = styled(Box)(({ theme }) => ({
     },
 }));
 
-export const Title = styled(Typography)(({ theme }) => ({
-    ...theme.typography.h2,
-    fontWeight: 400,
-    lineHeight: 1.2,
-    color: theme.palette.text.primary,
-    [theme.breakpoints.down("md")]: {
-        fontSize: "2.2rem",
-    },
-    [theme.breakpoints.down("sm")]: {
-        fontSize: "1.8rem",
-        textAlign: "center",
-    },
-}));
-
-export const SubTitle = styled(Typography)(({ theme }) => ({
-    ...theme.typography.h5,
-    fontWeight: 400,
-    lineHeight: 1.3,
-    color: theme.palette.text.secondary,
-    marginTop: theme.spacing(1),
-    [theme.breakpoints.down("md")]: {
-        fontSize: "1.2rem",
-    },
-    [theme.breakpoints.down("sm")]: {
-        fontSize: "1rem",
-        textAlign: "center",
-    },
-}));
-
 
 export const Title = styled(Typography)(({ theme }) => ({
     ...theme.typography.h2,
@@ -121,40 +92,6 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
         textAlign: "center",
     },
 }));
-
-
-export const Title = styled(Typography)(({ theme }) => ({
-    fontFamily: "Montserrat, sans-serif",
-    fontWeight: 700,
-    fontSize: "3rem",
-    lineHeight: 1.2,
-    color: "#fff",
-    [theme.breakpoints.down("md")]: {
-        fontSize: "2.2rem",
-    },
-    [theme.breakpoints.down("sm")]: {
-        fontSize: "1.8rem",
-        textAlign: "center",
-    },
-}));
-
-export const SubTitle = styled(Typography)(({ theme }) => ({
-    fontFamily: "Montserrat, sans-serif",
-    fontWeight: 400,
-    fontSize: "1.5rem",
-    lineHeight: 1.3,
-    color: "#CBCBCB",
-    marginTop: theme.spacing(1),
-    [theme.breakpoints.down("md")]: {
-        fontSize: "1.2rem",
-    },
-    [theme.breakpoints.down("sm")]: {
-        fontSize: "1rem",
-        textAlign: "center",
-    },
-}));
-
-
 
 export const HeaderRight = styled(Box)(() => ({
     flex: 1,
