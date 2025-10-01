@@ -94,11 +94,10 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
 
 
 export const Title = styled(Typography)(({ theme }) => ({
-    fontFamily: "Montserrat, sans-serif",
-    fontWeight: 700,
-    fontSize: "3rem",
+    ...theme.typography.h2, 
+    fontWeight: 400,
     lineHeight: 1.2,
-    color: "#fff",
+    color: theme.palette.text.primary,
     [theme.breakpoints.down("md")]: {
         fontSize: "2.2rem",
     },
@@ -109,11 +108,10 @@ export const Title = styled(Typography)(({ theme }) => ({
 }));
 
 export const SubTitle = styled(Typography)(({ theme }) => ({
-    fontFamily: "Montserrat, sans-serif",
+    ...theme.typography.h5,
     fontWeight: 400,
-    fontSize: "1.5rem",
     lineHeight: 1.3,
-    color: "#CBCBCB",
+    color: theme.palette.text.secondary,
     marginTop: theme.spacing(1),
     [theme.breakpoints.down("md")]: {
         fontSize: "1.2rem",
@@ -123,8 +121,6 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
         textAlign: "center",
     },
 }));
-
-
 
 export const HeaderRight = styled(Box)(() => ({
     flex: 1,
