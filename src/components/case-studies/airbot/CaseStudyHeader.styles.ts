@@ -94,7 +94,7 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
 
 
 export const Title = styled(Typography)(({ theme }) => ({
-    ...theme.typography.h2, 
+    ...theme.typography.h2,
     fontWeight: 400,
     lineHeight: 1.2,
     color: theme.palette.text.primary,
