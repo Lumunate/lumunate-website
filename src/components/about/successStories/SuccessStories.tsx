@@ -7,7 +7,7 @@ import {
   BackgroundVideo,
   StarsWrapper,
 } from "./SuccessStories.style";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 
 type SuccessStoriesProps = {
@@ -23,9 +23,11 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
   role,
   showStars = false,
 }) => {
+  const theme = useTheme();
+
   return (
     <SuccessStoriesContainer>
-      {/* Background video (fixed for all pages) */}
+      {/* Background video */}
       <BackgroundVideo autoPlay muted loop playsInline>
         <source
           src="https://res.cloudinary.com/dqvzaju7x/video/upload/q_auto,f_auto/about_hero_bg2_dp38xc.mp4"
@@ -35,9 +37,14 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
       </BackgroundVideo>
 
       <ContentContainer>
-
         {/* Small heading */}
-        <Typography variant="h6" sx={{ color: "#fff", fontWeight: 400 }}>
+        <Typography
+          variant="h6"
+          sx={{
+            color: theme.palette.text.primary, // ✅ theme text
+            fontWeight: 400,
+          }}
+        >
           Client Success Stories
         </Typography>
 
@@ -45,7 +52,13 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
         {showStars && (
           <StarsWrapper>
             {[...Array(5)].map((_, idx) => (
-              <StarIcon key={idx} sx={{ color: "#FFD700", fontSize: 32 }} />
+              <StarIcon
+                key={idx}
+                sx={{
+                  color: theme.palette.warning.main, // ✅ theme yellow
+                  fontSize: 32,
+                }}
+              />
             ))}
           </StarsWrapper>
         )}
@@ -55,25 +68,31 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
           <Typography
             sx={{
               fontSize: { xs: "12px", sm: "16px", md: "30px", lg: "59px" },
-              color: "#fff",
+              color: theme.palette.text.primary, // ✅ theme text
               fontWeight: 400,
               lineHeight: 1.3,
             }}
           >
             “{storyText}”
           </Typography>
-
         </Box>
 
         {/* Name + role */}
         <Box sx={{ marginTop: { xs: "25px", md: "40px", lg: "65px" } }}>
           <Typography
-            sx={{ fontWeight: 700, color: "#fff", marginBottom: "4px" }}
+            sx={{
+              fontWeight: 700,
+              color: theme.palette.text.primary, // ✅ theme text
+              marginBottom: "4px",
+            }}
             variant="body2"
           >
             {name}
           </Typography>
-          <Typography variant="body1" sx={{ color: "#ccc" }}>
+          <Typography
+            variant="body1"
+            sx={{ color: theme.palette.text.secondary }} // ✅ theme secondary
+          >
             {role}
           </Typography>
         </Box>

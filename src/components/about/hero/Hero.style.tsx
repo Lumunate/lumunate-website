@@ -27,9 +27,9 @@ export const ContentContainer = styled(Box)(({ theme }) => ({
   width: "100%",
   padding: theme.spacing(0, 2.5), // 20px → theme spacing
   display: "flex",
-  alignItems: "flex-end",
+  alignItems: "flex-center",
   margin: "0 auto",
-  paddingBottom: theme.spacing(12.5), // 100px → theme spacing
+  paddingBottom: theme.spacing(2), // theme spacing
   justifyContent: "space-between",
   position: "relative",
   zIndex: 2,

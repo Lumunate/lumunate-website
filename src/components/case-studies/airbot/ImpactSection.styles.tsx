@@ -4,9 +4,12 @@ import { styled, Container, Typography, Box, Chip, List, ListItem } from "@mui/m
 
 export const SectionRoot = styled(Box)(({ theme }) => ({
   position: "relative",
-  backgroundColor: "#0E0E0E",
-  color: "#fff",
-  padding: theme.spacing(6, 10),
+  backgroundColor: theme.palette.background.default,   // theme background
+  color: theme.palette.text.primary,                  // theme text
+  paddingTop: theme.spacing(6),
+  paddingBottom: theme.spacing(6),
+  paddingLeft: theme.spacing(10),
+  paddingRight: theme.spacing(10),
 }));
 
 export const InnerContainer = styled(Container)(() => ({}));
@@ -15,7 +18,7 @@ export const RowGrid = styled(Box)(({ theme }) => ({
   display: "grid",
   gridTemplateColumns: "1fr 3fr",
   alignItems: "start",
-  gap: theme.spacing(12),           // bigger gap
+  gap: theme.spacing(12),
 
   marginBottom: theme.spacing(4),
 
@@ -26,13 +29,11 @@ export const RowGrid = styled(Box)(({ theme }) => ({
   },
 }));
 
-
 export const TitleText = styled(Typography)(({ theme }) => ({
+  ...theme.typography.h5,                  // use theme
   fontFamily: "Montserrat, sans-serif",
   fontWeight: 500,
-  fontSize: "24px",
-  color: "#EDEDED",
-
+  color: theme.palette.text.primary,       // text color from theme
   [theme.breakpoints.down("md")]: {
     fontSize: "20px",
     marginBottom: theme.spacing(2),
@@ -40,14 +41,13 @@ export const TitleText = styled(Typography)(({ theme }) => ({
   },
 }));
 
-
 export const ListWrapper = styled(List)(({ theme }) => ({
   maxWidth: "100%",
   marginBottom: theme.spacing(3),
-  fontSize: "15px",
+  ...theme.typography.body2,              // consistent text style
   lineHeight: 1.6,
   paddingLeft: theme.spacing(3),
-  listStyleType: "disc",  //  bullets....
+  listStyleType: "disc",
   paddingInlineStart: theme.spacing(3),
 
   [theme.breakpoints.down("md")]: {
@@ -56,33 +56,31 @@ export const ListWrapper = styled(List)(({ theme }) => ({
   },
 }));
 
-export const ListItemStyled = styled(ListItem)(() => ({
-  display: "list-item",  
+export const ListItemStyled = styled(ListItem)(({ theme }) => ({
+  display: "list-item",
   padding: 0,
-  color: "rgba(255,255,255,0.85)",
-  fontSize: "15px",
+  color: theme.palette.text.secondary,     // theme text
+  fontSize: theme.typography.body2.fontSize,
   lineHeight: 1.6,
 }));
-
 
 export const ServicesWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   gap: theme.spacing(1.5),
   flexWrap: "wrap",
-    cursor: "pointer",
-
+  cursor: "pointer",
   [theme.breakpoints.down("md")]: {
     justifyContent: "center",
   },
 }));
 
-export const ServiceChip = styled(Chip)(({ }) => ({
-  backgroundColor: "#00000033",
-  color: "#EDEDED",
-  border: "1px solid rgba(255,255,255,0.15)",
+export const ServiceChip = styled(Chip)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,     // use theme paper bg
+  color: theme.palette.text.primary,                  // text from theme
+  border: `1px solid ${theme.palette.divider}`,       // theme divider
   borderRadius: "16px",
   fontSize: "14px",
   "&:hover": {
-    backgroundColor: "rgba(255,255,255,0.15)",
+    backgroundColor: theme.palette.action.hover,      // hover state
   },
 }));
