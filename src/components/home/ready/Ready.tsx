@@ -40,30 +40,26 @@ const Ready = ({
       <Overlay />
 
       <TextWrapper>
-        {/* Title */}
         <Typography
           sx={{
             fontSize: { xs: "32px", sm: "56px", md: "78px" },
-            color: theme.palette.text.primary, // ✅ theme text
+            color: theme.palette.text.primary,
             fontWeight: 400,
           }}
         >
           {title}
         </Typography>
-
-        {/* Description */}
         <Typography
-          sx={{ color: theme.palette.text.secondary, mt: 2 }} // ✅ theme text
+          sx={{ color: theme.palette.text.secondary, mt: 2 }}
           variant="body2"
         >
           {description}
         </Typography>
 
-        {/* CTA Link */}
         <Box sx={{ marginTop: "38px" }}>
           <Link
             style={{
-              color: theme.palette.text.primary, // ✅ theme text
+              color: theme.palette.text.primary,
               textDecoration: "none",
             }}
             href={linkHref}
@@ -73,7 +69,7 @@ const Ready = ({
               sx={{
                 display: "inline-flex",
                 alignItems: "center",
-                color: theme.palette.text.primary, // ✅ theme text
+                color: theme.palette.text.primary,
               }}
             >
               {linkText}{" "}

@@ -27,7 +27,6 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
 
   return (
     <SuccessStoriesContainer>
-      {/* Background video */}
       <BackgroundVideo autoPlay muted loop playsInline>
         <source
           src="https://res.cloudinary.com/dqvzaju7x/video/upload/q_auto,f_auto/about_hero_bg2_dp38xc.mp4"
@@ -37,38 +36,33 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
       </BackgroundVideo>
 
       <ContentContainer>
-        {/* Small heading */}
         <Typography
           variant="h6"
           sx={{
-            color: theme.palette.text.primary, // ✅ theme text
+            color: theme.palette.text.primary,
             fontWeight: 400,
           }}
         >
           Client Success Stories
         </Typography>
-
-        {/* Optional stars */}
         {showStars && (
           <StarsWrapper>
             {[...Array(5)].map((_, idx) => (
               <StarIcon
                 key={idx}
                 sx={{
-                  color: theme.palette.warning.main, // ✅ theme yellow
+                  color: theme.palette.warning.main,
                   fontSize: 32,
                 }}
               />
             ))}
           </StarsWrapper>
         )}
-
-        {/* Main story text */}
         <Box sx={{ marginTop: { xs: "30px", md: "50px", lg: "65px" } }}>
           <Typography
             sx={{
               fontSize: { xs: "12px", sm: "16px", md: "30px", lg: "59px" },
-              color: theme.palette.text.primary, // ✅ theme text
+              color: theme.palette.text.primary,
               fontWeight: 400,
               lineHeight: 1.3,
             }}
@@ -77,12 +71,11 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
           </Typography>
         </Box>
 
-        {/* Name + role */}
         <Box sx={{ marginTop: { xs: "25px", md: "40px", lg: "65px" } }}>
           <Typography
             sx={{
               fontWeight: 700,
-              color: theme.palette.text.primary, // ✅ theme text
+              color: theme.palette.text.primary,
               marginBottom: "4px",
             }}
             variant="body2"
@@ -91,7 +84,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
           </Typography>
           <Typography
             variant="body1"
-            sx={{ color: theme.palette.text.secondary }} // ✅ theme secondary
+            sx={{ color: theme.palette.text.secondary }}
           >
             {role}
           </Typography>

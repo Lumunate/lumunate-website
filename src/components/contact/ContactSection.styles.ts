@@ -5,17 +5,16 @@ import { Box, styled, TextField } from "@mui/material";
 export const VideoHeader = styled(Box)(({ theme }) => ({
     position: "relative",
     width: "100%",
-    height: "280px", // default (xs)
+    height: "280px",
     overflow: "hidden",
     marginBottom: theme.spacing(0),
     [theme.breakpoints.up("md")]: {
-        height: "380px", 
+        height: "380px",
     },
     [theme.breakpoints.up("lg")]: {
-        height: "450px", 
+        height: "450px",
     },
 }));
-
 
 export const BackgroundVideo = styled("video")({
     position: "absolute",

@@ -47,8 +47,8 @@ const Different = () => {
                   xs:
                     index === 0 || index === 1 || index === 2
                       ? "1px solid #757575"
-                      : "none", // 👈 xs & sm
-                  md: index === 0 || index === 1 ? "1px solid #757575" : "none", // 👈 md and up
+                      : "none",
+                  md: index === 0 || index === 1 ? "1px solid #757575" : "none",
                 },
                 padding: { xs: "40px 20px", sm: "80px 28px", lg: "160px 32px" },
                 backgroundImage: isGifBackground
@@ -60,16 +60,16 @@ const Different = () => {
                 borderRadius: {
                   xs:
                     index === 0
-                      ? "12px 12px 0 0" // only top corners rounded for index 0
+                      ? "12px 12px 0 0"
                       : index === 3
-                      ? "12px" // no radius for index 3 on small screens
-                      : "0",
+                        ? "12px"
+                        : "0",
                   md:
                     index === 0
-                      ? "12px 0 0 0" // top-left only for index 0
+                      ? "12px 0 0 0"
                       : index === 3
-                      ? "0 0 12px 0" // bottom-right only for index 3
-                      : "0",
+                        ? "0 0 12px 0"
+                        : "0",
                 },
               }}
             >

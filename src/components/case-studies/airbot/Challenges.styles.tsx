@@ -6,30 +6,30 @@ export const SectionRoot = styled(Box, {
   shouldForwardProp: (prop) => prop !== "component",
 })<{ component?: React.ElementType }>(({ theme }) => ({
   position: "relative",
-  backgroundColor: theme.palette.background.default,   // use theme background
-  color: theme.palette.text.primary,                  // use theme text
-  paddingTop: theme.spacing(1), // 8px
+  backgroundColor: theme.palette.background.default,
+  color: theme.palette.text.primary,
+  paddingTop: theme.spacing(1),
   paddingBottom: theme.spacing(1),
 }));
 
 export const InnerContainer = styled(Container)(() => ({}));
 
 export const TopStrip = styled(Box)(() => ({
-  marginBottom: 0, // small spacing before image
+  marginBottom: 0,
 }));
 
 export const TitleText = styled(Typography)(({ theme }) => ({
-  ...theme.typography.h4,                     
+  ...theme.typography.h4,
   fontFamily: "Montserrat, sans-serif",
   fontWeight: 400,
-  color: theme.palette.text.primary,         
+  color: theme.palette.text.primary,
 }));
 
 export const DescText = styled(Typography)(({ theme }) => ({
-  ...theme.typography.body2,                  // base from theme
+  ...theme.typography.body2,
   fontFamily: "Manrope, sans-serif",
   fontWeight: 400,
-  color: theme.palette.text.secondary,        
+  color: theme.palette.text.secondary,
   lineHeight: 1.6,
 }));
 
@@ -50,8 +50,8 @@ export const ImageGridWrapper = styled(Box)(({ theme }) => ({
   "& img": {
     width: "100%",
     height: "100%",
-    aspectRatio: "19/12",        //  keeps proportions consistent
-    borderRadius: theme.shape.borderRadius,  // theme radius
+    aspectRatio: "19/12",
+    borderRadius: theme.shape.borderRadius,
     objectFit: "cover",
   },
 }));

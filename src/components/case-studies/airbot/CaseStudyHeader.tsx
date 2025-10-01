@@ -15,7 +15,6 @@ import {
   SubTitle,
 } from "./CaseStudyHeader.styles";
 
-/** Types */
 type MetaSimple = { label: string; value: ReactNode };
 type MetaGroupItem = { label?: string; value: ReactNode };
 type MetaGroup = { label: string; items: MetaGroupItem[] };
@@ -50,7 +49,6 @@ export default function CaseStudyHeader({
 }: CaseStudyHeaderProps) {
   return (
     <HeaderRoot>
-      {/* Background video...*/}
       <BackgroundVideo
         component="video"
         src="/case-studies/airbot-header.mp4"
@@ -61,14 +59,11 @@ export default function CaseStudyHeader({
       />
 
       <HeaderContent overlayopacity={overlayOpacity}>
-        {/* Left column */}
         <HeaderLeft>
           <Title>{title}</Title>
           {subtitle && <SubTitle>{subtitle}</SubTitle>}
 
         </HeaderLeft>
-
-        {/* Right column */}
         <HeaderRight sx={{ maxWidth: rightMaxWidth }}>
           {description && <Description>{description}</Description>}
 
@@ -80,7 +75,6 @@ export default function CaseStudyHeader({
                 columnGap: metaColumnGap,
               }}
             >
-              {/* Left column (labels only) */}
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 {metaItems.map((metaItem, metaIndex) => {
                   let marginTop = 0;
@@ -94,8 +88,6 @@ export default function CaseStudyHeader({
                   );
                 })}
               </Box>
-
-              {/* Right column (values only) */}
               <Box
                 sx={{
                   display: "flex",
@@ -119,7 +111,6 @@ export default function CaseStudyHeader({
                     );
                   }
 
-                  // Timeline (grouped rows)
                   return (
                     <Box
                       key={`group-${metaIndex}`}

@@ -6,7 +6,6 @@ import Image from "next/image";
 const Hero = () => {
   return (
     <HeroContainer>
-      {/* Background video */}
       <BackgroundVideo autoPlay muted loop playsInline>
         <source
           src="https://res.cloudinary.com/dqvzaju7x/video/upload/q_auto,f_auto/about_hero_bg_drepea.mp4"

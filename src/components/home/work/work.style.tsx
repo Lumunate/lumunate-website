@@ -4,17 +4,17 @@ import { Box, styled } from "@mui/material";
 
 export const WorkWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
-  paddingTop: theme.spacing(7.5), // 60px → theme spacing
+  paddingTop: theme.spacing(7.5),
   maxWidth: "1698px",
   padding: "0 20px",
   margin: "0 auto",
 }));
 
 export const ProjectsWrapper = styled(Box)(({ theme }) => ({
-  marginTop: theme.spacing(8), // 65px → theme spacing
+  marginTop: theme.spacing(8),
   display: "grid",
   gridTemplateColumns: "repeat(4, 1fr)",
-  gap: theme.spacing(2), // 16px → theme spacing
+  gap: theme.spacing(2),
   [theme.breakpoints.down("lg")]: {
     gridTemplateColumns: "repeat(3, 1fr)",
   },
@@ -30,7 +30,7 @@ export const TitleWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
   padding: theme.spacing(1.5),
-  borderRadius: (theme.shape.borderRadius as number) * 1.5, // ✅ fixed
+  borderRadius: (theme.shape.borderRadius as number) * 1.5,
   backgroundColor:
     theme.palette.mode === "dark"
       ? theme.palette.background.paper

@@ -35,18 +35,15 @@ export default function Challenges({
                         sx={{
                             display: "grid",
                             gridTemplateColumns: {
-                                xs: "1fr", // stack on small
-                                md: "1fr 1fr", // side by side on desktop
+                                xs: "1fr",
+                                md: "1fr 1fr",
                             },
                             gap: 2,
                         }}
                     >
-                        {/* Title */}
                         <Box>
                             <Typography variant="h2">{title}</Typography>
                         </Box>
-
-                        {/* Description */}
                         <Box>
                             <Typography
                                 sx={{ color: "#CBCBCB", maxWidth: "900px", fontSize: "15px" }}
@@ -58,8 +55,6 @@ export default function Challenges({
                     </Box>
                 </TopStrip>
             </InnerContainer>
-
-            {/* Full screen image */}
             {imageSrc && !imageLeftSrc && !imageRightSrc && (
                 <ImageWrapper>
                     <Image
@@ -73,8 +68,6 @@ export default function Challenges({
                     />
                 </ImageWrapper>
             )}
-
-            {/* Two images side by side (stay inside container) */}
             {imageLeftSrc && imageRightSrc && (
                 <ImageGridWrapper>
                     <Image

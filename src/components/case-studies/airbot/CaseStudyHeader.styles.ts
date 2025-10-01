@@ -32,7 +32,6 @@ export const BackgroundImage = styled(Box)(() => ({
     zIndex: 0,
 })) as typeof Box;
 
-/* Overlay content */
 export const HeaderContent = styled(Box, {
     shouldForwardProp: (prop) => prop !== "overlayopacity",
 })<{ overlayopacity?: number }>(({ theme, overlayopacity = 0.4 }) => ({
@@ -65,7 +64,7 @@ export const HeaderLeft = styled(Box)(({ theme }) => ({
 }));
 
 export const Title = styled(Typography)(({ theme }) => ({
-    ...theme.typography.h2, 
+    ...theme.typography.h2,
     fontWeight: 400,
     lineHeight: 1.2,
     color: theme.palette.text.primary,

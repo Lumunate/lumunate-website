@@ -7,8 +7,8 @@ export const HeroContainer = styled(Box)(({ theme }) => ({
   width: "100%",
   position: "relative",
   overflow: "hidden",
-  backgroundColor: theme.palette.background.default, // ✅ theme background
-  color: theme.palette.text.primary, // ✅ theme text
+  backgroundColor: theme.palette.background.default,
+  color: theme.palette.text.primary,
 }));
 
 export const BackgroundVideo = styled("video")({
@@ -25,11 +25,11 @@ export const ContentContainer = styled(Box)(({ theme }) => ({
   height: "100%",
   maxWidth: "1698px",
   width: "100%",
-  padding: theme.spacing(0, 2.5), // 20px → theme spacing
+  padding: theme.spacing(0, 2.5),
   display: "flex",
   alignItems: "flex-center",
   margin: "0 auto",
-  paddingBottom: theme.spacing(2), // theme spacing
+  paddingBottom: theme.spacing(2),
   justifyContent: "space-between",
   position: "relative",
   zIndex: 2,

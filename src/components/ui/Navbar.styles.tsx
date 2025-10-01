@@ -1,14 +1,13 @@
 import { Box, styled, Toolbar } from "@mui/material";
 
-// Main Navbar container with background and borders
 export const NavContainer = styled(Box)(({ theme }) => ({
     width: "100%",
     margin: 0,
-    padding: theme.spacing(0, 6.25), // 50px → spacing system
-    backgroundColor: theme.palette.background.default, // ✅ theme bg
+    padding: theme.spacing(0, 6.25),
+    backgroundColor: theme.palette.background.default,
     borderTop: `1px solid ${theme.palette.divider ?? "#1c1c1c"}`,
     borderBottom: `1px solid ${theme.palette.divider ?? "#1c1c1c"}`,
-    color: theme.palette.text.secondary, // ✅ text color
+    color: theme.palette.text.secondary,
 }));
 
 export const StyledToolbar = styled(Toolbar)(({ theme }) => ({
@@ -23,16 +22,16 @@ export const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 export const LogoBox = styled(Box)(() => ({
     display: "flex",
     alignItems: "center",
-    flex: 1, // take equal space on left
+    flex: 1,
 }));
 
 export const MenuBox = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    flex: 2, // center section wider
+    flex: 2,
     "& > *:not(:last-child)": {
-        marginRight: theme.spacing(3), // 24px via theme
+        marginRight: theme.spacing(3),
     },
 }));
 
@@ -40,15 +39,14 @@ export const RightBox = styled(Box)(() => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
-    flex: 1, // equal space on right
+    flex: 1,
 }));
 
-// Vertical divider for y-axis borders
 export const VerticalDivider = styled(Box)(({ theme }) => ({
     width: "1px",
     height: "80px",
     backgroundColor: theme.palette.divider ?? "#222",
-    alignSelf: "center",       // vertically center
+    alignSelf: "center",
 }));
 
 
