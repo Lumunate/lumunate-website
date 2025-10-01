@@ -3,11 +3,12 @@ import HeaderSection from "@/components/home/HeaderSection";
 import LogosSection from "@/components/home/LogosSection";
 import TestimonialSection from "@/components/home/TestimonialSection";
 import WorkflowSection from "@/components/home/WorkflowSection";
-import Explore from "@/components/home/explore/Explore";
 import OurApproach from "@/components/home/ourApproach/OurApproach";
 import Ready from "@/components/home/ready/Ready";
 import TrackRecord from "@/components/home/trackRecord/TrackRecord";
 import Works from "@/components/home/work/Works";
+import { Box } from "@mui/material";
+import { Explore } from "@/components/case-studies/Explore.styles";
 
 
 export default function Home() {
@@ -27,7 +28,11 @@ export default function Home() {
 
       <Works />
 
-      <Explore />
+      <Box component="section">
+        <Explore variant="h1">
+          Explore. Engineer. Evolve.
+        </Explore>
+      </Box>
 
       <Ready
         title="Ready to Build What's Next?"

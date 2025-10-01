@@ -35,7 +35,7 @@ export const ContentBox = styled(Box)(({ theme }) => ({
     width: "100%",
     maxWidth: "1440px",
     margin: "0 auto",
-    padding: "0 50px",  
+    padding: "0 30px",  
     position: "relative",
     zIndex: 1,
     [theme.breakpoints.down("lg")]: {
@@ -124,7 +124,7 @@ export const SocialStack = styled(Stack)(({ theme }) => ({
     flexDirection: "column",
     gap: theme.spacing(1.5),
     alignItems: "flex-end",
-    padding: "0 50px",  
+    padding: "0 30px",  
     zIndex: 2,
 
     [theme.breakpoints.down("md")]: {

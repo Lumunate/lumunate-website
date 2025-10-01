@@ -1,15 +1,16 @@
 "use client";
 import { styled, Box, Typography } from "@mui/material";
 
-export const HeaderRoot = styled(Box)(() => ({
+export const HeaderRoot = styled(Box)(({ theme }) => ({
     position: "relative",
     width: "100%",
     height: "100vh",
     overflow: "hidden",
-    color: "#fff",
+    color: theme.palette.text.primary,
+    backgroundColor: theme.palette.background.default,
 }));
 
-export const BackgroundVideo = styled(Box)(({ }) => ({
+export const BackgroundVideo = styled(Box)(() => ({
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -20,7 +21,7 @@ export const BackgroundVideo = styled(Box)(({ }) => ({
     zIndex: 0,
 })) as typeof Box;
 
-export const BackgroundImage = styled(Box)(({ }) => ({
+export const BackgroundImage = styled(Box)(() => ({
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -63,13 +64,11 @@ export const HeaderLeft = styled(Box)(({ theme }) => ({
     },
 }));
 
-
 export const Title = styled(Typography)(({ theme }) => ({
-    fontFamily: "Montserrat, sans-serif",
-    fontWeight: 700,
-    fontSize: "3rem",
+    ...theme.typography.h2, 
+    fontWeight: 400,
     lineHeight: 1.2,
-    color: "#fff",
+    color: theme.palette.text.primary,
     [theme.breakpoints.down("md")]: {
         fontSize: "2.2rem",
     },
@@ -80,11 +79,10 @@ export const Title = styled(Typography)(({ theme }) => ({
 }));
 
 export const SubTitle = styled(Typography)(({ theme }) => ({
-    fontFamily: "Montserrat, sans-serif",
+    ...theme.typography.h5,
     fontWeight: 400,
-    fontSize: "1.5rem",
     lineHeight: 1.3,
-    color: "#CBCBCB",
+    color: theme.palette.text.secondary,
     marginTop: theme.spacing(1),
     [theme.breakpoints.down("md")]: {
         fontSize: "1.2rem",
@@ -95,8 +93,6 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
     },
 }));
 
-
-
 export const HeaderRight = styled(Box)(() => ({
     flex: 1,
     display: "flex",
@@ -105,28 +101,25 @@ export const HeaderRight = styled(Box)(() => ({
 }));
 
 export const Description = styled(Typography)(({ theme }) => ({
+    ...theme.typography.body1,
     fontFamily: "Manrope, sans-serif",
-    fontWeight: 400,
-    fontSize: "15px",
-    lineHeight: "120%",
-    letterSpacing: "-2%",
-    color: "#CBCBCB",
+    color: theme.palette.text.secondary,
     opacity: 0.9,
     marginBottom: theme.spacing(4),
     maxWidth: "900px",
     [theme.breakpoints.down("md")]: { fontSize: "16px" },
 }));
 
-export const MetaLabel = styled(Typography)(() => ({
+export const MetaLabel = styled(Typography)(({ theme }) => ({
     fontFamily: "Montserrat, sans-serif",
     fontWeight: 400,
     fontSize: "1rem",
-    color: "#B8B8B8",
+    color: theme.palette.text.secondary,
 }));
 
-export const MetaValue = styled(Typography)(() => ({
+export const MetaValue = styled(Typography)(({ theme }) => ({
     fontFamily: "Montserrat, sans-serif",
     fontWeight: 400,
     fontSize: "1rem",
-    color: "#FFFFFF",
+    color: theme.palette.text.primary,
 }));

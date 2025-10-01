@@ -4,9 +4,9 @@ import Link from "next/link";
 
 /* Root container */
 export const FooterRoot = styled("footer")(({ theme }) => ({
-    backgroundColor: theme.palette.background.default, // ✅ theme bg
+    backgroundColor: theme.palette.background.default, // theme bg
     borderTop: `1px solid ${theme.palette.divider ?? "#222"}`,
-    color: theme.palette.text.secondary, // ✅ theme text
+    color: theme.palette.text.secondary, // theme text
     width: "100%",
 }));
 

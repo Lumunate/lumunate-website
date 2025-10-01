@@ -43,7 +43,7 @@ export const LogoItem = styled(Box)(({ theme }) => ({
     maxWidth: 90,
 
     "& img": {
-        width: 70,
+        width: 80,
         height: 60,
         objectFit: "contain",
         filter: "grayscale(1)",

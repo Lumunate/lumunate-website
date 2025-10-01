@@ -5,10 +5,11 @@ import { styled } from "@mui/material/styles";
 
 export const ReadyContainer = styled(Box)(({ theme }) => ({
   position: "relative",
-  marginTop: theme.spacing(5), 
+  marginTop: theme.spacing(5),
   width: "100%",
   height: "100vh",
   overflow: "hidden",
+  backgroundColor: theme.palette.background.default, // theme background fallback
 
   [theme.breakpoints.down("md")]: {
     height: "80vh",
@@ -34,9 +35,10 @@ export const Overlay = styled(Box)(({ theme }) => ({
   left: 0,
   width: "100%",
   height: "100%",
-  background: theme.palette.mode === "dark"
-    ? "rgba(0,0,0,0.45)" // dark overlay
-    : "rgba(255,255,255,0.25)", // light overlay (if needed)
+  background:
+    theme.palette.mode === "dark"
+      ? "rgba(0,0,0,0.45)" // dark mode overlay
+      : "rgba(255,255,255,0.25)", // light mode overlay
   zIndex: 1,
 }));
 
@@ -44,12 +46,24 @@ export const TextWrapper = styled(Box)(({ theme }) => ({
   position: "relative",
   display: "flex",
   justifyContent: "center",
-  maxWidth: "1100px",
+  maxWidth: "1050px",
   margin: "0 auto",
   flexDirection: "column",
   textAlign: "center",
-  zIndex: 2, 
-  padding: theme.spacing(0, 2), 
+  letterSpacing: "-1.5px",
+  zIndex: 2,
+  padding: theme.spacing(0, 2),
+  color: theme.palette.text.primary,
+
+  "& h1, & h2, & .MuiTypography-root": {
+    lineHeight: 1.1, // tighter default line-height
+    [theme.breakpoints.down("md")]: {
+      lineHeight: 1.05, // slightly tighter on tablets
+    },
+    [theme.breakpoints.down("sm")]: {
+      lineHeight: 1.02, // even tighter on phones
+    },
+  },
 
   [theme.breakpoints.down("md")]: {
     maxWidth: "90%",

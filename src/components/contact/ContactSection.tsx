@@ -1,6 +1,6 @@
 "use client";
 
-import { Typography, MenuItem, Button, Box } from "@mui/material";
+import { Typography, MenuItem, Button, Box, useTheme } from "@mui/material";
 import {
     ContactRoot,
     ContactForm,
@@ -30,6 +30,8 @@ const budgets = [
 ];
 
 export default function ContactSection() {
+    const theme = useTheme();
+
     return (
         <>
             <VideoHeader>
@@ -48,14 +50,14 @@ export default function ContactSection() {
                         textAlign: "left",
                         alignSelf: "flex-start",
                         mb: 4,
-                        ml: 12,
+                        ml: { xs: 2, md: 12 },
+                        color: theme.palette.text.primary,
                     }}
                 >
                     Get in Touch
                 </Typography>
 
                 <ContactForm onSubmit={(e) => e.preventDefault()}>
-                    {/* Email */}
                     <ContactTextField
                         label="Your Email"
                         type="email"
@@ -63,7 +65,6 @@ export default function ContactSection() {
                         fullWidth
                     />
 
-                    {/* Phone */}
                     <ContactTextField
                         label="Your Phone"
                         type="tel"
@@ -71,7 +72,6 @@ export default function ContactSection() {
                         fullWidth
                     />
 
-                    {/* Interested */}
                     <ContactTextField
                         select
                         label="I’m interested in..."
@@ -81,8 +81,8 @@ export default function ContactSection() {
                             MenuProps: {
                                 PaperProps: {
                                     sx: {
-                                        bgcolor: "#0E0E0E",
-                                        color: "#AAAAAA",
+                                        bgcolor: theme.palette.background.paper,
+                                        color: theme.palette.text.secondary,
                                     },
                                 },
                             },
@@ -96,8 +96,6 @@ export default function ContactSection() {
                         ))}
                     </ContactTextField>
 
-
-                    {/* Budget */}
                     <ContactTextField
                         select
                         label="Your Budget"
@@ -107,8 +105,8 @@ export default function ContactSection() {
                             MenuProps: {
                                 PaperProps: {
                                     sx: {
-                                        bgcolor: "#0E0E0E",
-                                        color: "#AAAAAA",
+                                        bgcolor: theme.palette.background.paper,
+                                        color: theme.palette.text.secondary,
                                     },
                                 },
                             },
@@ -121,7 +119,6 @@ export default function ContactSection() {
                             </MenuItem>
                         ))}
                     </ContactTextField>
-
                 </ContactForm>
 
                 <Button
@@ -132,23 +129,19 @@ export default function ContactSection() {
                         mt: 4,
                         px: 4,
                         py: 1.5,
-                        bgcolor: "#015B3F",
+                        bgcolor: theme.palette.success.main,
                         textTransform: "none",
                         fontWeight: 600,
-                        "&:hover": { bgcolor: "#333" },
+                        "&:hover": { bgcolor: theme.palette.success.dark },
                     }}
                 >
                     Submit
                 </Button>
-
             </ContactRoot>
 
             <Box component="section">
-                <Explore variant="h1">
-                    Explore. Engineer. Evolve.
-                </Explore>
+                <Explore variant="h1">Explore. Engineer. Evolve.</Explore>
             </Box>
-
 
             <Ready
                 title="Tell us about your vision"
@@ -156,8 +149,6 @@ export default function ContactSection() {
                 linkText="Let's Connect"
                 linkHref="/contact"
             />
-
-
         </>
     );
 }

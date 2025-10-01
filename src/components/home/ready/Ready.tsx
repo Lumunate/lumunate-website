@@ -7,7 +7,7 @@ import {
   BackgroundVideo,
   Overlay,
 } from "./Ready.style";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 
@@ -28,6 +28,8 @@ const Ready = ({
   linkText = "Let’s Connect",
   linkHref = "/contact",
 }: ReadyProps) => {
+  const theme = useTheme();
+
   return (
     <ReadyContainer>
       <BackgroundVideo autoPlay muted loop playsInline poster={poster}>
@@ -41,8 +43,8 @@ const Ready = ({
         {/* Title */}
         <Typography
           sx={{
-            fontSize: { xs: "32px",sm:"56px", md: "78px" },
-            color: "#fff",
+            fontSize: { xs: "32px", sm: "56px", md: "78px" },
+            color: theme.palette.text.primary, // ✅ theme text
             fontWeight: 400,
           }}
         >
@@ -50,22 +52,34 @@ const Ready = ({
         </Typography>
 
         {/* Description */}
-        <Typography sx={{ color: "#AAAAAA", mt: 2 }} variant="body2">
+        <Typography
+          sx={{ color: theme.palette.text.secondary, mt: 2 }} // ✅ theme text
+          variant="body2"
+        >
           {description}
         </Typography>
 
         {/* CTA Link */}
         <Box sx={{ marginTop: "38px" }}>
-          <Link style={{ color: "white", textDecoration: "none" }} href={linkHref}>
+          <Link
+            style={{
+              color: theme.palette.text.primary, // ✅ theme text
+              textDecoration: "none",
+            }}
+            href={linkHref}
+          >
             <Typography
               variant="h4"
               sx={{
                 display: "inline-flex",
                 alignItems: "center",
-                color: "#fff",
+                color: theme.palette.text.primary, // ✅ theme text
               }}
             >
-              {linkText} <ArrowOutwardIcon sx={{ fontSize: "26px", ml: 1 }} />
+              {linkText}{" "}
+              <ArrowOutwardIcon
+                sx={{ fontSize: "26px", ml: 1, color: theme.palette.text.primary }}
+              />
             </Typography>
           </Link>
         </Box>
