@@ -62,7 +62,7 @@ export const SubContentWrapper = styled(Box)(({ theme }) => ({
   justifyContent: "center",
   display: "flex",
   flexDirection: "column",
-  borderBottom: "0.4px solid #B4B4B4",
+  borderBottom: "0.4px solid #B4B4B4", // ✅ keep horizontal line
   height: "100%",
   alignItems: "center",
   padding: theme.spacing(6, 8),
