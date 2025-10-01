@@ -4,7 +4,7 @@ import Challenges from "@/components/case-studies/airbot/Challenges";
 import ImpactSection from "@/components/case-studies/airbot/ImpactSection";
 import { Explore } from "@/components/case-studies/Explore.styles";
 import Ready from "@/components/home/ready/Ready";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
 export default function AllfredCaseStudyPage() {
     return (

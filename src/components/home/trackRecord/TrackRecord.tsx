@@ -1,7 +1,6 @@
 
 import React from 'react'
 import { DescriptionText, DiscoverButton, NumberText, StatusCard, StatusWrapper, TitleText, TitleWrapper, TrackContainer  } from './TrackRecord.style'
-import { Typography } from '@mui/material'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
 const TrackRecord = () => {

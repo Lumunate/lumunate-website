@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import {
   HeaderRoot,
   BackgroundVideo,
