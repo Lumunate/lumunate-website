@@ -1,3 +1,4 @@
+"use client"
 import StarIcon from "@mui/icons-material/Star";
 import {
     TestimonialRoot,
@@ -13,15 +14,20 @@ import {
     AuthorTitle,
 } from "./TestimonialSection.styles";
 import Image from "next/image";
+import useGsapAnimation from "@/hooks/useGsapAnimation";
 
 export default function TestimonialSection() {
+
+      const headingRef = useGsapAnimation({ direction: "fade", delay: 0.5, duration:2 });
+  const boxRef = useGsapAnimation({ direction: "fade", delay: 0.5, duration:2 });
+
     return (
         <TestimonialRoot>
             <TestimonialContent>
-                <TestimonialHeading variant="h2">
+                <TestimonialHeading ref={headingRef} variant="h2">
                     Solutions crafted for your digital ambitions
                 </TestimonialHeading>
-                <TestimonialBox>
+                <TestimonialBox ref={boxRef}>
                     <StarsRow>
                         {Array.from({ length: 5 }).map((_, i) => (
                             <StarIcon key={i} sx={{ color: "#FFD600", fontSize: 24 }} />
