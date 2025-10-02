@@ -2,7 +2,7 @@
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState  } from "react";
 
 // Register plugin once
 gsap.registerPlugin(ScrollTrigger);
@@ -75,3 +75,38 @@ const useGsapAnimation = ({
 };
 
 export default useGsapAnimation;
+
+export const useGsapSlideAnimation = (data: unknown[]) => {
+  const elementRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (!elementRef.current) return;
+
+    const sections = data.length;
+
+    gsap.to({}, {
+      scrollTrigger: {
+        trigger: elementRef.current,
+        start: "top top",
+        end: `+=${sections * 100}%`,
+        scrub: true,
+        pin: true,
+        onUpdate: (self) => {
+          // progress goes from 0 → 1 as we scroll
+          const newIndex = Math.min(
+            sections - 1,
+            Math.floor(self.progress * sections)
+          );
+          setActiveIndex(newIndex);
+        },
+      },
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((st) => st.kill());
+    };
+  }, [data]);
+
+  return { elementRef, activeIndex };
+};
