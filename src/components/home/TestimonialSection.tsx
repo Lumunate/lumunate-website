@@ -18,8 +18,8 @@ import useGsapAnimation from "@/hooks/useGsapAnimation";
 
 export default function TestimonialSection() {
 
-      const headingRef = useGsapAnimation({ direction: "fade", delay: 0.5, duration:2 });
-  const boxRef = useGsapAnimation({ direction: "fade", delay: 0.5, duration:2 });
+      const headingRef = useGsapAnimation({ direction: "fade", delay: 0.5, duration:1 });
+  const boxRef = useGsapAnimation({ direction: "fade", delay: 0.5, duration:1 });
 
     return (
         <TestimonialRoot>
