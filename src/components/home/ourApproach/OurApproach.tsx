@@ -10,7 +10,7 @@ import {
   SubContentWrapper,
   SubTitle,
   TitleText,
-  DescriptionText
+  DescriptionText,
 } from "./OurApproach.style";
 import { Box } from "@mui/material";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
@@ -66,9 +66,7 @@ const OurApproach = () => {
       </video>
 
       <SubContainer>
-        <TitleText variant="h1">
-          Our Approach
-        </TitleText>
+        <TitleText variant="h1">Our Approach</TitleText>
 
         <ContentWrapper>
           <SubContentWrapper>
@@ -79,20 +77,22 @@ const OurApproach = () => {
               </SubTitle>
             </Box>
           </SubContentWrapper>
+
           <Box
             sx={{
               borderLeft: "0.4px solid #B4B4B4",
               borderBottom: "0.4px solid #B4B4B4",
               height: "100%",
-               display: {xs:"none", md:"block"},
+              display: { xs: "none", md: "block" },
             }}
-          ></Box>
+          />
           <Box
             sx={{
               height: "100%",
-               display: {xs:"none", md:"block"},
+              display: { xs: "none", md: "block" },
             }}
-          ></Box>
+          />
+
           <RightBottomBox>
             <DescriptionText ref={descriptionRef} variant="h5">
               {data[activeIndex].description}
@@ -104,7 +104,6 @@ const OurApproach = () => {
           </RightBottomBox>
         </ContentWrapper>
       </SubContainer>
-      
     </OurApproachContainer>
   );
 };
