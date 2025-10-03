@@ -20,38 +20,39 @@ const OurApproach = () => {
 
   const data = [
     {
-      number:"01",
-      title:"Visual Identity & Branding",
-      description:"Define your digital presence with distinctive branding that resonates and converts.",
+      number: "01",
+      title: "Visual Identity & Branding",
+      description: "Define your digital presence with distinctive branding that resonates and converts.",
     },
-     {
-      number:"02",
-      title:"Design & Research",
-      description:"Transform ideas into user-centered designs through research, prototypes, and validation.",
+    {
+      number: "02",
+      title: "Design & Research",
+      description: "Transform ideas into user-centered designs through research, prototypes, and validation.",
     },
-     {
-      number:"03",
-      title:"Development & Testing",
-      description:"Build scalable solutions with clean architecture, rigorous testing, and modern frameworks.",
+    {
+      number: "03",
+      title: "Development & Testing",
+      description: "Build scalable solutions with clean architecture, rigorous testing, and modern frameworks.",
     },
-     {
-      number:"04",
-      title:"Launch & Iteration",
-      description:"Deploy with secure infrastructure and stay invested in continuous optimization.",
+    {
+      number: "04",
+      title: "Launch & Iteration",
+      description: "Deploy with secure infrastructure and stay invested in continuous optimization.",
     },
-     {
-      number:"05",
-      title:"Digital Transformation",
-      description:"Drive growth with SEO, targeted campaigns, and data-driven marketing strategies.",
+    {
+      number: "05",
+      title: "Digital Transformation",
+      description: "Drive growth with SEO, targeted campaigns, and data-driven marketing strategies.",
     },
-    
+
   ]
 
-   const { elementRef, activeIndex } = useGsapSlideAnimation(data);
-   const numberRef = useGsapAnimation({ direction: "left", delay: 0.5, duration:1 });
-   const titleRef = useGsapAnimation({ direction: "top", delay: 0.5, duration:1 });
-   const descriptionRef = useGsapAnimation({ direction: "fade", delay: 0.5, duration:1 });
-   const buttonRef = useGsapAnimation({ direction: "bottom", delay: 0.5, duration:1 });
+  const { elementRef, activeIndex } = useGsapSlideAnimation(data);
+  const numberRef = useGsapAnimation({ direction: "left", delay: 0.5, duration: 1 });
+  const titleRef = useGsapAnimation({ direction: "top", delay: 0.5, duration: 1 });
+  const descriptionRef = useGsapAnimation({ direction: "fade", delay: 0.5, duration: 1 });
+  const buttonRef = useGsapAnimation<HTMLButtonElement>({ direction: "bottom", delay: 0.5, duration: 1 });
+
 
 
 
