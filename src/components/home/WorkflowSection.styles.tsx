@@ -31,7 +31,7 @@ export const NavItem = styled(Box)(({ theme }) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: `${theme.spacing(2)} ${theme.spacing(8)}`,
+    padding: `${theme.spacing(2)} ${theme.spacing(1)}`,
     cursor: "pointer",
     whiteSpace: "nowrap",
     color: theme.palette.text.secondary,
@@ -48,14 +48,16 @@ export const NavItem = styled(Box)(({ theme }) => ({
         backgroundColor: theme.palette.background.paper,
         color: theme.palette.text.primary,
         fontWeight: theme.typography.fontWeightBold,
-        boxShadow: `inset 0 -2px 0 ${theme.palette.primary.main}`,
+
     },
+
 
     "&:first-of-type": {
         borderLeft: "none",
     },
 
     [theme.breakpoints.down("md")]: {
-        padding: `${theme.spacing(1.5)} ${theme.spacing(3)}`,
+        padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
     },
 }));
+
