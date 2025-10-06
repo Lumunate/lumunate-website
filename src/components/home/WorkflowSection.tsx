@@ -114,7 +114,7 @@ export default function WorkflowSection() {
               width: "100%",
               height: "100%",
               opacity: i <= activeIndex ? 1 : 0, // keep old cards visible in stack
-              transform: `translateY(${i * 15}px)`, // ⬅️ offset stacking
+              transform: `translateY(${i * 17}px)`, // ⬅️ offset stacking
               pointerEvents: i === activeIndex ? "auto" : "none",
             }}
           >

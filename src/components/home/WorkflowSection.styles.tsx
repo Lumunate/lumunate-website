@@ -48,7 +48,7 @@ export const NavItem = styled(Box)(({ theme }) => ({
     "&.active": {
         backgroundColor: theme.palette.background.paper,
         color: theme.palette.text.primary,
-        fontWeight: theme.typography.fontWeightBold,
+        // fontWeight: theme.typography.fontWeightBold,
 
     },
 

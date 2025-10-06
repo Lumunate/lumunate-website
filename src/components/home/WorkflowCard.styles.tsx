@@ -58,7 +58,7 @@ export const CardRight = styled(Box)(({ }) => ({
 
 export const WorkflowVideo = styled("video")(({ }) => ({
     width: "120%",
-    height: "120%",
+    height: "140%",
     objectFit: "cover",
     borderRadius: 0,
     alignSelf: "center",
