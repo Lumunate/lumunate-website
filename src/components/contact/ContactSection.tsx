@@ -9,7 +9,7 @@ import {
     BackgroundVideo,
 } from "./ContactSection.styles";
 import Ready from "../home/ready/Ready";
-import { Explore } from "../case-studies/Explore.styles";
+import ExploreSection from "../home/explore/Explore";
 
 const interests = [
     "Creative & UI/UX Design",
@@ -139,9 +139,7 @@ export default function ContactSection() {
                 </Button>
             </ContactRoot>
 
-            <Box component="section">
-                <Explore variant="h1">Explore. Engineer. Evolve.</Explore>
-            </Box>
+            <ExploreSection />
 
             <Ready
                 title="Tell us about your vision"
