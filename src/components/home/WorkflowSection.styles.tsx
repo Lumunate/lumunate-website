@@ -16,6 +16,7 @@ export const WorkflowSectionRoot = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down("md")]: {
         padding: theme.spacing(6, 0),
         minHeight: "auto",
+        marginBottom: theme.spacing(10),
     },
 }));
 
