@@ -7,8 +7,7 @@ import OurApproach from "@/components/home/ourApproach/OurApproach";
 import Ready from "@/components/home/ready/Ready";
 import TrackRecord from "@/components/home/trackRecord/TrackRecord";
 import Works from "@/components/home/work/Works";
-import { Box } from "@mui/material";
-import { Explore } from "@/components/case-studies/Explore.styles";
+import ExploreSection from "@/components/home/explore/Explore";
 
 
 export default function Home() {
@@ -28,11 +27,7 @@ export default function Home() {
 
       <Works />
 
-      <Box component="section">
-        <Explore variant="h1">
-          Explore. Engineer. Evolve.
-        </Explore>
-      </Box>
+      <ExploreSection />
 
       <Ready
         title="Ready to Build What's Next?"
