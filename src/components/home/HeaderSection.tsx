@@ -12,29 +12,36 @@ import {
 } from "./HeaderSection.styles";
 import { IconButton } from "@mui/material";
 import Image from "next/image";
-import useGsapAnimation from "@/hooks/useGsapAnimation";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 export default function HeaderSection() {
-    // GSAP hooks
-    const titleRef = useGsapAnimation<HTMLHeadingElement>({
-        direction: "zoomTopLeft",
-        delay: 0.2,
-        duration: 1.2,
-    });
+    const titleRef = useRef<HTMLHeadingElement>(null);
+    const descRef = useRef<HTMLParagraphElement>(null);
+    const socialRef = useRef<HTMLDivElement>(null);
 
-    const descRef = useGsapAnimation<HTMLParagraphElement>({
-        direction: "zoomTopRight",
-        delay: 0.5,
-        duration: 1.2,
-    });
+    useEffect(() => {
+        // Wait for 2 seconds before animating text content
+        const tl = gsap.timeline({ delay: 2 });
 
-    // apply same animation style as desc
-    const socialRef = useGsapAnimation<HTMLDivElement>({
-        direction: "zoomTopRight", 
-        delay: 0.9,
-        duration: 1.2,
-    });
-
+        tl.fromTo(
+            titleRef.current,
+            { x: "-10%", y: "-50%", opacity: 0, scale: 0.8 },
+            { x: 0, y: 0, opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" }
+        )
+            .fromTo(
+                descRef.current,
+                { x: "20%", y: "-50%", opacity: 0, scale: 0.8 },
+                { x: 0, y: 0, opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" },
+                "-=0.8"
+            )
+            .fromTo(
+                socialRef.current,
+                { x: "20%", y: "-50%", opacity: 0, scale: 0.8 },
+                { x: 0, y: 0, opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" },
+                "-=0.7"
+            );
+    }, []);
 
     return (
         <HeaderRoot>
@@ -52,8 +59,8 @@ export default function HeaderSection() {
                 <RightBox>
                     <StyledParagraph ref={descRef} variant="body1">
                         Transform ideas into scalable digital products that grow with your
-                        business. From AI-powered platforms to enterprise solutions, we&apos;re
-                        the technology partner that turns vision into velocity.
+                        business. From AI-powered platforms to enterprise solutions,
+                        we&apos;re the technology partner that turns vision into velocity.
                     </StyledParagraph>
 
                     <SocialStack ref={socialRef}>
@@ -86,7 +93,6 @@ export default function HeaderSection() {
                             />
                         </IconButton>
                     </SocialStack>
-
                 </RightBox>
             </ContentBox>
         </HeaderRoot>

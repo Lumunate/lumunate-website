@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Logo from "./logo";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import gsap from "gsap";
 import {
     AppBar,
     IconButton,
@@ -62,6 +63,7 @@ export default function Navbar() {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false);
+    const navRef = useRef<HTMLDivElement>(null);
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -76,19 +78,44 @@ export default function Navbar() {
         setMobileProjectsOpen(false);
     };
 
+    // GSAP animation: Navbar slides in after 2 seconds
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            gsap.fromTo(
+                navRef.current,
+                { y: -80, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1.2,
+                    ease: "power3.out",
+                }
+            );
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <AppBar
             position="static"
             color="transparent"
             elevation={0}
-            sx={{ width: "100vw", zIndex: 30, background: "transparent", boxShadow: "none" }}
+            ref={navRef}
+            sx={{
+                width: "100vw",
+                zIndex: 30,
+                background: "transparent",
+                boxShadow: "none",
+                opacity: 0,
+            }}
         >
             <NavContainer>
                 <StyledToolbar disableGutters>
-
                     <LogoBox>
                         <Logo />
                     </LogoBox>
+
                     {!isMobile && (
                         <MenuBox>
                             <VerticalDivider />
@@ -131,18 +158,20 @@ export default function Navbar() {
                                         boxShadow: theme.shadows[8],
                                         mt: 2,
                                         p: 0,
-                                        width: { xs: "90vw", md: "800px", lg: "950px" },
+                                        width: { xs: "90vw", md: "800px", lg: "1050px" },
                                         left: "50.55% !important",
                                         transform: "translateX(-50%) !important",
                                     },
                                 }}
-
-
                             >
                                 <Box
                                     sx={{
                                         display: "grid",
-                                        gridTemplateColumns: { xs: "1fr", md: "1fr 1fr", lg: "1fr 1fr 1fr" },
+                                        gridTemplateColumns: {
+                                            xs: "1fr",
+                                            md: "1fr 1fr",
+                                            lg: "1fr 1fr 1fr",
+                                        },
                                         gap: 0,
                                     }}
                                 >
@@ -162,6 +191,15 @@ export default function Navbar() {
                                                 color: theme.palette.text.secondary,
                                                 borderTop: `1px solid ${theme.palette.divider}`,
                                                 borderLeft: `1px solid ${theme.palette.divider}`,
+
+                                                // ✅ FIXED: Safe selectors for Next.js SSR
+                                                "&:nth-last-of-type(-n+3)": {
+                                                    borderBottom: `1px solid ${theme.palette.divider}`, // add bottom border to last row
+                                                },
+                                                "&:nth-of-type(3n)": {
+                                                    borderRight: `1px solid ${theme.palette.divider}`, // add right border to every 3rd column
+                                                },
+
                                                 "&:hover": {
                                                     bgcolor: theme.palette.action.hover,
                                                     color: theme.palette.text.primary,
@@ -176,6 +214,7 @@ export default function Navbar() {
                             </Menu>
                         </MenuBox>
                     )}
+
                     <RightBox>
                         {isMobile && (
                             <IconButton
@@ -189,39 +228,43 @@ export default function Navbar() {
                         )}
 
                         {!isMobile && (
-                            <>
-
-                                <Button
-                                    component="a"
-                                    href="https://calendly.com/saad-b-javaid22/consultation"
-                                    target="_blank"
-                                    variant="contained"
-                                    color="success"
-                                    sx={{
-                                        boxShadow: 1,
-                                        textTransform: "none",
-                                        px: 2,
-                                        py: 1,
-                                        fontWeight: 600,
-                                        bgcolor: "#015B3F",
-                                        color: "#bdbdbd",
-                                        borderRadius: 0,
-                                        "&:hover": { bgcolor: "#333" },
-                                    }}
-                                >
-                                    Get Started
-                                </Button>
-                            </>
+                            <Button
+                                component="a"
+                                href="https://calendly.com/saad-b-javaid22/consultation"
+                                target="_blank"
+                                variant="contained"
+                                color="success"
+                                sx={{
+                                    boxShadow: 1,
+                                    textTransform: "none",
+                                    px: 2,
+                                    py: 1,
+                                    fontWeight: 600,
+                                    bgcolor: "#015B3F",
+                                    color: "#bdbdbd",
+                                    borderRadius: 0,
+                                    "&:hover": { bgcolor: "#333" },
+                                }}
+                            >
+                                Get Started
+                            </Button>
                         )}
                     </RightBox>
                 </StyledToolbar>
+
+                {/* Drawer for mobile */}
                 <Drawer
                     anchor="right"
                     open={drawerOpen}
                     onClose={toggleDrawer(false)}
                     slotProps={{
                         paper: {
-                            sx: { width: 260, bgcolor: "#181818", color: "#bdbdbd", p: 2 },
+                            sx: {
+                                width: 260,
+                                bgcolor: "#181818",
+                                color: "#bdbdbd",
+                                p: 2,
+                            },
                         },
                     }}
                 >
@@ -239,7 +282,9 @@ export default function Navbar() {
                         ))}
 
                         <ListItem disablePadding>
-                            <ListItemButton onClick={() => setMobileProjectsOpen((open) => !open)}>
+                            <ListItemButton
+                                onClick={() => setMobileProjectsOpen((open) => !open)}
+                            >
                                 <ListItemText primary="Case Studies" />
                                 <Typography variant="body2" sx={{ ml: 1 }}>
                                     {mobileProjectsOpen ? "▲" : "▼"}

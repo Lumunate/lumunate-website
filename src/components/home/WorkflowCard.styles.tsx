@@ -8,7 +8,7 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
     maxWidth: "1100px",
     minHeight: 460,
     background: "transparent",
-    borderRadius: 24,
+    borderRadius: 32,
     boxShadow: "0 0 24px 0 rgba(6, 5, 5, 0.25)",
     overflow: "hidden",
     marginTop: theme.spacing(4),
@@ -53,6 +53,7 @@ export const CardRight = styled(Box)(({ }) => ({
     display: "flex",
     alignItems: "stretch",
     justifyContent: "center",
+    maxHeight: "814px",
 }));
 
 export const WorkflowVideo = styled("video")(({ }) => ({
