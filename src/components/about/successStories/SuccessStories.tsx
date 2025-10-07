@@ -27,10 +27,13 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
 
   return (
     <SuccessStoriesContainer>
-      <BackgroundVideo autoPlay muted loop playsInline>
+      <BackgroundVideo
+        key="success-stories-section-video"
+        autoPlay muted loop playsInline>
         <source
           src="https://res.cloudinary.com/dqvzaju7x/video/upload/q_auto,f_auto/about_hero_bg2_dp38xc.mp4"
           type="video/mp4"
+
         />
         Your browser does not support the video tag.
       </BackgroundVideo>

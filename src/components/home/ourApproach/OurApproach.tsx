@@ -62,6 +62,7 @@ const OurApproach = () => {
         <source
           src="https://res.cloudinary.com/dqvzaju7x/video/upload/approachbg_g7xwx5.mp4"
           type="video/mp4"
+          key="our-approach-section-video"
         />
         Your browser does not support the video tag.
       </video>

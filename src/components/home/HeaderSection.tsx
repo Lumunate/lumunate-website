@@ -46,7 +46,9 @@ export default function HeaderSection() {
     return (
         <HeaderRoot>
             <SvgBg>
-                <video src="/home-header-video.mp4" autoPlay loop muted playsInline />
+                <video src="/home-header-video.mp4"
+                key="header-section-video"
+                autoPlay loop muted playsInline />
             </SvgBg>
 
             <ContentBox>
