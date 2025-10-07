@@ -54,7 +54,7 @@ export default function WorkflowSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  // 🔹 Autoplay effect every 4s
+  // Autoplay effect every 4s
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % workflowSections.length);
@@ -62,12 +62,12 @@ export default function WorkflowSection() {
     return () => clearInterval(interval);
   }, []);
 
-  // 🔹 Animate when activeIndex changes
+  // Animate when activeIndex changes
   useEffect(() => {
     const card = cardsRef.current[activeIndex];
     if (!card) return;
 
-    const offset = activeIndex * 15; // ⬅️ increase value for more stacked spacing
+    const offset = activeIndex * 15; // increase value for more stacked spacing
 
     gsap.set(card, { zIndex: 10 + activeIndex });
     gsap.fromTo(

@@ -50,6 +50,7 @@ export default function CaseStudyHeader({
   return (
     <HeaderRoot>
       <BackgroundVideo
+      key="case-studies-video"
         component="video"
         src="/case-studies/airbot-header.mp4"
         autoPlay

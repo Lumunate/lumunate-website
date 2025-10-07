@@ -98,7 +98,9 @@ export default function ContactSection() {
         <>
             {/* Background Video */}
             <VideoHeader>
-                <BackgroundVideo autoPlay muted loop playsInline>
+                <BackgroundVideo
+                    key="contact-page-video"
+                    autoPlay muted loop playsInline>
                     <source src="/contact-page-video.mp4" type="video/mp4" />
                 </BackgroundVideo>
             </VideoHeader>

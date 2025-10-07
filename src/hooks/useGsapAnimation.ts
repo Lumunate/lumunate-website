@@ -2,7 +2,7 @@
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef, useEffect, useState  } from "react";
+import { useRef, useEffect, useState } from "react";
 
 // Register plugin once
 gsap.registerPlugin(ScrollTrigger);
@@ -38,51 +38,70 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
     const element = elementRef.current;
     if (!element) return;
 
-    let fromProps: gsap.TweenVars = {};
+    const ctx = gsap.context(() => {
+      let fromProps: gsap.TweenVars = {};
 
-    // Define starting states
-    switch (direction) {
-      case "bottom":
-        fromProps = { y: 50, opacity: 0 };
-        break;
-      case "top":
-        fromProps = { y: -50, opacity: 0 };
-        break;
-      case "left":
-        fromProps = { x: -50, opacity: 0 };
-        break;
-      case "right":
-        fromProps = { x: 50, opacity: 0 };
-        break;
-      case "fade":
-        fromProps = { opacity: 0 };
-        break;
-      case "zoomTop":
-        fromProps = { y: -40, scale: 0.6, opacity: 0 };
-        break;
-      case "zoomTopLeft":
-        fromProps = { x: -50, y: -50, scale: 0.6, opacity: 0 };
-        break;
-      case "zoomTopRight":
-        fromProps = { x: 50, y: -50, scale: 0.6, opacity: 0 };
-        break;
-      default:
-        fromProps = { y: 50, opacity: 0 };
-    }
+      switch (direction) {
+        case "bottom":
+          fromProps = { y: 50, opacity: 0 };
+          break;
+        case "top":
+          fromProps = { y: -50, opacity: 0 };
+          break;
+        case "left":
+          fromProps = { x: -50, opacity: 0 };
+          break;
+        case "right":
+          fromProps = { x: 50, opacity: 0 };
+          break;
+        case "fade":
+          fromProps = { opacity: 0 };
+          break;
+        case "zoomTop":
+          fromProps = { y: -40, scale: 0.6, opacity: 0 };
+          break;
+        case "zoomTopLeft":
+          fromProps = { x: -50, y: -50, scale: 0.6, opacity: 0 };
+          break;
+        case "zoomTopRight":
+          fromProps = { x: 50, y: -50, scale: 0.6, opacity: 0 };
+          break;
+        default:
+          fromProps = { y: 50, opacity: 0 };
+      }
 
-    // Handle zoom animations separately (overshoot + settle)
-    if (direction === "zoomTop" || direction === "zoomTopLeft" || direction === "zoomTopRight") {
-      gsap.fromTo(
-        element,
-        fromProps,
-        {
-          x: 0,
-          y: 0,
-          scale: 1.05, // overshoot
-          opacity: 1,
-          duration,
+      // Create tween
+      if (direction.startsWith("zoomTop")) {
+        gsap.fromTo(
+          element,
+          fromProps,
+          {
+            x: 0,
+            y: 0,
+            scale: 1.05,
+            opacity: 1,
+            duration,
+            delay,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: element,
+              start: "top 70%",
+              end: "bottom 20%",
+              toggleActions: "play none none none",
+              once,
+            },
+            onComplete: () => {
+              gsap.to(element, { scale: 1, duration: 0.2, ease: "power2.out" });
+            },
+          }
+        );
+      } else {
+        gsap.from(element, {
+          ...fromProps,
           delay,
-          ease: "power4.out",
+          duration,
+          stagger,
+          ease: "power3.out",
           scrollTrigger: {
             trigger: element,
             start: "top 70%",
@@ -90,32 +109,12 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
             toggleActions: "play none none none",
             once,
           },
-          onComplete: () => {
-            gsap.to(element, { scale: 1, duration: 0.2, ease: "power2.out" });
-          },
-        }
-      );
-    } else {
-      // Normal fade/slide animations
-      gsap.from(element, {
-        ...fromProps,
-        delay,
-        duration,
-        stagger,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: element,
-          start: "top 70%",
-          end: "bottom 20%",
-          toggleActions: "play none none none",
-          once,
-        },
-      });
-    }
+        });
+      }
+    }, elementRef);
 
-    return () => {
-      ScrollTrigger.getAll().forEach((st) => st.kill());
-    };
+    // Local cleanup: only kills this component's ScrollTriggers + animations
+    return () => ctx.revert();
   }, [direction, delay, duration, once, stagger]);
 
   return elementRef;
@@ -128,31 +127,32 @@ export const useGsapSlideAnimation = (data: unknown[]) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    if (!elementRef.current) return;
+    const el = elementRef.current;
+    if (!el) return;
 
-    const sections = data.length;
+    const ctx = gsap.context(() => {
+      const sections = data.length;
 
-    gsap.to({}, {
-      scrollTrigger: {
-        trigger: elementRef.current,
-        start: "top top",
-        end: `+=${sections * 100}%`,
-        scrub: true,
-        pin: true,
-        onUpdate: (self) => {
-          // progress goes from 0 → 1 as we scroll
-          const newIndex = Math.min(
-            sections - 1,
-            Math.floor(self.progress * sections)
-          );
-          setActiveIndex(newIndex);
+      gsap.to({}, {
+        scrollTrigger: {
+          trigger: el,
+          start: "top top",
+          end: `+=${sections * 100}%`,
+          scrub: true,
+          pin: true,
+          onUpdate: (self) => {
+            const newIndex = Math.min(
+              sections - 1,
+              Math.floor(self.progress * sections)
+            );
+            setActiveIndex(newIndex);
+          },
         },
-      },
-    });
+      });
+    }, elementRef);
 
-    return () => {
-      ScrollTrigger.getAll().forEach((st) => st.kill());
-    };
+    // Clean only the triggers created in this hook
+    return () => ctx.revert();
   }, [data]);
 
   return { elementRef, activeIndex };
