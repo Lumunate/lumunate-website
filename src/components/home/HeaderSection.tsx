@@ -22,9 +22,6 @@ export default function HeaderSection() {
     const textRef = useGsapAnimation({ direction: "scale-up", delay: 3, duration:2 });
   const socialRef = useRef<HTMLDivElement>(null);
 
-  // Reuse the same animation via the hook
-  useGsapTimelineAnimation([titleRef, descRef, socialRef], 2);
-
   return (
     <HeaderRoot>
       <SvgBg>

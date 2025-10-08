@@ -12,6 +12,7 @@ if (!scrollTriggerRegistered) {
   scrollTriggerRegistered = true;
 }
 
+
 type Direction =
   | "fade"
   | "bottom"
@@ -19,7 +20,7 @@ type Direction =
   | "left"
   | "right"
   | "scale-up"
-  | "text-expand";
+  | "text-expand"
   | "zoomTop"
   | "zoomTopLeft"
   | "zoomTopRight";
@@ -45,24 +46,26 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
     const element = elementRef.current;
     if (!element) return;
 
-    let fromProps: gsap.TweenVars = {};
+    // ✅ Scoped GSAP context (prevents React/DOM conflicts)
+    const ctx = gsap.context(() => {
+      let fromProps: gsap.TweenVars = {};
 
-    switch (direction) {
-      case "bottom":
-        fromProps = { y: 50, opacity: 0 };
-        break;
-      case "top":
-        fromProps = { y: -50, opacity: 0 };
-        break;
-      case "left":
-        fromProps = { x: -50, opacity: 0 };
-        break;
-      case "right":
-        fromProps = { x: 50, opacity: 0 };
-        break;
-      case "fade":
-        fromProps = { opacity: 0 };
-        break;
+      switch (direction) {
+        case "bottom":
+          fromProps = { y: 50, opacity: 0 };
+          break;
+        case "top":
+          fromProps = { y: -50, opacity: 0 };
+          break;
+        case "left":
+          fromProps = { x: -50, opacity: 0 };
+          break;
+        case "right":
+          fromProps = { x: 50, opacity: 0 };
+          break;
+        case "fade":
+          fromProps = { opacity: 0 };
+          break;
      case "scale-up":
         fromProps = { scale: 0.5, opacity: 0, transformOrigin: "center center" };
         break;
@@ -96,8 +99,7 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
       },
     });
 
-      // ✅ Animation logic
-      if (direction.startsWith("zoomTop")) {
+        if (direction.startsWith("zoomTop")) {
         gsap.fromTo(
           element,
           fromProps,
@@ -152,21 +154,21 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
 export default useGsapAnimation;
 
 // ---------------------------------------------------------------
-// ✅ Safe slide animation version
+//  Safe slide animation version
 export const useGsapSlideAnimation = (data: unknown[]) => {
   const elementRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    if (!elementRef.current) return;
+    const el = elementRef.current;
+    if (!el) return;
 
-    const sections = data.length;
+    const ctx = gsap.context(() => {
+      const sections = data.length;
 
-    gsap.to(
-      {},
-      {
+      gsap.to({}, {
         scrollTrigger: {
-          trigger: elementRef.current,
+          trigger: el,
           start: "top top",
           end: `+=${sections * 100}%`,
           scrub: true,
@@ -179,8 +181,8 @@ export const useGsapSlideAnimation = (data: unknown[]) => {
             setActiveIndex(newIndex);
           },
         },
-      }
-    );
+      });
+    }, elementRef);
 
     return () => {
       ctx.revert();
@@ -278,4 +280,3 @@ export const useGsapCounterAnimation = (
     return () => ctx.revert();
   }, [refs, data]);
 };
-
