@@ -1,8 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useRef } from "react";
 import {
   DescriptionText,
   DiscoverButton,
@@ -14,9 +12,7 @@ import {
   TrackContainer,
 } from "./TrackRecord.style";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
-
-gsap.registerPlugin(ScrollTrigger);
-
+import { useGsapCounterAnimation } from "@/hooks/useGsapAnimation";
 
 const statusData = [
   { total: 112, suffix: "+", title: "Web & Mobile Apps Delivered" },
@@ -26,43 +22,10 @@ const statusData = [
 ];
 
 const TrackRecord: React.FC = () => {
-  const numberRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const numberRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-
-  useEffect(() => {
-    numberRefs.current.forEach((ref, index) => {
-      if (!ref) return;
-
-      const finalValue = statusData[index].total;
-      const suffix = statusData[index].suffix;
-      const counter = { value: 0 };
-
-      gsap.fromTo(
-        counter,
-        { value: 0 },
-        {
-          value: finalValue,
-          duration: 2,
-          ease: "power1.out",
-          scrollTrigger: {
-            trigger: ref,
-            start: "top 85%",
-          },
-          onUpdate: () => {
-            if (!ref) return;
-
-            if (finalValue > 1000) {
-              ref.textContent = `${Math.floor(counter.value).toLocaleString()}${suffix}`;
-            } else if (finalValue < 10) {
-              ref.textContent = `${counter.value.toFixed(1)}${suffix}`;
-            } else {
-              ref.textContent = `${Math.floor(counter.value)}${suffix}`;
-            }
-          },
-        }
-      );
-    });
-  }, []);
+  // Use the fixed hook
+  useGsapCounterAnimation(numberRefs, statusData);
 
   return (
     <TrackContainer>

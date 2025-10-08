@@ -62,19 +62,24 @@ export default function WorkflowSection() {
     return () => clearInterval(interval);
   }, []);
 
-  // Animate when activeIndex changes
+  // GSAP-safe animation for active card
   useEffect(() => {
-    const card = cardsRef.current[activeIndex];
-    if (!card) return;
+    const ctx = gsap.context(() => {
+      const card = cardsRef.current[activeIndex];
+      if (!card) return;
 
-    const offset = activeIndex * 15; // increase value for more stacked spacing
+      const offset = activeIndex * 15; // stacked spacing offset
 
-    gsap.set(card, { zIndex: 10 + activeIndex });
-    gsap.fromTo(
-      card,
-      { opacity: 0, y: offset + 40 }, // start lower with offset
-      { opacity: 1, y: offset, duration: 0.8, ease: "power3.out" }
-    );
+      gsap.set(card, { zIndex: 10 + activeIndex });
+      gsap.fromTo(
+        card,
+        { opacity: 0, y: offset + 40 },
+        { opacity: 1, y: offset, duration: 0.8, ease: "power3.out" }
+      );
+    }, cardsRef);
+
+    // Cleanup: kills animations safely when unmounting or activeIndex changes
+    return () => ctx.revert();
   }, [activeIndex]);
 
   return (
@@ -113,8 +118,8 @@ export default function WorkflowSection() {
               left: 0,
               width: "100%",
               height: "100%",
-              opacity: i <= activeIndex ? 1 : 0, // keep old cards visible in stack
-              transform: `translateY(${i * 17}px)`, // ⬅️ offset stacking
+              opacity: i <= activeIndex ? 1 : 0,
+              transform: `translateY(${i * 17}px)`,
               pointerEvents: i === activeIndex ? "auto" : "none",
             }}
           >

@@ -4,8 +4,14 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useEffect, useState } from "react";
 
-// Register plugin once
-gsap.registerPlugin(ScrollTrigger);
+// ✅ Register ScrollTrigger once (safe for TypeScript + Next.js Fast Refresh)
+let scrollTriggerRegistered = false;
+
+if (!scrollTriggerRegistered) {
+  gsap.registerPlugin(ScrollTrigger);
+  scrollTriggerRegistered = true;
+}
+
 
 type Direction =
   | "fade"
@@ -38,6 +44,7 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
     const element = elementRef.current;
     if (!element) return;
 
+    // ✅ Scoped GSAP context (prevents React/DOM conflicts)
     const ctx = gsap.context(() => {
       let fromProps: gsap.TweenVars = {};
 
@@ -70,7 +77,7 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
           fromProps = { y: 50, opacity: 0 };
       }
 
-      // Create tween
+      // ✅ Animation logic
       if (direction.startsWith("zoomTop")) {
         gsap.fromTo(
           element,
@@ -113,8 +120,11 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
       }
     }, elementRef);
 
-    // Local cleanup: only kills this component's ScrollTriggers + animations
-    return () => ctx.revert();
+    // ✅ Cleanup: kills animations + ScrollTriggers safely
+    return () => {
+      ctx.revert();
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, [direction, delay, duration, once, stagger]);
 
   return elementRef;
@@ -122,6 +132,8 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
 
 export default useGsapAnimation;
 
+// ---------------------------------------------------------------
+// ✅ Safe slide animation version
 export const useGsapSlideAnimation = (data: unknown[]) => {
   const elementRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -151,9 +163,100 @@ export const useGsapSlideAnimation = (data: unknown[]) => {
       });
     }, elementRef);
 
-    // Clean only the triggers created in this hook
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, [data]);
 
   return { elementRef, activeIndex };
 };
+
+// Custom hook for sequential GSAP timeline animations (Header style)
+export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
+  refs: React.RefObject<T | null>[],
+  delay = 0
+) => {
+  useEffect(() => {
+    const validRefs = refs.filter(r => r?.current) as React.RefObject<T>[];
+    if (validRefs.length === 0) return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ delay });
+
+      if (validRefs[0])
+        tl.fromTo(
+          validRefs[0].current,
+          { x: "-10%", y: "-50%", opacity: 0, scale: 0.8 },
+          { x: 0, y: 0, opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" }
+        );
+
+      if (validRefs[1])
+        tl.fromTo(
+          validRefs[1].current,
+          { x: "20%", y: "-50%", opacity: 0, scale: 0.8 },
+          { x: 0, y: 0, opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" },
+          "-=0.8"
+        );
+
+      if (validRefs[2])
+        tl.fromTo(
+          validRefs[2].current,
+          { x: "20%", y: "-50%", opacity: 0, scale: 0.8 },
+          { x: 0, y: 0, opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" },
+          "-=0.7"
+        );
+    });
+
+    return () => ctx.revert();
+  }, [refs, delay]);
+};
+
+// GSAP Counter Hook (TrackRecord Style)
+export const useGsapCounterAnimation = (
+  refs: React.MutableRefObject<(HTMLDivElement | null)[]>,
+  data: { total: number; suffix: string }[]
+) => {
+  useEffect(() => {
+    if (!refs.current.length) return;
+
+    // Safe GSAP Context
+    const ctx = gsap.context(() => {
+      refs.current.forEach((el, index) => {
+        if (!el) return;
+
+        const { total: finalValue, suffix } = data[index];
+        const counter = { value: 0 };
+
+        gsap.fromTo(
+          counter,
+          { value: 0 },
+          {
+            value: finalValue,
+            duration: 2,
+            ease: "power1.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              once: true,
+            },
+            onUpdate: () => {
+              if (!el) return;
+              if (finalValue > 1000) {
+                el.textContent = `${Math.floor(counter.value).toLocaleString()}${suffix}`;
+              } else if (finalValue < 10) {
+                el.textContent = `${counter.value.toFixed(1)}${suffix}`;
+              } else {
+                el.textContent = `${Math.floor(counter.value)}${suffix}`;
+              }
+            },
+          }
+        );
+      });
+    });
+
+    // Cleanup
+    return () => ctx.revert();
+  }, [refs, data]);
+};
+

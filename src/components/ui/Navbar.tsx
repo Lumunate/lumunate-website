@@ -78,23 +78,32 @@ export default function Navbar() {
         setMobileProjectsOpen(false);
     };
 
-    // GSAP animation: Navbar slides in after 2 seconds
+    // GSAP animation: Navbar slides in safely using gsap.context
     useEffect(() => {
-        const timer = setTimeout(() => {
-            gsap.fromTo(
-                navRef.current,
-                { y: -80, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 1.2,
-                    ease: "power3.out",
-                }
-            );
-        }, 2000);
+        const ctx = gsap.context(() => {
+            const timer = setTimeout(() => {
+                if (!navRef.current) return;
 
-        return () => clearTimeout(timer);
+                gsap.fromTo(
+                    navRef.current,
+                    { y: -80, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1.2,
+                        ease: "power3.out",
+                    }
+                );
+            }, 2000);
+
+            // cleanup timer when unmounting
+            return () => clearTimeout(timer);
+        }, navRef);
+
+        // revert cleans up all tweens and timelines safely
+        return () => ctx.revert();
     }, []);
+
 
     return (
         <AppBar
