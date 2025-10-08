@@ -36,7 +36,7 @@ export default function ContactSection() {
         <>
             <VideoHeader>
                 <BackgroundVideo autoPlay muted loop playsInline>
-                    <source src="/contact-page-video.mp4" type="video/mp4" />
+                    <source src="https://res.cloudinary.com/dqvzaju7x/video/upload/contact-page-video_aeksqo.mp4" type="video/mp4" />
                 </BackgroundVideo>
             </VideoHeader>
 

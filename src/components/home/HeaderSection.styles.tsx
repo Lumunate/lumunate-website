@@ -17,6 +17,7 @@ export const SvgBg = styled(Box)(() => ({
     inset: 0,
     zIndex: -1,
     overflow: "hidden",
+    pointerEvents: "none",
 
     "& video": {
         width: "100%",

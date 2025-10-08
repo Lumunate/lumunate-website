@@ -9,52 +9,52 @@ const Works = () => {
     {
       title: "AirBot",
       year: 2025,
-      imageSrc: "/project1.png"
+      imageSrc: "/project1.svg"
     },
     {
       title: "Allfred",
       year: 2025,
-      imageSrc: "/project2.png"
+      imageSrc: "/project2.svg"
     },
     {
       title: "Koinfolio",
       year: 2025,
-      imageSrc: "/project3.png"
+      imageSrc: "/project3.svg"
     },
     {
       title: "CutConnect",
       year: 2025,
-      imageSrc: "/project4.png"
+      imageSrc: "/project4.svg"
     },
     {
       title: "Ayse",
       year: 2025,
-      imageSrc: "/project5.png"
+      imageSrc: "/project5.svg"
     },
     {
       title: "CutConnect",
       year: 2025,
-      imageSrc: "/project6.png"
+      imageSrc: "/project6.svg"
     },
     {
       title: "Ayse",
       year: 2025,
-      imageSrc: "/project7.png"
+      imageSrc: "/project7.svg"
     },
     {
       title: "CutConnect",
       year: 2025,
-      imageSrc: "/project8.png"
+      imageSrc: "/project8.svg"
     },
     {
       title: "Ayse",
       year: 2025,
-      imageSrc: "/project9.png"
+      imageSrc: "/project9.svg"
     },
     {
       title: "CutConnect",
       year: 2025,
-      imageSrc: "/project10.png"
+      imageSrc: "/project10.svg"
     },
   ]
 
