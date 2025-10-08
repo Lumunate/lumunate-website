@@ -85,19 +85,19 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
         fromProps = { y: 50, opacity: 0 };
     }
 
-    gsap.from(element, {
-      ...fromProps,
-      delay,
-      duration,
-      stagger,
-      scrollTrigger: {
-        trigger: element,
-        start: "top 70%",
-        end: "bottom 20%",
-        toggleActions: "play none none none",
-        once,
-      },
-    });
+    // gsap.from(element, {
+    //   ...fromProps,
+    //   delay,
+    //   duration,
+    //   stagger,
+    //   scrollTrigger: {
+    //     trigger: element,
+    //     start: "top 70%",
+    //     end: "bottom 20%",
+    //     toggleActions: "play none none none",
+    //     once,
+    //   },
+    // });
 
         if (direction.startsWith("zoomTop")) {
         gsap.fromTo(
