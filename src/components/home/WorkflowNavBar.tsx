@@ -1,6 +1,6 @@
 "use client";
 
-import { WorkflowBarRoot, NavItem } from "./WorkflowBar.styles";
+import { WorkflowNavBarRoot, NavItem } from "./WorkflowNavBar.styles";
 
 interface Section {
     tag: string;
@@ -22,7 +22,7 @@ export default function WorkflowNavBar({
     setActiveSection,
 }: WorkflowNavBarProps) {
     return (
-        <WorkflowBarRoot>
+        <WorkflowNavBarRoot>
             {sections.map((section) => (
                 <NavItem
                     key={section.title}
@@ -32,6 +32,6 @@ export default function WorkflowNavBar({
                     {section.title}
                 </NavItem>
             ))}
-        </WorkflowBarRoot>
+        </WorkflowNavBarRoot>
     );
 }

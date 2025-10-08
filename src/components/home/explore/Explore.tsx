@@ -1,33 +1,42 @@
-import { Box, Typography } from '@mui/material'
-import React from 'react'
+"use client";
 
-const Explore = () => {
-  return (
-    <Box sx={{width:"100%", margin:"0 auto", marginTop:"78px"}}>
-     <Typography
-                variant="h1"
-                component="div"
-                sx={{
-                    width: "100%",
-                    textAlign: "center",
-                    mt: 0,
-                    pb: 8,
-                    fontWeight: 300,
-                    fontFamily: "Montserrat, sans-serif",
-                    fontSize: "clamp(2rem, 7.3vw, 12rem)",
-                    whiteSpace: "nowrap",
-                    color: "#FFFFFF08",
-                    bgcolor: "#0E0E0E",
-                    letterSpacing: "0.05em",
-                    filter: "blur(1px)",
-                    userSelect: "none",
-                    lineHeight: 1.2,
-                }}
-            >
+import gsap from "gsap";
+import { useEffect, useRef } from "react";
+import { ExploreWrapper, ExploreText } from "./Explore.styles";
+
+const ExploreSection = () => {
+    const exploreRef = useRef<HTMLHeadingElement | null>(null);
+
+    useEffect(() => {
+        // Use GSAP context to safely scope animation
+        const ctx = gsap.context(() => {
+            if (!exploreRef.current) return;
+
+            // Smooth infinite blinking animation
+            gsap.fromTo(
+                exploreRef.current,
+                { opacity: 0.4 },
+                {
+                    opacity: 1,
+                    duration: 1.2,
+                    ease: "power1.inOut",
+                    yoyo: true,
+                    repeat: -1, // infinite loop
+                }
+            );
+        }, exploreRef);
+
+        // Cleanup — kills animation on unmount or route change
+        return () => ctx.revert();
+    }, []);
+
+    return (
+        <ExploreWrapper>
+            <ExploreText ref={exploreRef} variant="h1">
                 Explore. Engineer. Evolve.
-            </Typography>
-    </Box>
-  )
-}
+            </ExploreText>
+        </ExploreWrapper>
+    );
+};
 
-export default Explore
+export default ExploreSection;

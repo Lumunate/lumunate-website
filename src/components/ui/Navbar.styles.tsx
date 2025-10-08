@@ -1,4 +1,3 @@
-import theme from "@/theme/theme";
 import { Box, styled, Toolbar } from "@mui/material";
 
 export const NavContainer = styled(Box)(({ theme }) => ({

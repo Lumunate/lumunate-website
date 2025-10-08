@@ -2,9 +2,8 @@ import SuccessStories from "@/components/about/successStories/SuccessStories";
 import CaseStudyHeader from "@/components/case-studies/airbot/CaseStudyHeader";
 import Challenges from "@/components/case-studies/airbot/Challenges";
 import ImpactSection from "@/components/case-studies/airbot/ImpactSection";
-import { Explore } from "@/components/case-studies/Explore.styles";
+import ExploreSection from "@/components/home/explore/Explore";
 import Ready from "@/components/home/ready/Ready";
-import { Box } from "@mui/material";
 
 export default function CutConnectCaseStudyPage() {
     return (
@@ -64,11 +63,7 @@ export default function CutConnectCaseStudyPage() {
                 showStars={true}
             />
 
-            <Box component="section">
-                <Explore variant="h1">
-                    Explore. Engineer. Evolve.
-                </Explore>
-            </Box>
+            <ExploreSection />
 
             <Ready
                 title="Ready to Build What's Next?"

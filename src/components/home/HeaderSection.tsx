@@ -1,3 +1,4 @@
+
 "use client"
 import useGsapAnimation from "@/hooks/useGsapAnimation";
 import {
@@ -12,12 +13,17 @@ import {
 } from "./HeaderSection.styles";
 import { IconButton } from "@mui/material";
 import Image from "next/image";
+import { useRef } from "react";
+import { useGsapTimelineAnimation } from "@/hooks/useGsapAnimation";
 
 export default function HeaderSection() {
 
    const headingRef = useGsapAnimation({ direction: "text-expand", delay: 3, duration:2 });
     const textRef = useGsapAnimation({ direction: "scale-up", delay: 3, duration:2 });
+  const socialRef = useRef<HTMLDivElement>(null);
 
+  // Reuse the same animation via the hook
+  useGsapTimelineAnimation([titleRef, descRef, socialRef], 2);
 
   return (
     <HeaderRoot>
@@ -42,7 +48,7 @@ export default function HeaderSection() {
             we&apos;re the technology partner that turns vision into velocity.
           </StyledParagraph>
 
-          <SocialStack>
+          <SocialStack ref={socialRef}>
             <IconButton
               size="small"
               color="inherit"

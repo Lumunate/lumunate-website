@@ -2,59 +2,76 @@
 
 import { Box, styled } from "@mui/material";
 
-export const WorkflowBarRoot = styled(Box)(({ theme }) => ({
+export const WorkflowNavBarRoot = styled(Box)(({ theme }) => ({
     display: "flex",
+    alignItems: "center",
     justifyContent: "center",
     width: "100%",
     maxWidth: "1100px",
     backgroundColor: "#181818",
-    // boxShadow: "0 2px 4px rgba(0,0,0,0.5)",
-    borderRadius: "0",
-    border: "1px solid #333",
+    borderTop: "1px solid #333",
+    borderBottom: "1px solid #333",
+    borderLeft: "1px solid #333",
+    borderRight: "1px solid #333",
     overflow: "hidden",
-    marginTop: theme.spacing(4),
     margin: "0 auto",
-    [theme.breakpoints.down("lg")]: {
-        maxWidth: "100%",
+    marginTop: theme.spacing(4),
+
+    [theme.breakpoints.up("md")]: {
+        justifyContent: "space-between",
     },
+
     [theme.breakpoints.down("md")]: {
         justifyContent: "flex-start",
-        overflowX: "scroll",
+        overflowX: "auto",
+        overflowY: "hidden",
+        whiteSpace: "nowrap",
         scrollbarWidth: "none", // Firefox
         "&::-webkit-scrollbar": {
-            display: "none", // Chrome + Safari
+            display: "none", // Chrome/Safari
         },
-        borderRadius: "0",
-        maxWidth: "100%",
     },
 }));
 
 export const NavItem = styled(Box)(({ theme }) => ({
-    flexGrow: 1,
+    flexShrink: 0,
     display: "flex",
-    justifyContent: "center",
     alignItems: "center",
-    padding: `${theme.spacing(2)} ${theme.spacing(2)}`,
+    justifyContent: "center",
+    minWidth: "180px",
+    padding: `${theme.spacing(2)} ${theme.spacing(3)}`,
     cursor: "pointer",
-    whiteSpace: "nowrap",
     color: "#AAAAAA",
     borderLeft: "1px solid #333",
     transition: "background-color 0.3s ease, color 0.3s ease",
     fontWeight: 400,
+    whiteSpace: "nowrap",
+    textAlign: "center",
+
     "&:hover": {
         backgroundColor: "rgba(255, 255, 255, 0.05)",
         color: "#fff",
     },
+
     "&.active": {
         backgroundColor: "#292929",
         color: "#fff",
-        fontWeight: 600,
-        boxShadow: "0 0 10px rgba(0,0,0,0.5)",
+        fontWeight: 500,
     },
+
     "&:first-of-type": {
         borderLeft: "none",
     },
+
     [theme.breakpoints.down("md")]: {
-        padding: `${theme.spacing(1.5)} ${theme.spacing(3)}`,
+        minWidth: "160px",
+        padding: `${theme.spacing(1.5)} ${theme.spacing(2)}`,
+        fontSize: "15px",
+    },
+
+    [theme.breakpoints.down("sm")]: {
+        minWidth: "140px",
+        padding: `${theme.spacing(1)} ${theme.spacing(1.5)}`,
+        fontSize: "14px",
     },
 }));

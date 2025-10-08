@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   ReadyContainer,
   TextWrapper,
@@ -24,15 +24,38 @@ const Ready = ({
   title,
   description,
   videoSrc = "https://res.cloudinary.com/dqvzaju7x/video/upload/ctabg_crlgz3.mp4",
-  poster = "/ready-poster.jpg",
   linkText = "Let’s Connect",
   linkHref = "/contact",
 }: ReadyProps) => {
   const theme = useTheme();
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  return (
+  useEffect(() => {
+    const videoEl = videoRef.current;
+
+    return () => {
+      if (videoEl) {
+        try {
+          videoEl.pause();
+
+          videoEl.removeAttribute("src");
+          while (videoEl.firstChild) {
+            videoEl.removeChild(videoEl.firstChild);
+          }
+
+          videoEl.load();
+        } catch (error) {
+          console.warn("Video cleanup error:", error);
+        }
+      }
+    };
+  }, []);
+
+  return ( 
     <ReadyContainer>
-      <BackgroundVideo autoPlay muted loop playsInline poster={poster}>
+      <BackgroundVideo
+        key="ready-section-video"
+        ref={videoRef} autoPlay muted loop playsInline>
         <source src={videoSrc} type="video/mp4" />
         Your browser does not support the video tag.
       </BackgroundVideo>
@@ -74,7 +97,11 @@ const Ready = ({
             >
               {linkText}{" "}
               <ArrowOutwardIcon
-                sx={{ fontSize: "26px", ml: 1, color: theme.palette.text.primary }}
+                sx={{
+                  fontSize: "26px",
+                  ml: 1,
+                  color: theme.palette.text.primary,
+                }}
               />
             </Typography>
           </Link>

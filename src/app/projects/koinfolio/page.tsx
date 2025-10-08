@@ -6,8 +6,7 @@ import Challenges from "@/components/case-studies/airbot/Challenges";
 import ImpactSection from "@/components/case-studies/airbot/ImpactSection";
 import SuccessStories from "@/components/about/successStories/SuccessStories";
 import Ready from "@/components/home/ready/Ready";
-import { Box } from "@mui/material";
-import { Explore } from "@/components/case-studies/Explore.styles";
+import ExploreSection from "@/components/home/explore/Explore";
 
 export default function KoinfolioPage() {
     return (
@@ -44,11 +43,7 @@ export default function KoinfolioPage() {
                 showStars={true}
             />
 
-            <Box component="section">
-                <Explore variant="h1">
-                    Explore. Engineer. Evolve.
-                </Explore>
-            </Box>
+            <ExploreSection />
 
             <Ready
                 title="Ready to Build What’s Next?"
