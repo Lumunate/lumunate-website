@@ -8,20 +8,26 @@ const ExploreSection = () => {
     const exploreRef = useRef<HTMLHeadingElement | null>(null);
 
     useEffect(() => {
-        if (!exploreRef.current) return;
+        // Use GSAP context to safely scope animation
+        const ctx = gsap.context(() => {
+            if (!exploreRef.current) return;
 
-        // Smooth blinking animation
-        gsap.fromTo(
-            exploreRef.current,
-            { opacity: 0.4 },
-            {
-                opacity: 1,
-                duration: 1.2,
-                ease: "power1.inOut",
-                yoyo: true,
-                repeat: -1, // infinite blinking loop
-            }
-        );
+            // Smooth infinite blinking animation
+            gsap.fromTo(
+                exploreRef.current,
+                { opacity: 0.4 },
+                {
+                    opacity: 1,
+                    duration: 1.2,
+                    ease: "power1.inOut",
+                    yoyo: true,
+                    repeat: -1, // infinite loop
+                }
+            );
+        }, exploreRef);
+
+        // Cleanup — kills animation on unmount or route change
+        return () => ctx.revert();
     }, []);
 
     return (
