@@ -80,28 +80,17 @@ export default function Navbar() {
 
     // GSAP animation: Navbar slides in safely using gsap.context
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            const timer = setTimeout(() => {
-                if (!navRef.current) return;
-
-                gsap.fromTo(
-                    navRef.current,
-                    { y: -80, opacity: 0 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 1.2,
-                        ease: "power3.out",
-                    }
-                );
-            }, 2000);
-
-            // cleanup timer when unmounting
-            return () => clearTimeout(timer);
-        }, navRef);
-
-        // revert cleans up all tweens and timelines safely
-        return () => ctx.revert();
+        gsap.fromTo(
+            navRef.current,
+            { y: -80, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 1.2,
+                ease: "power3.out",
+                delay: 0.5, // sync with header
+            }
+        );
     }, []);
 
 

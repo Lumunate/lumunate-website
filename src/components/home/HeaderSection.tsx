@@ -21,7 +21,8 @@ export default function HeaderSection() {
   const socialRef = useRef<HTMLDivElement>(null);
 
   // Reuse the same animation via the hook
-  useGsapTimelineAnimation([titleRef, descRef, socialRef], 2);
+  useGsapTimelineAnimation([titleRef, descRef, socialRef], 0);
+
 
   return (
     <HeaderRoot>
