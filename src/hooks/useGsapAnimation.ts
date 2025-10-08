@@ -2,12 +2,19 @@
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef, useEffect, useState  } from "react";
+import { useRef, useEffect, useState } from "react";
 
 // Register plugin once
 gsap.registerPlugin(ScrollTrigger);
 
-type Direction = "fade" | "bottom" | "top" | "left" | "right";
+type Direction =
+  | "fade"
+  | "bottom"
+  | "top"
+  | "left"
+  | "right"
+  | "scale-up"
+  | "text-expand";
 
 interface GsapOptions {
   direction?: Direction;
@@ -48,6 +55,12 @@ const useGsapAnimation = ({
       case "fade":
         fromProps = { opacity: 0 };
         break;
+     case "scale-up":
+        fromProps = { scale: 0.5, opacity: 0, transformOrigin: "center center" };
+        break;
+      case "text-expand":
+        fromProps = { fontSize: "6px", opacity: 0, textShadow: "0px 0px 15px rgba(0,0,0,0.6)" };
+        break;
       default:
         fromProps = { y: 50, opacity: 0 };
     }
@@ -55,14 +68,14 @@ const useGsapAnimation = ({
     gsap.from(element, {
       ...fromProps,
       delay,
-        duration,
-        stagger,
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 70%',
-          end: 'bottom 20%',
-          toggleActions: 'play none none none',
-          once,
+      duration,
+      stagger,
+      scrollTrigger: {
+        trigger: element,
+        start: "top 70%",
+        end: "bottom 20%",
+        toggleActions: "play none none none",
+        once,
       },
     });
 
@@ -85,23 +98,26 @@ export const useGsapSlideAnimation = (data: unknown[]) => {
 
     const sections = data.length;
 
-    gsap.to({}, {
-      scrollTrigger: {
-        trigger: elementRef.current,
-        start: "top top",
-        end: `+=${sections * 100}%`,
-        scrub: true,
-        pin: true,
-        onUpdate: (self) => {
-          // progress goes from 0 → 1 as we scroll
-          const newIndex = Math.min(
-            sections - 1,
-            Math.floor(self.progress * sections)
-          );
-          setActiveIndex(newIndex);
+    gsap.to(
+      {},
+      {
+        scrollTrigger: {
+          trigger: elementRef.current,
+          start: "top top",
+          end: `+=${sections * 100}%`,
+          scrub: true,
+          pin: true,
+          onUpdate: (self) => {
+            // progress goes from 0 → 1 as we scroll
+            const newIndex = Math.min(
+              sections - 1,
+              Math.floor(self.progress * sections)
+            );
+            setActiveIndex(newIndex);
+          },
         },
-      },
-    });
+      }
+    );
 
     return () => {
       ScrollTrigger.getAll().forEach((st) => st.kill());

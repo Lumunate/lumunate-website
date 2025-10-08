@@ -1,3 +1,5 @@
+"use client"
+import useGsapAnimation from "@/hooks/useGsapAnimation";
 import {
   HeaderRoot,
   SvgBg,
@@ -12,6 +14,11 @@ import { IconButton } from "@mui/material";
 import Image from "next/image";
 
 export default function HeaderSection() {
+
+   const headingRef = useGsapAnimation({ direction: "text-expand", delay: 3, duration:2 });
+    const textRef = useGsapAnimation({ direction: "scale-up", delay: 3, duration:2 });
+
+
   return (
     <HeaderRoot>
       <SvgBg>
@@ -26,10 +33,10 @@ export default function HeaderSection() {
       </SvgBg>
       <ContentBox>
         <LeftBox>
-          <StyledH1 variant="h1">Your digital evolution partner</StyledH1>
+          <StyledH1 ref={headingRef} variant="h1">Your digital <br /> evolution <br /> partner</StyledH1>
         </LeftBox>
         <RightBox>
-          <StyledParagraph variant="body1">
+          <StyledParagraph ref={textRef} variant="body1">
             Transform ideas into scalable digital products that grow with your
             business. From AI-powered platforms to enterprise solutions,
             we&apos;re the technology partner that turns vision into velocity.
