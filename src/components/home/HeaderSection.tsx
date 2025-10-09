@@ -14,16 +14,18 @@ import { IconButton } from "@mui/material";
 import Image from "next/image";
 import { useRef } from "react";
 import { useGsapTimelineAnimation } from "@/hooks/useGsapAnimation";
+import { useNavbarRef } from "@/components/ui/NavbarContext";
+
 
 export default function HeaderSection() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const socialRef = useRef<HTMLDivElement>(null);
 
-  // Reuse the same animation via the hook
-  useGsapTimelineAnimation([titleRef, descRef, socialRef], 2.5);
-  const navRef = useRef<HTMLDivElement>(null);
-  useGsapTimelineAnimation([navRef, titleRef, descRef, socialRef], 2);
+  // Animate navbar + title + description + social together after video starts
+  useGsapTimelineAnimation([titleRef, descRef, socialRef], 2);
+
+
 
 
   return (

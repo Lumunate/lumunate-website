@@ -16,18 +16,24 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
     useEffect(() => {
         document.body.classList.add("startup-active");
 
+        // Hide navbar while startup animation runs
+        const navbar = document.querySelector("header.MuiAppBar-root") as HTMLElement | null;
+        if (navbar) {
+            gsap.set(navbar, { opacity: 0, y: -80, pointerEvents: "none" });
+        }
+
         const cleanup = () => document.body.classList.remove("startup-active");
 
         const tl = gsap.timeline({
             defaults: { ease: "power3.out" },
         });
 
+        // Initial setup for SVG sections
         gsap.set(leftRef.current, { y: "100%" });
         gsap.set(rightRef.current, { y: "100%" });
         gsap.set(centerRef.current, { y: "-100%" });
 
-        // inside useEffect in StartupAnimation.tsx
-
+        // Startup animation sequence
         tl.to([leftRef.current, rightRef.current, centerRef.current], {
             y: "0%",
             duration: 1.1,
@@ -52,17 +58,24 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
                 },
                 "+=0.1"
             )
-
             .to(containerRef.current, {
                 autoAlpha: 0, // hides + sets visibility:hidden
                 duration: 0.7,
                 ease: "power2.inOut",
                 onComplete: () => {
+                    // Hide startup container
                     if (containerRef.current) {
                         containerRef.current.style.display = "none";
                     }
+                    // Leave Navbar hidden; HeaderSection will handle showing it later
+                    const navbar = document.querySelector("header.MuiAppBar-root") as HTMLElement | null;
+                    if (navbar) {
+                        gsap.set(navbar, { opacity: 0, y: -80, pointerEvents: "none" });
+                    }
 
-                    // delay cleanup slightly
+
+
+                    // Wait a little before triggering header animations
                     setTimeout(() => {
                         onComplete();
                         setTimeout(() => {
@@ -72,7 +85,6 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
                     }, 300);
                 },
             });
-
 
         return () => {
             cleanup();
@@ -95,7 +107,6 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
                 willChange: "opacity, transform",
                 pointerEvents: "none",
             }}
-
         >
             <Box
                 ref={leftRef}
