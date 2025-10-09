@@ -4,23 +4,21 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useEffect, useState } from "react";
 
-// ✅ Register ScrollTrigger once (safe for Next.js Fast Refresh)
+// Register ScrollTrigger once (safe for Next.js Fast Refresh)
 let scrollTriggerRegistered = false;
 if (!scrollTriggerRegistered) {
   gsap.registerPlugin(ScrollTrigger);
   scrollTriggerRegistered = true;
 }
 
-// ✅ Refresh ScrollTrigger on page load to fix direct landing on section
+// Refresh ScrollTrigger on page load to fix direct landing on section
 if (typeof window !== "undefined") {
   window.addEventListener("load", () => {
     ScrollTrigger.refresh(true);
   });
 }
 
-// ----------------------
 // Type Definitions
-// ----------------------
 type Direction =
   | "fade"
   | "bottom"
@@ -39,9 +37,8 @@ interface GsapOptions {
   stagger?: number;
 }
 
-// ======================================================
-// ✅ useGsapAnimation Hook - standard fade/slide/zoom scroll animation
-// ======================================================
+
+// useGsapAnimation Hook - standard fade/slide/zoom scroll animation
 const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
   direction = "bottom",
   delay = 0,
@@ -109,7 +106,7 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
         }
       );
 
-      // 🔹 Ensure animation plays if user lands mid-section
+      // Ensure animation plays if user lands mid-section
       ScrollTrigger.create({
         trigger: element,
         start: "top 90%",
@@ -126,9 +123,8 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
 
 export default useGsapAnimation;
 
-// ======================================================
-// ✅ useGsapSlideAnimation - controls slide section progress (Our Approach)
-// ======================================================
+
+// useGsapSlideAnimation - controls slide section progress (Our Approach)
 export const useGsapSlideAnimation = (data: unknown[]) => {
   const elementRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -143,16 +139,16 @@ export const useGsapSlideAnimation = (data: unknown[]) => {
       ScrollTrigger.create({
         trigger: el,
         start: "top top",
-        end: `+=${sections * window.innerHeight}`,
-        scrub: true,
+        end: () => `+=${sections * window.innerHeight}`, // dynamic
+        scrub: 0.5,
         pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
         onUpdate: (self) => {
-          const progress = self.progress * sections;
-          const index = Math.min(sections - 1, Math.floor(progress));
+          const index = Math.min(sections - 1, Math.floor(self.progress * sections));
           setActiveIndex(index);
         },
       });
-
     }, elementRef);
 
     return () => ctx.revert();
@@ -161,9 +157,8 @@ export const useGsapSlideAnimation = (data: unknown[]) => {
   return { elementRef, activeIndex };
 };
 
-// ======================================================
-// ✅ useGsapTimelineAnimation - sequential header/hero animation
-// ======================================================
+
+// useGsapTimelineAnimation - sequential header/hero animation
 export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
   refs: React.RefObject<T | null>[],
   delay = 0
@@ -178,8 +173,19 @@ export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
       if (validRefs[0])
         tl.fromTo(
           validRefs[0].current,
-          { x: "-10%", y: "-50%", opacity: 0, scale: 0.8 },
-          { x: 0, y: 0, opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" }
+          { y: -80, opacity: 0, pointerEvents: "none" }, // 👈 ensure hidden & disabled
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1.1,
+            ease: "power3.out",
+            onComplete: () => {
+              // restore interactivity after animation
+              if (validRefs[0]?.current) {
+                (validRefs[0].current as HTMLElement).style.pointerEvents = "auto";
+              }
+            },
+          }
         );
 
       if (validRefs[1])
@@ -203,9 +209,8 @@ export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
   }, [refs, delay]);
 };
 
-// ======================================================
-// ✅ useGsapCounterAnimation - Track Record counters
-// ======================================================
+
+// useGsapCounterAnimation - Track Record counters
 export const useGsapCounterAnimation = (
   refs: React.MutableRefObject<(HTMLDivElement | null)[]>,
   data: { total: number; suffix: string }[]

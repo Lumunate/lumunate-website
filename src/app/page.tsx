@@ -18,23 +18,20 @@ export default function Home() {
   const [fadeIn, setFadeIn] = useState(false);
 
   useEffect(() => {
-    if (animationDone) {
-      // Immediately show video and navbar
-      setFadeIn(true);
+    if (!animationDone) return;
 
-      // Refresh GSAP after layout stabilizes
-      const refreshTimer = setTimeout(() => {
-        import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
-          ScrollTrigger.refresh(true);
-        });
-      }, 1000);
+    // show content immediately
+    setFadeIn(true);
 
-      return () => clearTimeout(refreshTimer);
-    }
+    // give layout a tick, then refresh ScrollTrigger
+    const t = setTimeout(() => {
+      import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+        ScrollTrigger.refresh();
+      });
+    }, 150);
+
+    return () => clearTimeout(t);
   }, [animationDone]);
-
-
-
 
   return (
     <>
@@ -43,11 +40,11 @@ export default function Home() {
       <Box
         sx={{
           opacity: fadeIn ? 1 : 0,
-          transform: fadeIn ? "translateY(0px)" : "translateY(30px)",
+          // IMPORTANT: remove transform once visible (no transformed ancestor!)
+          transform: fadeIn ? "none" : "translateY(30px)",
           transition: "opacity 1s ease, transform 1s ease",
         }}
       >
-
         <HeaderSection />
         <LogosSection />
         <TestimonialSection />
