@@ -21,7 +21,9 @@ export default function HeaderSection() {
   const socialRef = useRef<HTMLDivElement>(null);
 
   // Reuse the same animation via the hook
-  useGsapTimelineAnimation([titleRef, descRef, socialRef], 0);
+  useGsapTimelineAnimation([titleRef, descRef, socialRef], 2.5);
+  const navRef = useRef<HTMLDivElement>(null);
+  useGsapTimelineAnimation([navRef, titleRef, descRef, socialRef], 2);
 
 
   return (
@@ -34,7 +36,13 @@ export default function HeaderSection() {
           loop
           muted
           playsInline
+          preload="auto"
+          style={{
+            opacity: 1,
+            transition: "none",
+          }}
         />
+
       </SvgBg>
 
       <ContentBox>

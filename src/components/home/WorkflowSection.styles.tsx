@@ -21,44 +21,93 @@ export const WorkflowSectionRoot = styled(Box)(({ theme }) => ({
 }));
 
 export const NavBarContainer = styled(Box)(({ theme }) => ({
+    width: "100%",
     display: "flex",
-    width: "100vw",
-    borderTop: `1px solid ${theme.palette.divider ?? "#333"}`,
-    borderBottom: `1px solid ${theme.palette.divider ?? "#333"}`,
+    justifyContent: "center",
+    position: "relative",
+    zIndex: 2,
+
+    "&::before": {
+        content: '""',
+        position: "absolute",
+        top: 0,
+        left: "50%",
+        width: "100vw",
+        height: "100%",
+        transform: "translateX(-50%)",
+        backgroundColor: "#181818",
+        borderTop: "1px solid #333",
+        borderBottom: "1px solid #333",
+        zIndex: -1,
+    },
+
+    "&::after": {
+        content: '""',
+        position: "absolute",
+        top: 0,
+        left: "50%",
+        width: "100vw",
+        height: "100%",
+        transform: "translateX(-50%)",
+        borderLeft: "1px solid #333",
+        borderRight: "1px solid #333",
+        pointerEvents: "none",
+        zIndex: -1,
+    },
+
+    [theme.breakpoints.down("md")]: {
+        overflowX: "auto",
+        overflowY: "hidden",
+        whiteSpace: "nowrap",
+        scrollbarWidth: "none",
+        "&::-webkit-scrollbar": { display: "none" },
+    },
 }));
 
 export const NavItem = styled(Box)(({ theme }) => ({
-    flex: 1,
+    flexShrink: 0,
     display: "flex",
-    justifyContent: "center",
     alignItems: "center",
-    padding: `${theme.spacing(2)} ${theme.spacing(1)}`,
+    justifyContent: "center",
+    padding: `${theme.spacing(2.3)} ${theme.spacing(2)}`,
     cursor: "pointer",
-    whiteSpace: "nowrap",
-    color: theme.palette.text.secondary,
-    borderLeft: `1px solid ${theme.palette.divider ?? "#333"}`,
+    color: "#BDBDBD",
+    fontSize: "1rem",
+    borderLeft: "1px solid #333",
     transition: "background-color 0.3s ease, color 0.3s ease",
-    fontWeight: theme.typography.fontWeightRegular,
+    whiteSpace: "nowrap",
+    textAlign: "center",
+    userSelect: "none",
+    fontWeight: 400,
+    lineHeight: 1.3,
 
     "&:hover": {
-        backgroundColor: theme.palette.action.hover,
-        color: theme.palette.text.primary,
+        backgroundColor: "rgba(255,255,255,0.05)",
+        color: "#fff",
     },
 
     "&.active": {
-        backgroundColor: theme.palette.background.paper,
-        color: theme.palette.text.primary,
-        // fontWeight: theme.typography.fontWeightBold,
-
+        backgroundColor: "#292929",
+        color: "#fff",
+        fontWeight: 500,
     },
-
 
     "&:first-of-type": {
         borderLeft: "none",
     },
 
     [theme.breakpoints.down("md")]: {
-        padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
+        fontSize: "0.9rem",
+        padding: `${theme.spacing(1.4)} ${theme.spacing(2.2)}`,
+        minWidth: "150px",
+    },
+
+    [theme.breakpoints.down("sm")]: {
+        fontSize: "0.8rem",
+        padding: `${theme.spacing(1)} ${theme.spacing(1.8)}`,
+        minWidth: "130px",
     },
 }));
+
+
 

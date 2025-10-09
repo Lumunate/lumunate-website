@@ -88,7 +88,7 @@ export default function Navbar() {
                 opacity: 1,
                 duration: 1.2,
                 ease: "power3.out",
-                delay: 0.5, // sync with header
+                delay: 6, // sync with header
             }
         );
     }, []);

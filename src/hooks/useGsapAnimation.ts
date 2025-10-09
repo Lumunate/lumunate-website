@@ -140,22 +140,19 @@ export const useGsapSlideAnimation = (data: unknown[]) => {
     const ctx = gsap.context(() => {
       const sections = data.length;
 
-      gsap.to({}, {
-        scrollTrigger: {
-          trigger: el,
-          start: "top top",
-          end: `+=${sections * 100}%`,
-          scrub: true,
-          pin: true,
-          onUpdate: (self) => {
-            const newIndex = Math.min(
-              sections - 1,
-              Math.floor(self.progress * sections)
-            );
-            setActiveIndex(newIndex);
-          },
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top top",
+        end: `+=${sections * window.innerHeight}`,
+        scrub: true,
+        pin: true,
+        onUpdate: (self) => {
+          const progress = self.progress * sections;
+          const index = Math.min(sections - 1, Math.floor(progress));
+          setActiveIndex(index);
         },
       });
+
     }, elementRef);
 
     return () => ctx.revert();
