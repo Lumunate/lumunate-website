@@ -19,25 +19,21 @@ export default function Home() {
 
   useEffect(() => {
     if (animationDone) {
-      // Fade content in after startup
-      const fadeTimer = setTimeout(() => {
-        setFadeIn(true);
+      // Immediately show video and navbar
+      setFadeIn(true);
 
-        // ⏳ Wait until fade-in transition & media loaded
-        const refreshTimer = setTimeout(() => {
-          import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
-            // Refresh after layout & media have settled
-            ScrollTrigger.refresh(true);
-          });
-        }, 1800); // slightly longer than your fade duration (1s)
+      // Refresh GSAP after layout stabilizes
+      const refreshTimer = setTimeout(() => {
+        import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+          ScrollTrigger.refresh(true);
+        });
+      }, 1000);
 
-        return () => clearTimeout(refreshTimer);
-      }, 600);
-
-      return () => clearTimeout(fadeTimer);
+      return () => clearTimeout(refreshTimer);
     }
   }, [animationDone]);
-  ;
+
+
 
 
   return (

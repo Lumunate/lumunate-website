@@ -2,28 +2,38 @@
 
 import { useState, useEffect, useRef } from "react";
 import WorkflowCard from "./WorkflowCard";
-import { NavBarContainer, WorkflowSectionRoot, NavItem } from "./WorkflowSection.styles";
+import {
+  NavBarContainer,
+  WorkflowSectionRoot,
+  NavItem,
+} from "./WorkflowSection.styles";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const workflowSections = [
   {
     tag: "/UI & UX",
     title: "Creative Design & UI/UX",
-    description: "Interfaces that convert. User-centered designs that turn visitors into customers.",
+    description:
+      "Interfaces that convert. User-centered designs that turn visitors into customers.",
     video: "/creative-design.mp4",
     buttonText: "Discover",
   },
   {
     tag: "/Web & Mobile",
     title: "Web & Mobile Development",
-    description: "Apps that scale. Fast, secure, and built for growth across all platforms.",
+    description:
+      "Apps that scale. Fast, secure, and built for growth across all platforms.",
     video: "/creative-design.mp4",
     buttonText: "Discover",
   },
   {
     tag: "/AI & ML",
     title: "AI/ML Solutions",
-    description: "Custom AI tools that automate, optimize, and accelerate your business.",
+    description:
+      "Custom AI tools that automate, optimize, and accelerate your business.",
     video: "/creative-design.mp4",
     buttonText: "Discover",
   },
@@ -37,14 +47,16 @@ const workflowSections = [
   {
     tag: "/Enterprise",
     title: "Enterprise Solutions",
-    description: "Robust platforms that streamline operations and boost productivity.",
+    description:
+      "Robust platforms that streamline operations and boost productivity.",
     video: "/creative-design.mp4",
     buttonText: "Discover",
   },
   {
     tag: "/Digital",
     title: "Digital Transformation",
-    description: "Data-driven strategies that maximize reach and ROI.",
+    description:
+      "Data-driven strategies that maximize reach and ROI.",
     video: "/creative-design.mp4",
     buttonText: "Discover",
   },
@@ -53,23 +65,16 @@ const workflowSections = [
 export default function WorkflowSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Autoplay effect every 4s
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % workflowSections.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // GSAP-safe animation for active card
+  // ✅ Animate each card as it becomes active
   useEffect(() => {
     const ctx = gsap.context(() => {
       const card = cardsRef.current[activeIndex];
       if (!card) return;
 
-      const offset = activeIndex * 15; // stacked spacing offset
-
+      const offset = activeIndex * 15;
       gsap.set(card, { zIndex: 10 + activeIndex });
       gsap.fromTo(
         card,
@@ -78,12 +83,37 @@ export default function WorkflowSection() {
       );
     }, cardsRef);
 
-    // Cleanup: kills animations safely when unmounting or activeIndex changes
     return () => ctx.revert();
   }, [activeIndex]);
 
+  // ✅ Trigger autoplay only when the section scrolls into view
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const trigger = ScrollTrigger.create({
+      trigger: el,
+      start: "top 75%",
+      once: true,
+      onEnter: () => {
+        // Reset to first card
+        setActiveIndex(0);
+
+        // Start autoplay only now
+        intervalRef.current = setInterval(() => {
+          setActiveIndex((prev) => (prev + 1) % workflowSections.length);
+        }, 4000);
+      },
+    });
+
+    return () => {
+      trigger.kill();
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, []);
+
   return (
-    <WorkflowSectionRoot>
+    <WorkflowSectionRoot ref={sectionRef}>
       {/* Navbar */}
       <NavBarContainer>
         {workflowSections.map((section, i) => (

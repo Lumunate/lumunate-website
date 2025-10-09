@@ -26,6 +26,8 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
         gsap.set(rightRef.current, { y: "100%" });
         gsap.set(centerRef.current, { y: "-100%" });
 
+        // inside useEffect in StartupAnimation.tsx
+
         tl.to([leftRef.current, rightRef.current, centerRef.current], {
             y: "0%",
             duration: 1.1,
@@ -38,14 +40,19 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
                     duration: 1.1,
                     ease: "power3.inOut",
                     onStart: () => {
-                        // remove black background right as strips begin moving up
+                        // remove black background sooner
                         if (containerRef.current) {
-                            containerRef.current.style.background = "transparent";
+                            gsap.to(containerRef.current, {
+                                backgroundColor: "transparent",
+                                duration: 0.3,
+                                ease: "none",
+                            });
                         }
                     },
                 },
                 "+=0.1"
             )
+
             .to(containerRef.current, {
                 autoAlpha: 0, // hides + sets visibility:hidden
                 duration: 0.7,

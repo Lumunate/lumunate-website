@@ -2,54 +2,49 @@
 
 import { Box, styled } from "@mui/material";
 
-export const WorkflowNavBarRoot = styled(Box)(({ theme }) => ({
+// ✅ Full-width outer container
+export const NavBarContainer = styled(Box)(({ theme }) => ({
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    maxWidth: "1100px",
+    width: "100vw", // spans full viewport
     backgroundColor: "#181818",
     borderTop: "1px solid #333",
     borderBottom: "1px solid #333",
-    borderLeft: "1px solid #333",
-    borderRight: "1px solid #333",
     overflow: "hidden",
-    margin: "0 auto",
-    marginTop: theme.spacing(4),
-
-    [theme.breakpoints.up("md")]: {
-        justifyContent: "space-between",
-    },
+    margin: 0,
+    padding: 0,
+    boxSizing: "border-box",
 
     [theme.breakpoints.down("md")]: {
-        justifyContent: "flex-start",
         overflowX: "auto",
         overflowY: "hidden",
         whiteSpace: "nowrap",
-        scrollbarWidth: "none", // Firefox
+        scrollbarWidth: "none",
         "&::-webkit-scrollbar": {
-            display: "none", // Chrome/Safari
+            display: "none",
         },
     },
 }));
 
+// ✅ Individual nav item
 export const NavItem = styled(Box)(({ theme }) => ({
-    flexShrink: 0,
+    flex: 1,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    minWidth: "180px",
-    padding: `${theme.spacing(2)} ${theme.spacing(3)}`,
+    padding: `${theme.spacing(1.4)} ${theme.spacing(1.5)}`,
     cursor: "pointer",
-    color: "#AAAAAA",
+    color: "#BDBDBD",
+    fontSize: "0.95rem",
+    fontWeight: 400,
     borderLeft: "1px solid #333",
     transition: "background-color 0.3s ease, color 0.3s ease",
-    fontWeight: 400,
     whiteSpace: "nowrap",
     textAlign: "center",
+    userSelect: "none",
+    lineHeight: 1.3,
 
     "&:hover": {
-        backgroundColor: "rgba(255, 255, 255, 0.05)",
+        backgroundColor: "rgba(255,255,255,0.05)",
         color: "#fff",
     },
 
@@ -64,14 +59,14 @@ export const NavItem = styled(Box)(({ theme }) => ({
     },
 
     [theme.breakpoints.down("md")]: {
-        minWidth: "160px",
-        padding: `${theme.spacing(1.5)} ${theme.spacing(2)}`,
-        fontSize: "15px",
+        minWidth: "150px",
+        fontSize: "0.85rem",
+        padding: `${theme.spacing(1)} ${theme.spacing(1.2)}`,
     },
 
     [theme.breakpoints.down("sm")]: {
-        minWidth: "140px",
-        padding: `${theme.spacing(1)} ${theme.spacing(1.5)}`,
-        fontSize: "14px",
+        minWidth: "130px",
+        fontSize: "0.8rem",
+        padding: `${theme.spacing(0.8)} ${theme.spacing(1)}`,
     },
 }));
