@@ -15,12 +15,19 @@ import { IconButton } from "@mui/material";
 import Image from "next/image";
 import { useRef } from "react";
 import { useGsapTimelineAnimation } from "@/hooks/useGsapAnimation";
+import { useNavbarRef } from "@/components/ui/NavbarContext";
+
 
 export default function HeaderSection() {
 
    const headingRef = useGsapAnimation({ direction: "text-expand", delay: 3, duration:2 });
     const textRef = useGsapAnimation({ direction: "scale-up", delay: 3, duration:2 });
   const socialRef = useRef<HTMLDivElement>(null);
+  // Animate navbar + title + description + social together after video starts
+  useGsapTimelineAnimation([titleRef, descRef, socialRef], 2);
+
+
+
 
   return (
     <HeaderRoot>
@@ -32,7 +39,12 @@ export default function HeaderSection() {
           muted
           playsInline
           preload="auto"
+          style={{
+            opacity: 1,
+            transition: "none",
+          }}
         />
+
       </SvgBg>
       <ContentBox>
         <LeftBox>

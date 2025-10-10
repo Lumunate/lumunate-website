@@ -80,45 +80,47 @@ export default function Navbar() {
 
     // GSAP animation: Navbar slides in safely using gsap.context
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            const timer = setTimeout(() => {
-                if (!navRef.current) return;
+        if (!navRef.current) return;
 
-                gsap.fromTo(
-                    navRef.current,
-                    { y: -80, opacity: 0 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 1.2,
-                        ease: "power3.out",
-                    }
-                );
-            }, 2000);
-
-            // cleanup timer when unmounting
-            return () => clearTimeout(timer);
-        }, navRef);
-
-        // revert cleans up all tweens and timelines safely
-        return () => ctx.revert();
+        gsap.fromTo(
+            navRef.current,
+            { y: -80, opacity: 0, pointerEvents: "none" },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 1.2,
+                ease: "power3.out",
+                delay: 6, // sync with header
+                onStart: () => {
+                    gsap.set(navRef.current, { pointerEvents: "none" });
+                },
+                onComplete: () => {
+                    // Re-enable clicks once animation completes
+                    gsap.set(navRef.current, { pointerEvents: "auto" });
+                },
+            }
+        );
     }, []);
+
 
 
     return (
         <AppBar
+            ref={navRef}
             position="static"
             color="transparent"
             elevation={0}
-            ref={navRef}
             sx={{
                 width: "100vw",
                 zIndex: 30,
                 background: "transparent",
                 boxShadow: "none",
                 opacity: 0,
+                transform: "translateY(-60px)",
+                pointerEvents: "none", // ✅ keep this — GSAP re-enables it
             }}
         >
+
             <NavContainer>
                 <StyledToolbar disableGutters>
                     <LogoBox>

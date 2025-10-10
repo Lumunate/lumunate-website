@@ -4,15 +4,21 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useEffect, useState } from "react";
 
-// ✅ Register ScrollTrigger once (safe for TypeScript + Next.js Fast Refresh)
+// Register ScrollTrigger once (safe for Next.js Fast Refresh)
 let scrollTriggerRegistered = false;
-
 if (!scrollTriggerRegistered) {
   gsap.registerPlugin(ScrollTrigger);
   scrollTriggerRegistered = true;
 }
 
+// Refresh ScrollTrigger on page load to fix direct landing on section
+if (typeof window !== "undefined") {
+  window.addEventListener("load", () => {
+    ScrollTrigger.refresh(true);
+  });
+}
 
+// Type Definitions
 type Direction =
   | "fade"
   | "bottom"
@@ -33,6 +39,8 @@ interface GsapOptions {
   stagger?: number;
 }
 
+
+// useGsapAnimation Hook - standard fade/slide/zoom scroll animation
 const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
   direction = "bottom",
   delay = 0,
@@ -46,7 +54,6 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
     const element = elementRef.current;
     if (!element) return;
 
-    // ✅ Scoped GSAP context (prevents React/DOM conflicts)
     const ctx = gsap.context(() => {
       let fromProps: gsap.TweenVars = {};
 
@@ -81,71 +88,42 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
         case "zoomTopRight":
           fromProps = { x: 50, y: -50, scale: 0.6, opacity: 0 };
           break;
-      default:
-        fromProps = { y: 50, opacity: 0 };
-    }
+        default:
+          fromProps = { y: 50, opacity: 0 };
+      }
 
-    // gsap.from(element, {
-    //   ...fromProps,
-    //   delay,
-    //   duration,
-    //   stagger,
-    //   scrollTrigger: {
-    //     trigger: element,
-    //     start: "top 70%",
-    //     end: "bottom 20%",
-    //     toggleActions: "play none none none",
-    //     once,
-    //   },
-    // });
-
-        if (direction.startsWith("zoomTop")) {
-        gsap.fromTo(
-          element,
-          fromProps,
-          {
-            x: 0,
-            y: 0,
-            scale: 1.05,
-            opacity: 1,
-            duration,
-            delay,
-            ease: "power4.out",
-            scrollTrigger: {
-              trigger: element,
-              start: "top 70%",
-              end: "bottom 20%",
-              toggleActions: "play none none none",
-              once,
-            },
-            onComplete: () => {
-              gsap.to(element, { scale: 1, duration: 0.2, ease: "power2.out" });
-            },
-          }
-        );
-      } else {
-        gsap.from(element, {
-          ...fromProps,
-          delay,
+      const anim = gsap.fromTo(
+        element,
+        fromProps,
+        {
+          x: 0,
+          y: 0,
+          scale: 1,
+          opacity: 1,
           duration,
+          delay,
           stagger,
           ease: "power3.out",
           scrollTrigger: {
             trigger: element,
-            start: "top 70%",
-            end: "bottom 20%",
-            toggleActions: "play none none none",
+            start: "top 80%",
+            end: "bottom 10%",
+            toggleActions: "play none none reverse",
             once,
           },
-        });
-      }
+        }
+      );
+
+      // Ensure animation plays if user lands mid-section
+      ScrollTrigger.create({
+        trigger: element,
+        start: "top 90%",
+        once,
+        onEnter: () => anim.play(),
+      });
     }, elementRef);
 
-    // ✅ Cleanup: kills animations + ScrollTriggers safely
-    return () => {
-      ctx.revert();
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
+    return () => ctx.revert();
   }, [direction, delay, duration, once, stagger]);
 
   return elementRef;
@@ -153,8 +131,8 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
 
 export default useGsapAnimation;
 
-// ---------------------------------------------------------------
-//  Safe slide animation version
+
+// useGsapSlideAnimation - controls slide section progress (Our Approach)
 export const useGsapSlideAnimation = (data: unknown[]) => {
   const elementRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -166,40 +144,35 @@ export const useGsapSlideAnimation = (data: unknown[]) => {
     const ctx = gsap.context(() => {
       const sections = data.length;
 
-      gsap.to({}, {
-        scrollTrigger: {
-          trigger: el,
-          start: "top top",
-          end: `+=${sections * 100}%`,
-          scrub: true,
-          pin: true,
-          onUpdate: (self) => {
-            const newIndex = Math.min(
-              sections - 1,
-              Math.floor(self.progress * sections)
-            );
-            setActiveIndex(newIndex);
-          },
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top top",
+        end: () => `+=${sections * window.innerHeight}`, // dynamic
+        scrub: 0.5,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const index = Math.min(sections - 1, Math.floor(self.progress * sections));
+          setActiveIndex(index);
         },
       });
     }, elementRef);
 
-    return () => {
-      ctx.revert();
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
+    return () => ctx.revert();
   }, [data]);
 
   return { elementRef, activeIndex };
 };
 
-// Custom hook for sequential GSAP timeline animations (Header style)
+
+// useGsapTimelineAnimation - sequential header/hero animation
 export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
   refs: React.RefObject<T | null>[],
   delay = 0
 ) => {
   useEffect(() => {
-    const validRefs = refs.filter(r => r?.current) as React.RefObject<T>[];
+    const validRefs = refs.filter((r) => r?.current) as React.RefObject<T>[];
     if (validRefs.length === 0) return;
 
     const ctx = gsap.context(() => {
@@ -208,8 +181,19 @@ export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
       if (validRefs[0])
         tl.fromTo(
           validRefs[0].current,
-          { x: "-10%", y: "-50%", opacity: 0, scale: 0.8 },
-          { x: 0, y: 0, opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" }
+          { y: -80, opacity: 0, pointerEvents: "none" }, // 👈 ensure hidden & disabled
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1.1,
+            ease: "power3.out",
+            onComplete: () => {
+              // restore interactivity after animation
+              if (validRefs[0]?.current) {
+                (validRefs[0].current as HTMLElement).style.pointerEvents = "auto";
+              }
+            },
+          }
         );
 
       if (validRefs[1])
@@ -233,7 +217,8 @@ export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
   }, [refs, delay]);
 };
 
-// GSAP Counter Hook (TrackRecord Style)
+
+// useGsapCounterAnimation - Track Record counters
 export const useGsapCounterAnimation = (
   refs: React.MutableRefObject<(HTMLDivElement | null)[]>,
   data: { total: number; suffix: string }[]
@@ -241,7 +226,6 @@ export const useGsapCounterAnimation = (
   useEffect(() => {
     if (!refs.current.length) return;
 
-    // Safe GSAP Context
     const ctx = gsap.context(() => {
       refs.current.forEach((el, index) => {
         if (!el) return;
@@ -276,7 +260,6 @@ export const useGsapCounterAnimation = (
       });
     });
 
-    // Cleanup
     return () => ctx.revert();
   }, [refs, data]);
 };

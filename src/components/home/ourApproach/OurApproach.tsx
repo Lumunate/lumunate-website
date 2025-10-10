@@ -89,7 +89,7 @@ const OurApproach = () => {
         { opacity: 0 },
         {
           opacity: 1,
-          duration: 1.2,
+          duration: 1,
           ease: "power2.out",
           scrollTrigger: {
             trigger: elementRef.current,

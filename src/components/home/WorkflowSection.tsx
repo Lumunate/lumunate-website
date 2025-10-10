@@ -2,8 +2,15 @@
 
 import { useState, useEffect, useRef } from "react";
 import WorkflowCard from "./WorkflowCard";
-import { NavBarContainer, WorkflowSectionRoot, NavItem } from "./WorkflowSection.styles";
+import {
+  NavBarContainer,
+  WorkflowSectionRoot,
+  NavItem,
+} from "./WorkflowSection.styles";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const workflowSections = [
   {
@@ -53,23 +60,16 @@ const workflowSections = [
 export default function WorkflowSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Autoplay effect every 4s
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % workflowSections.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // GSAP-safe animation for active card
+  // ✅ Animate each card as it becomes active
   useEffect(() => {
     const ctx = gsap.context(() => {
       const card = cardsRef.current[activeIndex];
       if (!card) return;
 
-      const offset = activeIndex * 15; // stacked spacing offset
-
+      const offset = activeIndex * 15;
       gsap.set(card, { zIndex: 10 + activeIndex });
       gsap.fromTo(
         card,
@@ -78,12 +78,37 @@ export default function WorkflowSection() {
       );
     }, cardsRef);
 
-    // Cleanup: kills animations safely when unmounting or activeIndex changes
     return () => ctx.revert();
   }, [activeIndex]);
 
+  // ✅ Trigger autoplay only when the section scrolls into view
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const trigger = ScrollTrigger.create({
+      trigger: el,
+      start: "top 75%",
+      once: true,
+      onEnter: () => {
+        // Reset to first card
+        setActiveIndex(0);
+
+        // Start autoplay only now
+        intervalRef.current = setInterval(() => {
+          setActiveIndex((prev) => (prev + 1) % workflowSections.length);
+        }, 4000);
+      },
+    });
+
+    return () => {
+      trigger.kill();
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, []);
+
   return (
-    <WorkflowSectionRoot>
+    <WorkflowSectionRoot ref={sectionRef}>
       {/* Navbar */}
       <NavBarContainer>
         {workflowSections.map((section, i) => (
