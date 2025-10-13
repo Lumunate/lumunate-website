@@ -22,6 +22,8 @@ export default function HeaderSection() {
 
    const headingRef = useGsapAnimation({ direction: "text-expand", delay: 3, duration:2 });
     const textRef = useGsapAnimation({ direction: "scale-up", delay: 3, duration:2 });
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const descRef = useRef<HTMLParagraphElement>(null);
   const socialRef = useRef<HTMLDivElement>(null);
   // Animate navbar + title + description + social together after video starts
   useGsapTimelineAnimation([titleRef, descRef, socialRef], 2);
@@ -48,10 +50,10 @@ export default function HeaderSection() {
       </SvgBg>
       <ContentBox>
         <LeftBox>
-          <StyledH1 ref={headingRef} variant="h1">Your digital <br /> evolution <br /> partner</StyledH1>
+          <StyledH1 ref={titleRef} variant="h1">Your digital <br /> evolution <br /> partner</StyledH1>
         </LeftBox>
         <RightBox>
-          <StyledParagraph ref={textRef} variant="body1">
+          <StyledParagraph ref={descRef} variant="body1">
             Transform ideas into scalable digital products that grow with your
             business. From AI-powered platforms to enterprise solutions,
             we&apos;re the technology partner that turns vision into velocity.
