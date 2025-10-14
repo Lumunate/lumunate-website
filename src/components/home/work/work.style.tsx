@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, styled } from "@mui/material";
+import { Box, Button, styled } from "@mui/material";
 
 export const WorkWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -44,3 +44,45 @@ export const TitleWrapper = styled(Box)(({ theme }) => ({
   `,
 }));
 
+export const ImageContainer = styled(Box)(() => ({
+  width: "100%",
+  borderRadius: "12px",
+  overflow: "hidden",
+  marginTop: "24px",
+  position: "relative",
+  cursor: "pointer",
+  "&:hover .hoverImage": {
+    filter: "blur(6px)",
+    transform: "scale(1.02)",
+    transition: "all 0.4s ease-in-out",
+  },
+  "&:hover .viewButton": {
+    opacity: 1,
+    transform: "translateY(0)",
+    transition: "all 0.4s ease-in-out",
+  },
+}));
+
+export const ViewButton = styled(Button)(() => ({
+  position: "absolute",
+  top: "13%",
+  right: "10%",
+  background: "rgba(0, 0, 0, 0.5)",
+  boxShadow: `
+    inset 0px 4px 25.6px rgba(0, 0, 0, 0.25),
+    0px 4px 8.9px rgba(91, 91, 91, 0.25)
+  `,
+  backdropFilter: "blur(6px)",
+  borderRadius: "50%",
+  color: "#fff",
+  textTransform: "none",
+  fontWeight: 400,
+  fontSize: "14px",
+  padding: "26px 12px",
+  opacity: 0,
+  transform: "translateY(10px)",
+  transition: "all 0.4s ease-in-out",
+  "&:hover": {
+    background: "rgba(14, 13, 13, 0.25)",
+  },
+}));

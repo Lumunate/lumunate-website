@@ -16,48 +16,43 @@ const workflowSections = [
   {
     tag: "/UI & UX",
     title: "Creative Design & UI/UX",
-    description:
-      "Interfaces that convert. User-centered designs that turn visitors into customers.",
-    video: "/creative-design.mp4",
+    description: "Interfaces that convert User-centered designs that turn visitors into customers.",
+    video: "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
     buttonText: "Discover",
   },
   {
     tag: "/Web & Mobile",
     title: "Web & Mobile Development",
-    description:
-      "Apps that scale. Fast, secure, and built for growth across all platforms.",
-    video: "/creative-design.mp4",
+    description: "Apps that scale Fast, secure, and built for growth across all platforms.",
+    video: "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
     buttonText: "Discover",
   },
   {
     tag: "/AI & ML",
     title: "AI/ML Solutions",
-    description:
-      "Custom AI tools that automate, optimize, and accelerate your business.",
-    video: "/creative-design.mp4",
+    description: "Intelligence that delivers Custom AI tools that automate, optimize, and accelerate your business.",
+    video: "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
     buttonText: "Discover",
   },
   {
     tag: "/Web3",
     title: "Web3 & Blockchain",
-    description: "Decentralized solutions for tomorrow's digital economy.",
-    video: "/creative-design.mp4",
+    description: "Future-ready technology Decentralized solutions for tomorrow's digital economy.",
+    video: "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
     buttonText: "Discover",
   },
   {
     tag: "/Enterprise",
     title: "Enterprise Solutions",
-    description:
-      "Robust platforms that streamline operations and boost productivity.",
-    video: "/creative-design.mp4",
+    description: "Systems that perform Robust platforms that streamline operations and boost productivity.",
+    video: "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
     buttonText: "Discover",
   },
   {
     tag: "/Digital",
     title: "Digital Transformation",
-    description:
-      "Data-driven strategies that maximize reach and ROI.",
-    video: "/creative-design.mp4",
+    description: "Growth that sticks Data-driven strategies that maximize reach and ROI.",
+    video: "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
     buttonText: "Discover",
   },
 ];

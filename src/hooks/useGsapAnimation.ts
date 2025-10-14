@@ -25,6 +25,8 @@ type Direction =
   | "top"
   | "left"
   | "right"
+  | "scale-up"
+  | "text-expand"
   | "zoomTop"
   | "zoomTopLeft"
   | "zoomTopRight";
@@ -71,7 +73,13 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
         case "fade":
           fromProps = { opacity: 0 };
           break;
-        case "zoomTop":
+     case "scale-up":
+        fromProps = { scale: 0.5, opacity: 0, transformOrigin: "center center" };
+        break;
+      case "text-expand":
+        fromProps = { fontSize: "6px", opacity: 0, textShadow: "0px 0px 15px rgba(0,0,0,0.6)" };
+        break;
+          case "zoomTop":
           fromProps = { y: -40, scale: 0.6, opacity: 0 };
           break;
         case "zoomTopLeft":

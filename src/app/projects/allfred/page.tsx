@@ -10,7 +10,7 @@ export default function AllfredCaseStudyPage() {
 
         <>
             <CaseStudyHeader
-                background={{ kind: "video", src: "/case-studies/airbot-header.mp4", }}
+                background={{ kind: "video", src: "https://res.cloudinary.com/dqvzaju7x/video/upload/v1759933021/airbot-header_gx3fsp.mp4", }}
                 title="Allfred"
                 subtitle="Healthcare ERP"
                 description={
