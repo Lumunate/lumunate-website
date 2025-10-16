@@ -1,6 +1,6 @@
 import React from "react";
 import {  TitleWrapper, WorkWrapper, ImageContainer, ViewButton } from "./work.style";
-import { Box, Grid, Typography, Button } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
