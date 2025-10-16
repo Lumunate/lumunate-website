@@ -90,7 +90,7 @@ export default function Navbar() {
                 opacity: 1,
                 duration: 1.2,
                 ease: "power3.out",
-                delay: 6, // sync with header
+                delay: 7.2, // sync with header
                 onStart: () => {
                     gsap.set(navRef.current, { pointerEvents: "none" });
                 },

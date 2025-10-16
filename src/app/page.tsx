@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { Box } from "@mui/material";
+
+// Sections
 import HeaderSection from "@/components/home/HeaderSection";
 import LogosSection from "@/components/home/LogosSection";
 import TestimonialSection from "@/components/home/TestimonialSection";
@@ -11,36 +13,47 @@ import OurApproach from "@/components/home/ourApproach/OurApproach";
 import Works from "@/components/home/work/Works";
 import ExploreSection from "@/components/home/explore/Explore";
 import Ready from "@/components/home/ready/Ready";
+
+// Animations
+import PreloadAnimation from "@/components/PreloadAnimation";
 import StartupAnimation from "@/components/StartupAnimation";
 
 export default function Home() {
-  const [animationDone, setAnimationDone] = useState(false);
+  const [preloadDone, setPreloadDone] = useState(false);
+  const [startupDone, setStartupDone] = useState(false);
   const [fadeIn, setFadeIn] = useState(false);
 
+  // After Startup finishes, fade in content + refresh ScrollTrigger
   useEffect(() => {
-    if (!animationDone) return;
+    if (!startupDone) return;
 
-    // show content immediately
     setFadeIn(true);
 
-    // give layout a tick, then refresh ScrollTrigger
     const t = setTimeout(() => {
       import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
         ScrollTrigger.refresh();
       });
-    }, 150);
+    }, 200);
 
     return () => clearTimeout(t);
-  }, [animationDone]);
+  }, [startupDone]);
 
   return (
     <>
-      {!animationDone && <StartupAnimation onComplete={() => setAnimationDone(true)} />}
+      {/* 1: Preloader animated white circles */}
+      {!preloadDone && (
+        <PreloadAnimation onComplete={() => setPreloadDone(true)} />
+      )}
 
+      {/* 2: Startup animation (3 vertical strips) */}
+      {preloadDone && !startupDone && (
+        <StartupAnimation onComplete={() => setStartupDone(true)} />
+      )}
+
+      {/* 3: Main website content (fades in after startup) */}
       <Box
         sx={{
           opacity: fadeIn ? 1 : 0,
-          // IMPORTANT: remove transform once visible (no transformed ancestor!)
           transform: fadeIn ? "none" : "translateY(30px)",
           transition: "opacity 1s ease, transform 1s ease",
         }}
