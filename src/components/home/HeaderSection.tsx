@@ -1,6 +1,5 @@
-
 "use client"
-import useGsapAnimation from "@/hooks/useGsapAnimation";
+
 import {
   HeaderRoot,
   SvgBg,
@@ -15,13 +14,9 @@ import { IconButton } from "@mui/material";
 import Image from "next/image";
 import { useRef } from "react";
 import { useGsapTimelineAnimation } from "@/hooks/useGsapAnimation";
-import { useNavbarRef } from "@/components/ui/NavbarContext";
-
 
 export default function HeaderSection() {
 
-   const headingRef = useGsapAnimation({ direction: "text-expand", delay: 3, duration:2 });
-    const textRef = useGsapAnimation({ direction: "scale-up", delay: 3, duration:2 });
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const socialRef = useRef<HTMLDivElement>(null);
