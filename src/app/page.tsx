@@ -1,95 +1,78 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useState, useEffect } from "react";
+import { Box } from "@mui/material";
+
+// Sections
+import HeaderSection from "@/components/home/HeaderSection";
+import LogosSection from "@/components/home/LogosSection";
+import TestimonialSection from "@/components/home/TestimonialSection";
+import WorkflowSection from "@/components/home/WorkflowSection";
+import TrackRecord from "@/components/home/trackRecord/TrackRecord";
+import OurApproach from "@/components/home/ourApproach/OurApproach";
+import Works from "@/components/home/work/Works";
+import ExploreSection from "@/components/home/explore/Explore";
+import Ready from "@/components/home/ready/Ready";
+
+// Animations
+import PreloadAnimation from "@/components/PreloadAnimation";
+import StartupAnimation from "@/components/StartupAnimation";
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [preloadDone, setPreloadDone] = useState(false);
+  const [startupDone, setStartupDone] = useState(false);
+  const [fadeIn, setFadeIn] = useState(false);
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  // After Startup finishes, fade in content + refresh ScrollTrigger
+  useEffect(() => {
+    if (!startupDone) return;
+
+    setFadeIn(true);
+
+    const t = setTimeout(() => {
+      import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+        ScrollTrigger.refresh();
+      });
+    }, 200);
+
+    return () => clearTimeout(t);
+  }, [startupDone]);
+
+  return (
+    <>
+      {/* 1: Preloader animated white circles */}
+      {!preloadDone && (
+        <PreloadAnimation onComplete={() => setPreloadDone(true)} />
+      )}
+
+      {/* 2: Startup animation (3 vertical strips) */}
+      {preloadDone && !startupDone && (
+        <StartupAnimation onComplete={() => setStartupDone(true)} />
+      )}
+
+      {/* 3: Main website content (fades in after startup) */}
+      <Box
+        sx={{
+          opacity: fadeIn ? 1 : 0,
+          transform: fadeIn ? "none" : "translateY(30px)",
+          transition: "opacity 1s ease, transform 1s ease",
+        }}
+      >
+        <HeaderSection />
+        <LogosSection />
+        <TestimonialSection />
+        <WorkflowSection />
+        <TrackRecord />
+        <OurApproach />
+        <Works />
+        <ExploreSection />
+        <Ready
+          title="Ready to Build What's Next?"
+          description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions that drive real results."
+          linkText="Let's Connect"
+          linkHref="/contact"
+        />
+      </Box>
+    </>
   );
 }
