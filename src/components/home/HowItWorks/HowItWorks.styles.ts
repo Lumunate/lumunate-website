@@ -1,0 +1,163 @@
+"use client";
+
+import Link from "next/link";
+import { Accordion, AccordionSummary, Box, Typography } from "@mui/material";
+import { styled } from "@mui/material/styles";
+
+export const Section = styled(Box)(({ theme }) => ({
+    width: "100%",
+    background: "#0B0B0B",
+    color: "#fff",
+    paddingTop: 80,
+    paddingBottom: 80,
+
+    [theme.breakpoints.down("md")]: {
+        paddingTop: 64,
+        paddingBottom: 64,
+    },
+    [theme.breakpoints.down("sm")]: {
+        paddingTop: 48,
+        paddingBottom: 48,
+    },
+}));
+
+export const Container = styled(Box)(({ theme }) => ({
+    width: "100%",
+    maxWidth: 1200,
+    margin: "0 auto",
+    paddingLeft: 24,
+    paddingRight: 24,
+
+    [theme.breakpoints.down("sm")]: {
+        paddingLeft: 16,
+        paddingRight: 16,
+    },
+}));
+
+export const Title = styled(Typography)(({ theme }) => ({
+    color: "#FFF",
+    textAlign: "center",
+    fontFamily: "Montserrat",
+    fontSize: 78,
+    fontStyle: "normal",
+    fontWeight: 400,
+    lineHeight: "96.85%",
+    letterSpacing: "-1.5px",
+    marginBottom: 80,
+
+    [theme.breakpoints.down("lg")]: {
+        fontSize: 64,
+        marginBottom: 64,
+    },
+    [theme.breakpoints.down("md")]: {
+        fontSize: 52,
+        marginBottom: 56,
+    },
+    [theme.breakpoints.down("sm")]: {
+        fontSize: 40,
+        marginBottom: 40,
+        letterSpacing: "-1px",
+    },
+}));
+
+export const FaqAccordion = styled(Accordion)(() => ({
+    background: "transparent",
+    color: "#AAA",
+    boxShadow: "none",
+    borderRadius: 0,
+    margin: 0,
+    borderTop: "1px solid rgba(255,255,255,0.12)",
+
+    "&:before": { display: "none" },
+
+    "&:last-of-type": {
+        borderBottom: "1px solid rgba(255,255,255,0.12)",
+    },
+
+    "&.Mui-expanded": {
+        margin: 0,
+    },
+}));
+
+export const FaqSummary = styled(AccordionSummary)(({ theme }) => ({
+    paddingLeft: 0,
+    paddingRight: 0,
+    minHeight: 60,
+
+    "&.Mui-expanded": { minHeight: 60 },
+
+    "& .MuiAccordionSummary-content": {
+        margin: 0,
+        "&.Mui-expanded": { margin: 0 },
+    },
+
+    "& .MuiAccordionSummary-expandIconWrapper": {
+        color: "#AAA",
+    },
+
+    [theme.breakpoints.down("sm")]: {
+        minHeight: 56,
+        "&.Mui-expanded": { minHeight: 56 },
+    },
+}));
+
+export const QuestionText = styled(Typography)(({ theme }) => ({
+    color: "#AAA",
+    fontFamily: "Montserrat",
+    fontSize: 22,
+    fontStyle: "normal",
+    fontWeight: 400,
+    lineHeight: "normal",
+
+    [theme.breakpoints.down("md")]: { fontSize: 20 },
+    [theme.breakpoints.down("sm")]: { fontSize: 18 },
+}));
+
+export const AnswerText = styled(Typography)(({ theme }) => ({
+    color: "#AAA",
+    fontFamily: "Montserrat",
+    fontSize: 16,
+    fontWeight: 400,
+    lineHeight: "normal",
+    paddingTop: 8,
+    paddingBottom: 20,
+
+    [theme.breakpoints.down("sm")]: {
+        paddingBottom: 16,
+    },
+}));
+
+export const BottomRow = styled(Box)(({ theme }) => ({
+    textAlign: "center",
+    marginTop: 80,
+
+    [theme.breakpoints.down("md")]: {
+        marginTop: 64,
+    },
+    [theme.breakpoints.down("sm")]: {
+        marginTop: 40,
+    },
+}));
+
+export const BottomText = styled(Typography)(() => ({
+    color: "#AAA",
+    textAlign: "center",
+    fontFamily: "Montserrat",
+    fontSize: 16,
+    fontStyle: "normal",
+    fontWeight: 400,
+    lineHeight: "normal",
+}));
+
+export const TalkLink = styled(Link)(() => ({
+    color: "#FFF",
+    fontFamily: "Montserrat",
+    fontSize: 16,
+    fontStyle: "normal",
+    fontWeight: 700,
+    lineHeight: "normal",
+    textDecoration: "none",
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 6,
+}));

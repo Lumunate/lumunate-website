@@ -17,6 +17,7 @@ import Ready from "@/components/home/ready/Ready";
 // Animations
 import PreloadAnimation from "@/components/PreloadAnimation";
 import StartupAnimation from "@/components/StartupAnimation";
+import HowItWorks from "@/components/home/HowItWorks/HowItWorks";
 
 export default function Home() {
   const [preloadDone, setPreloadDone] = useState(false);
@@ -66,6 +67,7 @@ export default function Home() {
         <OurApproach />
         <Works />
         <ExploreSection />
+        <HowItWorks />
         <Ready
           title="Ready to Build What's Next?"
           description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions that drive real results."
