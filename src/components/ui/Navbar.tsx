@@ -42,6 +42,7 @@ const projects = [
     { name: "Fast Clean Service – Car Detailing Platform", href: "/projects/fast-clean" },
     { name: "Poppynz – On-Demand Family Support", href: "/projects/poppynz" },
     { name: "Zeal – AI-Driven Healthcare Platform 2", href: "/projects/zeal-2" },
+    { name: "TCR Properties – Dubai Real Estate Platform", href: "/projects/tcrproperties.ae" },
 ];
 
 const navButtonSx = {
