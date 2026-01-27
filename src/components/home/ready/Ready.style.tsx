@@ -29,7 +29,7 @@ export const BackgroundVideo = styled("video")({
   zIndex: 0,
 });
 
-export const Overlay = styled(Box)(({ theme }) => ({
+export const Overlay = styled(Box)(({ }) => ({
   position: "absolute",
   top: 0,
   left: 0,

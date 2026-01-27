@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Box } from "@mui/material";
 
 // Sections
 import HeaderSection from "@/components/home/HeaderSection";
@@ -18,6 +17,7 @@ import Ready from "@/components/home/ready/Ready";
 import PreloadAnimation from "@/components/PreloadAnimation";
 import StartupAnimation from "@/components/StartupAnimation";
 import HowItWorks from "@/components/home/HowItWorks/HowItWorks";
+import { Box } from "@mui/material";
 
 export default function Home() {
   const [preloadDone, setPreloadDone] = useState(false);
@@ -42,39 +42,39 @@ export default function Home() {
   return (
     <>
       {/* 1: Preloader animated white circles */}
-      {/* {!preloadDone && (
+      {!preloadDone && (
         <PreloadAnimation onComplete={() => setPreloadDone(true)} />
-      )} */}
+      )}
 
       {/* 2: Startup animation (3 vertical strips) */}
-      {/* {preloadDone && !startupDone && (
+      {preloadDone && !startupDone && (
         <StartupAnimation onComplete={() => setStartupDone(true)} />
-      )} */}
+      )}
 
       {/* 3: Main website content (fades in after startup) */}
-      {/* <Box
+      <Box
         sx={{
           opacity: fadeIn ? 1 : 0,
           transform: fadeIn ? "none" : "translateY(30px)",
           transition: "opacity 1s ease, transform 1s ease",
         }}
-      > */}
-      <HeaderSection />
-      <LogosSection />
-      <TestimonialSection />
-      <WorkflowSection />
-      <TrackRecord />
-      <OurApproach />
-      <Works />
-      <HowItWorks />
-      <ExploreSection />
-      <Ready
-        title="Ready to Build What's Next?"
-        description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions that drive real results."
-        linkText="Let's Connect"
-        linkHref="/contact"
-      />
-      {/* </Box> */}
+      >
+        <HeaderSection />
+        <LogosSection />
+        <TestimonialSection />
+        <WorkflowSection />
+        <TrackRecord />
+        <OurApproach />
+        <Works />
+        <HowItWorks />
+        <ExploreSection />
+        <Ready
+          title="Ready to Build What's Next?"
+          description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions that drive real results."
+          linkText="Let's Connect"
+          linkHref="/contact"
+        />
+      </Box>
     </>
   );
 }

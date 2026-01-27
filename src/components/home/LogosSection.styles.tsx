@@ -3,7 +3,7 @@
 import { Box, styled } from "@mui/material";
 
 /* Root container */
-export const LogosRoot = styled(Box)(({ theme }) => ({
+export const LogosRoot = styled(Box)(({ }) => ({
     width: "100vw",
     overflow: "hidden",
     padding: "0 0",
@@ -46,7 +46,7 @@ export const LogosTrack = styled(Box)(({ theme }) => ({
 }));
 
 /* Individual logo */
-export const LogoItem = styled(Box)(({ theme }) => ({
+export const LogoItem = styled(Box)(({ }) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

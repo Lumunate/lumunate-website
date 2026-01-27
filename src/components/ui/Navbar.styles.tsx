@@ -54,7 +54,7 @@ export const RightBox = styled(Box)(() => ({
     height: "100%",
 }));
 
-export const VerticalDivider = styled(Box)(({ theme }) => ({
+export const VerticalDivider = styled(Box)(({ }) => ({
 
     width: "1px",
     minWidth: "1px",

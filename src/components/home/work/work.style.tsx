@@ -2,7 +2,7 @@
 
 import { Box, Button, styled } from "@mui/material";
 
-export const WorkWrapper = styled(Box)(({ theme }) => ({
+export const WorkWrapper = styled(Box)(({ }) => ({
   width: "100%",
   // paddingTop: "214px",
     paddingBottom: "220px",
