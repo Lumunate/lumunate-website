@@ -6,7 +6,6 @@ import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import {
     AppBar,
-    IconButton,
     Button,
     Drawer,
     List,
@@ -20,7 +19,6 @@ import {
     useMediaQuery,
     Box,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import {
     NavContainer,
