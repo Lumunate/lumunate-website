@@ -20,8 +20,8 @@ export default function Logo() {
             <Image
                 src="/lumunate-logo.svg"
                 alt="Lumunate Portfolio - Logo"
-                width={150}
-                height={62}
+                width={259}
+                height={85}
                 priority
             />
         </Box>

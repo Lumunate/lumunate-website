@@ -25,39 +25,39 @@ export default function Home() {
   const [fadeIn, setFadeIn] = useState(false);
 
   // After Startup finishes, fade in content + refresh ScrollTrigger
-  useEffect(() => {
-    if (!startupDone) return;
+  // useEffect(() => {
+  //   if (!startupDone) return;
 
-    setFadeIn(true);
+  //   setFadeIn(true);
 
-    const t = setTimeout(() => {
-      import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
-        ScrollTrigger.refresh();
-      });
-    }, 200);
+  //   const t = setTimeout(() => {
+  //     import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+  //       ScrollTrigger.refresh();
+  //     });
+  //   }, 200);
 
-    return () => clearTimeout(t);
-  }, [startupDone]);
+  //   return () => clearTimeout(t);
+  // }, [startupDone]);
 
   return (
     <>
       {/* 1: Preloader animated white circles */}
-      {!preloadDone && (
+      {/* {!preloadDone && (
         <PreloadAnimation onComplete={() => setPreloadDone(true)} />
-      )}
+      )} */}
 
       {/* 2: Startup animation (3 vertical strips) */}
-      {preloadDone && !startupDone && (
+      {/* {preloadDone && !startupDone && (
         <StartupAnimation onComplete={() => setStartupDone(true)} />
-      )}
+      )} */}
 
       {/* 3: Main website content (fades in after startup) */}
       <Box
-        sx={{
-          opacity: fadeIn ? 1 : 0,
-          transform: fadeIn ? "none" : "translateY(30px)",
-          transition: "opacity 1s ease, transform 1s ease",
-        }}
+        // sx={{
+        //   opacity: fadeIn ? 1 : 0,
+        //   transform: fadeIn ? "none" : "translateY(30px)",
+        //   transition: "opacity 1s ease, transform 1s ease",
+        // }}
       >
         <HeaderSection />
         <LogosSection />
