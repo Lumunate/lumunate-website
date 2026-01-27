@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Logo from "./logo";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import {
     AppBar,
@@ -43,8 +43,14 @@ const projects = [
     { name: "TCR Properties – Dubai Real Estate Platform", href: "/projects/tcrproperties.ae" },
 ];
 
+const navLinks = [
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
+];
+
 const navButtonSx = {
-    color: "#E0E0E0",
+    color: "#363636",
     fontWeight: 400,
     fontSize: "16px",
     fontFamily: "Montserrat, sans-serif",
@@ -53,24 +59,29 @@ const navButtonSx = {
     "&:hover": { color: "#fff" },
 };
 
-const navLinks = [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
-];
-
 export default function Navbar() {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false);
-    const navRef = useRef<HTMLDivElement>(null);
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
+    // GSAP ref
+    const navRef = useRef<HTMLDivElement>(null);
+
+    // dropdown measurement refs
+    const navContainerRef = useRef<HTMLDivElement>(null);
+    const logoBoxRef = useRef<HTMLDivElement>(null);
+    const caseStudiesRightDividerRef = useRef<HTMLDivElement>(null);
+
+    const [menuPos, setMenuPos] = useState<{ top: number; left: number } | null>(null);
+    const [menuWidth, setMenuWidth] = useState<number>(800);
+
     const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleMenuClose = () => setAnchorEl(null);
 
     const toggleDrawer = (open: boolean) => () => {
@@ -78,7 +89,6 @@ export default function Navbar() {
         setMobileProjectsOpen(false);
     };
 
-    // GSAP animation: Navbar slides in safely using gsap.context
     useEffect(() => {
         if (!navRef.current) return;
 
@@ -90,40 +100,90 @@ export default function Navbar() {
                 opacity: 1,
                 duration: 1.2,
                 ease: "power3.out",
-                delay: 7.2, // sync with header
+                delay: 7.2,
                 onStart: () => {
+                    if (!navRef.current) return;
                     gsap.set(navRef.current, { pointerEvents: "none" });
                 },
                 onComplete: () => {
-                    // Re-enable clicks once animation completes
+                    if (!navRef.current) return;
                     gsap.set(navRef.current, { pointerEvents: "auto" });
                 },
             }
         );
     }, []);
 
+    // compute dropdown position/width:
+    // start from logo left edge, end at case-studies right divider edge
+    useEffect(() => {
+        const calcMenuMetrics = () => {
+            if (!navContainerRef.current || !logoBoxRef.current || !caseStudiesRightDividerRef.current) return;
 
+            const navRect = navContainerRef.current.getBoundingClientRect();
+            const logoRect = logoBoxRef.current.getBoundingClientRect();
+            const dividerRect = caseStudiesRightDividerRef.current.getBoundingClientRect();
+
+            const left = Math.round(logoRect.left);
+            const right = Math.round(dividerRect.right);
+            const width = Math.max(320, right - left);
+
+            setMenuWidth(width);
+            setMenuPos({
+                top: Math.round(navRect.bottom),
+                left,
+            });
+        };
+
+        if (Boolean(anchorEl)) {
+            calcMenuMetrics();
+        }
+
+        window.addEventListener("resize", calcMenuMetrics);
+        return () => window.removeEventListener("resize", calcMenuMetrics);
+    }, [anchorEl]);
+
+    // Close dropdown on scroll
+    useEffect(() => {
+        if (!anchorEl) return;
+
+        const closeOnScroll = () => {
+            setAnchorEl(null);
+        };
+
+        // capture true so it triggers even if scroll happens inside containers
+        window.addEventListener("scroll", closeOnScroll, true);
+
+        return () => {
+            window.removeEventListener("scroll", closeOnScroll, true);
+        };
+    }, [anchorEl]);
+
+    // Responsive columns to avoid cropping on smaller widths
+    const columns =
+        menuWidth >= 1050 ? 3 :
+            menuWidth >= 720 ? 2 :
+                1;
 
     return (
         <AppBar
             ref={navRef}
             position="static"
-            color="transparent"
             elevation={0}
             sx={{
                 width: "100vw",
                 zIndex: 30,
-                background: "transparent",
+                backgroundColor: "rgba(14, 14, 14, 0.34) !important",
+                borderTop: "1px solid #343434",
+                borderBottom: "1px solid #343434",
                 boxShadow: "none",
                 opacity: 0,
                 transform: "translateY(-60px)",
                 pointerEvents: "none",
             }}
         >
-
-            <NavContainer>
+            <NavContainer ref={navContainerRef}>
                 <StyledToolbar disableGutters>
-                    <LogoBox>
+                    <LogoBox ref={logoBoxRef}>
                         <Logo />
                     </LogoBox>
 
@@ -152,38 +212,34 @@ export default function Navbar() {
                                 Case Studies
                             </Button>
 
-                            <VerticalDivider />
+                            {/* RIGHT boundary divider (dropdown end) */}
+                            <VerticalDivider ref={caseStudiesRightDividerRef} />
+
                             <Menu
                                 anchorEl={anchorEl}
                                 open={Boolean(anchorEl)}
                                 onClose={handleMenuClose}
-                                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-                                transformOrigin={{ vertical: "top", horizontal: "center" }}
+                                anchorReference="anchorPosition"
+                                anchorPosition={menuPos ?? undefined}
+                                transformOrigin={{ vertical: "top", horizontal: "left" }}
                                 MenuListProps={{ disablePadding: true }}
                                 PaperProps={{
                                     sx: {
-                                        bgcolor: theme.palette.background.paper,
-                                        color: theme.palette.text.secondary,
-                                        border: `1px solid ${theme.palette.divider}`,
-                                        borderRadius: 0,
-                                        boxShadow: theme.shadows[8],
-                                        mt: 2,
                                         p: 0,
-                                        width: { xs: "90vw", md: "800px", lg: "1050px" },
-                                        left: "50.55% !important",
-                                        transform: "translateX(-50%) !important",
+                                        borderRadius: 0,
+                                        bgcolor: "rgba(14, 14, 14, 0.92)",
+                                        border: "1px solid #343434",
+                                        boxShadow: "none",
+                                        width: `${menuWidth}px`,
+                                        maxWidth: "none",
+                                        overflow: "hidden",
                                     },
                                 }}
                             >
                                 <Box
                                     sx={{
                                         display: "grid",
-                                        gridTemplateColumns: {
-                                            xs: "1fr",
-                                            md: "1fr 1fr",
-                                            lg: "1fr 1fr 1fr",
-                                        },
-                                        gap: 0,
+                                        gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
                                     }}
                                 >
                                     {projects.map((proj) => (
@@ -199,24 +255,20 @@ export default function Navbar() {
                                                 fontFamily: "Montserrat, sans-serif",
                                                 fontSize: theme.typography.body2.fontSize,
                                                 lineHeight: 1.3,
-                                                whiteSpace: "nowrap",
+
+                                                // allow wrapping so no cropping on smaller widths
+                                                whiteSpace: "normal",
+                                                overflowWrap: "anywhere",
+
                                                 color: theme.palette.text.secondary,
                                                 borderTop: `1px solid ${theme.palette.divider}`,
                                                 borderLeft: `1px solid ${theme.palette.divider}`,
-
-                                                "&:nth-last-of-type(-n+3)": {
-                                                    borderBottom: `1px solid ${theme.palette.divider}`,
-                                                },
-                                                "&:nth-of-type(3n)": {
-                                                    borderRight: `1px solid ${theme.palette.divider}`,
-                                                },
 
                                                 "&:hover": {
                                                     bgcolor: theme.palette.action.hover,
                                                     color: theme.palette.text.primary,
                                                 },
                                             }}
-
                                         >
                                             {proj.name}
                                         </MenuItem>
@@ -232,22 +284,24 @@ export default function Navbar() {
                                 <VerticalDivider />
                                 <Box sx={{ pl: "32px" }}>
                                     <Button
-                                        component="a"
                                         href="https://calendly.com/saad-b-javaid22/consultation"
                                         target="_blank"
-                                        variant="contained"
-                                        color="success"
                                         sx={{
-                                            boxShadow: 1,
                                             textTransform: "none",
                                             px: 2,
                                             py: 1,
                                             fontWeight: 400,
                                             fontFamily: "Montserrat, sans-serif",
-                                            bgcolor: "#015B3F",
-                                            color: "#bdbdbd",
                                             borderRadius: 0,
-                                            "&:hover": { bgcolor: "#333" },
+                                            color: "#363636",
+                                            backgroundColor: "transparent",
+                                            boxShadow: "none",
+                                            "&:hover": {
+                                                backgroundColor: "rgba(255, 255, 255, 0.08)",
+                                                color: "#FFFFFF",
+                                                boxShadow: "none",
+                                            },
+                                            transition: "background-color 0.25s ease, color 0.25s ease",
                                         }}
                                     >
                                         Get Started
@@ -256,7 +310,6 @@ export default function Navbar() {
                             </>
                         )}
                     </RightBox>
-
                 </StyledToolbar>
 
                 {/* Drawer for mobile */}
@@ -278,20 +331,14 @@ export default function Navbar() {
                     <List>
                         {navLinks.map((link) => (
                             <ListItem key={link.label} disablePadding>
-                                <ListItemButton
-                                    LinkComponent={Link}
-                                    href={link.href}
-                                    onClick={toggleDrawer(false)}
-                                >
+                                <ListItemButton LinkComponent={Link} href={link.href} onClick={toggleDrawer(false)}>
                                     <ListItemText primary={link.label} />
                                 </ListItemButton>
                             </ListItem>
                         ))}
 
                         <ListItem disablePadding>
-                            <ListItemButton
-                                onClick={() => setMobileProjectsOpen((open) => !open)}
-                            >
+                            <ListItemButton onClick={() => setMobileProjectsOpen((open) => !open)}>
                                 <ListItemText primary="Case Studies" />
                                 <Typography variant="body2" sx={{ ml: 1 }}>
                                     {mobileProjectsOpen ? "▲" : "▼"}
@@ -302,15 +349,12 @@ export default function Navbar() {
                         {mobileProjectsOpen &&
                             projects.map((proj) => (
                                 <ListItem key={proj.name} disablePadding sx={{ pl: 3 }}>
-                                    <ListItemButton
-                                        LinkComponent={Link}
-                                        href={proj.href}
-                                        onClick={toggleDrawer(false)}
-                                    >
+                                    <ListItemButton LinkComponent={Link} href={proj.href} onClick={toggleDrawer(false)}>
                                         <ListItemText primary={proj.name} />
                                     </ListItemButton>
                                 </ListItem>
                             ))}
+
                         <Box sx={{ mt: 2, textAlign: "center" }}>
                             <Button
                                 component="a"
