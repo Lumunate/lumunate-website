@@ -18,6 +18,7 @@ import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import useGsapAnimation, { useGsapSlideAnimation } from "@/hooks/useGsapAnimation";
+import PageContainer from "@/components/common/PageContainer";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -106,6 +107,8 @@ const OurApproach = () => {
 
   return (
     <OurApproachContainer ref={elementRef}>
+      <Box className="topBlur" />
+      <Box className="bottomBlur" />
       <video autoPlay loop muted playsInline>
         <source
           src="https://res.cloudinary.com/dqvzaju7x/video/upload/approachbg_g7xwx5.mp4"
@@ -115,49 +118,35 @@ const OurApproach = () => {
         Your browser does not support the video tag.
       </video>
 
-      <SubContainer>
-        <TitleText variant="h1">Our Approach</TitleText>
+      <PageContainer>
+        <SubContainer>
+          <TitleText variant="h5">Our Approach</TitleText>
 
-        <ContentWrapper>
-          <SubContentWrapper>
-            <Box>
-              <NumberTypography ref={numberRef}>
-                {data[activeIndex].number}
-              </NumberTypography>
-              <SubTitle ref={titleRef} variant="h1">
-                {data[activeIndex].title}
-              </SubTitle>
-            </Box>
-          </SubContentWrapper>
+          <ContentWrapper>
+            <SubContentWrapper>
+              <Box>
+                <NumberTypography ref={numberRef}>
+                  {data[activeIndex].number}
+                </NumberTypography>
+                <SubTitle ref={titleRef} variant="h1">
+                  {data[activeIndex].title}
+                </SubTitle>
+              </Box>
+            </SubContentWrapper>
 
-          <Box
-            sx={{
-              borderLeft: "0.4px solid #B4B4B4",
-              borderBottom: "0.4px solid #B4B4B4",
-              height: "100%",
-              display: { xs: "none", md: "block" },
-            }}
-          />
-          <Box
-            sx={{
-              height: "100%",
-              display: { xs: "none", md: "block" },
-            }}
-          />
+            <RightBottomBox>
+              <DescriptionText ref={descriptionRef} variant="h5">
+                {data[activeIndex].description}
+              </DescriptionText>
+              <DiscoverButton ref={buttonRef as React.RefObject<HTMLButtonElement>}>
+                Discover
+                <ArrowOutwardIcon sx={{ fontSize: "17px", marginLeft: "6px" }} />
+              </DiscoverButton>
+            </RightBottomBox>
+          </ContentWrapper>
 
-          <RightBottomBox>
-            <DescriptionText ref={descriptionRef} variant="h5">
-              {data[activeIndex].description}
-            </DescriptionText>
-            <DiscoverButton ref={buttonRef as React.RefObject<HTMLButtonElement>}>
-              Discover
-              <ArrowOutwardIcon
-                sx={{ fontSize: "17px", marginLeft: "6px" }}
-              />
-            </DiscoverButton>
-          </RightBottomBox>
-        </ContentWrapper>
-      </SubContainer>
+        </SubContainer>
+      </PageContainer>
     </OurApproachContainer>
   );
 };

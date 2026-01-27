@@ -13,6 +13,7 @@ import {
 } from "./TrackRecord.style";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import { useGsapCounterAnimation } from "@/hooks/useGsapAnimation";
+import PageContainer from "@/components/common/PageContainer";
 
 const statusData = [
   { total: 112, suffix: "+", title: "Web & Mobile Apps Delivered" },
@@ -29,57 +30,59 @@ const TrackRecord: React.FC = () => {
 
   return (
     <TrackContainer>
-      <TitleWrapper>
-        <TitleText variant="h1">Proven Track Record</TitleText>
-        <DescriptionText variant="h5">
-          We&apos;re not just developers. We&apos;re your growth partners from concept to scale.
-        </DescriptionText>
-        <DiscoverButton>
-          Discover <ArrowOutwardIcon sx={{ fontSize: "17px", marginLeft: "6px" }} />
-        </DiscoverButton>
-      </TitleWrapper>
+      <PageContainer>
+        <TitleWrapper>
+          <TitleText variant="h1">Proven Track Record</TitleText>
+          <DescriptionText variant="h5">
+            We&apos;re not just developers. We&apos;re your growth partners from concept to scale.
+          </DescriptionText>
+          <DiscoverButton>
+            Discover <ArrowOutwardIcon sx={{ fontSize: "17px", marginLeft: "6px" }} />
+          </DiscoverButton>
+        </TitleWrapper>
 
-      <StatusWrapper>
-        {statusData.map((item, index) => (
-          <StatusCard
-            key={index}
-            sx={{
-              ...(index === 0 || index === 2) && {
-                backgroundImage: "url('/trackbg.gif')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              },
-              ...(index === 1 && {
-                borderTopRightRadius: { sm: "12px", lg: "0px" },
-              }),
-              ...(index === 2 && {
-                borderBottomLeftRadius: { sm: "12px", lg: 0 },
-              }),
-              ...(index === 0 && {
-                borderTopLeftRadius: "12px",
-                borderBottomLeftRadius: { sm: 0, lg: "12px" },
-              }),
-              ...(index === statusData.length - 1 && {
-                borderTopRightRadius: { sm: 0, lg: "12px" },
-                borderBottomRightRadius: "12px",
-                borderBottomLeftRadius: { xs: "12px", sm: 0 },
-              }),
-            }}
-          >
-            <NumberText
-              ref={(el: HTMLDivElement | null) => {
-                numberRefs.current[index] = el;
+        <StatusWrapper>
+          {statusData.map((item, index) => (
+            <StatusCard
+              key={index}
+              sx={{
+                ...(index === 0 || index === 2) && {
+                  backgroundImage: "url('/trackbg.gif')",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                },
+                ...(index === 1 && {
+                  borderTopRightRadius: { sm: "12px", lg: "0px" },
+                }),
+                ...(index === 2 && {
+                  borderBottomLeftRadius: { sm: "12px", lg: 0 },
+                }),
+                ...(index === 0 && {
+                  borderTopLeftRadius: "12px",
+                  borderBottomLeftRadius: { sm: 0, lg: "12px" },
+                }),
+                ...(index === statusData.length - 1 && {
+                  borderTopRightRadius: { sm: 0, lg: "12px" },
+                  borderBottomRightRadius: "12px",
+                  borderBottomLeftRadius: { xs: "12px", sm: 0 },
+                }),
               }}
             >
-              0
-            </NumberText>
+              <NumberText
+                ref={(el: HTMLDivElement | null) => {
+                  numberRefs.current[index] = el;
+                }}
+              >
+                0
+              </NumberText>
 
-            <DescriptionText sx={{ color: "#FFFFFF" }} variant="h5">
-              {item.title}
-            </DescriptionText>
-          </StatusCard>
-        ))}
-      </StatusWrapper>
+              <DescriptionText sx={{ color: "#FFFFFF" }} variant="h5">
+                {item.title}
+              </DescriptionText>
+            </StatusCard>
+          ))}
+        </StatusWrapper>
+      </PageContainer>
     </TrackContainer>
   );
 };

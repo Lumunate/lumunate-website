@@ -17,6 +17,7 @@ import {
     BottomText,
     TalkLink,
 } from "./HowItWorks.styles";
+import PageContainer from "@/components/common/PageContainer";
 
 type FaqItem = { q: string; a: string };
 
@@ -56,38 +57,40 @@ export default function HowItWorks() {
 
     return (
         <Section>
-            <Container>
-                <Title>How It Works</Title>
+            <PageContainer>
+                <Container>
+                    <Title>How It Works</Title>
 
-                {FAQS.map((item, idx) => {
-                    const key = `panel-${idx}`;
-                    return (
-                        <FaqAccordion
-                            key={key}
-                            disableGutters
-                            expanded={expanded === key}
-                            onChange={handleChange(key)}
-                        >
-                            <FaqSummary expandIcon={<ExpandMoreIcon />}>
-                                <QuestionText>{item.q}</QuestionText>
-                            </FaqSummary>
+                    {FAQS.map((item, idx) => {
+                        const key = `panel-${idx}`;
+                        return (
+                            <FaqAccordion
+                                key={key}
+                                disableGutters
+                                expanded={expanded === key}
+                                onChange={handleChange(key)}
+                            >
+                                <FaqSummary expandIcon={<ExpandMoreIcon />}>
+                                    <QuestionText>{item.q}</QuestionText>
+                                </FaqSummary>
 
-                            <AccordionDetails sx={{ paddingLeft: 0, paddingRight: 0 }}>
-                                <AnswerText>{item.a}</AnswerText>
-                            </AccordionDetails>
-                        </FaqAccordion>
-                    );
-                })}
+                                <AccordionDetails sx={{ paddingLeft: 0, paddingRight: 0 }}>
+                                    <AnswerText>{item.a}</AnswerText>
+                                </AccordionDetails>
+                            </FaqAccordion>
+                        );
+                    })}
 
-                <BottomRow>
-                    <BottomText>
-                        Couldn’t find what you were looking for?{" "}
-                        <TalkLink href="/contact">
-                            LET&apos;S TALK <ArrowOutwardIcon  />
-                        </TalkLink>
-                    </BottomText>
-                </BottomRow>
-            </Container>
+                    <BottomRow>
+                        <BottomText>
+                            Couldn’t find what you were looking for?{" "}
+                            <TalkLink href="/contact">
+                                LET&apos;S TALK <ArrowOutwardIcon />
+                            </TalkLink>
+                        </BottomText>
+                    </BottomRow>
+                </Container>
+            </PageContainer>
         </Section>
     );
 }

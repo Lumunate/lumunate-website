@@ -5,13 +5,20 @@ import { Box, Typography, styled } from "@mui/material";
 export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
     display: "flex",
     width: "100%",
-    maxWidth: "1100px",
+    maxWidth: "1661px",
     minHeight: 460,
     background: "transparent",
     borderRadius: 32,
     boxShadow: "0 0 24px 0 rgba(6, 5, 5, 0.25)",
     overflow: "hidden",
-    marginTop: theme.spacing(4),
+
+    // ✅ XL SCREENS (1920px+)
+    [theme.breakpoints.up("xl")]: {
+        maxWidth: "1800px",
+        minHeight: 560,
+        borderRadius: 36,
+    },
+
     [theme.breakpoints.down("md")]: {
         flexDirection: "column",
         minHeight: 0,
@@ -20,12 +27,13 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
     },
 }));
 
+
 export const CardLeft = styled(Box)(({ theme }) => ({
     flex: 1,
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    padding: theme.spacing(6),
+    padding: "66px 38px",
     color: "#fff",
     position: "relative",
 
@@ -56,13 +64,16 @@ export const CardRight = styled(Box)(({ }) => ({
     maxHeight: "814px",
 }));
 
-export const WorkflowVideo = styled("video")(({ }) => ({
+export const WorkflowVideo = styled("video")(({ theme }) => ({
     width: "120%",
     height: "140%",
     objectFit: "cover",
-    borderRadius: 0,
     alignSelf: "center",
-    backcolor: "#000",
+
+    [theme.breakpoints.up("xl")]: {
+        width: "135%",
+        height: "160%",
+    },
 }));
 
 
@@ -70,6 +81,7 @@ export const TopText = styled(Typography)(({ theme }) => ({
     ...theme.typography.h6,
     color: "#bdbdbd",
     fontWeight: 400,
+    fontSize: "16px",
     marginBottom: theme.spacing(2),
     [theme.breakpoints.down("sm")]: {
         fontSize: "16px",
@@ -80,6 +92,7 @@ export const Title = styled(Typography)(({ theme }) => ({
     ...theme.typography.h4,
     color: "#fff",
     fontWeight: 400,
+    fontSize: "48px",
     marginBottom: theme.spacing(2),
     [theme.breakpoints.down("sm")]: {
         fontSize: "32px",

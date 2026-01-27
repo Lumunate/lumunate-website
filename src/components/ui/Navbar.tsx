@@ -47,8 +47,9 @@ const projects = [
 
 const navButtonSx = {
     color: "#E0E0E0",
-    fontWeight: 500,
-    fontSize: "1rem",
+    fontWeight: 400,
+    fontSize: "16px",
+    fontFamily: "Montserrat, sans-serif",
     textTransform: "none",
     letterSpacing: "0.5px",
     "&:hover": { color: "#fff" },
@@ -118,7 +119,7 @@ export default function Navbar() {
                 boxShadow: "none",
                 opacity: 0,
                 transform: "translateY(-60px)",
-                pointerEvents: "none", // ✅ keep this — GSAP re-enables it
+                pointerEvents: "none",
             }}
         >
 
@@ -197,6 +198,7 @@ export default function Navbar() {
                                             sx={{
                                                 px: 2,
                                                 py: 1.5,
+                                                fontFamily: "Montserrat, sans-serif",
                                                 fontSize: theme.typography.body2.fontSize,
                                                 lineHeight: 1.3,
                                                 whiteSpace: "nowrap",
@@ -204,12 +206,11 @@ export default function Navbar() {
                                                 borderTop: `1px solid ${theme.palette.divider}`,
                                                 borderLeft: `1px solid ${theme.palette.divider}`,
 
-                                                // ✅ FIXED: Safe selectors for Next.js SSR
                                                 "&:nth-last-of-type(-n+3)": {
-                                                    borderBottom: `1px solid ${theme.palette.divider}`, // add bottom border to last row
+                                                    borderBottom: `1px solid ${theme.palette.divider}`,
                                                 },
                                                 "&:nth-of-type(3n)": {
-                                                    borderRight: `1px solid ${theme.palette.divider}`, // add right border to every 3rd column
+                                                    borderRight: `1px solid ${theme.palette.divider}`,
                                                 },
 
                                                 "&:hover": {
@@ -228,40 +229,36 @@ export default function Navbar() {
                     )}
 
                     <RightBox>
-                        {isMobile && (
-                            <IconButton
-                                edge="end"
-                                color="inherit"
-                                onClick={toggleDrawer(true)}
-                                sx={{ color: "#E0E0E0" }}
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                        )}
-
                         {!isMobile && (
-                            <Button
-                                component="a"
-                                href="https://calendly.com/saad-b-javaid22/consultation"
-                                target="_blank"
-                                variant="contained"
-                                color="success"
-                                sx={{
-                                    boxShadow: 1,
-                                    textTransform: "none",
-                                    px: 2,
-                                    py: 1,
-                                    fontWeight: 600,
-                                    bgcolor: "#015B3F",
-                                    color: "#bdbdbd",
-                                    borderRadius: 0,
-                                    "&:hover": { bgcolor: "#333" },
-                                }}
-                            >
-                                Get Started
-                            </Button>
+                            <>
+                                <VerticalDivider />
+                                <Box sx={{ pl: "32px" }}>
+                                    <Button
+                                        component="a"
+                                        href="https://calendly.com/saad-b-javaid22/consultation"
+                                        target="_blank"
+                                        variant="contained"
+                                        color="success"
+                                        sx={{
+                                            boxShadow: 1,
+                                            textTransform: "none",
+                                            px: 2,
+                                            py: 1,
+                                            fontWeight: 400,
+                                            fontFamily: "Montserrat, sans-serif",
+                                            bgcolor: "#015B3F",
+                                            color: "#bdbdbd",
+                                            borderRadius: 0,
+                                            "&:hover": { bgcolor: "#333" },
+                                        }}
+                                    >
+                                        Get Started
+                                    </Button>
+                                </Box>
+                            </>
                         )}
                     </RightBox>
+
                 </StyledToolbar>
 
                 {/* Drawer for mobile */}

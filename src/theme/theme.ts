@@ -32,7 +32,7 @@ const lightPalette = {
 const darkPalette = {
   mode: "dark" as PaletteMode,
   background: {
-    default: "#0a0a0a",
+    default: "#0E0E0E", 
     paper: "#171717",
   },
   text: {
@@ -45,18 +45,21 @@ const darkPalette = {
 };
 
 const typography = {
-  h1: { fontSize: "56px", fontWeight: 400 },
-  h2: { fontSize: "40px", fontWeight: 900 },
-  h3: { fontSize: "38px", fontWeight: 400 },
-  h4: { fontSize: "28px", fontWeight: 400 },
-  h5: { fontSize: "22px", fontWeight: 400 },
-  h6: { fontSize: "1.125rem", fontWeight: 600 },
-  body1: { fontSize: "18px", fontWeight: 400 },
-  body2: { fontSize: "16px", fontWeight: 400 },
-  caption: { fontSize: "12px", fontWeight: 400 },
+  fontFamily: `"Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif`,
+  typography: {
+    h1: { fontSize: "56px", fontWeight: 400 },
+    h2: { fontSize: "40px", fontWeight: 900 },
+    h3: { fontSize: "38px", fontWeight: 400 },
+    h4: { fontSize: "28px", fontWeight: 400 },
+    h5: { fontSize: "22px", fontWeight: 400 },
+    h6: { fontSize: "1.125rem", fontWeight: 600 },
+    body1: { fontSize: "18px", fontWeight: 400 },
+    body2: { fontSize: "16px", fontWeight: 400 },
+    caption: { fontSize: "12px", fontWeight: 400 },
+  },
 };
 
-// 👇 your dark flag here
+// 👇 dark flag here
 const dark = true;
 
 const theme = createTheme({

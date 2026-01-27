@@ -10,8 +10,7 @@ export const WorkflowSectionRoot = styled(Box)(({ theme }) => ({
     alignItems: "center",
     justifyContent: "center",
     gap: theme.spacing(4),
-    padding: theme.spacing(8, 0),
-    backgroundColor: theme.palette.background.default,
+    paddingBottom: "119px",
 
     [theme.breakpoints.down("md")]: {
         padding: theme.spacing(6, 0),
@@ -71,8 +70,8 @@ export const NavItem = styled(Box)(({ theme }) => ({
     justifyContent: "center",
     padding: `${theme.spacing(2.3)} ${theme.spacing(2)}`,
     cursor: "pointer",
-    color: "#BDBDBD",
-    fontSize: "1rem",
+    color: "#5A5A5A",
+    fontSize: "16px",
     borderLeft: "1px solid #333",
     transition: "background-color 0.3s ease, color 0.3s ease",
     whiteSpace: "nowrap",
@@ -92,9 +91,13 @@ export const NavItem = styled(Box)(({ theme }) => ({
         fontWeight: 500,
     },
 
-    "&:first-of-type": {
-        borderLeft: "none",
+    // ✅ ADD right line after the last nav item (same as others)
+    "&:last-of-type": {
+        borderRight: "1px solid #333",
     },
+
+    // ❌ REMOVE this (it was killing the first left line)
+    // "&:first-of-type": { borderLeft: "none" },
 
     [theme.breakpoints.down("md")]: {
         fontSize: "0.9rem",
@@ -108,6 +111,7 @@ export const NavItem = styled(Box)(({ theme }) => ({
         minWidth: "130px",
     },
 }));
+
 
 
 

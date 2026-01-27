@@ -4,6 +4,15 @@ import "./globals.css";
 import { Geist, Geist_Mono } from "next/font/google";
 import LayoutClient from "@/components/LayoutClient"; //  client wrapper
 
+import { Montserrat } from "next/font/google";
+
+export const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -30,7 +39,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased ${montserrat.className}`}>
         {/* Wrapped the client logic here */}
         <LayoutClient>{children}</LayoutClient>
       </body>

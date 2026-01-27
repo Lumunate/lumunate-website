@@ -2,59 +2,67 @@
 
 import { Box, styled } from "@mui/material";
 
+/* Root container */
 export const LogosRoot = styled(Box)(({ theme }) => ({
     width: "100vw",
-    backgroundColor: theme.palette.background.default,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: `${theme.spacing(4)} 0`,
+    overflow: "hidden",
+    padding: "0 0",
+    paddingBottom: "205px",
+    paddingTop: "45px",
     position: "relative",
-    left: "50%",
-    right: "50%",
-    marginLeft: "-50vw",
-    marginRight: "-50vw",
 }));
 
-export const LogosRow = styled(Box)(({ theme }) => ({
+/* Moving track */
+export const LogosTrack = styled(Box)(({ theme }) => ({
     display: "flex",
-    gap: theme.spacing(10),
     alignItems: "center",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    width: "100%",
-    maxWidth: "1920px",
+    width: "max-content",
+    gap: theme.spacing(10),
+
+    animation: "logoScroll 30s linear infinite",
+
+    "&:hover": {
+        animationPlayState: "paused",
+    },
 
     [theme.breakpoints.down("md")]: {
-        gap: theme.spacing(4),
-        maxWidth: "900px",
+        gap: theme.spacing(6),
+        animationDuration: "22s",
     },
+
     [theme.breakpoints.down("sm")]: {
-        gap: theme.spacing(2),
-        maxWidth: "100%",
+        gap: theme.spacing(4),
+        animationDuration: "18s",
+    },
+
+    "@keyframes logoScroll": {
+        "0%": {
+            transform: "translateX(0)",
+        },
+        "100%": {
+            transform: "translateX(-50%)",
+        },
     },
 }));
 
+/* Individual logo */
 export const LogoItem = styled(Box)(({ theme }) => ({
     display: "flex",
-    flexDirection: "column",
     alignItems: "center",
-    minWidth: 40,
-    maxWidth: 90,
+    justifyContent: "center",
+    minWidth: 100,
 
     "& img": {
         width: 80,
         height: 60,
         objectFit: "contain",
         filter: "grayscale(1)",
-        opacity: 0.64,
-        display: "block",
+        opacity: 0.65,
+        transition: "all 0.3s ease",
     },
 
-    "& span": {
-        color: theme.palette.text.secondary,
-        fontSize: theme.typography.body2.fontSize,
-        marginTop: theme.spacing(1),
-        textAlign: "center",
+    "&:hover img": {
+        filter: "grayscale(0)",
+        opacity: 1,
     },
 }));

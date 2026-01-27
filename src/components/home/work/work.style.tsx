@@ -4,10 +4,8 @@ import { Box, Button, styled } from "@mui/material";
 
 export const WorkWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
-  paddingTop: theme.spacing(7.5),
-  maxWidth: "1698px",
-  padding: "0 20px",
-  margin: "0 auto",
+  // paddingTop: "214px",
+    paddingBottom: "220px",
 }));
 
 export const ProjectsWrapper = styled(Box)(({ theme }) => ({
