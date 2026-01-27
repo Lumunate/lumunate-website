@@ -1,6 +1,6 @@
 "use client";
 
-import { ThemeProvider } from "@mui/material";
+import { Box, ThemeProvider } from "@mui/material";
 import theme from "@/theme/theme";
 import CssBaseline from "@mui/material/CssBaseline";
 import Navbar from "@/components/ui/Navbar";
@@ -18,11 +18,11 @@ export default function LayoutClient({ children }: { children: React.ReactNode }
             <NavbarProvider>
                 <TransitionWrapper>
                     {/* This key forces remount on every route change */}
-                    <div key={pathname}>
+                    <Box key={pathname}>
                         <Navbar />
                         {children}
                         <Footer />
-                    </div>
+                    </Box>
                 </TransitionWrapper>
             </NavbarProvider>
         </ThemeProvider>

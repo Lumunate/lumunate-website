@@ -9,7 +9,7 @@ export const ReadyContainer = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100vh",
   overflow: "hidden",
-  backgroundColor: theme.palette.background.default,
+  // backgroundColor: theme.palette.background.default,
 
   [theme.breakpoints.down("md")]: {
     height: "80vh",
@@ -35,10 +35,10 @@ export const Overlay = styled(Box)(({ theme }) => ({
   left: 0,
   width: "100%",
   height: "100%",
-  background:
-    theme.palette.mode === "dark"
-      ? "rgba(0,0,0,0.45)"
-      : "rgba(255,255,255,0.25)",
+  // background:
+  //   theme.palette.mode === "dark"
+  //     ? "rgba(0,0,0,0.45)"
+  //     : "rgba(255,255,255,0.25)",
   zIndex: 1,
 }));
 
@@ -46,7 +46,6 @@ export const TextWrapper = styled(Box)(({ theme }) => ({
   position: "relative",
   display: "flex",
   justifyContent: "center",
-  maxWidth: "1050px",
   margin: "0 auto",
   flexDirection: "column",
   textAlign: "center",
@@ -63,9 +62,5 @@ export const TextWrapper = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down("sm")]: {
       lineHeight: 1.02,
     },
-  },
-
-  [theme.breakpoints.down("md")]: {
-    maxWidth: "90%",
   },
 }));

@@ -6,9 +6,7 @@ import { styled } from "@mui/material/styles";
 
 export const Section = styled(Box)(({ theme }) => ({
     width: "100%",
-    background: "#0B0B0B",
     color: "#fff",
-    paddingTop: 80,
     paddingBottom: 80,
 
     [theme.breakpoints.down("md")]: {
@@ -23,14 +21,13 @@ export const Section = styled(Box)(({ theme }) => ({
 
 export const Container = styled(Box)(({ theme }) => ({
     width: "100%",
-    maxWidth: 1200,
     margin: "0 auto",
-    paddingLeft: 24,
-    paddingRight: 24,
+    paddingLeft: 0,
+    paddingRight: 0,
 
     [theme.breakpoints.down("sm")]: {
-        paddingLeft: 16,
-        paddingRight: 16,
+        paddingLeft: 0,
+        paddingRight: 0,
     },
 }));
 
