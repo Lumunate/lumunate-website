@@ -72,12 +72,11 @@ const Hero = () => {
       </ContentContainer>
 
       <Image
-        style={{ position: "absolute", bottom: "-14rem" }}
+        style={{ position: "absolute", bottom: "-14rem", width: "100%", height: "auto" }}
         src="/blure.png"
         alt="blur"
         width={100}
         height={100}
-        layout="responsive"
       />
     </HeroContainer>
   );
