@@ -11,8 +11,8 @@ export default function PageContainer({ children }: { children: React.ReactNode 
                     xs: "24px",
                     sm: "24px",
                     md: "48px",
-                    lg: "135px",
-                    xl: "135px",
+                    lg: "131px",
+                    xl: "131px",
                 },
             }}
         >

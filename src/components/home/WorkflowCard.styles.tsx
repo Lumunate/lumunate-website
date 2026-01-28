@@ -12,7 +12,6 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
     boxShadow: "0 0 24px 0 rgba(6, 5, 5, 0.25)",
     overflow: "hidden",
 
-    // ✅ XL SCREENS (1920px+)
     [theme.breakpoints.up("xl")]: {
         maxWidth: "1800px",
         minHeight: 560,
@@ -27,17 +26,17 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
     },
 }));
 
-
 export const CardLeft = styled(Box)(({ theme }) => ({
     flex: 1,
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
     padding: "66px 38px",
-    color: "#fff",
+
+    color: theme.palette.text.primary,
+
     position: "relative",
 
-    // texture background
     backgroundImage: `
     linear-gradient(to right, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.9) 110%),
     url('/design-bg.png')
@@ -54,9 +53,7 @@ export const CardLeft = styled(Box)(({ theme }) => ({
     },
 }));
 
-
-
-export const CardRight = styled(Box)(({ }) => ({
+export const CardRight = styled(Box)(() => ({
     flex: 1,
     display: "flex",
     alignItems: "stretch",
@@ -76,10 +73,11 @@ export const WorkflowVideo = styled("video")(({ theme }) => ({
     },
 }));
 
-
 export const TopText = styled(Typography)(({ theme }) => ({
     ...theme.typography.h6,
-    color: "#bdbdbd",
+
+    color: theme.palette.text.secondary,
+
     fontWeight: 400,
     fontSize: "16px",
     marginBottom: theme.spacing(2),
@@ -90,7 +88,9 @@ export const TopText = styled(Typography)(({ theme }) => ({
 
 export const Title = styled(Typography)(({ theme }) => ({
     ...theme.typography.h4,
-    color: "#fff",
+
+    color: theme.palette.text.primary,
+
     fontWeight: 400,
     fontSize: "48px",
     marginBottom: theme.spacing(2),
@@ -102,7 +102,9 @@ export const Title = styled(Typography)(({ theme }) => ({
 
 export const Description = styled(Typography)(({ theme }) => ({
     ...theme.typography.body1,
-    color: "#AAAAAA",
+
+    color: theme.palette.text.secondary,
+
     marginBottom: theme.spacing(4),
     [theme.breakpoints.down("sm")]: {
         fontSize: "16px",

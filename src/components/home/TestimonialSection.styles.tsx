@@ -14,7 +14,7 @@ export const TestimonialRoot = styled(Box)(({ theme }) => ({
     right: "50%",
     marginLeft: "-50vw",
     marginRight: "-50vw",
-     paddingBottom: "170px",
+    paddingBottom: "170px",
 }));
 
 export const TestimonialContent = styled(Box)(({ theme }) => ({
@@ -40,14 +40,14 @@ export const TestimonialContent = styled(Box)(({ theme }) => ({
     },
 }));
 
-
 export const TestimonialHeading = styled(Typography)(({ theme }) => ({
     ...theme.typography.h2,
-    color: theme.palette.text.primary,
+    color: theme.palette.section.heading,
     fontWeight: 400,
     fontSize: "78px",
     fontFamily: "Montserrat, sans-serif",
     maxWidth: "1098px",
+
     [theme.breakpoints.down("md")]: {
         fontSize: "48px",
         maxWidth: "100%",
@@ -79,7 +79,7 @@ export const StarsRow = styled(Box)(({ theme }) => ({
 
 export const TestimonialText = styled(Typography)(({ theme }) => ({
     ...theme.typography.body1,
-    color: theme.palette.text.secondary,
+    color: theme.palette.section.desc,
     marginBottom: theme.spacing(2),
     fontSize: "18px",
     fontFamily: "Montserrat, sans-serif",
@@ -98,7 +98,7 @@ export const AuthorAvatar = styled(Box)(({ theme }) => ({
     width: 48,
     height: 48,
     borderRadius: "50%",
-    background: theme.palette.text.secondary,
+    background: theme.palette.section.desc,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -117,13 +117,12 @@ export const AuthorInfo = styled(Box)(({ theme }) => ({
 }));
 
 export const AuthorName = styled(Typography)(({ theme }) => ({
-    color: theme.palette.text.primary,
+    color: theme.palette.section.heading,
     fontSize: theme.typography.body2.fontSize,
     fontWeight: 700,
 }));
 
 export const AuthorTitle = styled(Typography)(({ theme }) => ({
-    color: "#9F9F9F",
+    color: theme.palette.section.desc,
     fontSize: theme.typography.body1.fontSize,
-
 }));

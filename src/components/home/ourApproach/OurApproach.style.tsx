@@ -1,6 +1,7 @@
 "use client";
 
-import { Box, Button, styled, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 
 export const OurApproachContainer = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -22,11 +23,11 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
     content: '""',
     position: "absolute",
     inset: 0,
-    background: "rgba(0,0,0,0.7)",
+    background: alpha("#000", 0.7),
     zIndex: -2,
   },
 
-  // ✅ TOP blur blend
+  // TOP blur blend (use theme background)
   "& .topBlur": {
     position: "absolute",
     left: 0,
@@ -38,17 +39,16 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
     background: `
       linear-gradient(
         to bottom,
-        rgba(14,14,14,0.95) 0%,
-        rgba(14,14,14,0.75) 30%,
-        rgba(14,14,14,0.35) 60%,
-        rgba(14,14,14,0) 100%
+        ${alpha(theme.palette.background.default, 0.95)} 0%,
+        ${alpha(theme.palette.background.default, 0.75)} 30%,
+        ${alpha(theme.palette.background.default, 0.35)} 60%,
+        ${alpha(theme.palette.background.default, 0)} 100%
       )
     `,
     backdropFilter: "blur(18px)",
     WebkitBackdropFilter: "blur(18px)",
   },
-
-  // BOTTOM blur blend
+  // BOTTOM blur blend (use theme background)
   "& .bottomBlur": {
     position: "absolute",
     left: 0,
@@ -60,15 +60,16 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
     background: `
       linear-gradient(
         to top,
-        rgba(14,14,14,0.95) 0%,
-        rgba(14,14,14,0.75) 30%,
-        rgba(14,14,14,0.35) 60%,
-        rgba(14,14,14,0) 100%
+        ${alpha(theme.palette.background.default, 0.95)} 0%,
+        ${alpha(theme.palette.background.default, 0.75)} 30%,
+        ${alpha(theme.palette.background.default, 0.35)} 60%,
+        ${alpha(theme.palette.background.default, 0)} 100%
       )
     `,
     backdropFilter: "blur(12px)",
     WebkitBackdropFilter: "blur(12px)",
   },
+
   [theme.breakpoints.down("md")]: {
     margin: "96px 0",
   },
@@ -76,8 +77,6 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
     margin: "72px 0",
   },
 }));
-
-
 
 export const SubContainer = styled(Box)(({ theme }) => ({
   maxWidth: "1698px",
@@ -112,9 +111,7 @@ export const ContentWrapper = styled(Box)(({ theme }) => ({
   alignItems: "stretch",
   overflow: "hidden",
 
-  /* ❌ NO outer borders at all */
-
-  /* ✅ CENTER vertical line (full height) */
+  /* CENTER vertical line (full height) */
   "&::before": {
     content: '""',
     position: "absolute",
@@ -122,13 +119,13 @@ export const ContentWrapper = styled(Box)(({ theme }) => ({
     bottom: 0,
     left: "50%",
     width: "1px",
-    backgroundColor: "rgba(180,180,180,0.25)",
+    backgroundColor: alpha(theme.palette.text.primary, 0.25), // was rgba(180,...)
     transform: "translateX(-0.5px)",
     pointerEvents: "none",
     zIndex: 1,
   },
 
-  /* ✅ CENTER horizontal line (full width) */
+  /* CENTER horizontal line (full width) */
   "&::after": {
     content: '""',
     position: "absolute",
@@ -136,7 +133,7 @@ export const ContentWrapper = styled(Box)(({ theme }) => ({
     right: 0,
     top: "50%",
     height: "1px",
-    backgroundColor: "rgba(180,180,180,0.25)",
+    backgroundColor: alpha(theme.palette.text.primary, 0.25), // was rgba(180,...)
     transform: "translateY(-0.5px)",
     pointerEvents: "none",
     zIndex: 1,
@@ -152,7 +149,6 @@ export const ContentWrapper = styled(Box)(({ theme }) => ({
     gridTemplateColumns: "1fr",
     gridTemplateRows: "auto",
 
-    /* ❌ hide center lines on mobile */
     "&::before": { display: "none" },
     "&::after": { display: "none" },
   },
@@ -160,7 +156,7 @@ export const ContentWrapper = styled(Box)(({ theme }) => ({
 
 export const SubContentWrapper = styled(Box)(({ theme }) => ({
   gridColumn: "1 / 2",
-  gridRow: "1 / 2", // ✅ top-left
+  gridRow: "1 / 2",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
@@ -175,8 +171,6 @@ export const SubContentWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-
-
 export const SubTitle = styled(Typography)(({ theme }) => ({
   marginTop: theme.spacing(-8),
   fontSize: theme.typography.h3.fontSize,
@@ -190,7 +184,7 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
 
 export const RightBottomBox = styled(Box)(({ theme }) => ({
   gridColumn: "2 / 3",
-  gridRow: "2 / 3", // ✅ bottom-right
+  gridRow: "2 / 3",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
@@ -198,34 +192,16 @@ export const RightBottomBox = styled(Box)(({ theme }) => ({
   height: "100%",
   padding: theme.spacing(6, 8),
 
-  // ❌ remove these because parent now draws the lines:
-  // borderTop: ...
-  // borderLeft: ...
-
   [theme.breakpoints.down("md")]: {
     padding: theme.spacing(5, 0),
-  },
-}));
-
-
-
-export const DiscoverButton = styled(Button)(({ theme }) => ({
-  backgroundColor: "#015B3F",
-  padding: "22px 33px 19px 37px",
-  fontSize: theme.typography.body2.fontSize,
-  fontWeight: 500,
-  marginTop: theme.spacing(5),
-  color: theme.palette.common.white,
-  borderRadius: "16px",
-  "&:hover": {
-    backgroundColor: theme.palette.success.dark,
   },
 }));
 
 export const NumberTypography = styled(Typography)(({ theme }) => ({
   fontSize: "260px",
   fontWeight: 400,
-  background: "linear-gradient(to bottom, rgba(255,255,255,0.35) 0%, rgba(0,0,0,0.35) 100%)",
+  background:
+    "linear-gradient(to bottom, rgba(255,255,255,0.35) 0%, rgba(0,0,0,0.35) 100%)",
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
   backgroundClip: "text",

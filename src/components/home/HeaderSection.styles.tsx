@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Typography, Stack, styled } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 
 export const HeaderRoot = styled(Box)(({ }) => ({
     width: "100vw",
@@ -12,7 +13,7 @@ export const HeaderRoot = styled(Box)(({ }) => ({
     justifyContent: "center",
 }));
 
-export const SvgBg = styled(Box)(() => ({
+export const SvgBg = styled(Box)(({ theme }) => ({
     position: "absolute",
     inset: 0,
     zIndex: -1,
@@ -25,7 +26,7 @@ export const SvgBg = styled(Box)(() => ({
         objectFit: "cover",
     },
 
-    //  Bottom blur blended
+    // Bottom blur blended
     "&::after": {
         content: '""',
         position: "absolute",
@@ -37,14 +38,14 @@ export const SvgBg = styled(Box)(() => ({
         zIndex: 2,
         pointerEvents: "none",
 
-        // Tint the blur with logos bg color
+        // Tint the blur with theme background default (#0E0E0E)
         background: `
       linear-gradient(
         to top,
-        rgba(14,14,14,0.95) 0%,
-        rgba(14,14,14,0.75) 30%,
-        rgba(14,14,14,0.35) 60%,
-        rgba(14,14,14,0) 100%
+        ${alpha(theme.palette.background.default, 0.95)} 0%,
+        ${alpha(theme.palette.background.default, 0.75)} 30%,
+        ${alpha(theme.palette.background.default, 0.35)} 60%,
+        ${alpha(theme.palette.background.default, 0)} 100%
       )
     `,
 
@@ -53,8 +54,6 @@ export const SvgBg = styled(Box)(() => ({
         WebkitBackdropFilter: "blur(12px)",
     },
 }));
-
-
 
 export const ContentBox = styled(Box)(({ theme }) => ({
     display: "flex",
@@ -81,7 +80,10 @@ export const ContentBox = styled(Box)(({ theme }) => ({
 
 export const StyledH1 = styled(Typography)(({ theme }) => ({
     ...theme.typography.h1,
-    color: "#ffffff",
+
+    // Heading color from theme
+    color: theme.palette.section.heading,
+
     maxWidth: "713px",
     lineHeight: "97%",
     fontSize: "90px",
@@ -124,7 +126,10 @@ export const RightBox = styled(Box)(({ theme }) => ({
 
 export const StyledParagraph = styled(Typography)(({ theme }) => ({
     ...theme.typography.body1,
-    color: theme.palette.text.secondary,
+
+    //  Description color from theme
+    color: theme.palette.section.desc,
+
     maxWidth: "607px",
     lineHeight: 1.6,
 
@@ -141,7 +146,6 @@ export const StyledParagraph = styled(Typography)(({ theme }) => ({
         fontSize: "13px",
     },
 }));
-
 
 export const SocialStack = styled(Stack)(({ theme }) => ({
     position: "absolute",

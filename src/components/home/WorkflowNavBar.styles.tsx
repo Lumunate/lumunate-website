@@ -5,16 +5,17 @@ import { Box, styled } from "@mui/material";
 export const NavBarContainer = styled(Box)(({ theme }) => ({
     display: "flex",
     width: "100vw",
-    backgroundColor: "#181818",
-    borderTop: "1px solid #333",
-    borderBottom: "1px solid #333",
+
+    backgroundColor: theme.palette.background.paper,
+    borderTop: `1px solid ${theme.palette.navbar.border}`,
+    borderBottom: `1px solid ${theme.palette.navbar.border}`,
+
     overflow: "hidden",
     margin: 0,
     padding: 0,
     boxSizing: "border-box",
-    position: "relative", // ✅ needed for pseudo lines
+    position: "relative",
 
-    // ✅ LEFT + RIGHT vertical lines (outer edges)
     "&::before": {
         content: '""',
         position: "absolute",
@@ -22,7 +23,7 @@ export const NavBarContainer = styled(Box)(({ theme }) => ({
         top: 0,
         height: "100%",
         width: "1px",
-        backgroundColor: "#333",
+        backgroundColor: theme.palette.navbar.border,
         pointerEvents: "none",
     },
     "&::after": {
@@ -32,7 +33,7 @@ export const NavBarContainer = styled(Box)(({ theme }) => ({
         top: 0,
         height: "100%",
         width: "1px",
-        backgroundColor: "#333",
+        backgroundColor: theme.palette.navbar.border,
         pointerEvents: "none",
     },
 
@@ -52,36 +53,45 @@ export const NavItem = styled(Box)(({ theme }) => ({
     justifyContent: "center",
     padding: `${theme.spacing(1.4)} ${theme.spacing(1.5)}`,
     cursor: "pointer",
-    color: "#5A5A5A",
+
+    color: theme.palette.text.secondary,
+    opacity: 0.55,
     fontSize: "16px",
     fontWeight: 400,
-    transition: "background-color 0.3s ease, color 0.3s ease",
     whiteSpace: "nowrap",
-    textAlign: "center",
     userSelect: "none",
     lineHeight: 1.3,
 
+    // separators
+    borderLeft: `1px solid ${theme.palette.navbar.border}`,
+    "&:last-of-type": {
+        borderRight: `1px solid ${theme.palette.navbar.border}`,
+    },
+
+    transition: "background-color 0.25s ease, color 0.25s ease, opacity 0.25s ease",
+
     "&:hover": {
-        backgroundColor: "rgba(255,255,255,0.05)",
-        color: "#fff",
+        backgroundColor: `${theme.palette.navbar.itemHoverBg} !important`,
+        color: theme.palette.text.primary,
+        opacity: 1,
     },
 
     "&.active": {
-        backgroundColor: "#292929",
-        color: "#fff",
+        backgroundColor: `${theme.palette.background.default} !important`,
+        color: theme.palette.text.primary,
+        opacity: 1,
         fontWeight: 500,
+
+        position: "relative",
+        zIndex: 2,
+
+        boxShadow: `
+    inset 0 1px 0 ${theme.palette.navbar.border},
+    inset 0 -1px 0 ${theme.palette.navbar.border}
+  `,
+        backgroundClip: "padding-box",
     },
 
-    [theme.breakpoints.down("md")]: {
-        minWidth: "150px",
-        fontSize: "0.85rem",
-        padding: `${theme.spacing(1)} ${theme.spacing(1.2)}`,
-        flex: "0 0 auto", // ✅ important for horizontal scroll
-    },
-
-    [theme.breakpoints.down("sm")]: {
-        minWidth: "130px",
-        fontSize: "0.8rem",
-        padding: `${theme.spacing(0.8)} ${theme.spacing(1)}`,
-    },
 }));
+
+

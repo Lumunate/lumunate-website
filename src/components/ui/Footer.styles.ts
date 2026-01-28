@@ -13,7 +13,6 @@ export const FooterTop = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    borderBottom: `1px solid ${theme.palette.divider ?? "#2B2B2B"}`,
     padding: theme.spacing(0, 2),
     width: "100%",
     height: 56,
@@ -70,10 +69,6 @@ export const FooterBottom = styled(Box)(({ theme }) => ({
     height: 56,
     position: "relative",
 
-    /* ❌ remove this */
-    /* borderTop: `1px solid ${theme.palette.divider ?? "#2B2B2B"}`, */
-
-    /* ✅ full-width horizontal line */
     "&::before": {
         content: '""',
         position: "absolute",
@@ -81,8 +76,16 @@ export const FooterBottom = styled(Box)(({ theme }) => ({
         left: "50%",
         width: "100vw",
         height: "1px",
-        backgroundColor: theme.palette.divider ?? "#2B2B2B",
+        backgroundColor: theme.palette.divider,
         transform: "translateX(-50%)",
+    },
+
+    "& > .left-icons": {
+        paddingRight: 59,
+    },
+
+    "& > .right-icons": {
+        paddingLeft: 59,
     },
 
     [theme.breakpoints.down("sm")]: {
@@ -93,7 +96,6 @@ export const FooterBottom = styled(Box)(({ theme }) => ({
         textAlign: "center",
     },
 }));
-
 
 export const FooterSection = styled(Box)(({ theme }) => ({
     display: "flex",
@@ -129,6 +131,12 @@ export const FooterText = styled("span")(({ theme }) => ({
     fontSize: theme.typography.body2.fontSize,
     color: theme.palette.text.secondary,
     fontWeight: 400,
+
+    marginLeft: 32,
+    marginRight: "auto",
+    whiteSpace: "nowrap",
 }));
+
+
 
 export const FooterIconBox = styled(FooterSection)(() => ({}));

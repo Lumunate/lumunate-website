@@ -22,7 +22,7 @@ const Works = () => {
     },
     {
       title: "Koinfolio",
-      year: 2025,
+      year: 2024,
       imageSrc: "/project3.svg",
       url: "/projects/koinfolio",
     },
@@ -34,7 +34,7 @@ const Works = () => {
     },
     {
       title: "Ayse",
-      year: 2025,
+      year: 2024,
       imageSrc: "/project5.svg",
       url: "/projects/ayse",
     },
@@ -90,7 +90,7 @@ const Works = () => {
                 >
                   {project.title}
                 </Typography>
-                <Typography variant="h5" sx={{ color: "#CAC8C8" }}>
+                <Typography variant="h5" sx={{ color: "text.secondary" }}>
                   {project.year}
                 </Typography>
               </TitleWrapper>

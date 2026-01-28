@@ -14,7 +14,7 @@ const page = () => {
 
       <SuccessStories
         storyText="The team at Luminate is simply the best. They do the best jobs as always and have brought our idea for Koinfolio to life. Will continue the work with them for sure!"
-        name="Ebrahim"
+        name="// Ebrahim"
         role="CEO, Koinfolio"
         showStars={false}
       />

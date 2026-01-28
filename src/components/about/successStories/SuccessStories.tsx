@@ -9,6 +9,7 @@ import {
 } from "./SuccessStories.style";
 import { Box, Typography, useTheme } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
+import PageContainer from "@/components/common/PageContainer";
 
 type SuccessStoriesProps = {
   storyText: string;
@@ -38,60 +39,66 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
         Your browser does not support the video tag.
       </BackgroundVideo>
 
+      {/* ✅ add these */}
+      <Box className="topBlur" />
+      <Box className="bottomBlur" />
+
       <ContentContainer>
-        <Typography
-          variant="h6"
-          sx={{
-            color: theme.palette.text.primary,
-            fontWeight: 400,
-          }}
-        >
-          Client Success Stories
-        </Typography>
-        {showStars && (
-          <StarsWrapper>
-            {[...Array(5)].map((_, idx) => (
-              <StarIcon
-                key={idx}
-                sx={{
-                  color: theme.palette.warning.main,
-                  fontSize: 32,
-                }}
-              />
-            ))}
-          </StarsWrapper>
-        )}
-        <Box sx={{ marginTop: { xs: "30px", md: "50px", lg: "65px" } }}>
+        <PageContainer>
           <Typography
+            variant="h5"
             sx={{
-              fontSize: { xs: "12px", sm: "16px", md: "30px", lg: "59px" },
               color: theme.palette.text.primary,
               fontWeight: 400,
-              lineHeight: 1.3,
             }}
           >
-            “{storyText}”
+            Client Success Stories
           </Typography>
-        </Box>
+          {showStars && (
+            <StarsWrapper>
+              {[...Array(5)].map((_, idx) => (
+                <StarIcon
+                  key={idx}
+                  sx={{
+                    color: theme.palette.warning.main,
+                    fontSize: 32,
+                  }}
+                />
+              ))}
+            </StarsWrapper>
+          )}
+          <Box sx={{ marginTop: { xs: "30px", md: "50px", lg: "65px" } }}>
+            <Typography
+              sx={{
+                fontSize: { xs: "22px", sm: "32px", md: "42px", lg: "78px" },
+                color: theme.palette.text.primary,
+                fontWeight: 400,
+                lineHeight: 1.3,
+              }}
+            >
+              “{storyText}”
+            </Typography>
+          </Box>
 
-        <Box sx={{ marginTop: { xs: "25px", md: "40px", lg: "65px" } }}>
-          <Typography
-            sx={{
-              fontWeight: 700,
-              color: theme.palette.text.primary,
-              marginBottom: "4px",
-            }}
-            variant="body2"
-          >
-            {name}
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{ color: theme.palette.text.secondary }}
-          >
-            {role}
-          </Typography>
-        </Box>
+          <Box sx={{ marginTop: { xs: "25px", md: "40px", lg: "65px" } }}>
+            <Typography
+              sx={{
+                fontWeight: 700,
+                color: theme.palette.text.primary,
+                marginBottom: "4px",
+              }}
+              variant="body2"
+            >
+              {name}
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{ color: theme.palette.text.secondary }}
+            >
+              {role}
+            </Typography>
+          </Box>
+        </PageContainer>
       </ContentContainer>
     </SuccessStoriesContainer>
   );

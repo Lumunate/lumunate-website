@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, styled, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 
 export const TrackContainer = styled(Box)({
   width: "100%",
@@ -14,10 +14,11 @@ export const TitleWrapper = styled(Box)({
 export const TitleText = styled(Typography)(({ theme }) => ({
   fontSize: "56px",
   marginBottom: "16px",
+  color: theme.palette.text.primary,
   [theme.breakpoints.down("md")]: {
     fontSize: "32px",
-  }
-}))
+  },
+}));
 
 export const DescriptionText = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
@@ -25,19 +26,9 @@ export const DescriptionText = styled(Typography)(({ theme }) => ({
   fontqWeight: 400,
   marginBottom: "32px",
   [theme.breakpoints.down("sm")]: {
-    fontSize: "18px"
-  }
+    fontSize: "18px",
+  },
 }));
-
-export const DiscoverButton = styled(Button)({
-  backgroundColor: "#015B3F",
-  padding: "22px 33px 19px 37px",
-  fontSize: "16px",
-  fontWeight: "500",
-  marginTop: "32px",
-  color: "white",
-  borderRadius: "16px",
-});
 
 export const StatusWrapper = styled(Box)(({ theme }) => ({
   marginTop: "44px",
@@ -54,7 +45,7 @@ export const StatusWrapper = styled(Box)(({ theme }) => ({
 
 export const StatusCard = styled(Box)(({ theme }) => ({
   padding: "16px 24px",
-  border: "1px solid #757575",
+  border: `1px solid ${theme.palette.divider}`,
   height: "345px",
   [theme.breakpoints.down("sm")]: {
     height: "250px",
@@ -64,7 +55,7 @@ export const StatusCard = styled(Box)(({ theme }) => ({
 export const NumberText = styled(Box)(({ theme }) => ({
   fontSize: "85px",
   fontWeight: 400,
-  color: "white",
+  color: theme.palette.text.primary,
   fontFamily: "Manrope,Montserrat, sans-serif",
   "@media (max-width: 1300px)": {
     fontSize: "55px",
@@ -75,5 +66,4 @@ export const NumberText = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     fontSize: "32px",
   },
-
 }));
