@@ -3,7 +3,6 @@
 import React, { useEffect } from "react";
 import {
   ContentWrapper,
-  DiscoverButton,
   NumberTypography,
   OurApproachContainer,
   RightBottomBox,
@@ -14,11 +13,11 @@ import {
   DescriptionText,
 } from "./OurApproach.style";
 import { Box } from "@mui/material";
-import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import useGsapAnimation, { useGsapSlideAnimation } from "@/hooks/useGsapAnimation";
 import PageContainer from "@/components/common/PageContainer";
+import DiscoverButton from "@/components/ui/DiscoverButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -138,10 +137,7 @@ const OurApproach = () => {
               <DescriptionText ref={descriptionRef} variant="h5">
                 {data[activeIndex].description}
               </DescriptionText>
-              <DiscoverButton ref={buttonRef as React.RefObject<HTMLButtonElement>}>
-                Discover
-                <ArrowOutwardIcon sx={{ fontSize: "17px", marginLeft: "6px" }} />
-              </DiscoverButton>
+              <DiscoverButton sx={{ mt: "40px", width: "fit-content" }}>Discover</DiscoverButton>
             </RightBottomBox>
           </ContentWrapper>
 

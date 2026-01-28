@@ -1,11 +1,11 @@
 "use client";
 
 import { Box, Button, styled } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 
-export const WorkWrapper = styled(Box)(({ }) => ({
+export const WorkWrapper = styled(Box)(() => ({
   width: "100%",
-  // paddingTop: "214px",
-    paddingBottom: "220px",
+  paddingBottom: "220px",
 }));
 
 export const ProjectsWrapper = styled(Box)(({ theme }) => ({
@@ -27,20 +27,21 @@ export const ProjectsWrapper = styled(Box)(({ theme }) => ({
 export const TitleWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
+  alignItems: "center",
   padding: theme.spacing(1.5),
   borderRadius: (theme.shape.borderRadius as number) * 1.5,
-  backgroundColor:
-    theme.palette.mode === "dark"
-      ? theme.palette.background.paper
-      : theme.palette.grey[100],
+
+  backgroundColor: alpha(theme.palette.background.default, 0.72),
+
   boxShadow: `
-    0px 4px 14.8px rgba(0, 0, 0, 0.33),
+    0px 4px 14.8px ${alpha("#000", 0.9)},
     inset 0px 4px 18.1px ${theme.palette.mode === "dark"
-      ? "rgba(132, 132, 132, 0.55)"
-      : "rgba(0, 0, 0, 0.1)"
+      ? alpha(theme.palette.text.primary, 0.22)
+      : alpha("#000", 0.1)
     }
   `,
 }));
+
 
 export const ImageContainer = styled(Box)(() => ({
   width: "100%",
@@ -61,18 +62,20 @@ export const ImageContainer = styled(Box)(() => ({
   },
 }));
 
-export const ViewButton = styled(Button)(() => ({
+export const ViewButton = styled(Button)(({ theme }) => ({
   position: "absolute",
   top: "13%",
   right: "10%",
-  background: "rgba(0, 0, 0, 0.5)",
+
+  background: alpha(theme.palette.background.default, 0.5),
   boxShadow: `
-    inset 0px 4px 25.6px rgba(0, 0, 0, 0.25),
-    0px 4px 8.9px rgba(91, 91, 91, 0.25)
+    inset 0px 4px 25.6px ${alpha(theme.palette.background.default, 0.25)}, 
+    0px 4px 8.9px ${alpha(theme.palette.text.secondary, 0.25)}
   `,
+
   backdropFilter: "blur(6px)",
   borderRadius: "50%",
-  color: "#fff",
+  color: theme.palette.common.white,
   textTransform: "none",
   fontWeight: 400,
   fontSize: "14px",
@@ -80,7 +83,8 @@ export const ViewButton = styled(Button)(() => ({
   opacity: 0,
   transform: "translateY(10px)",
   transition: "all 0.4s ease-in-out",
+
   "&:hover": {
-    background: "rgba(14, 13, 13, 0.25)",
+    background: alpha(theme.palette.background.default, 0.25),
   },
 }));

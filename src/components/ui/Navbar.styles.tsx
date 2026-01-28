@@ -6,7 +6,6 @@ export const NavContainer = styled(Box)(({ theme }) => ({
     width: "100%",
     margin: 0,
     padding: "8px 131px",
-    color: "#363636",
     height: 80,
 
     [theme.breakpoints.down("lg")]: { padding: "8px 80px" },
@@ -45,12 +44,12 @@ export const RightBox = styled(Box)(() => ({
     height: "100%",
 }));
 
-export const VerticalDivider = styled(Box)(() => ({
+export const VerticalDivider = styled(Box)(({ theme }) => ({
     width: "0.5px",
     minWidth: "0.5px",
     flexShrink: 0,
     height: "calc(100% + 16px)",
     marginTop: "-8px",
     marginBottom: "-8px",
-    backgroundColor: "#343434",
+    backgroundColor: theme.palette.navbar.border,
 }));

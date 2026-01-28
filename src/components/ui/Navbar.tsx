@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Logo from "./logo";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import gsap from "gsap";
 import {
     AppBar,
@@ -49,23 +49,13 @@ const navLinks = [
     { label: "Contact", href: "/contact" },
 ];
 
-const navButtonSx = {
-    color: "#363636",
-    fontWeight: 400,
-    fontSize: "16px",
-    fontFamily: "Montserrat, sans-serif",
-    textTransform: "none",
-    letterSpacing: "0.5px",
-    "&:hover": { color: "#fff" },
-};
-
 export default function Navbar() {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false);
-
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
     // GSAP ref
     const navRef = useRef<HTMLDivElement>(null);
@@ -78,10 +68,7 @@ export default function Navbar() {
     const [menuPos, setMenuPos] = useState<{ top: number; left: number } | null>(null);
     const [menuWidth, setMenuWidth] = useState<number>(800);
 
-    const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
+    const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
     const handleMenuClose = () => setAnchorEl(null);
 
     const toggleDrawer = (open: boolean) => () => {
@@ -89,6 +76,20 @@ export default function Navbar() {
         setMobileProjectsOpen(false);
     };
 
+    const navButtonSx = useMemo(
+        () => ({
+            color: theme.palette.navbar.itemText,
+            fontWeight: 400,
+            fontSize: "16px",
+            fontFamily: "Montserrat, sans-serif",
+            textTransform: "none",
+            letterSpacing: "0.5px",
+            "&:hover": { color: theme.palette.navbar.itemTextHover },
+        }),
+        [theme]
+    );
+
+    // GSAP animation (fix TS errors: callbacks must return void)
     useEffect(() => {
         if (!navRef.current) return;
 
@@ -113,8 +114,8 @@ export default function Navbar() {
         );
     }, []);
 
-    // compute dropdown position/width:
-    // start from logo left edge, end at case-studies right divider edge
+    // Compute dropdown position/width:
+    // Start from logo left edge, end at Case Studies RIGHT divider edge.
     useEffect(() => {
         const calcMenuMetrics = () => {
             if (!navContainerRef.current || !logoBoxRef.current || !caseStudiesRightDividerRef.current) return;
@@ -125,7 +126,11 @@ export default function Navbar() {
 
             const left = Math.round(logoRect.left);
             const right = Math.round(dividerRect.right);
-            const width = Math.max(320, right - left);
+
+            // keep a minimum but never exceed viewport
+            const desiredWidth = Math.max(320, right - left);
+            const maxAllowed = Math.max(320, Math.round(window.innerWidth - left - 16)); // 16px safety
+            const width = Math.min(desiredWidth, maxAllowed);
 
             setMenuWidth(width);
             setMenuPos({
@@ -134,35 +139,24 @@ export default function Navbar() {
             });
         };
 
-        if (Boolean(anchorEl)) {
-            calcMenuMetrics();
-        }
+        if (Boolean(anchorEl)) calcMenuMetrics();
 
         window.addEventListener("resize", calcMenuMetrics);
         return () => window.removeEventListener("resize", calcMenuMetrics);
     }, [anchorEl]);
 
-    // Close dropdown on scroll
+    // Close dropdown on scroll (your requirement)
     useEffect(() => {
         if (!anchorEl) return;
 
-        const closeOnScroll = () => {
-            setAnchorEl(null);
-        };
-
-        // capture true so it triggers even if scroll happens inside containers
+        const closeOnScroll = () => setAnchorEl(null);
         window.addEventListener("scroll", closeOnScroll, true);
 
-        return () => {
-            window.removeEventListener("scroll", closeOnScroll, true);
-        };
+        return () => window.removeEventListener("scroll", closeOnScroll, true);
     }, [anchorEl]);
 
-    // Responsive columns to avoid cropping on smaller widths
-    const columns =
-        menuWidth >= 1050 ? 3 :
-            menuWidth >= 720 ? 2 :
-                1;
+    // Responsive columns to avoid right-side cropping on normal laptops
+    const columns = menuWidth >= 1050 ? 3 : menuWidth >= 740 ? 2 : 1;
 
     return (
         <AppBar
@@ -172,9 +166,11 @@ export default function Navbar() {
             sx={{
                 width: "100vw",
                 zIndex: 30,
-                backgroundColor: "rgba(14, 14, 14, 0.34) !important",
-                borderTop: "1px solid #343434",
-                borderBottom: "1px solid #343434",
+
+                backgroundColor: theme.palette.navbar.bg,
+                borderTop: `1px solid ${theme.palette.navbar.border}`,
+                borderBottom: `1px solid ${theme.palette.navbar.border}`,
+
                 boxShadow: "none",
                 opacity: 0,
                 transform: "translateY(-60px)",
@@ -222,17 +218,30 @@ export default function Navbar() {
                                 anchorReference="anchorPosition"
                                 anchorPosition={menuPos ?? undefined}
                                 transformOrigin={{ vertical: "top", horizontal: "left" }}
-                                MenuListProps={{ disablePadding: true }}
+                                MenuListProps={{
+                                    disablePadding: true,
+                                    sx: {
+                                        backgroundColor: theme.palette.background.default,
+                                        backgroundImage: "none",
+                                    },
+                                }}
                                 PaperProps={{
                                     sx: {
                                         p: 0,
                                         borderRadius: 0,
-                                        bgcolor: "rgba(14, 14, 14, 0.92)",
-                                        border: "1px solid #343434",
+
+                                        backgroundColor: theme.palette.background.default,
+                                        backgroundImage: "none",
+
+                                        border: `1px solid ${theme.palette.navbar.border}`,
                                         boxShadow: "none",
+
                                         width: `${menuWidth}px`,
                                         maxWidth: "none",
-                                        overflow: "hidden",
+
+                                        maxHeight: "70vh",
+                                        overflowY: "auto",
+                                        overflowX: "hidden",
                                     },
                                 }}
                             >
@@ -256,17 +265,19 @@ export default function Navbar() {
                                                 fontSize: theme.typography.body2.fontSize,
                                                 lineHeight: 1.3,
 
-                                                // allow wrapping so no cropping on smaller widths
                                                 whiteSpace: "normal",
                                                 overflowWrap: "anywhere",
 
-                                                color: theme.palette.text.secondary,
-                                                borderTop: `1px solid ${theme.palette.divider}`,
-                                                borderLeft: `1px solid ${theme.palette.divider}`,
+                                                color: theme.palette.section.desc,
+
+                                                borderTop: `1px solid ${theme.palette.navbar.border}`,
+                                                borderLeft: `1px solid ${theme.palette.navbar.border}`,
+
+                                                backgroundColor: theme.palette.background.default,
 
                                                 "&:hover": {
-                                                    bgcolor: theme.palette.action.hover,
-                                                    color: theme.palette.text.primary,
+                                                    backgroundColor: theme.palette.navbar.itemHoverBg,
+                                                    color: theme.palette.section.heading,
                                                 },
                                             }}
                                         >
@@ -287,18 +298,19 @@ export default function Navbar() {
                                         href="https://calendly.com/saad-b-javaid22/consultation"
                                         target="_blank"
                                         sx={{
-                                            textTransform: "none",
                                             px: 2,
                                             py: 1,
                                             fontWeight: 400,
                                             fontFamily: "Montserrat, sans-serif",
                                             borderRadius: 0,
-                                            color: "#363636",
+
+                                            color: theme.palette.navbar.itemText,
                                             backgroundColor: "transparent",
                                             boxShadow: "none",
+
                                             "&:hover": {
-                                                backgroundColor: "rgba(255, 255, 255, 0.08)",
-                                                color: "#FFFFFF",
+                                                backgroundColor: theme.palette.navbar.itemHoverBg,
+                                                color: theme.palette.navbar.itemTextHover,
                                                 boxShadow: "none",
                                             },
                                             transition: "background-color 0.25s ease, color 0.25s ease",
@@ -321,8 +333,8 @@ export default function Navbar() {
                         paper: {
                             sx: {
                                 width: 260,
-                                bgcolor: "#181818",
-                                color: "#bdbdbd",
+                                bgcolor: theme.palette.background.paper,
+                                color: theme.palette.section.desc,
                                 p: 2,
                             },
                         },
@@ -360,18 +372,14 @@ export default function Navbar() {
                                 component="a"
                                 href="https://calendly.com/saad-b-javaid22/consultation"
                                 target="_blank"
-                                variant="contained"
-                                color="success"
                                 fullWidth
                                 sx={{
-                                    boxShadow: 1,
-                                    textTransform: "none",
                                     py: 1,
                                     fontWeight: 600,
-                                    bgcolor: "#015B3F",
-                                    color: "#fff",
+                                    bgcolor: theme.palette.navbar.itemHoverBg,
+                                    color: theme.palette.section.heading,
                                     borderRadius: 0,
-                                    "&:hover": { bgcolor: "#333" },
+                                    "&:hover": { bgcolor: theme.palette.navbar.itemHoverBg },
                                 }}
                             >
                                 Get Started

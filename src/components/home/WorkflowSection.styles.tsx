@@ -34,9 +34,10 @@ export const NavBarContainer = styled(Box)(({ theme }) => ({
         width: "100vw",
         height: "100%",
         transform: "translateX(-50%)",
-        backgroundColor: "#181818",
-        borderTop: "1px solid #333",
-        borderBottom: "1px solid #333",
+
+        backgroundColor: theme.palette.background.paper,
+        borderTop: `1px solid ${theme.palette.navbar.border}`,
+        borderBottom: `1px solid ${theme.palette.navbar.border}`,
         zIndex: -1,
     },
 
@@ -48,8 +49,8 @@ export const NavBarContainer = styled(Box)(({ theme }) => ({
         width: "100vw",
         height: "100%",
         transform: "translateX(-50%)",
-        borderLeft: "1px solid #333",
-        borderRight: "1px solid #333",
+        borderLeft: `1px solid ${theme.palette.navbar.border}`,
+        borderRight: `1px solid ${theme.palette.navbar.border}`,
         pointerEvents: "none",
         zIndex: -1,
     },
@@ -70,10 +71,13 @@ export const NavItem = styled(Box)(({ theme }) => ({
     justifyContent: "center",
     padding: `${theme.spacing(2.3)} ${theme.spacing(2)}`,
     cursor: "pointer",
-    color: "#5A5A5A",
+
+    color: theme.palette.text.secondary,
+    opacity: 0.55,
+
     fontSize: "16px",
-    borderLeft: "1px solid #333",
-    transition: "background-color 0.3s ease, color 0.3s ease",
+    borderLeft: `1px solid ${theme.palette.navbar.border}`,
+    transition: "background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease",
     whiteSpace: "nowrap",
     textAlign: "center",
     userSelect: "none",
@@ -81,23 +85,38 @@ export const NavItem = styled(Box)(({ theme }) => ({
     lineHeight: 1.3,
 
     "&:hover": {
-        backgroundColor: "rgba(255,255,255,0.05)",
-        color: "#fff",
+        backgroundColor: theme.palette.navbar.itemHoverBg,
+        color: theme.palette.text.primary,
+        opacity: 1,
     },
 
-    "&.active": {
-        backgroundColor: "#292929",
-        color: "#fff",
+    "&&.active": {
+        backgroundColor: `${theme.palette.background.default} !important`,
+        color: theme.palette.text.primary,
+        opacity: 1,
         fontWeight: 500,
+        position: "relative",
+        zIndex: 2,
     },
 
-    // ✅ ADD right line after the last nav item (same as others)
-    "&:last-of-type": {
-        borderRight: "1px solid #333",
+    "&&.active::before": {
+        content: '""',
+        position: "absolute",
+        left: 0,
+        right: 0,
+        top: 0,
+        height: "1px",
+        backgroundColor: theme.palette.navbar.border,
     },
-
-    // ❌ REMOVE this (it was killing the first left line)
-    // "&:first-of-type": { borderLeft: "none" },
+    "&&.active::after": {
+        content: '""',
+        position: "absolute",
+        left: 0,
+        right: 0,
+        bottom: 0,
+        height: "1px",
+        backgroundColor: theme.palette.navbar.border,
+    },
 
     [theme.breakpoints.down("md")]: {
         fontSize: "0.9rem",
@@ -111,7 +130,3 @@ export const NavItem = styled(Box)(({ theme }) => ({
         minWidth: "130px",
     },
 }));
-
-
-
-

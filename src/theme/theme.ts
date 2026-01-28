@@ -3,6 +3,51 @@
 import { createTheme } from "@mui/material/styles";
 import type { PaletteMode } from "@mui/material";
 
+/**
+ * Custom palette keys:
+ * theme.palette.navbar.*
+ * theme.palette.section.*
+ */
+declare module "@mui/material/styles" {
+  interface Palette {
+    navbar: {
+      bg: string;
+      border: string;
+      itemText: string;
+      itemTextHover: string;
+      itemHoverBg: string;
+    };
+    section: {
+      heading: string;
+      desc: string;
+      star: string;
+    };
+  }
+  interface PaletteOptions {
+    navbar?: Partial<Palette["navbar"]>;
+    section?: Partial<Palette["section"]>;
+  }
+}
+
+export const TOKENS = {
+  navbar: {
+    bg: "#101010",
+    border: "#343434",
+    itemText: "#363636",
+    itemTextHover: "#FFFFFF",
+    itemHoverBg: "rgba(255,255,255,0.08)",
+  },
+  section: {
+    heading: "#FFFFFF",
+    desc: "#9F9F9F",
+    star: "#FFD600",
+  },
+  bg: {
+    default: "#0E0E0E",
+    paper: "#171717",
+  },
+};
+
 const breakpoints = {
   values: {
     xs: 0,
@@ -13,59 +58,69 @@ const breakpoints = {
     xxl: 1400,
   },
 };
-const lightPalette = {
-  mode: "light" as PaletteMode,
-  background: {
-    default: "#ffffff",
-    paper: "#f8f9fa",
-  },
-  text: {
-    primary: "rgba(0, 0, 0, 1)",
-    secondary: "#AAAAAA",
-    grey: "#CAC8C8",
-    light: "rgba(255, 255, 255, 1)",
-  },
-  primary: { main: "#000000" },
-  secondary: { main: "#DA9694" },
-};
-
-const darkPalette = {
-  mode: "dark" as PaletteMode,
-  background: {
-    default: "#0E0E0E", 
-    paper: "#171717",
-  },
-  text: {
-    primary: "#ededed",
-    secondary: "#AAAAAA",
-    disabled: "#CAC8C8",
-  },
-  primary: { main: "#ffffff" },
-  secondary: { main: "#DA9694" },
-};
 
 const typography = {
   fontFamily: `"Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif`,
-  typography: {
-    h1: { fontSize: "56px", fontWeight: 400 },
-    h2: { fontSize: "40px", fontWeight: 900 },
-    h3: { fontSize: "38px", fontWeight: 400 },
-    h4: { fontSize: "28px", fontWeight: 400 },
-    h5: { fontSize: "22px", fontWeight: 400 },
-    h6: { fontSize: "1.125rem", fontWeight: 600 },
-    body1: { fontSize: "18px", fontWeight: 400 },
-    body2: { fontSize: "16px", fontWeight: 400 },
-    caption: { fontSize: "12px", fontWeight: 400 },
-  },
+  h1: { fontSize: "56px", fontWeight: 400 },
+  h2: { fontSize: "40px", fontWeight: 900 },
+  h3: { fontSize: "38px", fontWeight: 400 },
+  h4: { fontSize: "28px", fontWeight: 400 },
+  h5: { fontSize: "22px", fontWeight: 400 },
+  h6: { fontSize: "16px", fontWeight: 400 },
+  body1: { fontSize: "18px", fontWeight: 400 },
+  body2: { fontSize: "16px", fontWeight: 400 },
+  caption: { fontSize: "12px", fontWeight: 400 },
 };
 
-// 👇 dark flag here
-const dark = true;
-
 const theme = createTheme({
-  palette: dark ? darkPalette : lightPalette,
+  palette: {
+    mode: "dark" as PaletteMode,
+
+    background: {
+      default: TOKENS.bg.default,
+      paper: TOKENS.bg.paper,
+    },
+
+    text: {
+      primary: TOKENS.section.heading,
+      secondary: TOKENS.section.desc,
+    },
+
+    divider: TOKENS.navbar.border,
+
+    navbar: TOKENS.navbar,
+    section: TOKENS.section,
+  },
+
   breakpoints,
   typography,
+
+  components: {
+    // optional consistency: remove MUI dark overlay globally on papers you control
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          // keep default for general papers if you want,
+          // but Menu dropdown is handled explicitly in Navbar.
+        },
+      },
+    },
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          borderRadius: 0,
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+          textTransform: "none",
+        },
+      },
+    },
+  },
 });
 
 export default theme;

@@ -69,16 +69,27 @@ const Ready = ({
               fontSize: { xs: "32px", sm: "56px", md: "78px" },
               color: theme.palette.text.primary,
               fontWeight: 400,
+              fontFamily: 'Montserrat'
             }}
           >
             {title}
           </Typography>
           <Typography
-            sx={{ color: theme.palette.text.secondary, mt: 2 }}
             variant="body2"
+            sx={{
+              color: theme.palette.text.secondary,
+              mt: { xs: 2.5, sm: 4 },
+              fontFamily: "Montserrat",
+              fontWeight: 400,
+              lineHeight: "100%",
+              letterSpacing: "-0.2px",
+              maxWidth: "1098px",
+              mx: "auto",
+            }}
           >
             {description}
           </Typography>
+
 
           <Box sx={{ marginTop: "38px" }}>
             <Link

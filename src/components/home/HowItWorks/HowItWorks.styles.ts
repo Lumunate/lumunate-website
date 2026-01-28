@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { Accordion, AccordionSummary, Box, Typography } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { styled, alpha } from "@mui/material/styles";
 
 export const Section = styled(Box)(({ theme }) => ({
     width: "100%",
-    color: "#fff",
+    color: theme.palette.text.primary,
     paddingBottom: 80,
 
     [theme.breakpoints.down("md")]: {
@@ -32,7 +32,7 @@ export const Container = styled(Box)(({ theme }) => ({
 }));
 
 export const Title = styled(Typography)(({ theme }) => ({
-    color: "#FFF",
+    color: theme.palette.text.primary,
     textAlign: "center",
     fontFamily: "Montserrat",
     fontSize: 78,
@@ -57,18 +57,18 @@ export const Title = styled(Typography)(({ theme }) => ({
     },
 }));
 
-export const FaqAccordion = styled(Accordion)(() => ({
+export const FaqAccordion = styled(Accordion)(({ theme }) => ({
     background: "transparent",
-    color: "#AAA",
+    color: theme.palette.text.secondary,
     boxShadow: "none",
     borderRadius: 0,
     margin: 0,
-    borderTop: "1px solid rgba(255,255,255,0.12)",
+    borderTop: `1px solid ${alpha(theme.palette.text.primary, 0.12)}`,
 
     "&:before": { display: "none" },
 
     "&:last-of-type": {
-        borderBottom: "1px solid rgba(255,255,255,0.12)",
+        borderBottom: `1px solid ${alpha(theme.palette.text.primary, 0.12)}`,
     },
 
     "&.Mui-expanded": {
@@ -89,7 +89,7 @@ export const FaqSummary = styled(AccordionSummary)(({ theme }) => ({
     },
 
     "& .MuiAccordionSummary-expandIconWrapper": {
-        color: "#AAA",
+        color: theme.palette.text.secondary,
     },
 
     [theme.breakpoints.down("sm")]: {
@@ -99,7 +99,7 @@ export const FaqSummary = styled(AccordionSummary)(({ theme }) => ({
 }));
 
 export const QuestionText = styled(Typography)(({ theme }) => ({
-    color: "#AAA",
+    color: theme.palette.text.secondary,
     fontFamily: "Montserrat",
     fontSize: 22,
     fontStyle: "normal",
@@ -111,7 +111,7 @@ export const QuestionText = styled(Typography)(({ theme }) => ({
 }));
 
 export const AnswerText = styled(Typography)(({ theme }) => ({
-    color: "#AAA",
+    color: theme.palette.text.secondary,
     fontFamily: "Montserrat",
     fontSize: 16,
     fontWeight: 400,
@@ -136,8 +136,8 @@ export const BottomRow = styled(Box)(({ theme }) => ({
     },
 }));
 
-export const BottomText = styled(Typography)(() => ({
-    color: "#AAA",
+export const BottomText = styled(Typography)(({ theme }) => ({
+    color: theme.palette.text.secondary,
     textAlign: "center",
     fontFamily: "Montserrat",
     fontSize: 16,
@@ -146,8 +146,8 @@ export const BottomText = styled(Typography)(() => ({
     lineHeight: "normal",
 }));
 
-export const TalkLink = styled(Link)(() => ({
-    color: "#FFF",
+export const TalkLink = styled(Link)(({ theme }) => ({
+    color: theme.palette.text.primary,
     fontFamily: "Montserrat",
     fontSize: 16,
     fontStyle: "normal",

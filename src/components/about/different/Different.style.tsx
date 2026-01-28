@@ -1,23 +1,40 @@
-"use client"
+"use client";
 
-import { Box, styled } from "@mui/material"
+import { Box, styled } from "@mui/material";
 
-export const DifferentContainer= styled(Box)({
-    maxWidth: '1620px',
-    width: '100%',
-    margin: '0 auto',
-    padding: '65px 20px',
-})
+export const DifferentContainer = styled(Box)(({ theme }) => ({
+    width: "100%",
+    color: theme.palette.text.primary,
+}));
 
-export const ContentContainer= styled(Box)(({theme})=>({
-    maxWidth:"1620px",
-    width:"100%",
-    margin:"0 auto",
-    display:"grid",
-    gridTemplateColumns:"repeat(2, 1fr)",
-    border:"1px solid #757575",
-    borderRadius:"12px",
-    [theme.breakpoints.down('md')]: {
-      gridTemplateColumns:"repeat(1, 1fr)",
+export const ContentContainer = styled(Box)(({ theme }) => ({
+    width: "100%",
+    display: "grid",
+    gridTemplateColumns: "repeat(2, 1fr)",
+    position: "relative",
+    marginBottom: "207px",
+    border: `1px solid ${theme.palette.divider}`,
+    borderRadius: "12px",
+    overflow: "hidden",
+
+    "&::after": {
+        content: '""',
+        position: "absolute",
+        left: 0,
+        right: 0,
+        top: "50%",
+        height: "1px",
+        backgroundColor: theme.palette.divider,
+        pointerEvents: "none",
+        zIndex: 10,
+    },
+
+    [theme.breakpoints.down("md")]: {
+        gridTemplateColumns: "repeat(1, 1fr)",
+
+        "&::after": {
+            display: "none",
+        },
     },
 }));
+

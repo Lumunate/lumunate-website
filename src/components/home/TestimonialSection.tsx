@@ -17,8 +17,11 @@ import {
 import Image from "next/image";
 import useGsapAnimation from "@/hooks/useGsapAnimation";
 import PageContainer from "../common/PageContainer";
+import { useTheme } from "@mui/material/styles";
 
 export default function TestimonialSection() {
+    const theme = useTheme();
+
     // Using GSAP-safe hook that internally uses gsap.context()
     const headingRef = useGsapAnimation({
         direction: "fade",
@@ -43,7 +46,10 @@ export default function TestimonialSection() {
                     <TestimonialBox ref={boxRef}>
                         <StarsRow>
                             {Array.from({ length: 5 }).map((_, i) => (
-                                <StarIcon key={i} sx={{ color: "#FFD600", fontSize: 24 }} />
+                                <StarIcon
+                                    key={i}
+                                    sx={{ color: theme.palette.section.star, fontSize: 24 }}
+                                />
                             ))}
                         </StarsRow>
 

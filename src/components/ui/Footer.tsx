@@ -16,7 +16,7 @@ import PageContainer from "../common/PageContainer";
 export default function Footer() {
     return (
         <FooterRoot>
-            <PageContainer>
+            {/* <PageContainer> */}
                 <FooterTop>
                     <FooterNavItem href="/terms" className="left-item">
                         Terms & Services
@@ -72,7 +72,7 @@ export default function Footer() {
                         </IconButton>
                     </FooterIconBox>
                 </FooterBottom>
-            </PageContainer>
+            {/* </PageContainer> */}
         </FooterRoot>
     );
 }
