@@ -21,6 +21,8 @@ declare module "@mui/material/styles" {
       heading: string;
       desc: string;
       star: string;
+      caseStudyDesc: string;
+      caseStudyLabel: string;
     };
   }
   interface PaletteOptions {
@@ -40,6 +42,8 @@ export const TOKENS = {
   section: {
     heading: "#FFFFFF",
     desc: "#9F9F9F",
+    caseStudyDesc: "#CBCBCB",
+    caseStudyLabel: "#B8B8B8",
     star: "#FFD600",
   },
   bg: {

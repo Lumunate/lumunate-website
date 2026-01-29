@@ -29,7 +29,7 @@ export default function AirbotCaseStudyPage() {
                     },
                 ]}
                 overlayOpacity={0.4}
-                rightMaxWidth={900}
+                rightMaxWidth={823}
 
             />
 
@@ -60,7 +60,7 @@ export default function AirbotCaseStudyPage() {
 
             <SuccessStories
                 storyText="The team at Luminate is simply the best. They do the best jobs as always and have brought our idea for Koinfolio to life. Will continue the work with them for sure!"
-                name="Ebrahim"
+                name="// Ebrahim"
                 role="CEO, Koinfolio"
                 showStars={true}
             />
