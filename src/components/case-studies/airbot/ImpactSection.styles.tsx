@@ -1,85 +1,81 @@
 "use client";
 
-import { styled, Container, Typography, Box, Chip, List, ListItem } from "@mui/material";
+import { styled, Typography, Box, Chip, List, ListItem } from "@mui/material";
 
 export const SectionRoot = styled(Box)(({ theme }) => ({
   position: "relative",
   backgroundColor: theme.palette.background.default,
   color: theme.palette.text.primary,
-  paddingTop: theme.spacing(6),
-  paddingBottom: theme.spacing(6),
-  paddingLeft: theme.spacing(10),
-  paddingRight: theme.spacing(10),
+  paddingTop: "93px",
+  paddingBottom: "191px",
 }));
 
-export const InnerContainer = styled(Container)(() => ({}));
+export const RowFlex = styled(Box)(({ theme }) => ({
+  display: "flex",
+  alignItems: "flex-start",
+  justifyContent: "space-between",
 
-export const RowGrid = styled(Box)(({ theme }) => ({
-  display: "grid",
-  gridTemplateColumns: "1fr 3fr",
-  alignItems: "start",
-  gap: theme.spacing(12),
+  gap: "17px",
 
   marginBottom: theme.spacing(4),
 
   [theme.breakpoints.down("md")]: {
-    gridTemplateColumns: "1fr",
+    flexDirection: "column",
+    alignItems: "flex-start",
     gap: theme.spacing(2),
-    textAlign: "center",
+    textAlign: "left",
   },
 }));
 
 export const TitleText = styled(Typography)(({ theme }) => ({
-  ...theme.typography.h5,
   fontFamily: "Montserrat, sans-serif",
-  fontWeight: 500,
+  fontWeight: 400,
   color: theme.palette.text.primary,
-  [theme.breakpoints.down("md")]: {
-    fontSize: "20px",
-    marginBottom: theme.spacing(2),
-    textAlign: "center",
-  },
+}));
+
+
+export const ContentRight = styled(Box)(({ theme }) => ({
+  marginLeft: "auto",
+  width: "100%",
+  maxWidth: "804px",
 }));
 
 export const ListWrapper = styled(List)(({ theme }) => ({
   maxWidth: "100%",
-  marginBottom: theme.spacing(3),
-  ...theme.typography.body2,
+  margin: 0,
+
+  ...theme.typography.body1,
   lineHeight: 1.6,
-  paddingLeft: theme.spacing(3),
+
   listStyleType: "disc",
   paddingInlineStart: theme.spacing(3),
 
   [theme.breakpoints.down("md")]: {
-    paddingLeft: theme.spacing(2),
-    textAlign: "left",
+    paddingInlineStart: theme.spacing(3),
   },
 }));
 
 export const ListItemStyled = styled(ListItem)(({ theme }) => ({
   display: "list-item",
   padding: 0,
-  color: theme.palette.text.secondary,
-  fontSize: theme.typography.body2.fontSize,
+  color: theme.palette.section.caseStudyDesc,
+  fontSize: theme.typography.body1.fontSize,
   lineHeight: 1.6,
 }));
 
 export const ServicesWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
-  gap: theme.spacing(1.5),
+  gap: "17px",
   flexWrap: "wrap",
-  cursor: "pointer",
-  [theme.breakpoints.down("md")]: {
-    justifyContent: "center",
-  },
 }));
 
 export const ServiceChip = styled(Chip)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
+  backgroundColor: "transparent",
   color: theme.palette.text.primary,
   border: `1px solid ${theme.palette.divider}`,
   borderRadius: "16px",
-  fontSize: "14px",
+  fontSize: theme.typography.body1.fontSize,
+
   "&:hover": {
     backgroundColor: theme.palette.action.hover,
   },
