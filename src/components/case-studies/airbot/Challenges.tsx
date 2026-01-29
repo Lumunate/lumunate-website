@@ -1,14 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import { Box, Typography } from "@mui/material";
+import PageContainer from "@/components/common/PageContainer";
 import {
     SectionRoot,
-    InnerContainer,
     TopStrip,
     ImageWrapper,
     ImageGridWrapper,
 } from "./Challenges.styles";
-import { Box, Typography } from "@mui/material";
 
 type ChallengesProps = {
     title?: string;
@@ -29,63 +29,71 @@ export default function Challenges({
 }: ChallengesProps) {
     return (
         <SectionRoot component="section">
-            <InnerContainer maxWidth="xl">
-                <TopStrip>
+            <TopStrip>
+                <PageContainer>
                     <Box
-                        sx={{
-                            display: "grid",
-                            gridTemplateColumns: {
-                                xs: "1fr",
-                                md: "1fr 1fr",
+                        sx={(theme) => ({
+                            display: "flex",
+                            alignItems: "flex-start",
+                            justifyContent: "space-between",
+
+                            paddingTop: "38px",
+                            paddingBottom: "58px",
+
+                            gap: "17px",
+
+                            [theme.breakpoints.down("md")]: {
+                                flexDirection: "column",
+                                justifyContent: "flex-start",
+                                paddingTop: theme.spacing(4),
+                                paddingBottom: theme.spacing(4),
+                                gap: theme.spacing(2),
                             },
-                            gap: 2,
-                        }}
+                        })}
                     >
-                        <Box>
-                            <Typography variant="h2">{title}</Typography>
-                        </Box>
-                        <Box>
-                            <Typography
-                                sx={{ color: "#CBCBCB", maxWidth: "900px", fontSize: "15px" }}
-                                variant="body1"
-                            >
-                                {description}
-                            </Typography>
-                        </Box>
+                        <Typography
+                            sx={{
+                                fontSize: { xs: "22px", md: "33px" },
+                                fontWeight: 400,
+                                flexShrink: 0,
+                            }}
+                        >
+                            {title}
+                        </Typography>
+
+                        <Typography
+                            variant="body1"
+                            sx={(theme) => ({
+                                color: theme.palette.section.caseStudyDesc,
+                                maxWidth: "819px",
+                                textAlign: "left",
+                                marginLeft: "auto",
+                            })}
+                        >
+                            {description}
+                        </Typography>
                     </Box>
-                </TopStrip>
-            </InnerContainer>
+                </PageContainer>
+            </TopStrip>
+
             {imageSrc && !imageLeftSrc && !imageRightSrc && (
                 <ImageWrapper>
                     <Image
                         src={imageSrc}
                         alt={imageAlt}
                         fill
-                        style={{
-                            objectFit: "cover",
-                        }}
+                        style={{ objectFit: "cover" }}
                         priority
                     />
                 </ImageWrapper>
             )}
+
             {imageLeftSrc && imageRightSrc && (
                 <ImageGridWrapper>
-                    <Image
-                        src={imageLeftSrc}
-                        alt="Left Illustration"
-                        width={1200}
-                        height={800}
-                    />
-                    <Image
-                        src={imageRightSrc}
-                        alt="Right Illustration"
-                        width={1200}
-                        height={800}
-                    />
-
+                    <Image src={imageLeftSrc} alt="Left Illustration" width={1200} height={800} />
+                    <Image src={imageRightSrc} alt="Right Illustration" width={1200} height={800} />
                 </ImageGridWrapper>
             )}
-
         </SectionRoot>
     );
 }

@@ -7,13 +7,18 @@ export const SuccessStoriesContainer = styled(Box)(({ theme }) => {
   const bg = theme.palette.background.default;
 
   return {
-    width: "100%",
+    position: "relative",
+    width: "100vw",
+    left: "50%",
+    right: "50%",
+    marginLeft: "-50vw",
+    marginRight: "-50vw",
+
     minHeight: "100vh",
     marginBottom: "207px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    position: "relative",
     overflow: "hidden",
     backgroundColor: bg,
 
@@ -26,7 +31,6 @@ export const SuccessStoriesContainer = styled(Box)(({ theme }) => {
       zIndex: 0,
     },
 
-    /* dark overlay using theme */
     "&::before": {
       content: '""',
       position: "absolute",
@@ -34,6 +38,7 @@ export const SuccessStoriesContainer = styled(Box)(({ theme }) => {
       background: alpha(bg, 0.55),
       zIndex: 1,
     },
+
 
     /* TOP blur rectangle (theme-based) */
     "& .topBlur": {

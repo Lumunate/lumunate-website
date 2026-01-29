@@ -1,10 +1,11 @@
 "use client";
+
 import { styled, Box, Typography } from "@mui/material";
 
 export const HeaderRoot = styled(Box)(({ theme }) => ({
     position: "relative",
     width: "100%",
-    height: "100vh",
+    height: "1070px",
     overflow: "hidden",
     color: theme.palette.text.primary,
     backgroundColor: theme.palette.background.default,
@@ -12,23 +13,22 @@ export const HeaderRoot = styled(Box)(({ theme }) => ({
 
 export const BackgroundVideo = styled(Box)(() => ({
     position: "absolute",
-    top: "50%",
-    left: "50%",
+    top: 0,
+    left: 0,
     width: "100%",
-    height: "100%",
+    height: "1070px",
     objectFit: "cover",
-    transform: "translate(-50%, -50%)",
     zIndex: 0,
 })) as typeof Box;
 
+
 export const BackgroundImage = styled(Box)(() => ({
     position: "absolute",
-    top: "50%",
-    left: "50%",
+    top: 0,
+    left: 0,
     width: "100%",
-    height: "100%",
+    height: "1070px",
     objectFit: "cover",
-    transform: "translate(-50%, -50%)",
     zIndex: 0,
 })) as typeof Box;
 
@@ -37,25 +37,24 @@ export const HeaderContent = styled(Box, {
 })<{ overlayopacity?: number }>(({ theme, overlayopacity = 0.4 }) => ({
     position: "relative",
     zIndex: 1,
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "flex-end",
+    width: "100%",
     height: "100%",
-    padding: theme.spacing(6, 6),
     background: `rgba(0,0,0,${overlayopacity})`,
+
+    display: "flex",
+    alignItems: "flex-end",
+
+    paddingBottom: "85px",
+
     [theme.breakpoints.down("md")]: {
-        flexDirection: "column",
-        justifyContent: "flex-end",
-        gap: theme.spacing(3),
-        padding: theme.spacing(4, 2),
+        paddingBottom: theme.spacing(6),
     },
 }));
 
 export const HeaderLeft = styled(Box)(({ theme }) => ({
     flex: 1,
-    marginBottom: theme.spacing(17),
+    paddingBottom: "47px",
     [theme.breakpoints.down("md")]: {
-        marginBottom: theme.spacing(4),
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -63,58 +62,60 @@ export const HeaderLeft = styled(Box)(({ theme }) => ({
     },
 }));
 
-
 export const Title = styled(Typography)(({ theme }) => ({
-    ...theme.typography.h2,
+    fontSize: "90px",
     fontWeight: 400,
     lineHeight: 1.2,
     color: theme.palette.text.primary,
     [theme.breakpoints.down("md")]: {
-        fontSize: "2.2rem",
+        fontSize: "52px",
     },
     [theme.breakpoints.down("sm")]: {
-        fontSize: "1.8rem",
+        fontSize: "32px",
         textAlign: "center",
     },
 }));
 
 export const SubTitle = styled(Typography)(({ theme }) => ({
-    ...theme.typography.h5,
+    fontSize: "33px",
     fontWeight: 400,
     lineHeight: 1.3,
-    color: theme.palette.text.secondary,
-    marginTop: theme.spacing(1),
+    color: theme.palette.text.primary,
+    marginTop: "21px",
     [theme.breakpoints.down("md")]: {
-        fontSize: "1.2rem",
+        fontSize: "22px",
     },
     [theme.breakpoints.down("sm")]: {
-        fontSize: "1rem",
+        fontSize: "22px",
         textAlign: "center",
     },
 }));
 
-export const HeaderRight = styled(Box)(() => ({
+export const HeaderRight = styled(Box)(({ theme }) => ({
     flex: 1,
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
+
+    [theme.breakpoints.down("md")]: {
+        alignItems: "center",
+    },
 }));
 
 export const Description = styled(Typography)(({ theme }) => ({
     ...theme.typography.body1,
-    fontFamily: "Manrope, sans-serif",
-    color: theme.palette.text.secondary,
+    color: theme.palette.section.caseStudyDesc,
     opacity: 0.9,
-    marginBottom: theme.spacing(4),
-    maxWidth: "900px",
-    [theme.breakpoints.down("md")]: { fontSize: "16px" },
+    marginBottom: "54px",
+    maxWidth: "823px",
+    [theme.breakpoints.down("md")]: { fontSize: "16px", textAlign: "center" },
 }));
 
 export const MetaLabel = styled(Typography)(({ theme }) => ({
     fontFamily: "Montserrat, sans-serif",
     fontWeight: 400,
     fontSize: "1rem",
-    color: theme.palette.text.secondary,
+    color: theme.palette.section.caseStudyLabel,
 }));
 
 export const MetaValue = styled(Typography)(({ theme }) => ({
