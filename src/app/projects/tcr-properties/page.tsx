@@ -22,11 +22,11 @@ export default function TCRPage() {
             <Challenges
                 title={TCRData.challenges.title}
                 description={TCRData.challenges.description}
-                imageSrc={TCRData.challenges.imageSrc}   // 👈 single image
+                imageSrc={TCRData.challenges.imageSrc}  
             />
             <Challenges
                 title="Solution"
-                description="We built Koinfolio, a Next.js web application integrating real-time asset tracking, customizable dashboards, and secure Web3 payment gateways (PayPal, Stripe, Coinbase). The platform also supports advanced analytics and ongoing feature enhancements, including bubble visualizations and portfolio comparisons."
+                description="We designed and developed a modern real estate website for TCR Properties that focuses on clarity, usability, and trust. The solution includes a structured property listing system, intuitive navigation, responsive layouts for all devices, and clear calls-to-action for inquiries. Visual hierarchy and clean layouts were used to highlight key property details, while the overall design reinforces professionalism and reliability—helping users move confidently from browsing to contacting."
                 imageLeftSrc="/case-studies/koinfolio-2.svg"
                 imageRightSrc="/case-studies/koinfolio-3.svg"
             />
