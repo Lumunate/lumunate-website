@@ -11,6 +11,7 @@ import {
   SubTitle,
   TitleText,
   DescriptionText,
+  FullBleedGrid,
 } from "./OurApproach.style";
 import { Box } from "@mui/material";
 import gsap from "gsap";
@@ -114,13 +115,16 @@ const OurApproach = () => {
           type="video/mp4"
           key="our-approach-section-video"
         />
-        Your browser does not support the video tag.
       </video>
 
+      {/* Title stays padded */}
       <PageContainer>
-        <SubContainer>
-          <TitleText variant="h5">Our Approach</TitleText>
+        <TitleText variant="h5">Our Approach</TitleText>
+      </PageContainer>
 
+      {/* Grid + lines are full screen */}
+      <FullBleedGrid>
+        <PageContainer>
           <ContentWrapper>
             <SubContentWrapper>
               <Box>
@@ -137,13 +141,15 @@ const OurApproach = () => {
               <DescriptionText ref={descriptionRef} variant="h5">
                 {data[activeIndex].description}
               </DescriptionText>
-              <DiscoverButton sx={{ mt: "40px", width: "fit-content" }}>Discover</DiscoverButton>
+              <DiscoverButton sx={{ mt: "40px", width: "fit-content" }}>
+                Discover
+              </DiscoverButton>
             </RightBottomBox>
           </ContentWrapper>
-
-        </SubContainer>
-      </PageContainer>
+        </PageContainer>
+      </FullBleedGrid>
     </OurApproachContainer>
+
   );
 };
 
