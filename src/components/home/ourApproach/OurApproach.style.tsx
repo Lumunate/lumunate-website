@@ -109,31 +109,36 @@ export const TitleText = styled(Typography)(({ theme }) => ({
 
 export const FullBleedGrid = styled(Box)(({ theme }) => ({
   position: "relative",
-
-  // ✅ breakout of PageContainer padding
   width: "100vw",
   marginLeft: "calc(50% - 50vw)",
   marginRight: "calc(50% - 50vw)",
-
-  // ✅ set a height for the grid area
-  minHeight: "calc(100vh - 140px)", // adjust if you want more/less space
+  minHeight: "calc(100vh - 140px)",
   display: "flex",
 
-  // ✅ Full screen vertical line
+  // 🔹 SINGLE vertical line
   "&::before": {
     content: '""',
     position: "absolute",
     top: 0,
     bottom: 0,
-    left: "50vw", // ✅ true viewport center
+    left: "50vw",
     width: "1px",
-    backgroundColor: alpha(theme.palette.text.primary, 0.25),
+
+    background: `linear-gradient(
+      to bottom,
+      ${alpha(theme.palette.text.primary, 0)} 0%,
+      ${alpha(theme.palette.text.primary, 0.18)} 25%,
+      ${alpha(theme.palette.text.primary, 0.22)} 50%,
+      ${alpha(theme.palette.text.primary, 0.18)} 75%,
+      ${alpha(theme.palette.text.primary, 0)} 100%
+    )`,
+
     transform: "translateX(-0.5px)",
     zIndex: 1,
     pointerEvents: "none",
   },
 
-  // ✅ Full screen horizontal line
+  // 🔹 SINGLE horizontal line
   "&::after": {
     content: '""',
     position: "absolute",
@@ -141,7 +146,16 @@ export const FullBleedGrid = styled(Box)(({ theme }) => ({
     right: 0,
     top: "50%",
     height: "1px",
-    backgroundColor: alpha(theme.palette.text.primary, 0.25),
+
+    background: `linear-gradient(
+      to right,
+      ${alpha(theme.palette.text.primary, 0)} 0%,
+      ${alpha(theme.palette.text.primary, 0.18)} 25%,
+      ${alpha(theme.palette.text.primary, 0.22)} 50%,
+      ${alpha(theme.palette.text.primary, 0.18)} 75%,
+      ${alpha(theme.palette.text.primary, 0)} 100%
+    )`,
+
     transform: "translateY(-0.5px)",
     zIndex: 1,
     pointerEvents: "none",
@@ -154,6 +168,7 @@ export const FullBleedGrid = styled(Box)(({ theme }) => ({
   },
 }));
 
+
 export const ContentWrapper = styled(Box)(({ theme }) => ({
   position: "relative",
   display: "grid",
@@ -161,13 +176,12 @@ export const ContentWrapper = styled(Box)(({ theme }) => ({
   gridTemplateRows: "1fr 1fr",
   width: "100%",
 
-  // ✅ fill FullBleedGrid height
   height: "100%",
   minHeight: "100vh",
 
   "& > *": {
     position: "relative",
-    zIndex: 2, // content above FullBleed lines
+    zIndex: 2, // content above FullBleedGrid lines
   },
 
   [theme.breakpoints.down("md")]: {
@@ -176,7 +190,6 @@ export const ContentWrapper = styled(Box)(({ theme }) => ({
     minHeight: "auto",
   },
 }));
-
 
 export const SubContentWrapper = styled(Box)(({ theme }) => ({
   gridColumn: "1 / 2",

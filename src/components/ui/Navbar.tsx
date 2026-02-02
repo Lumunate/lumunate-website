@@ -18,8 +18,13 @@ import {
     useTheme,
     useMediaQuery,
     Box,
+    IconButton,
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import MenuIcon from "@mui/icons-material/Menu";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"; 
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+
 import {
     NavContainer,
     StyledToolbar,
@@ -57,7 +62,6 @@ export default function Navbar() {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false);
 
-    // GSAP ref
     const navRef = useRef<HTMLDivElement>(null);
 
     // dropdown measurement refs
@@ -89,7 +93,7 @@ export default function Navbar() {
         [theme]
     );
 
-    // GSAP animation (fix TS errors: callbacks must return void)
+    // GSAP animation
     useEffect(() => {
         if (!navRef.current) return;
 
@@ -114,11 +118,11 @@ export default function Navbar() {
         );
     }, []);
 
-    // Compute dropdown position/width:
-    // Start from logo left edge, end at Case Studies RIGHT divider edge.
+    // Compute desktop dropdown position/width
     useEffect(() => {
         const calcMenuMetrics = () => {
-            if (!navContainerRef.current || !logoBoxRef.current || !caseStudiesRightDividerRef.current) return;
+            if (!navContainerRef.current || !logoBoxRef.current || !caseStudiesRightDividerRef.current)
+                return;
 
             const navRect = navContainerRef.current.getBoundingClientRect();
             const logoRect = logoBoxRef.current.getBoundingClientRect();
@@ -127,9 +131,8 @@ export default function Navbar() {
             const left = Math.round(logoRect.left);
             const right = Math.round(dividerRect.right);
 
-            // keep a minimum but never exceed viewport
             const desiredWidth = Math.max(320, right - left);
-            const maxAllowed = Math.max(320, Math.round(window.innerWidth - left - 16)); // 16px safety
+            const maxAllowed = Math.max(320, Math.round(window.innerWidth - left - 16));
             const width = Math.min(desiredWidth, maxAllowed);
 
             setMenuWidth(width);
@@ -145,7 +148,7 @@ export default function Navbar() {
         return () => window.removeEventListener("resize", calcMenuMetrics);
     }, [anchorEl]);
 
-    // Close dropdown on scroll (your requirement)
+    // Close dropdown on scroll
     useEffect(() => {
         if (!anchorEl) return;
 
@@ -155,7 +158,6 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", closeOnScroll, true);
     }, [anchorEl]);
 
-    // Responsive columns to avoid right-side cropping on normal laptops
     const columns = menuWidth >= 1050 ? 3 : menuWidth >= 740 ? 2 : 1;
 
     return (
@@ -166,11 +168,9 @@ export default function Navbar() {
             sx={{
                 width: "100vw",
                 zIndex: 30,
-
                 backgroundColor: theme.palette.navbar.bg,
                 borderTop: `1px solid ${theme.palette.navbar.border}`,
                 borderBottom: `1px solid ${theme.palette.navbar.border}`,
-
                 boxShadow: "none",
                 opacity: 0,
                 transform: "translateY(-60px)",
@@ -183,6 +183,7 @@ export default function Navbar() {
                         <Logo />
                     </LogoBox>
 
+                    {/* Desktop Menu */}
                     {!isMobile && (
                         <MenuBox>
                             <VerticalDivider />
@@ -208,7 +209,6 @@ export default function Navbar() {
                                 Case Studies
                             </Button>
 
-                            {/* RIGHT boundary divider (dropdown end) */}
                             <VerticalDivider ref={caseStudiesRightDividerRef} />
 
                             <Menu
@@ -229,16 +229,12 @@ export default function Navbar() {
                                     sx: {
                                         p: 0,
                                         borderRadius: 0,
-
                                         backgroundColor: theme.palette.background.default,
                                         backgroundImage: "none",
-
                                         border: `1px solid ${theme.palette.navbar.border}`,
                                         boxShadow: "none",
-
                                         width: `${menuWidth}px`,
                                         maxWidth: "none",
-
                                         maxHeight: "70vh",
                                         overflowY: "auto",
                                         overflowX: "hidden",
@@ -264,17 +260,12 @@ export default function Navbar() {
                                                 fontFamily: "Montserrat, sans-serif",
                                                 fontSize: theme.typography.body2.fontSize,
                                                 lineHeight: 1.3,
-
                                                 whiteSpace: "normal",
                                                 overflowWrap: "anywhere",
-
                                                 color: theme.palette.section.desc,
-
                                                 borderTop: `1px solid ${theme.palette.navbar.border}`,
                                                 borderLeft: `1px solid ${theme.palette.navbar.border}`,
-
                                                 backgroundColor: theme.palette.background.default,
-
                                                 "&:hover": {
                                                     backgroundColor: theme.palette.navbar.itemHoverBg,
                                                     color: theme.palette.section.heading,
@@ -290,6 +281,18 @@ export default function Navbar() {
                     )}
 
                     <RightBox>
+                        {/* Mobile/Tablet: Hamburger */}
+                        {isMobile && (
+                            <IconButton
+                                onClick={toggleDrawer(true)}
+                                sx={{ color: theme.palette.section.heading, p: 1 }}
+                                aria-label="Open menu"
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                        )}
+
+                        {/* Desktop: Get Started */}
                         {!isMobile && (
                             <>
                                 <VerticalDivider />
@@ -303,11 +306,9 @@ export default function Navbar() {
                                             fontWeight: 400,
                                             fontFamily: "Montserrat, sans-serif",
                                             borderRadius: 0,
-
                                             color: theme.palette.navbar.itemText,
                                             backgroundColor: "transparent",
                                             boxShadow: "none",
-
                                             "&:hover": {
                                                 backgroundColor: theme.palette.navbar.itemHoverBg,
                                                 color: theme.palette.navbar.itemTextHover,
@@ -324,68 +325,167 @@ export default function Navbar() {
                     </RightBox>
                 </StyledToolbar>
 
-                {/* Drawer for mobile */}
+                {/* FULL SCREEN Drawer for sm/md */}
                 <Drawer
                     anchor="right"
                     open={drawerOpen}
                     onClose={toggleDrawer(false)}
+                    ModalProps={{
+                        keepMounted: true,
+                    }}
                     slotProps={{
                         paper: {
                             sx: {
-                                width: 260,
-                                bgcolor: theme.palette.background.paper,
+                                width: "100vw",
+                                maxWidth: "100vw",
+                                height: "100vh",
+                                bgcolor: theme.palette.navbar.bg,
                                 color: theme.palette.section.desc,
-                                p: 2,
+                                p: 0,
+                                m: 0,
+                                borderRadius: 0,
+                                left: 0,
+                                right: 0,
+                            },
+                        },
+                        backdrop: {
+                            sx: {
+                                backgroundColor: "rgba(0,0,0,0.55)",
                             },
                         },
                     }}
                 >
-                    <List>
-                        {navLinks.map((link) => (
-                            <ListItem key={link.label} disablePadding>
-                                <ListItemButton LinkComponent={Link} href={link.href} onClick={toggleDrawer(false)}>
-                                    <ListItemText primary={link.label} />
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
+                    <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                        {/* Top bar */}
+                        <Box
+                            sx={{
+                                height: 64,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                px: 3,
+                                borderBottom: `1px solid ${theme.palette.navbar.border}`,
+                            }}
+                        >
+                            <Logo />
 
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => setMobileProjectsOpen((open) => !open)}>
-                                <ListItemText primary="Case Studies" />
-                                <Typography variant="body2" sx={{ ml: 1 }}>
-                                    {mobileProjectsOpen ? "▲" : "▼"}
-                                </Typography>
-                            </ListItemButton>
-                        </ListItem>
+                            <IconButton
+                                onClick={toggleDrawer(false)}
+                                aria-label="Close menu"
+                                sx={{ color: theme.palette.section.heading }}
+                            >
+                                <Typography sx={{ fontSize: 22, lineHeight: 1 }}>✕</Typography>
+                            </IconButton>
+                        </Box>
 
-                        {mobileProjectsOpen &&
-                            projects.map((proj) => (
-                                <ListItem key={proj.name} disablePadding sx={{ pl: 3 }}>
-                                    <ListItemButton LinkComponent={Link} href={proj.href} onClick={toggleDrawer(false)}>
-                                        <ListItemText primary={proj.name} />
+                        {/* Menu items */}
+                        <List sx={{ px: 2, pt: 2 }}>
+                            {navLinks.map((link) => (
+                                <ListItem key={link.label} disablePadding>
+                                    <ListItemButton
+                                        LinkComponent={Link}
+                                        href={link.href}
+                                        onClick={toggleDrawer(false)}
+                                        sx={{
+                                            borderBottom: `1px solid ${theme.palette.navbar.border}`,
+                                            py: 1.5,
+                                            "&:hover": { bgcolor: theme.palette.navbar.itemHoverBg },
+                                        }}
+                                    >
+                                        <ListItemText
+                                            primary={link.label}
+                                            primaryTypographyProps={{
+                                                sx: {
+                                                    fontFamily: "Montserrat, sans-serif",
+                                                    fontSize: "16px",
+                                                    color: theme.palette.section.heading,
+                                                },
+                                            }}
+                                        />
                                     </ListItemButton>
                                 </ListItem>
                             ))}
 
-                        <Box sx={{ mt: 2, textAlign: "center" }}>
-                            <Button
-                                component="a"
-                                href="https://calendly.com/saad-b-javaid22/consultation"
-                                target="_blank"
-                                fullWidth
+                            {/* Case Studies */}
+                            <ListItem disablePadding sx={{ mt: 1 }}>
+                                <ListItemButton
+                                    onClick={() => setMobileProjectsOpen((open) => !open)}
+                                    sx={{
+                                        borderBottom: `1px solid ${theme.palette.navbar.border}`,
+                                        py: 1.5,
+                                        "&:hover": { bgcolor: theme.palette.navbar.itemHoverBg },
+                                    }}
+                                >
+                                    <ListItemText
+                                        primary="Case Studies"
+                                        primaryTypographyProps={{
+                                            sx: {
+                                                fontFamily: "Montserrat, sans-serif",
+                                                fontSize: "16px",
+                                                color: theme.palette.section.heading,
+                                            },
+                                        }}
+                                    />
+                                    {mobileProjectsOpen ? (
+                                        <ExpandLessIcon sx={{ color: theme.palette.section.heading }} />
+                                    ) : (
+                                        <ExpandMoreIcon sx={{ color: theme.palette.section.heading }} />
+                                    )}
+                                </ListItemButton>
+                            </ListItem>
+
+                            {mobileProjectsOpen &&
+                                projects.map((proj) => (
+                                    <ListItem key={proj.name} disablePadding sx={{ pl: 2 }}>
+                                        <ListItemButton
+                                            LinkComponent={Link}
+                                            href={proj.href}
+                                            onClick={toggleDrawer(false)}
+                                            sx={{
+                                                py: 1.25,
+                                                borderBottom: `1px solid ${theme.palette.navbar.border}`,
+                                                "&:hover": { bgcolor: theme.palette.navbar.itemHoverBg },
+                                            }}
+                                        >
+                                            <ListItemText
+                                                primary={proj.name}
+                                                primaryTypographyProps={{
+                                                    sx: {
+                                                        fontFamily: "Montserrat, sans-serif",
+                                                        fontSize: "14px",
+                                                        color: theme.palette.section.desc,
+                                                        whiteSpace: "normal",
+                                                    },
+                                                }}
+                                            />
+                                        </ListItemButton>
+                                    </ListItem>
+                                ))}
+                        </List>
+
+                        {/* Footer text at bottom (replaces Get Started in sm/md) */}
+                        <Box
+                            sx={{
+                                mt: "auto",
+                                px: 3,
+                                py: 2.5,
+                                borderTop: `1px solid ${theme.palette.navbar.border}`,
+                                textAlign: "center",
+                            }}
+                        >
+                            <Typography
                                 sx={{
-                                    py: 1,
-                                    fontWeight: 600,
-                                    bgcolor: theme.palette.navbar.itemHoverBg,
-                                    color: theme.palette.section.heading,
-                                    borderRadius: 0,
-                                    "&:hover": { bgcolor: theme.palette.navbar.itemHoverBg },
+                                    color: theme.palette.section.muted,
+                                    fontFamily: "Montserrat, sans-serif",
+                                    letterSpacing: "0.3px",
+                                    fontSize: "13px",
+                                    fontWeight: 400,
                                 }}
                             >
-                                Get Started
-                            </Button>
+                                LUMUNATE &copy; {new Date().getFullYear()} All rights reserved
+                            </Typography>
                         </Box>
-                    </List>
+                    </Box>
                 </Drawer>
             </NavContainer>
         </AppBar>
