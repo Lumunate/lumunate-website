@@ -79,15 +79,21 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const SubContainer = styled(Box)(({ theme }) => ({
-  maxWidth: "1698px",
   width: "100%",
-  padding: theme.spacing(10, 0),
   margin: "0 auto",
   minHeight: "100vh",
-  display: "flex",
-  flexDirection: "column",
-  gap: theme.spacing(6),
+  padding: theme.spacing(10, 0),
+
+  // ✅ Use grid so ContentWrapper can truly stretch
+  display: "grid",
+  gridTemplateRows: "auto 1fr",
+  rowGap: theme.spacing(6),
+
+  // ✅ important for children to stretch
+  alignItems: "stretch",
 }));
+
+
 
 export const TitleText = styled(Typography)(({ theme }) => ({
   position: "relative",
@@ -101,31 +107,33 @@ export const TitleText = styled(Typography)(({ theme }) => ({
   },
 }));
 
-export const ContentWrapper = styled(Box)(({ theme }) => ({
+export const FullBleedGrid = styled(Box)(({ theme }) => ({
   position: "relative",
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr",
-  gridTemplateRows: "1fr 1fr",
-  width: "100%",
-  height: "100%",
-  alignItems: "stretch",
-  overflow: "hidden",
 
-  /* CENTER vertical line (full height) */
+  // ✅ breakout of PageContainer padding
+  width: "100vw",
+  marginLeft: "calc(50% - 50vw)",
+  marginRight: "calc(50% - 50vw)",
+
+  // ✅ set a height for the grid area
+  minHeight: "calc(100vh - 140px)", // adjust if you want more/less space
+  display: "flex",
+
+  // ✅ Full screen vertical line
   "&::before": {
     content: '""',
     position: "absolute",
     top: 0,
     bottom: 0,
-    left: "50%",
+    left: "50vw", // ✅ true viewport center
     width: "1px",
-    backgroundColor: alpha(theme.palette.text.primary, 0.25), // was rgba(180,...)
+    backgroundColor: alpha(theme.palette.text.primary, 0.25),
     transform: "translateX(-0.5px)",
-    pointerEvents: "none",
     zIndex: 1,
+    pointerEvents: "none",
   },
 
-  /* CENTER horizontal line (full width) */
+  // ✅ Full screen horizontal line
   "&::after": {
     content: '""',
     position: "absolute",
@@ -133,26 +141,42 @@ export const ContentWrapper = styled(Box)(({ theme }) => ({
     right: 0,
     top: "50%",
     height: "1px",
-    backgroundColor: alpha(theme.palette.text.primary, 0.25), // was rgba(180,...)
+    backgroundColor: alpha(theme.palette.text.primary, 0.25),
     transform: "translateY(-0.5px)",
-    pointerEvents: "none",
     zIndex: 1,
+    pointerEvents: "none",
   },
 
-  /* keep content above the lines */
+  [theme.breakpoints.down("md")]: {
+    minHeight: "auto",
+    "&::before": { display: "none" },
+    "&::after": { display: "none" },
+  },
+}));
+
+export const ContentWrapper = styled(Box)(({ theme }) => ({
+  position: "relative",
+  display: "grid",
+  gridTemplateColumns: "1fr 1fr",
+  gridTemplateRows: "1fr 1fr",
+  width: "100%",
+
+  // ✅ fill FullBleedGrid height
+  height: "100%",
+  minHeight: "100vh",
+
   "& > *": {
     position: "relative",
-    zIndex: 2,
+    zIndex: 2, // content above FullBleed lines
   },
 
   [theme.breakpoints.down("md")]: {
     gridTemplateColumns: "1fr",
     gridTemplateRows: "auto",
-
-    "&::before": { display: "none" },
-    "&::after": { display: "none" },
+    minHeight: "auto",
   },
 }));
+
 
 export const SubContentWrapper = styled(Box)(({ theme }) => ({
   gridColumn: "1 / 2",
