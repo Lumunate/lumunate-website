@@ -1,7 +1,7 @@
 "use client";
 
 import { Box } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { alpha, styled } from "@mui/material/styles";
 
 export const ReadyContainer = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -9,7 +9,6 @@ export const ReadyContainer = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100vh",
   overflow: "hidden",
-  backgroundColor: theme.palette.background.default,
 
   [theme.breakpoints.down("md")]: {
     height: "80vh",
@@ -37,8 +36,8 @@ export const Overlay = styled(Box)(({ theme }) => ({
   height: "100%",
   background:
     theme.palette.mode === "dark"
-      ? "rgba(0,0,0,0.45)"
-      : "rgba(255,255,255,0.25)",
+      ? alpha(theme.palette.background.default, 0.45)
+      : alpha(theme.palette.common.white, 0.25),
   zIndex: 1,
 }));
 
@@ -46,7 +45,6 @@ export const TextWrapper = styled(Box)(({ theme }) => ({
   position: "relative",
   display: "flex",
   justifyContent: "center",
-  maxWidth: "1050px",
   margin: "0 auto",
   flexDirection: "column",
   textAlign: "center",
@@ -55,7 +53,7 @@ export const TextWrapper = styled(Box)(({ theme }) => ({
   padding: theme.spacing(0, 2),
   color: theme.palette.text.primary,
 
-  "& h1, & h2, & .MuiTypography-root": {
+  "& h1, & h2": {
     lineHeight: 1.1,
     [theme.breakpoints.down("md")]: {
       lineHeight: 1.05,
@@ -65,7 +63,4 @@ export const TextWrapper = styled(Box)(({ theme }) => ({
     },
   },
 
-  [theme.breakpoints.down("md")]: {
-    maxWidth: "90%",
-  },
 }));

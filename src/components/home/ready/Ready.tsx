@@ -10,6 +10,7 @@ import {
 import { Box, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
+import PageContainer from "@/components/common/PageContainer";
 
 type ReadyProps = {
   title: string;
@@ -51,7 +52,7 @@ const Ready = ({
     };
   }, []);
 
-  return ( 
+  return (
     <ReadyContainer>
       <BackgroundVideo
         key="ready-section-video"
@@ -61,52 +62,64 @@ const Ready = ({
       </BackgroundVideo>
 
       <Overlay />
-
-      <TextWrapper>
-        <Typography
-          sx={{
-            fontSize: { xs: "32px", sm: "56px", md: "78px" },
-            color: theme.palette.text.primary,
-            fontWeight: 400,
-          }}
-        >
-          {title}
-        </Typography>
-        <Typography
-          sx={{ color: theme.palette.text.secondary, mt: 2 }}
-          variant="body2"
-        >
-          {description}
-        </Typography>
-
-        <Box sx={{ marginTop: "38px" }}>
-          <Link
-            style={{
+      <PageContainer>
+        <TextWrapper>
+          <Typography
+            sx={{
+              fontSize: { xs: "32px", sm: "56px", md: "78px" },
               color: theme.palette.text.primary,
-              textDecoration: "none",
+              fontWeight: 400,
+              fontFamily: 'Montserrat'
             }}
-            href={linkHref}
           >
-            <Typography
-              variant="h4"
-              sx={{
-                display: "inline-flex",
-                alignItems: "center",
+            {title}
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              color: theme.palette.text.secondary,
+              mt: { xs: 2.5, sm: 4 },
+              fontFamily: "Montserrat",
+              fontWeight: 400,
+              lineHeight: "100%",
+              letterSpacing: "-0.2px",
+              maxWidth: "1098px",
+              mx: "auto",
+            }}
+          >
+            {description}
+          </Typography>
+
+
+          <Box sx={{ marginTop: "38px" }}>
+            <Link
+              style={{
                 color: theme.palette.text.primary,
+                textDecoration: "none",
               }}
+              href={linkHref}
             >
-              {linkText}{" "}
-              <ArrowOutwardIcon
+              <Typography
+                variant="h4"
                 sx={{
-                  fontSize: "26px",
-                  ml: 1,
+                  display: "inline-flex",
+                  alignItems: "center",
                   color: theme.palette.text.primary,
                 }}
-              />
-            </Typography>
-          </Link>
-        </Box>
-      </TextWrapper>
+              >
+                {linkText}{" "}
+                <ArrowOutwardIcon
+                  sx={{
+                    fontSize: "26px",
+                    ml: 1,
+                    color: theme.palette.text.primary,
+                  }}
+                />
+              </Typography>
+            </Link>
+          </Box>
+        </TextWrapper>
+      </PageContainer>
     </ReadyContainer>
   );
 };

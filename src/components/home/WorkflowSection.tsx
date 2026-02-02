@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import WorkflowCard from "./WorkflowCard";
 import {
   NavBarContainer,
@@ -9,6 +9,7 @@ import {
 } from "./WorkflowSection.styles";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import PageContainer from "../common/PageContainer";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,72 +17,128 @@ const workflowSections = [
   {
     tag: "/UI & UX",
     title: "Creative Design & UI/UX",
-    description: "Interfaces that convert User-centered designs that turn visitors into customers.",
-    video: "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
+    description:
+      "Interfaces that convert User-centered designs that turn visitors into customers.",
+    video:
+      "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
     buttonText: "Discover",
   },
   {
     tag: "/Web & Mobile",
     title: "Web & Mobile Development",
     description: "Apps that scale Fast, secure, and built for growth across all platforms.",
-    video: "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
+    video:
+      "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
     buttonText: "Discover",
   },
   {
     tag: "/AI & ML",
     title: "AI/ML Solutions",
-    description: "Intelligence that delivers Custom AI tools that automate, optimize, and accelerate your business.",
-    video: "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
+    description:
+      "Intelligence that delivers Custom AI tools that automate, optimize, and accelerate your business.",
+    video:
+      "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
     buttonText: "Discover",
   },
   {
     tag: "/Web3",
     title: "Web3 & Blockchain",
-    description: "Future-ready technology Decentralized solutions for tomorrow's digital economy.",
-    video: "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
+    description:
+      "Future-ready technology Decentralized solutions for tomorrow's digital economy.",
+    video:
+      "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
     buttonText: "Discover",
   },
   {
     tag: "/Enterprise",
     title: "Enterprise Solutions",
-    description: "Systems that perform Robust platforms that streamline operations and boost productivity.",
-    video: "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
+    description:
+      "Systems that perform Robust platforms that streamline operations and boost productivity.",
+    video:
+      "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
     buttonText: "Discover",
   },
   {
     tag: "/Digital",
     title: "Digital Transformation",
     description: "Growth that sticks Data-driven strategies that maximize reach and ROI.",
-    video: "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
+    video:
+      "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
     buttonText: "Discover",
   },
 ];
 
+// ✅ space between stacked cards (keep this small)
+const STACK_OFFSET = 18;
+
+// ✅ default + XL height
+const DEFAULT_CARD_HEIGHT = 460;
+const XL_CARD_HEIGHT = 560;
+
+function getCardHeight(): number {
+  if (typeof window === "undefined") return DEFAULT_CARD_HEIGHT;
+  return window.innerWidth >= 1920 ? XL_CARD_HEIGHT : DEFAULT_CARD_HEIGHT;
+}
+
 export default function WorkflowSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [cardHeight, setCardHeight] = useState<number>(DEFAULT_CARD_HEIGHT);
+
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const sectionRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // ✅ Animate each card as it becomes active
+  // ✅ Update card height only on resize (XL behavior)
+  useEffect(() => {
+    const updateHeight = () => setCardHeight(getCardHeight());
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
+
+  // ✅ IMPORTANT: extra space is based on STACK_OFFSET (not cardHeight)
+  // otherwise the upper stacked cards look "too separated" / broken.
+  const extraStackSpace = useMemo(
+    () => STACK_OFFSET * (workflowSections.length - 1),
+    []
+  );
+
+  // ✅ Position + animate cards whenever activeIndex OR cardHeight changes
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const card = cardsRef.current[activeIndex];
-      if (!card) return;
+      const cards = cardsRef.current.filter(Boolean) as HTMLDivElement[];
+      if (!cards.length) return;
 
-      const offset = activeIndex * 15;
-      gsap.set(card, { zIndex: 10 + activeIndex });
+      // keep all cards aligned + stacked
+      cards.forEach((card, i) => {
+        gsap.set(card, {
+          y: i * STACK_OFFSET,
+          opacity: i <= activeIndex ? 1 : 0,
+          zIndex: 10 + i,
+          pointerEvents: i === activeIndex ? "auto" : "none",
+          willChange: "transform, opacity",
+        });
+      });
+
+      const activeCard = cardsRef.current[activeIndex];
+      if (!activeCard) return;
+
       gsap.fromTo(
-        card,
-        { opacity: 0, y: offset + 40 },
-        { opacity: 1, y: offset, duration: 0.8, ease: "power3.out" }
+        activeCard,
+        { opacity: 0, y: activeIndex * STACK_OFFSET + 40 },
+        {
+          opacity: 1,
+          y: activeIndex * STACK_OFFSET,
+          duration: 0.8,
+          ease: "power3.out",
+        }
       );
-    }, cardsRef);
+    }, sectionRef);
 
     return () => ctx.revert();
-  }, [activeIndex]);
+  }, [activeIndex, cardHeight]);
 
-  // ✅ Trigger autoplay only when the section scrolls into view
+  // ✅ start autoplay when section enters viewport
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -91,10 +148,7 @@ export default function WorkflowSection() {
       start: "top 75%",
       once: true,
       onEnter: () => {
-        // Reset to first card
         setActiveIndex(0);
-
-        // Start autoplay only now
         intervalRef.current = setInterval(() => {
           setActiveIndex((prev) => (prev + 1) % workflowSections.length);
         }, 4000);
@@ -109,7 +163,7 @@ export default function WorkflowSection() {
 
   return (
     <WorkflowSectionRoot ref={sectionRef}>
-      {/* Navbar */}
+      {/* Navbar stays full width */}
       <NavBarContainer>
         {workflowSections.map((section, i) => (
           <NavItem
@@ -122,36 +176,35 @@ export default function WorkflowSection() {
         ))}
       </NavBarContainer>
 
-      {/* Card Stack */}
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          maxWidth: "1100px",
-          minHeight: "460px",
-        }}
-      >
-        {workflowSections.map((section, i) => (
-          <div
-            key={section.title}
-            ref={(el) => {
-              cardsRef.current[i] = el;
-            }}
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              opacity: i <= activeIndex ? 1 : 0,
-              transform: `translateY(${i * 17}px)`,
-              pointerEvents: i === activeIndex ? "auto" : "none",
-            }}
-          >
-            <WorkflowCard activeSection={section} />
-          </div>
-        ))}
-      </div>
+      <PageContainer>
+        <div
+          style={{
+            position: "relative",
+            width: "100%",
+            maxWidth: "1100px",
+            margin: "104px auto 0",
+            height: cardHeight + extraStackSpace, 
+          }}
+        >
+          {workflowSections.map((section, i) => (
+            <div
+              key={section.title}
+              ref={(el) => {
+                cardsRef.current[i] = el;
+              }}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: cardHeight,
+              }}
+            >
+              <WorkflowCard activeSection={section} />
+            </div>
+          ))}
+        </div>
+      </PageContainer>
     </WorkflowSectionRoot>
   );
 }

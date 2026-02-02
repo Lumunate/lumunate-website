@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { Typography } from "@mui/material";
 import {
     LogosRoot,
-    LogosRow,
     LogoItem,
+    LogosTrack,
 } from "./LogosSection.styles";
+import PageContainer from "../common/PageContainer";
 
 const logos = [
     { src: "/logos/nextjs.svg", label: "" },
@@ -20,22 +20,21 @@ const logos = [
 export default function LogosSection() {
     return (
         <LogosRoot>
-            <LogosRow>
-                {logos.map((logo) => (
-                    <LogoItem key={logo.src}>
-                        <Image
-                            src={logo.src}
-                            alt={logo.label || "logo"}
-                            width={60}
-                            height={60}
-                            style={{ objectFit: "contain" }}
-                        />
-                        <Typography variant="body2" sx={{ mt: 1, color: "text.secondary" }}>
-                            {logo.label}
-                        </Typography>
-                    </LogoItem>
-                ))}
-            </LogosRow>
+            <PageContainer>
+                <LogosTrack>
+                    {[...logos, ...logos].map((logo, index) => (
+                        <LogoItem key={`${logo.src}-${index}`}>
+                            <Image
+                                src={logo.src}
+                                alt={logo.label || "logo"}
+                                width={93}
+                                height={93}
+                                style={{ objectFit: "contain" }}
+                            />
+                        </LogoItem>
+                    ))}
+                </LogosTrack>
+            </PageContainer>
         </LogosRoot>
     );
 }

@@ -13,10 +13,7 @@ export const FooterTop = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    borderBottom: `1px solid ${theme.palette.divider ?? "#2B2B2B"}`,
     padding: theme.spacing(0, 2),
-    maxWidth: "1280px",
-    margin: "0 auto",
     width: "100%",
     height: 56,
     [theme.breakpoints.down("sm")]: {
@@ -68,11 +65,29 @@ export const FooterBottom = styled(Box)(({ theme }) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    borderTop: `1px solid ${theme.palette.divider ?? "#2B2B2B"}`,
-    maxWidth: "1280px",
-    margin: "0 auto",
     width: "100%",
     height: 56,
+    position: "relative",
+
+    "&::before": {
+        content: '""',
+        position: "absolute",
+        top: 0,
+        left: "50%",
+        width: "100vw",
+        height: "1px",
+        backgroundColor: theme.palette.divider,
+        transform: "translateX(-50%)",
+    },
+
+    "& > .left-icons": {
+        paddingRight: 59,
+    },
+
+    "& > .right-icons": {
+        paddingLeft: 59,
+    },
+
     [theme.breakpoints.down("sm")]: {
         flexDirection: "column",
         height: "auto",
@@ -115,6 +130,13 @@ export const FooterSection = styled(Box)(({ theme }) => ({
 export const FooterText = styled("span")(({ theme }) => ({
     fontSize: theme.typography.body2.fontSize,
     color: theme.palette.text.secondary,
+    fontWeight: 400,
+
+    marginLeft: 32,
+    marginRight: "auto",
+    whiteSpace: "nowrap",
 }));
+
+
 
 export const FooterIconBox = styled(FooterSection)(() => ({}));

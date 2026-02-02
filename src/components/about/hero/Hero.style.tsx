@@ -23,14 +23,12 @@ export const BackgroundVideo = styled("video")({
 
 export const ContentContainer = styled(Box)(({ theme }) => ({
   height: "100%",
-  maxWidth: "1698px",
   width: "100%",
-  padding: theme.spacing(0, 2.5),
   display: "flex",
-  alignItems: "flex-center",
+  alignItems: "center",
   margin: "0 auto",
   paddingBottom: theme.spacing(2),
-  justifyContent: "space-between",
+  justifyContent: "center",
   position: "relative",
   zIndex: 2,
 
@@ -47,3 +45,4 @@ export const ContentContainer = styled(Box)(({ theme }) => ({
     paddingBottom: theme.spacing(6),
   },
 }));
+

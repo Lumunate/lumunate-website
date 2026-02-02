@@ -2,30 +2,50 @@
 
 import { Box, styled } from "@mui/material";
 
-// ✅ Full-width outer container
 export const NavBarContainer = styled(Box)(({ theme }) => ({
     display: "flex",
-    width: "100vw", // spans full viewport
-    backgroundColor: "#181818",
-    borderTop: "1px solid #333",
-    borderBottom: "1px solid #333",
+    width: "100vw",
+
+    backgroundColor: theme.palette.background.paper,
+    borderTop: `1px solid ${theme.palette.navbar.border}`,
+    borderBottom: `1px solid ${theme.palette.navbar.border}`,
+
     overflow: "hidden",
     margin: 0,
     padding: 0,
     boxSizing: "border-box",
+    position: "relative",
+
+    "&::before": {
+        content: '""',
+        position: "absolute",
+        left: 0,
+        top: 0,
+        height: "100%",
+        width: "1px",
+        backgroundColor: theme.palette.navbar.border,
+        pointerEvents: "none",
+    },
+    "&::after": {
+        content: '""',
+        position: "absolute",
+        right: 0,
+        top: 0,
+        height: "100%",
+        width: "1px",
+        backgroundColor: theme.palette.navbar.border,
+        pointerEvents: "none",
+    },
 
     [theme.breakpoints.down("md")]: {
         overflowX: "auto",
         overflowY: "hidden",
         whiteSpace: "nowrap",
         scrollbarWidth: "none",
-        "&::-webkit-scrollbar": {
-            display: "none",
-        },
+        "&::-webkit-scrollbar": { display: "none" },
     },
 }));
 
-// ✅ Individual nav item
 export const NavItem = styled(Box)(({ theme }) => ({
     flex: 1,
     display: "flex",
@@ -33,40 +53,45 @@ export const NavItem = styled(Box)(({ theme }) => ({
     justifyContent: "center",
     padding: `${theme.spacing(1.4)} ${theme.spacing(1.5)}`,
     cursor: "pointer",
-    color: "#BDBDBD",
-    fontSize: "0.95rem",
+
+    color: theme.palette.text.secondary,
+    opacity: 0.55,
+    fontSize: "16px",
     fontWeight: 400,
-    borderLeft: "1px solid #333",
-    transition: "background-color 0.3s ease, color 0.3s ease",
     whiteSpace: "nowrap",
-    textAlign: "center",
     userSelect: "none",
     lineHeight: 1.3,
 
+    // separators
+    borderLeft: `1px solid ${theme.palette.navbar.border}`,
+    "&:last-of-type": {
+        borderRight: `1px solid ${theme.palette.navbar.border}`,
+    },
+
+    transition: "background-color 0.25s ease, color 0.25s ease, opacity 0.25s ease",
+
     "&:hover": {
-        backgroundColor: "rgba(255,255,255,0.05)",
-        color: "#fff",
+        backgroundColor: `${theme.palette.navbar.itemHoverBg} !important`,
+        color: theme.palette.text.primary,
+        opacity: 1,
     },
 
     "&.active": {
-        backgroundColor: "#292929",
-        color: "#fff",
+        backgroundColor: `${theme.palette.background.default} !important`,
+        color: theme.palette.text.primary,
+        opacity: 1,
         fontWeight: 500,
+
+        position: "relative",
+        zIndex: 2,
+
+        boxShadow: `
+    inset 0 1px 0 ${theme.palette.navbar.border},
+    inset 0 -1px 0 ${theme.palette.navbar.border}
+  `,
+        backgroundClip: "padding-box",
     },
 
-    "&:first-of-type": {
-        borderLeft: "none",
-    },
-
-    [theme.breakpoints.down("md")]: {
-        minWidth: "150px",
-        fontSize: "0.85rem",
-        padding: `${theme.spacing(1)} ${theme.spacing(1.2)}`,
-    },
-
-    [theme.breakpoints.down("sm")]: {
-        minWidth: "130px",
-        fontSize: "0.8rem",
-        padding: `${theme.spacing(0.8)} ${theme.spacing(1)}`,
-    },
 }));
+
+

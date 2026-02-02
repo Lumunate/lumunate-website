@@ -1,47 +1,100 @@
 "use client";
 
-import { Box, Button, styled, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 
-export const OurApproachContainer = styled(Box)(() => ({
+export const OurApproachContainer = styled(Box)(({ theme }) => ({
   position: "relative",
   width: "100%",
   margin: "160px 0",
   overflow: "hidden",
+
   "& video": {
     position: "absolute",
-    top: 0,
-    left: 0,
+    inset: 0,
     width: "100%",
     height: "100%",
     objectFit: "cover",
     zIndex: -3,
   },
+
+  // full dark overlay
   "&::before": {
     content: '""',
     position: "absolute",
     inset: 0,
-    background: "linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.7))",
+    background: alpha("#000", 0.7),
     zIndex: -2,
+  },
+
+  // TOP blur blend (use theme background)
+  "& .topBlur": {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    height: "20px",
+    zIndex: -1,
+    pointerEvents: "none",
+    background: `
+      linear-gradient(
+        to bottom,
+        ${alpha(theme.palette.background.default, 0.95)} 0%,
+        ${alpha(theme.palette.background.default, 0.75)} 30%,
+        ${alpha(theme.palette.background.default, 0.35)} 60%,
+        ${alpha(theme.palette.background.default, 0)} 100%
+      )
+    `,
+    backdropFilter: "blur(18px)",
+    WebkitBackdropFilter: "blur(18px)",
+  },
+  // BOTTOM blur blend (use theme background)
+  "& .bottomBlur": {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: "20px",
+    zIndex: -1,
+    pointerEvents: "none",
+    background: `
+      linear-gradient(
+        to top,
+        ${alpha(theme.palette.background.default, 0.95)} 0%,
+        ${alpha(theme.palette.background.default, 0.75)} 30%,
+        ${alpha(theme.palette.background.default, 0.35)} 60%,
+        ${alpha(theme.palette.background.default, 0)} 100%
+      )
+    `,
+    backdropFilter: "blur(12px)",
+    WebkitBackdropFilter: "blur(12px)",
+  },
+
+  [theme.breakpoints.down("md")]: {
+    margin: "96px 0",
+  },
+  [theme.breakpoints.down("sm")]: {
+    margin: "72px 0",
   },
 }));
 
 export const SubContainer = styled(Box)(({ theme }) => ({
   maxWidth: "1698px",
   width: "100%",
-  padding: theme.spacing(10, 3),
+  padding: theme.spacing(10, 0),
   margin: "0 auto",
   minHeight: "100vh",
   display: "flex",
   flexDirection: "column",
-  justifyContent: "space-between",
+  gap: theme.spacing(6),
 }));
 
 export const TitleText = styled(Typography)(({ theme }) => ({
   position: "relative",
   zIndex: 3,
   color: theme.palette.text.primary,
-  fontSize: theme.typography.h1.fontSize,
-  fontWeight: theme.typography.h1.fontWeight,
+  fontSize: theme.typography.h5.fontSize,
+  fontWeight: 400,
   marginBottom: theme.spacing(6),
   [theme.breakpoints.down("sm")]: {
     fontSize: "32px",
@@ -49,30 +102,74 @@ export const TitleText = styled(Typography)(({ theme }) => ({
 }));
 
 export const ContentWrapper = styled(Box)(({ theme }) => ({
+  position: "relative",
   display: "grid",
-  gridTemplateColumns: "repeat(2, 1fr)",
-  alignItems: "center",
-  flex: 1,
+  gridTemplateColumns: "1fr 1fr",
+  gridTemplateRows: "1fr 1fr",
+  width: "100%",
+  height: "100%",
+  alignItems: "stretch",
+  overflow: "hidden",
+
+  /* CENTER vertical line (full height) */
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: "50%",
+    width: "1px",
+    backgroundColor: alpha(theme.palette.text.primary, 0.25), // was rgba(180,...)
+    transform: "translateX(-0.5px)",
+    pointerEvents: "none",
+    zIndex: 1,
+  },
+
+  /* CENTER horizontal line (full width) */
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: "50%",
+    height: "1px",
+    backgroundColor: alpha(theme.palette.text.primary, 0.25), // was rgba(180,...)
+    transform: "translateY(-0.5px)",
+    pointerEvents: "none",
+    zIndex: 1,
+  },
+
+  /* keep content above the lines */
+  "& > *": {
+    position: "relative",
+    zIndex: 2,
+  },
+
   [theme.breakpoints.down("md")]: {
     gridTemplateColumns: "1fr",
+    gridTemplateRows: "auto",
+
+    "&::before": { display: "none" },
+    "&::after": { display: "none" },
   },
 }));
 
 export const SubContentWrapper = styled(Box)(({ theme }) => ({
-  justifyContent: "center",
+  gridColumn: "1 / 2",
+  gridRow: "1 / 2",
   display: "flex",
   flexDirection: "column",
-  borderBottom: "0.4px solid #B4B4B4",
-  height: "100%",
+  justifyContent: "center",
   alignItems: "center",
+  height: "100%",
   padding: theme.spacing(6, 8),
+
   [theme.breakpoints.down("md")]: {
     alignItems: "flex-start",
     textAlign: "left",
     padding: theme.spacing(5, 2),
   },
 }));
-
 
 export const SubTitle = styled(Typography)(({ theme }) => ({
   marginTop: theme.spacing(-8),
@@ -86,35 +183,25 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
 }));
 
 export const RightBottomBox = styled(Box)(({ theme }) => ({
-  borderLeft: "0.4px solid #B4B4B4",
-  padding: theme.spacing(6, 8),
+  gridColumn: "2 / 3",
+  gridRow: "2 / 3",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "flex-start",
-  [theme.breakpoints.down("sm")]: {
-    borderLeft: "none",
+  height: "100%",
+  padding: theme.spacing(6, 8),
+
+  [theme.breakpoints.down("md")]: {
     padding: theme.spacing(5, 0),
   },
 }));
 
-export const DiscoverButton = styled(Button)(({ theme }) => ({
-  backgroundColor: "#015B3F",
-  padding: theme.spacing(2, 4),
-  fontSize: theme.typography.body1.fontSize,
-  fontWeight: theme.typography.h6.fontWeight,
-  marginTop: theme.spacing(5),
-  color: theme.palette.common.white,
-  borderRadius: "16px",
-  "&:hover": {
-    backgroundColor: theme.palette.success.dark,
-  },
-}));
-
 export const NumberTypography = styled(Typography)(({ theme }) => ({
-  fontSize: "180px",
-  fontWeight: theme.typography.h1.fontWeight,
-  background: "linear-gradient(to bottom, #FFFFFF 0%, #000000 100%)",
+  fontSize: "260px",
+  fontWeight: 400,
+  background:
+    "linear-gradient(to bottom, rgba(255,255,255,0.35) 0%, rgba(0,0,0,0.35) 100%)",
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
   backgroundClip: "text",

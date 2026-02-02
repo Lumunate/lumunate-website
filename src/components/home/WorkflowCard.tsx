@@ -33,7 +33,7 @@ export default function WorkflowCard({ activeSection }: WorkflowCardProps) {
                     <Title variant="h4">{activeSection.title}</Title>
                     <Description>{activeSection.description}</Description>
                 </Box>
-                <DiscoverButton>{activeSection.buttonText}</DiscoverButton>
+                <DiscoverButton sx={{ mt: "40px", width: "fit-content" }}>Discover</DiscoverButton>
             </CardLeft>
 
             <CardRight>

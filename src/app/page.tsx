@@ -1,9 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Box } from "@mui/material";
 
-// Sections
 import HeaderSection from "@/components/home/HeaderSection";
 import LogosSection from "@/components/home/LogosSection";
 import TestimonialSection from "@/components/home/TestimonialSection";
@@ -17,6 +15,8 @@ import Ready from "@/components/home/ready/Ready";
 // Animations
 import PreloadAnimation from "@/components/PreloadAnimation";
 import StartupAnimation from "@/components/StartupAnimation";
+import HowItWorks from "@/components/home/HowItWorks/HowItWorks";
+import { Box } from "@mui/material";
 
 export default function Home() {
   const [preloadDone, setPreloadDone] = useState(false);
@@ -65,6 +65,7 @@ export default function Home() {
         <TrackRecord />
         <OurApproach />
         <Works />
+        <HowItWorks />
         <ExploreSection />
         <Ready
           title="Ready to Build What's Next?"

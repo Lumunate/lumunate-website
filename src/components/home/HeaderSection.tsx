@@ -14,6 +14,7 @@ import { IconButton } from "@mui/material";
 import Image from "next/image";
 import { useRef } from "react";
 import { useGsapTimelineAnimation } from "@/hooks/useGsapAnimation";
+import PageContainer from "../common/PageContainer";
 
 export default function HeaderSection() {
 
@@ -43,49 +44,51 @@ export default function HeaderSection() {
         />
 
       </SvgBg>
-      <ContentBox>
-        <LeftBox>
-          <StyledH1 ref={titleRef} variant="h1">Your digital <br /> evolution <br /> partner</StyledH1>
-        </LeftBox>
-        <RightBox>
-          <StyledParagraph ref={descRef} variant="body1">
-            Transform ideas into scalable digital products that grow with your
-            business. From AI-powered platforms to enterprise solutions,
-            we&apos;re the technology partner that turns vision into velocity.
-          </StyledParagraph>
+      <PageContainer>
+        <ContentBox>
+          <LeftBox>
+            <StyledH1 ref={titleRef} variant="h1">Your digital <br /> evolution <br /> partner</StyledH1>
+          </LeftBox>
+          <RightBox>
+            <StyledParagraph ref={descRef} variant="body1">
+              Transform ideas into scalable digital products that grow with your
+              business. From AI-powered platforms to enterprise solutions,
+              we&apos;re the technology partner that turns vision into velocity.
+            </StyledParagraph>
 
-          <SocialStack ref={socialRef}>
-            <IconButton
-              size="small"
-              color="inherit"
-              href="https://www.instagram.com/company/lumunate/"
-              target="_blank"
-              className="icon-item"
-            >
-              <Image
-                src="/icons/instagram.svg"
-                alt="Instagram"
-                width={20}
-                height={20}
-              />
-            </IconButton>
-            <IconButton
-              size="small"
-              color="inherit"
-              href="https://www.linkedin.com/company/lumunate/"
-              target="_blank"
-              className="icon-item"
-            >
-              <Image
-                src="/icons/linkedin.svg"
-                alt="LinkedIn"
-                width={20}
-                height={20}
-              />
-            </IconButton>
-          </SocialStack>
-        </RightBox>
-      </ContentBox>
+            <SocialStack ref={socialRef}>
+              <IconButton
+                size="small"
+                color="inherit"
+                href="https://www.instagram.com/company/lumunate/"
+                target="_blank"
+                className="icon-item"
+              >
+                <Image
+                  src="/icons/instagram.svg"
+                  alt="Instagram"
+                  width={25}
+                  height={25}
+                />
+              </IconButton>
+              <IconButton
+                size="small"
+                color="inherit"
+                href="https://www.linkedin.com/company/lumunate/"
+                target="_blank"
+                className="icon-item"
+              >
+                <Image
+                  src="/icons/linkedin.svg"
+                  alt="LinkedIn"
+                  width={25}
+                  height={25}
+                />
+              </IconButton>
+            </SocialStack>
+          </RightBox>
+        </ContentBox>
+      </PageContainer>
     </HeaderRoot>
   );
 }

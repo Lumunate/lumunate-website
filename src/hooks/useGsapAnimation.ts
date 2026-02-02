@@ -73,13 +73,13 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
         case "fade":
           fromProps = { opacity: 0 };
           break;
-     case "scale-up":
-        fromProps = { scale: 0.5, opacity: 0, transformOrigin: "center center" };
-        break;
-      case "text-expand":
-        fromProps = { fontSize: "6px", opacity: 0, textShadow: "0px 0px 15px rgba(0,0,0,0.6)" };
-        break;
-          case "zoomTop":
+        case "scale-up":
+          fromProps = { scale: 0.5, opacity: 0, transformOrigin: "center center" };
+          break;
+        case "text-expand":
+          fromProps = { fontSize: "6px", opacity: 0, textShadow: "0px 0px 15px rgba(0,0,0,0.6)" };
+          break;
+        case "zoomTop":
           fromProps = { y: -40, scale: 0.6, opacity: 0 };
           break;
         case "zoomTopLeft":
@@ -221,7 +221,7 @@ export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
 // useGsapCounterAnimation - Track Record counters
 export const useGsapCounterAnimation = (
   refs: React.MutableRefObject<(HTMLDivElement | null)[]>,
-  data: { total: number; suffix: string }[]
+  data: { total: number; suffix: string; prefix?: string }[]
 ) => {
   useEffect(() => {
     if (!refs.current.length) return;
@@ -230,7 +230,7 @@ export const useGsapCounterAnimation = (
       refs.current.forEach((el, index) => {
         if (!el) return;
 
-        const { total: finalValue, suffix } = data[index];
+        const { total: finalValue, suffix, prefix = "" } = data[index];
         const counter = { value: 0 };
 
         gsap.fromTo(
@@ -247,12 +247,13 @@ export const useGsapCounterAnimation = (
             },
             onUpdate: () => {
               if (!el) return;
+
               if (finalValue > 1000) {
-                el.textContent = `${Math.floor(counter.value).toLocaleString()}${suffix}`;
+                el.textContent = `${prefix}${Math.floor(counter.value).toLocaleString()}${suffix}`;
               } else if (finalValue < 10) {
-                el.textContent = `${counter.value.toFixed(1)}${suffix}`;
+                el.textContent = `${prefix}${counter.value.toFixed(1)}${suffix}`;
               } else {
-                el.textContent = `${Math.floor(counter.value)}${suffix}`;
+                el.textContent = `${prefix}${Math.floor(counter.value)}${suffix}`;
               }
             },
           }
@@ -263,3 +264,4 @@ export const useGsapCounterAnimation = (
     return () => ctx.revert();
   }, [refs, data]);
 };
+
