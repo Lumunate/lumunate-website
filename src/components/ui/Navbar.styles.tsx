@@ -5,12 +5,21 @@ import { Box, styled, Toolbar } from "@mui/material";
 export const NavContainer = styled(Box)(({ theme }) => ({
     width: "100%",
     margin: 0,
+
     padding: "8px 131px",
     height: 80,
 
-    [theme.breakpoints.down("lg")]: { padding: "8px 80px" },
-    [theme.breakpoints.down("md")]: { padding: "8px 32px", height: 64 },
+    [theme.breakpoints.down("lg")]: {
+        padding: "8px 80px",
+    },
+
+    //  md + sm
+    [theme.breakpoints.down("md")]: {
+        padding: "8px 24px",
+        height: 64,
+    },
 }));
+
 
 export const StyledToolbar = styled(Toolbar)(() => ({
     justifyContent: "space-between",

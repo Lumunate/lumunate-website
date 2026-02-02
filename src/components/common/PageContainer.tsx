@@ -5,8 +5,8 @@ export default function PageContainer({ children }: { children: React.ReactNode 
         <Box
             sx={{
                 width: "100%",
-                mx: 0,           
-                maxWidth: "100%", 
+                mx: "auto",
+                maxWidth: "1654px",
                 px: {
                     xs: "24px",
                     sm: "24px",
