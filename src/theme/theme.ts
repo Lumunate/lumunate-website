@@ -23,6 +23,7 @@ declare module "@mui/material/styles" {
       star: string;
       caseStudyDesc: string;
       caseStudyLabel: string;
+      muted: string;
     };
   }
   interface PaletteOptions {
@@ -45,6 +46,7 @@ export const TOKENS = {
     caseStudyDesc: "#CBCBCB",
     caseStudyLabel: "#B8B8B8",
     star: "#FFD600",
+    muted: "#AAAAAA",
   },
   bg: {
     default: "#0E0E0E",
