@@ -42,8 +42,8 @@ export const BottomBlur = styled(Box)(({ theme }) => ({
     left: 0,
     right: 0,
     bottom: 0,
-    height: "80px", // adjust as needed (40-120)
-    zIndex: 3, // above ::after overlays, below content (HeroContent is zIndex:3 so keep this 2.5? We'll put HeroContent at 4 below)
+    height: "80px",
+    zIndex: 3,
     pointerEvents: "none",
 
     background: `
@@ -172,7 +172,7 @@ export const FullRow = styled(Box)(({ theme }) => ({
         bottom: 0,
         height: "1px",
         width: "100%",
-        background: alpha(theme.palette.text.primary, 0.18),
+        background: theme.palette.divider,
         pointerEvents: "none",
     },
 
