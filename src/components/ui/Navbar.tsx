@@ -22,7 +22,7 @@ import {
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MenuIcon from "@mui/icons-material/Menu";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"; 
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 import {
@@ -33,6 +33,7 @@ import {
     RightBox,
     VerticalDivider,
 } from "./Navbar.styles";
+import { usePathname } from "next/navigation";
 
 const projects = [
     { name: "Airbot – AI-Powered Hospitality Assistant", href: "/projects/airbot" },
@@ -57,6 +58,7 @@ const navLinks = [
 export default function Navbar() {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+    const pathname = usePathname();
 
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -93,8 +95,9 @@ export default function Navbar() {
         [theme]
     );
 
-    // GSAP animation
+    // GSAP animation ONLY for homepage
     useEffect(() => {
+        if (pathname !== "/") return; // Only run on homepage
         if (!navRef.current) return;
 
         gsap.fromTo(
@@ -116,7 +119,7 @@ export default function Navbar() {
                 },
             }
         );
-    }, []);
+    }, [pathname]);
 
     // Compute desktop dropdown position/width
     useEffect(() => {
@@ -172,11 +175,12 @@ export default function Navbar() {
                 borderTop: `1px solid ${theme.palette.navbar.border}`,
                 borderBottom: `1px solid ${theme.palette.navbar.border}`,
                 boxShadow: "none",
-                opacity: 0,
-                transform: "translateY(-60px)",
-                pointerEvents: "none",
+                opacity: pathname === "/" ? 0 : 1,          // only 0 on homepage
+                transform: pathname === "/" ? "translateY(-60px)" : "translateY(0)", // only animate on homepage
+                pointerEvents: pathname === "/" ? "none" : "auto", // allow clicks on other pages
             }}
         >
+
             <NavContainer ref={navContainerRef}>
                 <StyledToolbar disableGutters>
                     <LogoBox ref={logoBoxRef}>

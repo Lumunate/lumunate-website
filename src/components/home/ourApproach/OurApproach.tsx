@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ContentWrapper,
   NumberTypography,
   OurApproachContainer,
   RightBottomBox,
-  SubContainer,
   SubContentWrapper,
   SubTitle,
   TitleText,
@@ -15,114 +14,82 @@ import {
 } from "./OurApproach.style";
 import { Box } from "@mui/material";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import useGsapAnimation, { useGsapSlideAnimation } from "@/hooks/useGsapAnimation";
 import PageContainer from "@/components/common/PageContainer";
 import DiscoverButton from "@/components/ui/DiscoverButton";
 
-gsap.registerPlugin(ScrollTrigger);
+interface Props {
+  start: boolean;
+  onComplete?: () => void;
+}
 
-const OurApproach = () => {
+const STEP_DURATION = 2500;
+
+const OurApproach = ({ start, onComplete }: Props) => {
   const data = [
-    {
-      number: "01",
-      title: "Visual Identity & Branding",
-      description:
-        "Define your digital presence with distinctive branding that resonates and converts.",
-    },
-    {
-      number: "02",
-      title: "Design & Research",
-      description:
-        "Transform ideas into user-centered designs through research, prototypes, and validation.",
-    },
-    {
-      number: "03",
-      title: "Development & Testing",
-      description:
-        "Build scalable solutions with clean architecture, rigorous testing, and modern frameworks.",
-    },
-    {
-      number: "04",
-      title: "Launch & Iteration",
-      description:
-        "Deploy with secure infrastructure and stay invested in continuous optimization.",
-    },
-    {
-      number: "05",
-      title: "Digital Transformation",
-      description:
-        "Drive growth with SEO, targeted campaigns, and data-driven marketing strategies.",
-    },
+    { number: "01", title: "Visual Identity & Branding", description: "Define your digital presence with distinctive branding that resonates and converts." },
+    { number: "02", title: "Design & Research", description: "Transform ideas into user-centered designs through research, prototypes, and validation." },
+    { number: "03", title: "Development & Testing", description: "Build scalable solutions with clean architecture, rigorous testing, and modern frameworks." },
+    { number: "04", title: "Launch & Iteration", description: "Deploy with secure infrastructure and stay invested in continuous optimization." },
+    { number: "05", title: "Digital Transformation", description: "Drive growth with SEO, targeted campaigns, and data-driven marketing strategies." },
   ];
 
-  // Hook controlling slide-based section progress
-  const { elementRef, activeIndex } = useGsapSlideAnimation(data);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  // Individual element animations (safe and auto-cleaned by internal gsap.context)
-  const numberRef = useGsapAnimation({
-    direction: "left",
-    delay: 0.4,
-    duration: 1,
-  });
-  const titleRef = useGsapAnimation({
-    direction: "top",
-    delay: 0.5,
-    duration: 1,
-  });
-  const descriptionRef = useGsapAnimation({
-    direction: "fade",
-    delay: 0.6,
-    duration: 1,
-  });
-  const buttonRef = useGsapAnimation<HTMLButtonElement>({
-    direction: "bottom",
-    delay: 0.7,
-    duration: 1,
-  });
+  const numberRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const descRef = useRef<HTMLParagraphElement>(null);
 
-  //  Additional gsap.context for safe ScrollTrigger + video mount cleanup
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Optional: Add subtle fade-in for entire section background video or container
-      gsap.fromTo(
-        elementRef.current,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: elementRef.current,
-            start: "top 85%",
-            once: true,
-          },
-        }
-      );
-    }, elementRef);
+    gsap.fromTo(
+      [numberRef.current, titleRef.current, descRef.current],
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.1,
+      }
+    );
+  }, [activeIndex]);
 
-    // Cleanup: revert GSAP safely on unmount
-    return () => ctx.revert();
-  }, [elementRef]);
+  useEffect(() => {
+    if (!start) return;
+
+    let index = 0;
+    setActiveIndex(0);
+
+    const interval = setInterval(() => {
+      index++;
+
+      if (index >= data.length) {
+        clearInterval(interval);
+        onComplete?.();
+        return;
+      }
+
+      setActiveIndex(index);
+    }, STEP_DURATION);
+
+    return () => clearInterval(interval);
+  }, [start]);
 
   return (
-    <OurApproachContainer ref={elementRef}>
+    <OurApproachContainer>
       <Box className="topBlur" />
       <Box className="bottomBlur" />
+
       <video autoPlay loop muted playsInline>
         <source
           src="https://res.cloudinary.com/dqvzaju7x/video/upload/approachbg_g7xwx5.mp4"
           type="video/mp4"
-          key="our-approach-section-video"
         />
       </video>
 
-      {/* Title stays padded */}
       <PageContainer>
         <TitleText variant="h5">Our Approach</TitleText>
       </PageContainer>
 
-      {/* Grid + lines are full screen */}
       <FullBleedGrid>
         <PageContainer>
           <ContentWrapper>
@@ -138,10 +105,10 @@ const OurApproach = () => {
             </SubContentWrapper>
 
             <RightBottomBox>
-              <DescriptionText ref={descriptionRef} variant="h5">
+              <DescriptionText ref={descRef} variant="h5">
                 {data[activeIndex].description}
               </DescriptionText>
-              <DiscoverButton sx={{ mt: "40px", width: "fit-content" }}>
+              <DiscoverButton sx={{ mt: "40px" }}>
                 Discover
               </DiscoverButton>
             </RightBottomBox>
@@ -149,7 +116,6 @@ const OurApproach = () => {
         </PageContainer>
       </FullBleedGrid>
     </OurApproachContainer>
-
   );
 };
 

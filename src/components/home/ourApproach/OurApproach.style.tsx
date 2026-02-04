@@ -6,6 +6,7 @@ import { alpha } from "@mui/material/styles";
 export const OurApproachContainer = styled(Box)(({ theme }) => ({
   position: "relative",
   width: "100%",
+  height: "1070px", 
   margin: "160px 0",
   overflow: "hidden",
 
@@ -18,7 +19,6 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
     zIndex: -3,
   },
 
-  // full dark overlay
   "&::before": {
     content: '""',
     position: "absolute",
@@ -27,7 +27,6 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
     zIndex: -2,
   },
 
-  // TOP blur blend (use theme background)
   "& .topBlur": {
     position: "absolute",
     left: 0,
@@ -48,7 +47,7 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
     backdropFilter: "blur(18px)",
     WebkitBackdropFilter: "blur(18px)",
   },
-  // BOTTOM blur blend (use theme background)
+
   "& .bottomBlur": {
     position: "absolute",
     left: 0,
@@ -71,12 +70,16 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
   },
 
   [theme.breakpoints.down("md")]: {
+    height: "900px",
     margin: "96px 0",
   },
+
   [theme.breakpoints.down("sm")]: {
+    height: "720px",
     margin: "72px 0",
   },
 }));
+
 
 export const SubContainer = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -84,12 +87,10 @@ export const SubContainer = styled(Box)(({ theme }) => ({
   minHeight: "100vh",
   padding: theme.spacing(10, 0),
 
-  // ✅ Use grid so ContentWrapper can truly stretch
   display: "grid",
   gridTemplateRows: "auto 1fr",
   rowGap: theme.spacing(6),
 
-  // ✅ important for children to stretch
   alignItems: "stretch",
 }));
 
@@ -115,7 +116,6 @@ export const FullBleedGrid = styled(Box)(({ theme }) => ({
   minHeight: "calc(100vh - 140px)",
   display: "flex",
 
-  // 🔹 SINGLE vertical line
   "&::before": {
     content: '""',
     position: "absolute",
@@ -138,7 +138,6 @@ export const FullBleedGrid = styled(Box)(({ theme }) => ({
     pointerEvents: "none",
   },
 
-  // 🔹 SINGLE horizontal line
   "&::after": {
     content: '""',
     position: "absolute",
@@ -177,11 +176,11 @@ export const ContentWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
 
   height: "100%",
-  minHeight: "100vh",
+  minHeight: "auto",
 
   "& > *": {
     position: "relative",
-    zIndex: 2, // content above FullBleedGrid lines
+    zIndex: 2,
   },
 
   [theme.breakpoints.down("md")]: {
@@ -199,7 +198,7 @@ export const SubContentWrapper = styled(Box)(({ theme }) => ({
   justifyContent: "center",
   alignItems: "center",
   height: "100%",
-  padding: theme.spacing(6, 8),
+  padding: theme.spacing(11.625, 9),
 
   [theme.breakpoints.down("md")]: {
     alignItems: "flex-start",
@@ -224,10 +223,10 @@ export const RightBottomBox = styled(Box)(({ theme }) => ({
   gridRow: "2 / 3",
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
+  justifyContent: "flex-start",
   alignItems: "flex-start",
   height: "100%",
-  padding: theme.spacing(6, 8),
+  padding: theme.spacing(5.25, 20),
 
   [theme.breakpoints.down("md")]: {
     padding: theme.spacing(5, 0),

@@ -4,13 +4,12 @@ import { Box, styled } from "@mui/material";
 
 export const NavBarContainer = styled(Box)(({ theme }) => ({
     display: "flex",
-    width: "100vw",
-
+    width: "100%",
     backgroundColor: theme.palette.background.paper,
     borderTop: `1px solid ${theme.palette.navbar.border}`,
     borderBottom: `1px solid ${theme.palette.navbar.border}`,
-
-    overflow: "hidden",
+    overflowX: "hidden",
+    overflowY: "hidden",
     margin: 0,
     padding: 0,
     boxSizing: "border-box",
@@ -37,23 +36,25 @@ export const NavBarContainer = styled(Box)(({ theme }) => ({
         pointerEvents: "none",
     },
 
-    [theme.breakpoints.down("md")]: {
+    // Scroll-x for screens below lg
+    [theme.breakpoints.down("lg")]: {
         overflowX: "auto",
         overflowY: "hidden",
         whiteSpace: "nowrap",
         scrollbarWidth: "none",
-        "&::-webkit-scrollbar": { display: "none" },
+        "&::-webkit-scrollbar": {
+            display: "none",
+        },
     },
 }));
 
 export const NavItem = styled(Box)(({ theme }) => ({
-    flex: 1,
+    flex: "0 0 auto", 
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     padding: `${theme.spacing(1.4)} ${theme.spacing(1.5)}`,
     cursor: "pointer",
-
     color: theme.palette.text.secondary,
     opacity: 0.55,
     fontSize: "16px",
@@ -81,17 +82,12 @@ export const NavItem = styled(Box)(({ theme }) => ({
         color: theme.palette.text.primary,
         opacity: 1,
         fontWeight: 500,
-
         position: "relative",
         zIndex: 2,
-
         boxShadow: `
-    inset 0 1px 0 ${theme.palette.navbar.border},
-    inset 0 -1px 0 ${theme.palette.navbar.border}
-  `,
+      inset 0 1px 0 ${theme.palette.navbar.border},
+      inset 0 -1px 0 ${theme.palette.navbar.border}
+    `,
         backgroundClip: "padding-box",
     },
-
 }));
-
-

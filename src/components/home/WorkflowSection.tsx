@@ -13,6 +13,10 @@ import PageContainer from "../common/PageContainer";
 
 gsap.registerPlugin(ScrollTrigger);
 
+interface WorkflowSectionProps {
+  onComplete?: () => void; // callback after last card
+}
+
 const workflowSections = [
   {
     tag: "/UI & UX",
@@ -68,10 +72,7 @@ const workflowSections = [
   },
 ];
 
-// ✅ space between stacked cards (keep this small)
 const STACK_OFFSET = 18;
-
-// ✅ default + XL height
 const DEFAULT_CARD_HEIGHT = 460;
 const XL_CARD_HEIGHT = 560;
 
@@ -80,7 +81,7 @@ function getCardHeight(): number {
   return window.innerWidth >= 1920 ? XL_CARD_HEIGHT : DEFAULT_CARD_HEIGHT;
 }
 
-export default function WorkflowSection() {
+export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [cardHeight, setCardHeight] = useState<number>(DEFAULT_CARD_HEIGHT);
 
@@ -88,7 +89,7 @@ export default function WorkflowSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // ✅ Update card height only on resize (XL behavior)
+  // Update card height on resize
   useEffect(() => {
     const updateHeight = () => setCardHeight(getCardHeight());
     updateHeight();
@@ -96,20 +97,17 @@ export default function WorkflowSection() {
     return () => window.removeEventListener("resize", updateHeight);
   }, []);
 
-  // ✅ IMPORTANT: extra space is based on STACK_OFFSET (not cardHeight)
-  // otherwise the upper stacked cards look "too separated" / broken.
   const extraStackSpace = useMemo(
     () => STACK_OFFSET * (workflowSections.length - 1),
     []
   );
 
-  // ✅ Position + animate cards whenever activeIndex OR cardHeight changes
+  // Animate stacked cards
   useEffect(() => {
     const ctx = gsap.context(() => {
       const cards = cardsRef.current.filter(Boolean) as HTMLDivElement[];
       if (!cards.length) return;
 
-      // keep all cards aligned + stacked
       cards.forEach((card, i) => {
         gsap.set(card, {
           y: i * STACK_OFFSET,
@@ -138,7 +136,7 @@ export default function WorkflowSection() {
     return () => ctx.revert();
   }, [activeIndex, cardHeight]);
 
-  // ✅ start autoplay when section enters viewport
+  // Start autoplay when section enters viewport
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -150,7 +148,15 @@ export default function WorkflowSection() {
       onEnter: () => {
         setActiveIndex(0);
         intervalRef.current = setInterval(() => {
-          setActiveIndex((prev) => (prev + 1) % workflowSections.length);
+          setActiveIndex((prev) => {
+            const next = prev + 1;
+            if (next >= workflowSections.length) {
+              clearInterval(intervalRef.current!);
+              onComplete?.();
+              return prev; 
+            }
+            return next;
+          });
         }, 4000);
       },
     });
@@ -159,11 +165,10 @@ export default function WorkflowSection() {
       trigger.kill();
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, []);
+  }, [onComplete]);
 
   return (
     <WorkflowSectionRoot ref={sectionRef}>
-      {/* Navbar stays full width */}
       <NavBarContainer>
         {workflowSections.map((section, i) => (
           <NavItem
@@ -183,7 +188,7 @@ export default function WorkflowSection() {
             width: "100%",
             maxWidth: "1100px",
             margin: "104px auto 0",
-            height: cardHeight + extraStackSpace, 
+            height: cardHeight + extraStackSpace,
           }}
         >
           {workflowSections.map((section, i) => (
