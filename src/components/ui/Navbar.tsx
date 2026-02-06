@@ -34,6 +34,7 @@ import {
     VerticalDivider,
 } from "./Navbar.styles";
 import { usePathname } from "next/navigation";
+import { useNavbarRef } from "./NavbarContext";
 
 const projects = [
     { name: "Airbot – AI-Powered Hospitality Assistant", href: "/projects/airbot" },
@@ -56,15 +57,16 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
     const pathname = usePathname();
+    const navRef = useNavbarRef();
+    const isHome = pathname === "/";
 
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false);
-
-    const navRef = useRef<HTMLDivElement>(null);
 
     // dropdown measurement refs
     const navContainerRef = useRef<HTMLDivElement>(null);
@@ -95,31 +97,6 @@ export default function Navbar() {
         [theme]
     );
 
-    // GSAP animation ONLY for homepage
-    useEffect(() => {
-        if (pathname !== "/") return; // Only run on homepage
-        if (!navRef.current) return;
-
-        gsap.fromTo(
-            navRef.current,
-            { y: -80, opacity: 0, pointerEvents: "none" },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 1.2,
-                ease: "power3.out",
-                delay: 7.2,
-                onStart: () => {
-                    if (!navRef.current) return;
-                    gsap.set(navRef.current, { pointerEvents: "none" });
-                },
-                onComplete: () => {
-                    if (!navRef.current) return;
-                    gsap.set(navRef.current, { pointerEvents: "auto" });
-                },
-            }
-        );
-    }, [pathname]);
 
     // Compute desktop dropdown position/width
     useEffect(() => {
@@ -166,18 +143,20 @@ export default function Navbar() {
     return (
         <AppBar
             ref={navRef}
-            position="static"
+            position="sticky"
             elevation={0}
             sx={{
-                width: "100vw",
-                zIndex: 30,
+                opacity: isHome ? 0 : 1,
+                transform: isHome ? "translateY(-60px)" : "none",
+                pointerEvents: isHome ? "none" : "auto",
+                transition: isHome ? "none" : "opacity 0.2s ease",
+                top: 0,
+                left: 0,
+                width: "100%",
+                zIndex: 1300,
                 backgroundColor: theme.palette.navbar.bg,
                 borderTop: `1px solid ${theme.palette.navbar.border}`,
                 borderBottom: `1px solid ${theme.palette.navbar.border}`,
-                boxShadow: "none",
-                opacity: pathname === "/" ? 0 : 1,          // only 0 on homepage
-                transform: pathname === "/" ? "translateY(-60px)" : "translateY(0)", // only animate on homepage
-                pointerEvents: pathname === "/" ? "none" : "auto", // allow clicks on other pages
             }}
         >
 

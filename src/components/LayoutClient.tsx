@@ -8,6 +8,7 @@ import Footer from "@/components/ui/Footer";
 import TransitionWrapper from "@/components/TransitionWrapper";
 import { usePathname } from "next/navigation";
 import { NavbarProvider } from "./ui/NavbarContext";
+import React from "react";
 
 export default function LayoutClient({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -17,14 +18,14 @@ export default function LayoutClient({ children }: { children: React.ReactNode }
             <CssBaseline />
             <NavbarProvider>
                 <TransitionWrapper>
-                    {/* This key forces remount on every route change */}
-                    <Box key={pathname}>
-                        <Navbar />
-                        {children}
-                        <Footer />
-                    </Box>
+
+                    <Navbar />
+                    {children}
+                    <Footer />
+
                 </TransitionWrapper>
             </NavbarProvider>
+
         </ThemeProvider>
     );
 }
