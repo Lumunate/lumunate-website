@@ -7,7 +7,7 @@ export const VideoHeader = styled(Box)(({ theme }) => ({
     width: "100%",
     overflow: "hidden",
 
-    height: "720px",
+    height: "1069px",
     [theme.breakpoints.up("md")]: {
         height: "900px",
     },
@@ -76,7 +76,8 @@ export const HeroContent = styled(Box)(({ theme }) => ({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "flex-end",
+    paddingBottom: "36px",
 
     [theme.breakpoints.up("md")]: {
     },
@@ -105,10 +106,19 @@ export const ContactTextField = styled(TextField)(({ theme }) => ({
         marginBottom: "16px",
     },
 
+    "& .MuiInputLabel-root.Mui-focused": {
+        color: alpha(theme.palette.text.primary, 0.75),
+    },
+
     "& .MuiInputBase-input": {
         fontSize: "14px",
         color: alpha(theme.palette.text.primary, 0.92),
         padding: "0 0 14px 0",
+        caretColor: alpha(theme.palette.text.primary, 0.92),
+    },
+
+    "& .MuiInputBase-input:focus": {
+        color: alpha(theme.palette.text.primary, 0.92),
     },
 
     "& .MuiInputBase-input::placeholder": {
@@ -127,16 +137,16 @@ export const ContactTextField = styled(TextField)(({ theme }) => ({
         borderBottom: `1px solid ${alpha(theme.palette.text.primary, 0.35)}`,
     },
 
-    "& .MuiSvgIcon-root": {
-        color: alpha(theme.palette.text.primary, 0.55),
+    "& .MuiSelect-select": {
+        color: alpha(theme.palette.text.primary, 0.92),
+    },
+    "& .MuiSelect-select:focus": {
+        backgroundColor: "transparent",
+        color: alpha(theme.palette.text.primary, 0.92),
     },
 
-    "& .MuiSelect-icon": {
+    "& .MuiSvgIcon-root": {
         color: alpha(theme.palette.text.primary, 0.55),
-        right: 0,
-        top: "50%",
-        transform: "translateY(-50%)",
-        fontSize: "22px",
     },
 
     "& .MuiFormHelperText-root": {
@@ -147,6 +157,8 @@ export const ContactTextField = styled(TextField)(({ theme }) => ({
     "& textarea": {
         fontSize: "14px",
         lineHeight: 1.4,
+        color: alpha(theme.palette.text.primary, 0.92),
+        caretColor: alpha(theme.palette.text.primary, 0.92),
     },
 }));
 

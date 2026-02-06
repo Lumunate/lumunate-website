@@ -170,10 +170,10 @@ export const useGsapSlideAnimation = (data: unknown[]) => {
 export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
   refs: React.RefObject<T | null>[],
   delay = 0,
-  enabled = true // 👈 ADD THIS
+  enabled = true
 ) => {
   useEffect(() => {
-    if (!enabled) return; // 👈 BLOCK animation until allowed
+    if (!enabled) return;
 
     const elements = refs
       .filter((r): r is React.RefObject<T> => Boolean(r && r.current))
@@ -230,7 +230,7 @@ export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
     });
 
     return () => ctx.revert();
-  }, [refs, delay, enabled]); // 👈 ADD enabled
+  }, [refs, delay, enabled]);
 };
 
 

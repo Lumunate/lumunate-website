@@ -5,6 +5,7 @@ import { Box, styled } from "@mui/material";
 export const DifferentContainer = styled(Box)(({ theme }) => ({
     width: "100%",
     color: theme.palette.text.primary,
+    marginTop: "45px",
 }));
 
 export const ContentContainer = styled(Box)(({ theme }) => ({

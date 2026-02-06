@@ -6,7 +6,7 @@ import { alpha } from "@mui/material/styles";
 export const OurApproachContainer = styled(Box)(({ theme }) => ({
   position: "relative",
   width: "100%",
-  height: "1070px", 
+  height: "1070px",
   margin: "160px 0",
   overflow: "hidden",
 
@@ -31,19 +31,19 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
     position: "absolute",
     left: 0,
     right: 0,
-    top: 0,
-    height: "20px",
+    top: "0px",
+    height: "60px",
     zIndex: -1,
     pointerEvents: "none",
     background: `
-      linear-gradient(
-        to bottom,
-        ${alpha(theme.palette.background.default, 0.95)} 0%,
-        ${alpha(theme.palette.background.default, 0.75)} 30%,
-        ${alpha(theme.palette.background.default, 0.35)} 60%,
-        ${alpha(theme.palette.background.default, 0)} 100%
-      )
-    `,
+    linear-gradient(
+      to bottom,
+      ${alpha(theme.palette.background.default, 0.95)} 0%,
+      ${alpha(theme.palette.background.default, 0.75)} 30%,
+      ${alpha(theme.palette.background.default, 0.35)} 60%,
+      ${alpha(theme.palette.background.default, 0)} 100%
+    )
+  `,
     backdropFilter: "blur(18px)",
     WebkitBackdropFilter: "blur(18px)",
   },
@@ -52,22 +52,23 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
     position: "absolute",
     left: 0,
     right: 0,
-    bottom: 0,
-    height: "20px",
+    bottom: "-40px",
+    height: "60px",
     zIndex: -1,
     pointerEvents: "none",
     background: `
-      linear-gradient(
-        to top,
-        ${alpha(theme.palette.background.default, 0.95)} 0%,
-        ${alpha(theme.palette.background.default, 0.75)} 30%,
-        ${alpha(theme.palette.background.default, 0.35)} 60%,
-        ${alpha(theme.palette.background.default, 0)} 100%
-      )
-    `,
+    linear-gradient(
+      to top,
+      ${alpha(theme.palette.background.default, 0.95)} 0%,
+      ${alpha(theme.palette.background.default, 0.75)} 30%,
+      ${alpha(theme.palette.background.default, 0.35)} 60%,
+      ${alpha(theme.palette.background.default, 0)} 100%
+    )
+  `,
     backdropFilter: "blur(12px)",
     WebkitBackdropFilter: "blur(12px)",
   },
+
 
   [theme.breakpoints.down("md")]: {
     height: "900px",

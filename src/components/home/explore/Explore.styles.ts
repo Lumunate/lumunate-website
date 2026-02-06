@@ -20,7 +20,7 @@ export const ExploreText = styled(Typography)(({ theme }) => ({
     textAlign: "center",
     fontWeight: 300,
     fontFamily: "Neue Montreal, sans-serif",
-    fontSize: "clamp(2rem, 7.3vw, 12rem)",
+    fontSize: "clamp(2rem, 7.3vw, 14rem)",
     whiteSpace: "nowrap",
     color: `${theme.palette.text.primary}08`,
     letterSpacing: "0.05em",

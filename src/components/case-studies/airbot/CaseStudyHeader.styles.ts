@@ -5,7 +5,9 @@ import { styled, Box, Typography } from "@mui/material";
 export const HeaderRoot = styled(Box)(({ theme }) => ({
     position: "relative",
     width: "100%",
-    height: "1070px",
+    height: "100vh",
+    minHeight: "800px",
+    maxHeight: "1070px",
     overflow: "hidden",
     color: theme.palette.text.primary,
     backgroundColor: theme.palette.background.default,
@@ -16,9 +18,12 @@ export const BackgroundVideo = styled(Box)(() => ({
     top: 0,
     left: 0,
     width: "100%",
-    height: "1070px",
+    height: "100%",
     objectFit: "cover",
+    objectPosition: "center bottom",
     zIndex: 0,
+    transform: "scale(1.1)",
+    transformOrigin: "bottom center",
 })) as typeof Box;
 
 
@@ -39,15 +44,14 @@ export const HeaderContent = styled(Box, {
     zIndex: 1,
     width: "100%",
     height: "100%",
-    background: `rgba(0,0,0,${overlayopacity})`,
+    background: `linear-gradient(to bottom, rgba(0,0,0,${overlayopacity}) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,${overlayopacity}) 100%)`,
 
     display: "flex",
     alignItems: "flex-end",
-
-    paddingBottom: "85px",
+    paddingBottom: "60px",
 
     [theme.breakpoints.down("md")]: {
-        paddingBottom: theme.spacing(6),
+        paddingBottom: theme.spacing(4),
     },
 }));
 
@@ -63,16 +67,13 @@ export const HeaderLeft = styled(Box)(({ theme }) => ({
 }));
 
 export const Title = styled(Typography)(({ theme }) => ({
-    fontSize: "90px",
-    fontWeight: 400,
-    lineHeight: 1.2,
+    fontSize: "clamp(48px, 8vw, 110px)",
+    fontWeight: 500,
+    lineHeight: 1.1,
+    letterSpacing: "-0.02em",
     color: theme.palette.text.primary,
     [theme.breakpoints.down("md")]: {
         fontSize: "52px",
-    },
-    [theme.breakpoints.down("sm")]: {
-        fontSize: "32px",
-        textAlign: "center",
     },
 }));
 

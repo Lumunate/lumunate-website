@@ -49,7 +49,8 @@ export default function ImpactSection({
                     </ContentRight>
                 </RowFlex>
 
-                <RowFlex sx={{ mb: 0 }}>
+                <RowFlex sx={{ mb: 0, alignItems: { xs: "flex-start", md: "center" }, }}>
+
                     <TitleText
                         sx={{
                             fontSize: { xs: "22px", md: "33px" },

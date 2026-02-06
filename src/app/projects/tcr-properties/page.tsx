@@ -27,8 +27,8 @@ export default function TCRPage() {
             <Challenges
                 title="Solution"
                 description="We designed and developed a modern real estate website for TCR Properties that focuses on clarity, usability, and trust. The solution includes a structured property listing system, intuitive navigation, responsive layouts for all devices, and clear calls-to-action for inquiries. Visual hierarchy and clean layouts were used to highlight key property details, while the overall design reinforces professionalism and reliability—helping users move confidently from browsing to contacting."
-                imageLeftSrc="/case-studies/koinfolio-2.svg"
-                imageRightSrc="/case-studies/koinfolio-3.svg"
+                imageLeftSrc="/case-studies/TCR-2.svg"
+                imageRightSrc="/case-studies/TCR-3.svg"
             />
 
             <ImpactSection

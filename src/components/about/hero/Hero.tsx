@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ContentContainer, HeroContainer, BackgroundVideo } from "./Hero.style";
+import { ContentContainer, HeroContainer, BackgroundVideo, BottomBlurOverlay } from "./Hero.style";
 import { Box, Typography, useTheme } from "@mui/material";
 import Image from "next/image";
 import PageContainer from "@/components/common/PageContainer";
@@ -72,12 +72,19 @@ const Hero = () => {
       </ContentContainer>
 
       <Image
-        style={{ position: "absolute", bottom: "-14rem", width: "100%", height: "auto" }}
+        style={{
+          position: "absolute",
+          bottom: "-14rem",
+          width: "100%",
+          height: "auto",
+          zIndex: 4,
+        }}
         src="/blure.png"
         alt="blur"
         width={100}
         height={100}
       />
+      <BottomBlurOverlay />
     </HeroContainer>
   );
 };
