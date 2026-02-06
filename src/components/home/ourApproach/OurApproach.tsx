@@ -26,11 +26,36 @@ interface Props {
 
 const OurApproach = ({ onComplete }: Props) => {
   const data = [
-    { number: "01", title: "Visual Identity & Branding", description: "Define your digital presence with distinctive branding that resonates and converts." },
-    { number: "02", title: "Design & Research", description: "Transform ideas into user-centered designs through research, prototypes, and validation." },
-    { number: "03", title: "Development & Testing", description: "Build scalable solutions with clean architecture, rigorous testing, and modern frameworks." },
-    { number: "04", title: "Launch & Iteration", description: "Deploy with secure infrastructure and stay invested in continuous optimization." },
-    { number: "05", title: "Digital Transformation", description: "Drive growth with SEO, targeted campaigns, and data-driven marketing strategies." },
+    {
+      number: "01",
+      title: "Visual Identity & Branding",
+      description:
+        "Define your digital presence with distinctive branding that resonates and converts.",
+    },
+    {
+      number: "02",
+      title: "Design & Research",
+      description:
+        "Transform ideas into user-centered designs through research, prototypes, and validation.",
+    },
+    {
+      number: "03",
+      title: "Development & Testing",
+      description:
+        "Build scalable solutions with clean architecture, rigorous testing, and modern frameworks.",
+    },
+    {
+      number: "04",
+      title: "Launch & Iteration",
+      description:
+        "Deploy with secure infrastructure and stay invested in continuous optimization.",
+    },
+    {
+      number: "05",
+      title: "Digital Transformation",
+      description:
+        "Drive growth with SEO, targeted campaigns, and data-driven marketing strategies.",
+    },
   ];
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -39,23 +64,62 @@ const OurApproach = ({ onComplete }: Props) => {
   const numberRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
-  /* Animate text when step changes */
+  // Step 1 & Steps 2-5 animations
   useEffect(() => {
+    const numberEl = numberRef.current;
+    const titleEl = titleRef.current;
+    const descEl = descRef.current;
+    const btnEl = buttonRef.current;
+
+    if (!numberEl || !titleEl || !descEl || !btnEl) return;
+
+    // Kill any previous float animations
+    gsap.killTweensOf([numberEl, titleEl]);
+
+    if (activeIndex === 0) {
+      // Step 1 animation: number & title from left
+      gsap.fromTo(
+        [numberEl, titleEl],
+        { opacity: 0, x: -60 },
+        { opacity: 1, x: 0, duration: 0.8, ease: "power3.out", stagger: 0.1 }
+      );
+    } else {
+      // Steps 2-5 animation: float/blink effect
+      const tl = gsap.timeline({ defaults: { duration: 0.6, ease: "power1.out" } });
+
+      tl.fromTo(
+        numberEl,
+        { opacity: 0, y: 30, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1 }
+      ).fromTo(
+        titleEl,
+        { opacity: 0, y: 30, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1 },
+        "<"
+      );
+
+      // subtle infinite float after animation
+      gsap.to([numberEl, titleEl], {
+        y: -5,
+        duration: 1.2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: 0.6, // wait for fade-in to finish
+      });
+    }
+
+    // Right-bottom desc & button animation (all steps)
     gsap.fromTo(
-      [numberRef.current, titleRef.current, descRef.current],
+      [descEl, btnEl],
       { opacity: 0, y: 40 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: "power3.out",
-        stagger: 0.08,
-      }
+      { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", stagger: 0.08 }
     );
   }, [activeIndex]);
 
-  /* Scroll-driven steps */
+  // Scroll-driven step change
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -69,23 +133,17 @@ const OurApproach = ({ onComplete }: Props) => {
       pin: true,
       anticipatePin: 1,
       invalidateOnRefresh: true,
-
       onUpdate: (self) => {
-        const index = Math.min(
-          totalSteps - 1,
-          Math.floor(self.progress * totalSteps)
-        );
-
+        const index = Math.min(totalSteps - 1, Math.floor(self.progress * totalSteps));
         setActiveIndex(index);
       },
-
       onLeave: () => {
         onComplete?.();
       },
     });
 
     return () => trigger.kill();
-  }, []);
+  }, [data, onComplete]);
 
   return (
     <OurApproachContainer ref={containerRef}>
@@ -108,9 +166,7 @@ const OurApproach = ({ onComplete }: Props) => {
           <ContentWrapper>
             <SubContentWrapper>
               <Box>
-                <NumberTypography ref={numberRef}>
-                  {data[activeIndex].number}
-                </NumberTypography>
+                <NumberTypography ref={numberRef}>{data[activeIndex].number}</NumberTypography>
 
                 <SubTitle ref={titleRef} variant="h1">
                   {data[activeIndex].title}
@@ -123,7 +179,7 @@ const OurApproach = ({ onComplete }: Props) => {
                 {data[activeIndex].description}
               </DescriptionText>
 
-              <DiscoverButton sx={{ mt: "40px" }}>
+              <DiscoverButton ref={buttonRef} sx={{ mt: "40px" }}>
                 Discover
               </DiscoverButton>
             </RightBottomBox>

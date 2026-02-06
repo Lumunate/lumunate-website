@@ -21,7 +21,6 @@ import PageContainer from "../common/PageContainer";
 import DiscoverButton from "../ui/DiscoverButton";
 import { useEffect } from "react";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
-import type { Theme } from "@mui/material/styles";
 
 /* Frontend schema (Zod) */
 const contactSchema = z.object({
@@ -89,22 +88,20 @@ export default function ContactSection() {
     const selectMenuProps = useMemo(
         () => ({
             disablePortal: false,
-            disableScrollLock: false,
-            keepMounted: true,
+            disableScrollLock: true,
             PaperProps: {
                 sx: {
-                    mt: 1,
+                    mt: 0,
                     borderRadius: "12px",
                     backgroundColor: theme.palette.background.default,
-                    border: `1px solid ${alpha(theme.palette.divider, 0.8)}`,
+                    border: `1px solid ${theme.palette.divider}`,
                     boxShadow: "0 20px 40px rgba(0,0,0,0.6)",
-                    backdropFilter: "blur(16px)",
-                    WebkitBackdropFilter: "blur(16px)",
+                    backgroundImage: "none",
 
                     "& .MuiMenuItem-root": {
                         fontSize: "14px",
                         fontFamily: "Montserrat, sans-serif",
-                        color: theme.palette.text.primary,
+                        color: theme.palette.section.muted,
                         padding: "12px 16px",
 
                         "&:hover": {
@@ -353,10 +350,8 @@ export default function ContactSection() {
                                     disabled={isSubmitting}
                                     sx={{
                                         mt: "43px",
-
-                                        px: "24px",
-                                        py: "12px",
-
+                                        // px: "24px",
+                                        // py: "12px",
                                         minHeight: "auto",
                                         minWidth: "auto",
                                     }}
@@ -377,7 +372,7 @@ export default function ContactSection() {
                 onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}
             >
-                <Alert severity={snackbar.type} variant="filled" sx={{ width: "100%", fontSize: "16px" }}>
+                <Alert severity={snackbar.type} variant="filled" sx={{ width: "100%", fontSize: "16px", backgroundColor: theme.palette.button.discoverBg, }}>
                     {snackbar.message}
                 </Alert>
             </Snackbar>

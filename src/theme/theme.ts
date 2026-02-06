@@ -25,10 +25,16 @@ declare module "@mui/material/styles" {
       caseStudyLabel: string;
       muted: string;
     };
+    button: {
+      discoverBg: string;
+    };
   }
   interface PaletteOptions {
     navbar?: Partial<Palette["navbar"]>;
     section?: Partial<Palette["section"]>;
+    button?: {
+      discoverBg?: string;
+    };
   }
 }
 
@@ -51,6 +57,9 @@ export const TOKENS = {
   bg: {
     default: "#0E0E0E",
     paper: "#171717",
+  },
+  button: {
+    discoverBg: "#015B3F",
   },
 };
 
@@ -96,6 +105,7 @@ const theme = createTheme({
 
     navbar: TOKENS.navbar,
     section: TOKENS.section,
+    button: TOKENS.button,
   },
 
   breakpoints,

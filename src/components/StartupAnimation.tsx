@@ -19,7 +19,6 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
     useEffect(() => {
         const hasRun = sessionStorage.getItem("startupAnimationShown");
         if (hasRun) {
-            // Don't show animation again
             onComplete();
             return;
         }
@@ -29,7 +28,6 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
 
         document.body.classList.add("startup-active");
 
-        // Hide navbar during startup animation
         const navbar = document.querySelector("header.MuiAppBar-root") as HTMLElement | null;
         if (navbar) {
             gsap.set(navbar, { opacity: 0, y: -80, pointerEvents: "none" });
@@ -39,67 +37,76 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
             document.body.classList.remove("startup-active");
         };
 
-        const tl = gsap.timeline({
-            defaults: { ease: "power3.out" },
-        });
+        // Delay GSAP animation until DOM nodes exist
+        const animate = () => {
+            if (!leftRef.current || !centerRef.current || !rightRef.current || !containerRef.current) {
+                return; // wait until refs are ready
+            }
 
-        gsap.set(leftRef.current, { y: "100%" });
-        gsap.set(rightRef.current, { y: "100%" });
-        gsap.set(centerRef.current, { y: "-100%" });
+            const tl = gsap.timeline({
+                defaults: { ease: "power3.out" },
+            });
 
-        tl.to([leftRef.current, rightRef.current, centerRef.current], {
-            y: "0%",
-            duration: 1.1,
-        })
-            .to({}, { duration: 0.4 })
-            .to(
-                [leftRef.current, rightRef.current, centerRef.current],
-                {
-                    y: "-100%",
-                    duration: 1.1,
-                    ease: "power3.inOut",
-                    onStart: () => {
-                        if (containerRef.current) {
-                            gsap.to(containerRef.current, {
+            gsap.set(leftRef.current, { y: "100%" });
+            gsap.set(rightRef.current, { y: "100%" });
+            gsap.set(centerRef.current, { y: "-100%" });
+
+            tl.to([leftRef.current, rightRef.current, centerRef.current], {
+                y: "0%",
+                duration: 1.1,
+            })
+                .to({}, { duration: 0.4 })
+                .to(
+                    [leftRef.current, rightRef.current, centerRef.current],
+                    {
+                        y: "-100%",
+                        duration: 1.1,
+                        ease: "power3.inOut",
+                        onStart: () => {
+                            gsap.to(containerRef.current!, {
                                 backgroundColor: "transparent",
                                 duration: 0.3,
                                 ease: "none",
                             });
-                        }
+                        },
                     },
-                },
-                "+=0.1"
-            )
-            .to(containerRef.current, {
-                autoAlpha: 0,
-                duration: 0.7,
-                ease: "power2.inOut",
-                onComplete: () => {
-                    if (containerRef.current) containerRef.current.style.display = "none";
-                    // Navbar remains hidden here; will show after animation in homepage component
-                    if (navbar) {
-                        gsap.set(navbar, { opacity: 0, y: -80, pointerEvents: "none" });
-                    }
-
-                    setVisible(false);
-
-                    setTimeout(() => {
-                        onComplete();
+                    "+=0.1"
+                )
+                .to(containerRef.current, {
+                    autoAlpha: 0,
+                    duration: 0.7,
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        containerRef.current!.style.display = "none";
+                        if (navbar) {
+                            gsap.set(navbar, { opacity: 0, y: -80, pointerEvents: "none" });
+                        }
+                        setVisible(false);
                         setTimeout(() => {
-                            cleanup();
-                            ScrollTrigger.refresh(true);
-                        }, 700);
-                    }, 300);
-                },
-            });
+                            onComplete();
+                            setTimeout(() => {
+                                cleanup();
+                                ScrollTrigger.refresh(true);
+                            }, 700);
+                        }, 300);
+                    },
+                });
+
+            return () => {
+                cleanup();
+                tl.kill();
+            };
+        };
+
+        // Delay the animation to the next tick to ensure refs exist
+        const timeout = setTimeout(animate, 0);
 
         return () => {
+            clearTimeout(timeout);
             cleanup();
-            tl.kill();
         };
     }, [onComplete]);
 
-    if (!visible) return null;
 
     return (
         <Box

@@ -8,7 +8,7 @@ const ExploreSection = () => {
     const exploreRef = useRef<HTMLHeadingElement | null>(null);
 
     useEffect(() => {
-        // Use GSAP context to safely scope animation
+        // Used GSAP context to safely scope animation
         const ctx = gsap.context(() => {
             if (!exploreRef.current) return;
 
@@ -32,7 +32,7 @@ const ExploreSection = () => {
 
     return (
         <ExploreWrapper>
-            <ExploreText ref={exploreRef} variant="h1">
+            <ExploreText ref={exploreRef}>
                 Explore. Engineer. Evolve.
             </ExploreText>
         </ExploreWrapper>

@@ -39,7 +39,6 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
         Your browser does not support the video tag.
       </BackgroundVideo>
 
-      {/* ✅ add these */}
       <Box className="topBlur" />
       <Box className="bottomBlur" />
 
@@ -70,7 +69,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
           <Box sx={{ marginTop: { xs: "30px", md: "50px", lg: "65px" } }}>
             <Typography
               sx={{
-                fontSize: { xs: "22px", sm: "32px", md: "42px", lg: "78px" },
+                fontSize: { xs: "22px", sm: "32px", md: "42px", lg: "60px" },
                 color: theme.palette.text.primary,
                 fontWeight: 400,
                 lineHeight: 1.3,

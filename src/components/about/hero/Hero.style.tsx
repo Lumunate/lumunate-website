@@ -13,13 +13,13 @@ export const HeroContainer = styled(Box)(({ theme }) => ({
 
 export const BackgroundVideo = styled("video")({
   position: "absolute",
-  top: 0,
-  left: 0,
+  inset: 0,
   width: "100%",
   height: "100%",
   objectFit: "cover",
   zIndex: 0,
 });
+
 
 export const ContentContainer = styled(Box)(({ theme }) => ({
   height: "100%",
@@ -46,3 +46,19 @@ export const ContentContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
+export const BottomBlurOverlay = styled(Box)(({ theme }) => ({
+  position: "absolute",
+  left: 0,
+  width: "100%",
+  height: "260px",
+
+  bottom: "-14rem",
+
+  backdropFilter: "blur(14px)",
+  WebkitBackdropFilter: "blur(14px)",
+  background:
+    "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0))",
+
+  zIndex: 1,
+  pointerEvents: "none",
+}));

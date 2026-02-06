@@ -24,6 +24,8 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MenuIcon from "@mui/icons-material/Menu";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+
 
 import {
     NavContainer,
@@ -47,7 +49,7 @@ const projects = [
     { name: "Fast Clean Service – Car Detailing Platform", href: "/projects/fast-clean" },
     { name: "Poppynz – On-Demand Family Support", href: "/projects/poppynz" },
     { name: "Zeal – AI-Driven Healthcare Platform 2", href: "/projects/zeal-2" },
-    { name: "TCR Properties – Dubai Real Estate Platform", href: "/projects/tcr-properties" },
+    // { name: "TCR Properties – Dubai Real Estate Platform", href: "/projects/tcr-properties" },
 ];
 
 const navLinks = [
@@ -78,6 +80,7 @@ export default function Navbar() {
 
     const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
     const handleMenuClose = () => setAnchorEl(null);
+    const isCaseStudiesOpen = Boolean(anchorEl);
 
     const toggleDrawer = (open: boolean) => () => {
         setDrawerOpen(open);
@@ -92,7 +95,12 @@ export default function Navbar() {
             fontFamily: "Montserrat, sans-serif",
             textTransform: "none",
             letterSpacing: "0.5px",
-            "&:hover": { color: theme.palette.navbar.itemTextHover },
+            backgroundColor: "transparent",
+
+            "&:hover": {
+                color: theme.palette.section.heading,
+                backgroundColor: "transparent", // ❌ remove rectangle
+            },
         }),
         [theme]
     );
@@ -109,11 +117,12 @@ export default function Navbar() {
             const dividerRect = caseStudiesRightDividerRef.current.getBoundingClientRect();
 
             const left = Math.round(logoRect.left);
-            const right = Math.round(dividerRect.right);
+            const right = Math.round(dividerRect.left);
 
             const desiredWidth = Math.max(320, right - left);
             const maxAllowed = Math.max(320, Math.round(window.innerWidth - left - 16));
             const width = Math.min(desiredWidth, maxAllowed);
+
 
             setMenuWidth(width);
             setMenuPos({
@@ -183,14 +192,33 @@ export default function Navbar() {
                                 </Button>
                             ))}
 
+
+
                             <Button
                                 color="inherit"
-                                endIcon={<KeyboardArrowDownIcon fontSize="small" />}
                                 onClick={handleMenuOpen}
-                                sx={navButtonSx}
+                                endIcon={
+                                    isCaseStudiesOpen ? (
+                                        <KeyboardArrowUpIcon fontSize="small" />
+                                    ) : (
+                                        <KeyboardArrowDownIcon fontSize="small" />
+                                    )
+                                }
+                                sx={{
+                                    ...navButtonSx,
+                                    color: isCaseStudiesOpen
+                                        ? theme.palette.section.heading
+                                        : theme.palette.navbar.itemText,
+
+                                    "&:hover": {
+                                        color: theme.palette.section.heading,
+                                        backgroundColor: "transparent", // ❌ no rectangle
+                                    },
+                                }}
                             >
                                 Case Studies
                             </Button>
+
 
                             <VerticalDivider ref={caseStudiesRightDividerRef} />
 
@@ -223,6 +251,7 @@ export default function Navbar() {
                                         overflowX: "hidden",
                                     },
                                 }}
+
                             >
                                 <Box
                                     sx={{
@@ -230,34 +259,61 @@ export default function Navbar() {
                                         gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
                                     }}
                                 >
-                                    {projects.map((proj) => (
-                                        <MenuItem
-                                            key={proj.name}
-                                            component={Link}
-                                            href={proj.href}
-                                            onClick={handleMenuClose}
-                                            disableGutters
-                                            sx={{
-                                                px: 2,
-                                                py: 1.5,
-                                                fontFamily: "Montserrat, sans-serif",
-                                                fontSize: theme.typography.body2.fontSize,
-                                                lineHeight: 1.3,
-                                                whiteSpace: "normal",
-                                                overflowWrap: "anywhere",
-                                                color: theme.palette.section.desc,
-                                                borderTop: `1px solid ${theme.palette.navbar.border}`,
-                                                borderLeft: `1px solid ${theme.palette.navbar.border}`,
-                                                backgroundColor: theme.palette.background.default,
-                                                "&:hover": {
-                                                    backgroundColor: theme.palette.navbar.itemHoverBg,
-                                                    color: theme.palette.section.heading,
-                                                },
-                                            }}
-                                        >
-                                            {proj.name}
-                                        </MenuItem>
-                                    ))}
+                                    {projects.map((proj, index) => {
+                                        const isFirstRow = index < columns;
+                                        const isLastRow = index >= projects.length - columns;
+                                        const isFirstCol = index % columns === 0;
+                                        const isLastCol =
+                                            (index + 1) % columns === 0 || index === projects.length - 1;
+
+                                        return (
+                                            <MenuItem
+                                                key={proj.name}
+                                                component={Link}
+                                                href={proj.href}
+                                                onClick={handleMenuClose}
+                                                disableGutters
+                                                sx={{
+                                                    px: 2,
+                                                    py: 1.5,
+                                                    fontFamily: "Montserrat, sans-serif",
+                                                    fontSize: theme.typography.body2.fontSize,
+                                                    lineHeight: 1.3,
+                                                    whiteSpace: "normal",
+                                                    overflowWrap: "anywhere",
+                                                    color: theme.palette.section.desc,
+
+                                                    /* ───────── GRID BORDERS (NO DOUBLES) ───────── */
+
+                                                    // horizontal separators
+                                                    ...(!isFirstRow && {
+                                                        borderTop: `1px solid ${theme.palette.navbar.border}`,
+                                                    }),
+
+                                                    // vertical separators (internal only)
+                                                    ...(!isFirstCol && {
+                                                        borderLeft: `1px solid ${theme.palette.navbar.border}`,
+                                                    }),
+
+                                                    // bottom edge (last row only)
+                                                    ...(isLastRow && {
+                                                        borderBottom: `1px solid ${theme.palette.navbar.border}`,
+                                                    }),
+
+                                                    backgroundColor: "transparent",
+
+                                                    "&:hover": {
+                                                        backgroundColor: "transparent",
+                                                        color: theme.palette.section.heading,
+                                                    },
+                                                }}
+                                            >
+                                                {proj.name}
+                                            </MenuItem>
+
+                                        );
+                                    })}
+
                                 </Box>
                             </Menu>
                         </MenuBox>
@@ -293,7 +349,6 @@ export default function Navbar() {
                                             backgroundColor: "transparent",
                                             boxShadow: "none",
                                             "&:hover": {
-                                                backgroundColor: theme.palette.navbar.itemHoverBg,
                                                 color: theme.palette.navbar.itemTextHover,
                                                 boxShadow: "none",
                                             },

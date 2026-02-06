@@ -64,6 +64,9 @@ export const FaqAccordion = styled(Accordion)(({ theme }) => ({
     borderRadius: 0,
     margin: 0,
     borderTop: `1px solid ${alpha(theme.palette.text.primary, 0.12)}`,
+    "&:first-of-type": {
+        borderTop: "none",
+    },
 
     "&:before": { display: "none" },
 
