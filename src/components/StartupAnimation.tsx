@@ -1,6 +1,8 @@
+// StartupAnimation.tsx (adjusted)
+
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { Box } from "@mui/material";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -12,28 +14,39 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
     const leftRef = useRef<HTMLDivElement>(null);
     const centerRef = useRef<HTMLDivElement>(null);
     const rightRef = useRef<HTMLDivElement>(null);
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
+        const hasRun = sessionStorage.getItem("startupAnimationShown");
+        if (hasRun) {
+            // Don't show animation again
+            onComplete();
+            return;
+        }
+
+        sessionStorage.setItem("startupAnimationShown", "true");
+        setVisible(true);
+
         document.body.classList.add("startup-active");
 
-        // Hide navbar while startup animation runs
+        // Hide navbar during startup animation
         const navbar = document.querySelector("header.MuiAppBar-root") as HTMLElement | null;
         if (navbar) {
             gsap.set(navbar, { opacity: 0, y: -80, pointerEvents: "none" });
         }
 
-        const cleanup = () => document.body.classList.remove("startup-active");
+        const cleanup = () => {
+            document.body.classList.remove("startup-active");
+        };
 
         const tl = gsap.timeline({
             defaults: { ease: "power3.out" },
         });
 
-        // Initial setup for SVG sections
         gsap.set(leftRef.current, { y: "100%" });
         gsap.set(rightRef.current, { y: "100%" });
         gsap.set(centerRef.current, { y: "-100%" });
 
-        // Startup animation sequence
         tl.to([leftRef.current, rightRef.current, centerRef.current], {
             y: "0%",
             duration: 1.1,
@@ -46,7 +59,6 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
                     duration: 1.1,
                     ease: "power3.inOut",
                     onStart: () => {
-                        // remove black background sooner
                         if (containerRef.current) {
                             gsap.to(containerRef.current, {
                                 backgroundColor: "transparent",
@@ -59,23 +71,18 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
                 "+=0.1"
             )
             .to(containerRef.current, {
-                autoAlpha: 0, // hides + sets visibility:hidden
+                autoAlpha: 0,
                 duration: 0.7,
                 ease: "power2.inOut",
                 onComplete: () => {
-                    // Hide startup container
-                    if (containerRef.current) {
-                        containerRef.current.style.display = "none";
-                    }
-                    // Leave Navbar hidden; HeaderSection will handle showing it later
-                    const navbar = document.querySelector("header.MuiAppBar-root") as HTMLElement | null;
+                    if (containerRef.current) containerRef.current.style.display = "none";
+                    // Navbar remains hidden here; will show after animation in homepage component
                     if (navbar) {
                         gsap.set(navbar, { opacity: 0, y: -80, pointerEvents: "none" });
                     }
 
+                    setVisible(false);
 
-
-                    // Wait a little before triggering header animations
                     setTimeout(() => {
                         onComplete();
                         setTimeout(() => {
@@ -91,6 +98,8 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
             tl.kill();
         };
     }, [onComplete]);
+
+    if (!visible) return null;
 
     return (
         <Box

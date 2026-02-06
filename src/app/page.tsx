@@ -22,7 +22,12 @@ import ScrollToPlugin from "gsap/ScrollToPlugin";
 
 gsap.registerPlugin(ScrollToPlugin);
 
-export default function Home() {
+export default function Home({
+  navRef,
+}: {
+  navRef: React.RefObject<HTMLDivElement | null>;
+}) {
+
   const [preloadDone, setPreloadDone] = useState(false);
   const [startupDone, setStartupDone] = useState(false);
   const [fadeIn, setFadeIn] = useState(false);
@@ -40,10 +45,33 @@ export default function Home() {
 
   // Lock scroll initially
   useEffect(() => {
-    document.body.style.overflow = "hidden";
+    if (!preloadDone || !startupDone) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
     return () => {
       document.body.style.overflow = "";
     };
+  }, [preloadDone, startupDone]);
+
+  useEffect(() => {
+    if (!approachRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStartApproach(true);
+          observer.disconnect(); // run once
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    observer.observe(approachRef.current);
+
+    return () => observer.disconnect();
   }, []);
 
   const wait = (sec: number) =>
@@ -61,48 +89,7 @@ export default function Home() {
     });
 
   // Startup sequence
-  useEffect(() => {
-    if (!startupDone) return;
 
-    const run = async () => {
-      document.body.style.overflow = "hidden";
-
-      await wait(4); // hero
-
-      await scrollTo(logosRef.current);
-      await wait(3);
-
-      await scrollTo(testimonialRef.current);
-      await wait(4);
-
-      await scrollTo(workflowRef.current);
-      await wait(6 * 4); // workflow cards
-
-      await scrollTo(trackRef.current);
-      await wait(3);
-
-      // 🔥 Our Approach (controlled start)
-      await scrollTo(approachRef.current);
-      setStartApproach(true);
-
-      // ⏳ wait until OurApproach REALLY finishes
-      await new Promise<void>((resolve) => {
-        const i = setInterval(() => {
-          if (approachDoneRef.current) {
-            clearInterval(i);
-            resolve();
-          }
-        }, 100);
-      });
-
-      // 🔥 Now scroll to Works
-      await scrollTo(worksRef.current);
-
-      document.body.style.overflow = "";
-    };
-
-    run();
-  }, [startupDone]);
 
   // Fade in content
   useEffect(() => {
@@ -133,55 +120,32 @@ export default function Home() {
           transition: "opacity 1s ease, transform 1s ease",
         }}
       >
-        <HeaderSection />
+        <HeaderSection animate={startupDone} />
 
-        <Box ref={logosRef}>
-          <LogosSection />
-        </Box>
+        <LogosSection />
 
-        {/* <Box ref={testimonialRef}> */}
+
         <TestimonialSection />
-        {/* </Box> */}
-
-        <Box ref={workflowRef}>
-          <WorkflowSection
-            onComplete={async () => {
-              // Wait a tiny moment for last card to settle
-              await wait(0.3);
-              await scrollTo(trackRef.current);
-            }}
-          />
-        </Box>
 
 
-        <Box ref={trackRef}>
-          <TrackRecord />
-        </Box>
+        <WorkflowSection />
 
-        {/* ✅ Controlled animation */}
-        <Box ref={approachRef}>
-          <OurApproach
-            start={startApproach}
-            onComplete={() => {
-              approachDoneRef.current = true;
-            }}
-          />
-        </Box>
+        <TrackRecord />
 
-        <Box ref={worksRef}>
-          <Works />
-        </Box>
-
-        <HowItWorks />
-        <ExploreSection />
-
-        <Ready
-          title="Ready to Build What's Next?"
-          description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions."
-          linkText="Let's Connect"
-          linkHref="/contact"
-        />
+        <OurApproach />
       </Box>
+
+      <Works />
+
+      <HowItWorks />
+      <ExploreSection />
+
+      <Ready
+        title="Ready to Build What's Next?"
+        description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions."
+        linkText="Let's Connect"
+        linkHref="/contact"
+      />
     </>
   );
 }

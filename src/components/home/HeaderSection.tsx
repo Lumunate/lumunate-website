@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   HeaderRoot,
@@ -15,17 +15,24 @@ import Image from "next/image";
 import { useRef } from "react";
 import { useGsapTimelineAnimation } from "@/hooks/useGsapAnimation";
 import PageContainer from "../common/PageContainer";
+import { useNavbarRef } from "@/components/ui/NavbarContext";
+import { usePathname } from "next/navigation";
 
-export default function HeaderSection() {
+export default function HeaderSection({ animate }: { animate: boolean }) {
+  const navRef = useNavbarRef();
 
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const socialRef = useRef<HTMLDivElement>(null);
-  // Animate navbar + title + description + social together after video starts
-  useGsapTimelineAnimation([titleRef, descRef, socialRef], 2);
 
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
-
+  useGsapTimelineAnimation(
+    [navRef, titleRef, descRef, socialRef],
+    0,
+    animate && isHome
+  );
 
   return (
     <HeaderRoot>
@@ -36,21 +43,19 @@ export default function HeaderSection() {
           loop
           muted
           playsInline
-          preload="auto"
-          style={{
-            opacity: 1,
-            transition: "none",
-          }}
         />
-
       </SvgBg>
+
       <PageContainer>
         <ContentBox>
           <LeftBox>
-            <StyledH1 ref={titleRef} variant="h1">Your digital <br /> evolution <br /> partner</StyledH1>
+            <StyledH1 ref={titleRef}>
+              Your digital <br /> evolution <br /> partner
+            </StyledH1>
           </LeftBox>
+
           <RightBox>
-            <StyledParagraph ref={descRef} variant="body1">
+            <StyledParagraph ref={descRef}>
               Transform ideas into scalable digital products that grow with your
               business. From AI-powered platforms to enterprise solutions,
               we&apos;re the technology partner that turns vision into velocity.
@@ -59,31 +64,17 @@ export default function HeaderSection() {
             <SocialStack ref={socialRef}>
               <IconButton
                 size="small"
-                color="inherit"
                 href="https://www.instagram.com/company/lumunate/"
                 target="_blank"
-                className="icon-item"
               >
-                <Image
-                  src="/icons/instagram.svg"
-                  alt="Instagram"
-                  width={25}
-                  height={25}
-                />
+                <Image src="/icons/instagram.svg" alt="Instagram" width={25} height={25} />
               </IconButton>
               <IconButton
                 size="small"
-                color="inherit"
                 href="https://www.linkedin.com/company/lumunate/"
                 target="_blank"
-                className="icon-item"
               >
-                <Image
-                  src="/icons/linkedin.svg"
-                  alt="LinkedIn"
-                  width={25}
-                  height={25}
-                />
+                <Image src="/icons/linkedin.svg" alt="LinkedIn" width={25} height={25} />
               </IconButton>
             </SocialStack>
           </RightBox>

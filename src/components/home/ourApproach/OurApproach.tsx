@@ -14,17 +14,17 @@ import {
 } from "./OurApproach.style";
 import { Box } from "@mui/material";
 import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import PageContainer from "@/components/common/PageContainer";
 import DiscoverButton from "@/components/ui/DiscoverButton";
 
+gsap.registerPlugin(ScrollTrigger);
+
 interface Props {
-  start: boolean;
   onComplete?: () => void;
 }
 
-const STEP_DURATION = 2500;
-
-const OurApproach = ({ start, onComplete }: Props) => {
+const OurApproach = ({ onComplete }: Props) => {
   const data = [
     { number: "01", title: "Visual Identity & Branding", description: "Define your digital presence with distinctive branding that resonates and converts." },
     { number: "02", title: "Design & Research", description: "Transform ideas into user-centered designs through research, prototypes, and validation." },
@@ -35,10 +35,12 @@ const OurApproach = ({ start, onComplete }: Props) => {
 
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const containerRef = useRef<HTMLDivElement>(null);
   const numberRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
 
+  /* Animate text when step changes */
   useEffect(() => {
     gsap.fromTo(
       [numberRef.current, titleRef.current, descRef.current],
@@ -46,36 +48,47 @@ const OurApproach = ({ start, onComplete }: Props) => {
       {
         opacity: 1,
         y: 0,
-        duration: 0.8,
+        duration: 0.6,
         ease: "power3.out",
-        stagger: 0.1,
+        stagger: 0.08,
       }
     );
   }, [activeIndex]);
 
+  /* Scroll-driven steps */
   useEffect(() => {
-    if (!start) return;
+    if (!containerRef.current) return;
 
-    let index = 0;
-    setActiveIndex(0);
+    const totalSteps = data.length;
 
-    const interval = setInterval(() => {
-      index++;
+    const trigger = ScrollTrigger.create({
+      trigger: containerRef.current,
+      start: "top top",
+      end: () => `+=${window.innerHeight * totalSteps}`,
+      scrub: 0.6,
+      pin: true,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
 
-      if (index >= data.length) {
-        clearInterval(interval);
+      onUpdate: (self) => {
+        const index = Math.min(
+          totalSteps - 1,
+          Math.floor(self.progress * totalSteps)
+        );
+
+        setActiveIndex(index);
+      },
+
+      onLeave: () => {
         onComplete?.();
-        return;
-      }
+      },
+    });
 
-      setActiveIndex(index);
-    }, STEP_DURATION);
-
-    return () => clearInterval(interval);
-  }, [start]);
+    return () => trigger.kill();
+  }, []);
 
   return (
-    <OurApproachContainer>
+    <OurApproachContainer ref={containerRef}>
       <Box className="topBlur" />
       <Box className="bottomBlur" />
 
@@ -98,6 +111,7 @@ const OurApproach = ({ start, onComplete }: Props) => {
                 <NumberTypography ref={numberRef}>
                   {data[activeIndex].number}
                 </NumberTypography>
+
                 <SubTitle ref={titleRef} variant="h1">
                   {data[activeIndex].title}
                 </SubTitle>
@@ -108,6 +122,7 @@ const OurApproach = ({ start, onComplete }: Props) => {
               <DescriptionText ref={descRef} variant="h5">
                 {data[activeIndex].description}
               </DescriptionText>
+
               <DiscoverButton sx={{ mt: "40px" }}>
                 Discover
               </DiscoverButton>

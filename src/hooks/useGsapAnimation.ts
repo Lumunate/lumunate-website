@@ -169,53 +169,71 @@ export const useGsapSlideAnimation = (data: unknown[]) => {
 // useGsapTimelineAnimation - sequential header/hero animation
 export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
   refs: React.RefObject<T | null>[],
-  delay = 0
+  delay = 0,
+  enabled = true // 👈 ADD THIS
 ) => {
   useEffect(() => {
-    const validRefs = refs.filter((r) => r?.current) as React.RefObject<T>[];
-    if (validRefs.length === 0) return;
+    if (!enabled) return; // 👈 BLOCK animation until allowed
+
+    const elements = refs
+      .filter((r): r is React.RefObject<T> => Boolean(r && r.current))
+      .map((r) => r.current!) as T[];
+
+    if (!elements.length) return;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay });
+      const tl = gsap.timeline({ delay: delay + 3, });
 
-      if (validRefs[0])
+      // Navbar
+      if (elements[0]) {
         tl.fromTo(
-          validRefs[0].current,
-          { y: -80, opacity: 0, pointerEvents: "none" }, // 👈 ensure hidden & disabled
+          elements[0],
+          { y: -60, opacity: 0, pointerEvents: "none" },
           {
             y: 0,
             opacity: 1,
             duration: 1.1,
             ease: "power3.out",
             onComplete: () => {
-              // restore interactivity after animation
-              if (validRefs[0]?.current) {
-                (validRefs[0].current as HTMLElement).style.pointerEvents = "auto";
-              }
+              elements[0].style.pointerEvents = "auto";
             },
           }
         );
+      }
 
-      if (validRefs[1])
+      if (elements[1]) {
         tl.fromTo(
-          validRefs[1].current,
-          { x: "20%", y: "-50%", opacity: 0, scale: 0.8 },
-          { x: 0, y: 0, opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" },
-          "-=0.8"
+          elements[1],
+          { y: -80, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.1, ease: "power3.out" },
+          "-=0.6"
         );
+      }
 
-      if (validRefs[2])
+      if (elements[2]) {
         tl.fromTo(
-          validRefs[2].current,
+          elements[2],
           { x: "20%", y: "-50%", opacity: 0, scale: 0.8 },
           { x: 0, y: 0, opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" },
           "-=0.7"
         );
+      }
+
+      if (elements[3]) {
+        tl.fromTo(
+          elements[3],
+          { x: "20%", y: "-50%", opacity: 0, scale: 0.8 },
+          { x: 0, y: 0, opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" },
+          "-=0.8"
+        );
+      }
     });
 
     return () => ctx.revert();
-  }, [refs, delay]);
+  }, [refs, delay, enabled]); // 👈 ADD enabled
 };
+
+
 
 
 // useGsapCounterAnimation - Track Record counters
