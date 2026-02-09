@@ -10,20 +10,31 @@ const rotateSnake = keyframes`
 
 const StyledDiscoverButton = styled(Button)(({ theme }) => ({
 
-    backgroundColor: "#00412D",
-    padding: "20px 37px",
+    padding: "16px 24px", //  vertical | horizontal
+    gap: "8px",
+    minHeight: "56px",
+
     fontSize: "16px",
     fontFamily: "Montserrat, sans-serif",
     fontWeight: 500,
+    lineHeight: 1,
     color: "#FFFFFF",
-    borderRadius: "16px",
+
+    borderRadius: "15px",
     textTransform: "none",
+
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
     position: "relative",
     overflow: "hidden",
-    display: "inline-flex",
     zIndex: 1,
     border: "none",
-    transition: "background-color 0.4s ease, box-shadow 0.4s ease, transform 0.2s ease",
+
+    backgroundColor: "#00412D",
+    transition:
+        "background-color 0.4s ease, box-shadow 0.4s ease, transform 0.2s ease",
+
 
     "&::before": {
         content: '""',
@@ -33,18 +44,19 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
         top: "-50%",
         width: "200%",
         height: "200%",
-        backgroundImage: "conic-gradient(transparent, transparent, #8EFFAC, transparent 25%)",
+        backgroundImage:
+            "conic-gradient(transparent, transparent, #8EFFAC, transparent 25%)",
         opacity: 0,
         transition: "opacity 0.3s ease",
     },
 
-    // The Inner Background Mask
+
     "&::after": {
         content: '""',
         position: "absolute",
         zIndex: -1,
         inset: "2px",
-        borderRadius: "14px",
+        borderRadius: "15px",
         backgroundColor: "#015B3F",
         transition: "background-color 0.4s ease",
     },
@@ -68,13 +80,15 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
         },
     },
 
+
     "& .MuiButton-endIcon": {
+        margin: 0,
         transition: "transform 0.3s ease",
-        marginLeft: "12px",
         zIndex: 2,
+
         "& svg": {
             fontSize: "20px",
-        }
+        },
     },
 }));
 
@@ -86,7 +100,7 @@ export default function DiscoverButton(props: ButtonProps) {
             endIcon={<ArrowOutwardIcon />}
             {...props}
         >
-            {props.children || "Create Magic"}
+            {props.children || "Discover"}
         </StyledDiscoverButton>
     );
 }
