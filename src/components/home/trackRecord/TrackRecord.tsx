@@ -14,6 +14,7 @@ import {
 import { useGsapCounterAnimation } from "@/hooks/useGsapAnimation";
 import PageContainer from "@/components/common/PageContainer";
 import DiscoverButton from "@/components/ui/DiscoverButton";
+import Link from "next/link";
 
 const statusData = [
   { total: 112, suffix: "+", title: "Web & Mobile Apps Delivered" },
@@ -27,7 +28,6 @@ const statusData = [
 const TrackRecord: React.FC = () => {
   const numberRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Uses updated hook that supports prefix
   useGsapCounterAnimation(numberRefs, statusData);
 
   return (
@@ -39,8 +39,9 @@ const TrackRecord: React.FC = () => {
             We&apos;re not just developers. We&apos;re your growth partners from
             concept to scale.
           </DescriptionText>
-          <DiscoverButton sx={{ mt: "32px" }}>Discover</DiscoverButton>
-
+          <Link href="/contact" passHref style={{ textDecoration: 'none' }}>
+            <DiscoverButton sx={{ mt: "32px" }}>Discover</DiscoverButton>
+          </Link>
         </TitleWrapper>
 
         <StatusWrapper>

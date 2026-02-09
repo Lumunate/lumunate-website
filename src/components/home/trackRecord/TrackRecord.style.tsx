@@ -32,16 +32,19 @@ export const DescriptionText = styled(Typography)(({ theme }) => ({
 
 export const StatusWrapper = styled(Box)(({ theme }) => ({
   marginTop: "44px",
-  gridTemplateColumns: "repeat(4, 1fr)",
   display: "grid",
+  gridTemplateColumns: "repeat(4, 1fr)",
+  gap: "0px",
+  alignItems: "stretch",
 
   [theme.breakpoints.down("lg")]: {
     gridTemplateColumns: "repeat(2, 1fr)",
   },
   [theme.breakpoints.down("sm")]: {
-    gridTemplateColumns: "repeat(1, 1fr)",
+    gridTemplateColumns: "1fr",
   },
 }));
+
 
 export const StatusCard = styled(Box)(({ theme }) => ({
   padding: "16px 24px",
