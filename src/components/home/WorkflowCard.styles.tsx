@@ -5,24 +5,17 @@ import { Box, Typography, styled } from "@mui/material";
 export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
     display: "flex",
     width: "100%",
-    maxWidth: "1661px",
-    minHeight: 460,
-    background: "transparent",
+    maxWidth: "100%",
+    height: "100%",
+    // minHeight: "814px",
+    backgroundColor: theme.palette.background.paper,
     borderRadius: 32,
-    boxShadow: "0 0 24px 0 rgba(6, 5, 5, 0.25)",
+    boxShadow: "0 20px 50px rgba(0,0,0,0.2)",
     overflow: "hidden",
-
-    [theme.breakpoints.up("xl")]: {
-        maxWidth: "1800px",
-        minHeight: 560,
-        borderRadius: 36,
-    },
 
     [theme.breakpoints.down("md")]: {
         flexDirection: "column",
-        minHeight: 0,
-        boxShadow: "none",
-        borderRadius: 0,
+        height: "auto",
     },
 }));
 
@@ -30,17 +23,15 @@ export const CardLeft = styled(Box)(({ theme }) => ({
     flex: 1,
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
+    justifyContent: "center",
     padding: "66px 38px",
+    gap: "32px",
 
     color: theme.palette.text.primary,
-
     position: "relative",
+    zIndex: 2,
 
-    backgroundImage: `
-    linear-gradient(to right, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.9) 110%),
-    url('/design-bg.png')
-  `,
+    backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.2) 100%), url('/design-bg.png')`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center left",
@@ -48,29 +39,21 @@ export const CardLeft = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down("md")]: {
         padding: theme.spacing(4),
     },
-    [theme.breakpoints.down("sm")]: {
-        padding: theme.spacing(3),
-    },
 }));
 
-export const CardRight = styled(Box)(() => ({
+export const CardRight = styled(Box)(({ theme }) => ({
     flex: 1,
     display: "flex",
     alignItems: "stretch",
     justifyContent: "center",
-    maxHeight: "814px",
+    overflow: "hidden",
+    backgroundColor: theme.palette.background.default,
 }));
 
 export const WorkflowVideo = styled("video")(({ theme }) => ({
-    width: "120%",
-    height: "140%",
+    width: "100%",
+    height: "100%",
     objectFit: "cover",
-    alignSelf: "center",
-
-    [theme.breakpoints.up("xl")]: {
-        width: "135%",
-        height: "160%",
-    },
 }));
 
 export const TopText = styled(Typography)(({ theme }) => ({

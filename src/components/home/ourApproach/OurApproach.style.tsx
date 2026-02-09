@@ -23,7 +23,7 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
     content: '""',
     position: "absolute",
     inset: 0,
-    background: alpha("#000", 0.7),
+    background: alpha(theme.palette.background.default, 0.7),
     zIndex: -2,
   },
 
@@ -32,18 +32,18 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
     left: 0,
     right: 0,
     top: "0px",
-    height: "60px",
+    height: "100%",
     zIndex: -1,
     pointerEvents: "none",
     background: `
-    linear-gradient(
-      to bottom,
-      ${alpha(theme.palette.background.default, 0.95)} 0%,
-      ${alpha(theme.palette.background.default, 0.75)} 30%,
-      ${alpha(theme.palette.background.default, 0.35)} 60%,
-      ${alpha(theme.palette.background.default, 0)} 100%
-    )
-  `,
+      linear-gradient(
+        to bottom,
+        ${alpha(theme.palette.background.default, 0.95)} 0%,
+        ${alpha(theme.palette.background.default, 0.75)} 30%,
+        ${alpha(theme.palette.background.default, 0.35)} 60%,
+        ${alpha(theme.palette.background.default, 0)} 100%
+      )
+    `,
     backdropFilter: "blur(18px)",
     WebkitBackdropFilter: "blur(18px)",
   },
@@ -57,18 +57,17 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
     zIndex: -1,
     pointerEvents: "none",
     background: `
-    linear-gradient(
-      to top,
-      ${alpha(theme.palette.background.default, 0.95)} 0%,
-      ${alpha(theme.palette.background.default, 0.75)} 30%,
-      ${alpha(theme.palette.background.default, 0.35)} 60%,
-      ${alpha(theme.palette.background.default, 0)} 100%
-    )
-  `,
+      linear-gradient(
+        to top,
+        ${alpha(theme.palette.background.default, 0.95)} 0%,
+        ${alpha(theme.palette.background.default, 0.75)} 30%,
+        ${alpha(theme.palette.background.default, 0.35)} 60%,
+        ${alpha(theme.palette.background.default, 0)} 100%
+      )
+    `,
     backdropFilter: "blur(12px)",
     WebkitBackdropFilter: "blur(12px)",
   },
-
 
   [theme.breakpoints.down("md")]: {
     height: "900px",
@@ -80,7 +79,6 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
     margin: "72px 0",
   },
 }));
-
 
 export const SubContainer = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -94,8 +92,6 @@ export const SubContainer = styled(Box)(({ theme }) => ({
 
   alignItems: "stretch",
 }));
-
-
 
 export const TitleText = styled(Typography)(({ theme }) => ({
   position: "relative",
@@ -168,7 +164,6 @@ export const FullBleedGrid = styled(Box)(({ theme }) => ({
   },
 }));
 
-
 export const ContentWrapper = styled(Box)(({ theme }) => ({
   position: "relative",
   display: "grid",
@@ -237,8 +232,7 @@ export const RightBottomBox = styled(Box)(({ theme }) => ({
 export const NumberTypography = styled(Typography)(({ theme }) => ({
   fontSize: "260px",
   fontWeight: 400,
-  background:
-    "linear-gradient(to bottom, rgba(255,255,255,0.35) 0%, rgba(0,0,0,0.35) 100%)",
+  background: `linear-gradient(to bottom, ${alpha(theme.palette.text.primary, 0.35)} 0%, ${alpha(theme.palette.background.default, 0.35)} 100%)`,
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
   backgroundClip: "text",

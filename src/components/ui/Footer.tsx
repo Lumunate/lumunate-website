@@ -1,7 +1,6 @@
 "use client";
-import { IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import Image from "next/image";
-
 import {
     FooterRoot,
     FooterTop,
@@ -9,70 +8,72 @@ import {
     FooterBottom,
     FooterSection,
     FooterText,
-    FooterIconBox,
+    FooterSpacer,
 } from "./Footer.styles";
-import PageContainer from "../common/PageContainer";
 
 export default function Footer() {
     return (
         <FooterRoot>
-            {/* <PageContainer> */}
-                <FooterTop>
-                    <FooterNavItem href="/terms" className="left-item">
-                        Terms & Services
-                    </FooterNavItem>
-                    <FooterNavItem href="/digital-transformation" className="right-item">
-                        Digital Transformation
-                    </FooterNavItem>
-                </FooterTop>
+            <FooterTop>
+                {/* Left nav */}
+                <Box sx={{ display: "flex", height: "100%" }}>
+                    <FooterSpacer />
+                    <FooterNavItem href="/terms">Terms & Services</FooterNavItem>
+                </Box>
 
-                <FooterBottom>
-                    <FooterSection className="left-icons">
-                        <IconButton size="small" color="inherit" className="icon-item">
-                            <Image src="/icons/phone.svg" alt="Call" width={25} height={25} />
-                        </IconButton>
-                        <IconButton size="small" color="inherit" className="icon-item">
-                            <Image src="/icons/mail.svg" alt="Mail" width={25} height={25} />
-                        </IconButton>
-                    </FooterSection>
+                {/* Icons */}
+                <FooterSection>
+                    <FooterSpacer variant="icon" />
 
-                    <FooterText>
-                        LUMUNATE &copy; {new Date().getFullYear()} All rights reserved
-                    </FooterText>
+                    <IconButton
+                        disableRipple
+                        disableFocusRipple
+                        className="icon-item"
+                        component="a"
+                        href="tel:+923310200888"
+                    >
+                        <Image src="/icons/phone.svg" alt="Call" width={20} height={20} />
+                    </IconButton>
 
+                    <FooterSpacer variant="icon" />
 
-                    <FooterIconBox className="right-icons">
-                        <IconButton
-                            size="small"
-                            color="inherit"
-                            href="https://www.instagram.com/company/lumunate/"
-                            target="_blank"
-                            className="icon-item"
-                        >
-                            <Image
-                                src="/icons/instagram.svg"
-                                alt="Instagram"
-                                width={25}
-                                height={25}
-                            />
-                        </IconButton>
-                        <IconButton
-                            size="small"
-                            color="inherit"
-                            href="https://www.linkedin.com/company/lumunate/"
-                            target="_blank"
-                            className="icon-item"
-                        >
-                            <Image
-                                src="/icons/linkedin.svg"
-                                alt="LinkedIn"
-                                width={25}
-                                height={25}
-                            />
-                        </IconButton>
-                    </FooterIconBox>
-                </FooterBottom>
-            {/* </PageContainer> */}
+                    <IconButton
+                        disableRipple
+                        disableFocusRipple
+                        className="icon-item"
+                        component="a"
+                        href="mailto:info@lumunate.com"
+                    >
+                        <Image src="/icons/mail.svg" alt="Mail" width={20} height={20} />
+                    </IconButton>
+
+                    <FooterSpacer variant="icon" />
+
+                    <IconButton
+                        disableRipple
+                        disableFocusRipple
+                        className="icon-item"
+                        component="a"
+                        href="https://www.linkedin.com/company/lumunate/"
+                        target="_blank"
+                    >
+                        <Image src="/icons/linkedin.svg" alt="LinkedIn" width={20} height={20} />
+                    </IconButton>
+                </FooterSection>
+
+                {/* Right nav */}
+                <Box sx={{ display: "flex", height: "100%" }}>
+                    <FooterSpacer />
+                    <FooterNavItem href="/privacy-policy">Privacy Policy</FooterNavItem>
+                    <FooterSpacer />
+                </Box>
+            </FooterTop>
+
+            <FooterBottom>
+                <FooterText>
+                    LUMUNATE © {new Date().getFullYear()} All rights reserved
+                </FooterText>
+            </FooterBottom>
         </FooterRoot>
     );
 }

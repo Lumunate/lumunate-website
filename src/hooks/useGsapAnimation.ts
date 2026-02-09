@@ -234,8 +234,6 @@ export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
 };
 
 
-
-
 // useGsapCounterAnimation - Track Record counters
 export const useGsapCounterAnimation = (
   refs: React.MutableRefObject<(HTMLDivElement | null)[]>,
@@ -256,23 +254,30 @@ export const useGsapCounterAnimation = (
           { value: 0 },
           {
             value: finalValue,
-            duration: 2,
-            ease: "power1.out",
+            duration: 3, // REDUCED SPEED: Changed from 2 to 3 seconds for a premium feel
+            ease: "power2.out", // SMOOTHER FINISH: power2 decelerates more elegantly than power1
             scrollTrigger: {
               trigger: el,
-              start: "top 85%",
+              start: "top 90%", // Start slightly earlier so user sees the beginning
               once: true,
             },
             onUpdate: () => {
               if (!el) return;
 
-              if (finalValue > 1000) {
-                el.textContent = `${prefix}${Math.floor(counter.value).toLocaleString()}${suffix}`;
-              } else if (finalValue < 10) {
-                el.textContent = `${prefix}${counter.value.toFixed(1)}${suffix}`;
+              let formattedNumber: string;
+
+              if (finalValue >= 1000) {
+                // For large numbers: 740,000
+                formattedNumber = Math.floor(counter.value).toLocaleString();
+              } else if (finalValue % 1 !== 0) {
+                // For decimals: Fixes "jumping" by padding the decimal place
+                formattedNumber = counter.value.toFixed(1);
               } else {
-                el.textContent = `${prefix}${Math.floor(counter.value)}${suffix}`;
+                // For standard small integers
+                formattedNumber = Math.floor(counter.value).toString();
               }
+
+              el.textContent = `${prefix}${formattedNumber}${suffix}`;
             },
           }
         );

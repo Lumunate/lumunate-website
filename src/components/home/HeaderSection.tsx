@@ -64,13 +64,6 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
             <SocialStack ref={socialRef}>
               <IconButton
                 size="small"
-                href="https://www.instagram.com/company/lumunate/"
-                target="_blank"
-              >
-                <Image src="/icons/instagram.svg" alt="Instagram" width={25} height={25} />
-              </IconButton>
-              <IconButton
-                size="small"
                 href="https://www.linkedin.com/company/lumunate/"
                 target="_blank"
               >

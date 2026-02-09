@@ -382,7 +382,7 @@ export default function ContactSection() {
                 title="Tell us about your vision"
                 description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions that drive real results."
                 linkText="Let's Connect"
-                linkHref="/contact"
+                linkHref="https://calendly.com/saad-b-javaid22/consultation"
             />
         </>
     );

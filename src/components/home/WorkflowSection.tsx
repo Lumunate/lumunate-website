@@ -11,6 +11,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import PageContainer from "../common/PageContainer";
+import { Box } from "@mui/material";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -63,13 +64,17 @@ const workflowSections = [
   },
 ];
 
-const STACK_OFFSET = 18;
-const DEFAULT_CARD_HEIGHT = 460;
-const XL_CARD_HEIGHT = 560;
+const STACK_OFFSET = 12;
+const HEIGHTS = {
+  MOBILE: 500,
+  LAPTOP: 450,
+  DESKTOP: 750,
+  XL: 850
+};
 
 export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [cardHeight, setCardHeight] = useState(DEFAULT_CARD_HEIGHT);
+  const [cardHeight, setCardHeight] = useState(HEIGHTS.LAPTOP);
 
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -81,19 +86,29 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
   );
 
   useEffect(() => {
-    const updateHeight = () => {
-      setCardHeight(window.innerWidth >= 1920 ? XL_CARD_HEIGHT : DEFAULT_CARD_HEIGHT);
+    const updateDimensions = () => {
+      const width = window.innerWidth;
+      if (width >= 1920) {
+        setCardHeight(HEIGHTS.XL);
+      } else if (width >= 1600) {
+        setCardHeight(HEIGHTS.DESKTOP);
+      } else if (width >= 1024) {
+        setCardHeight(HEIGHTS.LAPTOP);
+      } else {
+        setCardHeight(HEIGHTS.MOBILE);
+      }
     };
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-    return () => window.removeEventListener("resize", updateHeight);
+
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
 
-    const scrollDistance = window.innerHeight * 4;
+    const scrollDistance = window.innerHeight * 3;
 
     mainTriggerRef.current = ScrollTrigger.create({
       trigger: el,
@@ -110,9 +125,7 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
       },
     });
 
-    return () => {
-      mainTriggerRef.current?.kill();
-    };
+    return () => mainTriggerRef.current?.kill();
   }, []);
 
   useEffect(() => {
@@ -120,35 +133,24 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
 
     cards.forEach((card, i) => {
       const isActive = i === activeIndex;
-      const isPast = i < activeIndex;
 
       gsap.to(card, {
-        y: i * STACK_OFFSET - (isPast ? 30 : 0),
-        opacity: isActive ? 1 : isPast ? 0.3 : 0,
-        scale: isActive ? 1 : 0.96,
-        duration: 0.6,
-        ease: "expo.out",
-        zIndex: 10 + i,
+        opacity: isActive ? 1 : 0,
+        y: isActive ? 0 : 20,
+        duration: 0.8,
+        ease: "power2.inOut",
+        zIndex: isActive ? 50 : 10,
         pointerEvents: isActive ? "auto" : "none",
-        filter: isPast ? "blur(4px)" : "blur(0px)",
       });
     });
 
-    if (activeIndex === workflowSections.length - 1) {
-      onComplete?.();
-    }
+    if (activeIndex === workflowSections.length - 1) onComplete?.();
   }, [activeIndex]);
 
   const scrollToCard = (index: number) => {
     if (!mainTriggerRef.current) return;
-
     const trigger = mainTriggerRef.current;
-    const start = trigger.start;
-    const end = trigger.end;
-    const total = end - start;
-
-    const targetScroll = start + (total * (index / workflowSections.length)) + 5;
-
+    const targetScroll = trigger.start + ((trigger.end - trigger.start) * (index / workflowSections.length)) + 10;
     gsap.to(window, {
       scrollTo: { y: targetScroll, autoKill: false },
       duration: 0.8,
@@ -157,7 +159,7 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
   };
 
   return (
-    <WorkflowSectionRoot ref={sectionRef}>
+    <WorkflowSectionRoot ref={sectionRef} sx={{ minHeight: "100vh", display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       <NavBarContainer>
         {workflowSections.map((section, i) => (
           <NavItem
@@ -171,34 +173,33 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
       </NavBarContainer>
 
       <PageContainer>
-        <div
-          style={{
-            position: "relative",
-            width: "100%",
-            maxWidth: "1100px",
-            margin: "104px auto 0",
-            height: cardHeight + extraStackSpace,
-          }}
-        >
-          {workflowSections.map((section, i) => (
-            <div
-              key={section.title}
-              ref={(el) => {
-                cardsRef.current[i] = el;
-              }}
-              style={{
-                position: "absolute",
-                inset: 0,
-                height: cardHeight,
-                opacity: 0,
-                transform: `translateY(${i * STACK_OFFSET}px)`,
-                willChange: "transform, opacity",
-              }}
-            >
-              <WorkflowCard activeSection={section} />
-            </div>
-          ))}
-        </div>
+        <Box sx={{ width: "100%", px: { xs: 2, md: 4 } }}>
+          <Box
+            style={{
+              position: "relative",
+              width: "100%",
+              margin: "40px auto 0",
+              height: cardHeight + extraStackSpace,
+              transition: "height 0.3s ease-out",
+            }}
+          >
+            {workflowSections.map((section, i) => (
+              <div
+                key={section.title}
+                ref={(el) => { cardsRef.current[i] = el; }}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  height: cardHeight,
+                  width: "100%",
+                  willChange: "transform, opacity",
+                }}
+              >
+                <WorkflowCard activeSection={section} />
+              </div>
+            ))}
+          </Box>
+        </Box>
       </PageContainer>
     </WorkflowSectionRoot>
   );

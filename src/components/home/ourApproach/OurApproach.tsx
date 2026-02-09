@@ -17,6 +17,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import PageContainer from "@/components/common/PageContainer";
 import DiscoverButton from "@/components/ui/DiscoverButton";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -178,10 +179,11 @@ const OurApproach = ({ onComplete }: Props) => {
               <DescriptionText ref={descRef} variant="h5">
                 {data[activeIndex].description}
               </DescriptionText>
-
-              <DiscoverButton ref={buttonRef} sx={{ mt: "40px" }}>
-                Discover
-              </DiscoverButton>
+              <Link href="/contact" passHref style={{ textDecoration: 'none' }}>
+                <DiscoverButton ref={buttonRef} sx={{ mt: "40px" }}>
+                  Discover
+                </DiscoverButton>
+              </Link>
             </RightBottomBox>
           </ContentWrapper>
         </PageContainer>

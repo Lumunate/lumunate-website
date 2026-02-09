@@ -42,13 +42,7 @@ const projects = [
     { name: "Airbot – AI-Powered Hospitality Assistant", href: "/projects/airbot" },
     { name: "Koinfolio – Cryptocurrency Portfolio Manager", href: "/projects/koinfolio" },
     { name: "Allfred – Healthcare ERP", href: "/projects/allfred" },
-    { name: "Ayse – Concert Discovery App", href: "/projects/ayse" },
-    { name: "Map Mavens – Interactive Mapping Tool", href: "/projects/map-mavens" },
     { name: "Cut Connect – Men’s Grooming SaaS Platform", href: "/projects/cut-connect" },
-    { name: "Zeal – AI-Driven Healthcare Platform", href: "/projects/zeal" },
-    { name: "Fast Clean Service – Car Detailing Platform", href: "/projects/fast-clean" },
-    { name: "Poppynz – On-Demand Family Support", href: "/projects/poppynz" },
-    { name: "Zeal – AI-Driven Healthcare Platform 2", href: "/projects/zeal-2" },
     // { name: "TCR Properties – Dubai Real Estate Platform", href: "/projects/tcr-properties" },
 ];
 
@@ -99,14 +93,13 @@ export default function Navbar() {
 
             "&:hover": {
                 color: theme.palette.section.heading,
-                backgroundColor: "transparent", // ❌ remove rectangle
+                backgroundColor: "transparent",
             },
         }),
         [theme]
     );
 
 
-    // Compute desktop dropdown position/width
     useEffect(() => {
         const calcMenuMetrics = () => {
             if (!navContainerRef.current || !logoBoxRef.current || !caseStudiesRightDividerRef.current)
@@ -117,12 +110,9 @@ export default function Navbar() {
             const dividerRect = caseStudiesRightDividerRef.current.getBoundingClientRect();
 
             const left = Math.round(logoRect.left);
-            const right = Math.round(dividerRect.left);
+            const right = Math.round(dividerRect.right);
 
-            const desiredWidth = Math.max(320, right - left);
-            const maxAllowed = Math.max(320, Math.round(window.innerWidth - left - 16));
-            const width = Math.min(desiredWidth, maxAllowed);
-
+            const width = Math.max(320, right - left);
 
             setMenuWidth(width);
             setMenuPos({
@@ -131,12 +121,13 @@ export default function Navbar() {
             });
         };
 
-        if (Boolean(anchorEl)) calcMenuMetrics();
+        if (Boolean(anchorEl)) {
+            requestAnimationFrame(calcMenuMetrics);
+        }
 
         window.addEventListener("resize", calcMenuMetrics);
         return () => window.removeEventListener("resize", calcMenuMetrics);
     }, [anchorEl]);
-
     // Close dropdown on scroll
     useEffect(() => {
         if (!anchorEl) return;
@@ -212,7 +203,7 @@ export default function Navbar() {
 
                                     "&:hover": {
                                         color: theme.palette.section.heading,
-                                        backgroundColor: "transparent", // ❌ no rectangle
+                                        backgroundColor: "transparent",
                                     },
                                 }}
                             >
@@ -227,7 +218,7 @@ export default function Navbar() {
                                 open={Boolean(anchorEl)}
                                 onClose={handleMenuClose}
                                 anchorReference="anchorPosition"
-                                anchorPosition={menuPos ?? undefined}
+                                anchorPosition={menuPos || { top: 0, left: 0 }}
                                 transformOrigin={{ vertical: "top", horizontal: "left" }}
                                 MenuListProps={{
                                     disablePadding: true,

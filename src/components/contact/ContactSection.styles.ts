@@ -7,11 +7,15 @@ export const VideoHeader = styled(Box)(({ theme }) => ({
     width: "100%",
     overflow: "hidden",
 
-    height: "1069px",
+    height: "100vh",
+    minHeight: "800px",
+
     [theme.breakpoints.up("md")]: {
-        height: "900px",
+        height: "100vh",
     },
-    [theme.breakpoints.up("lg")]: {
+
+    // Large desktop adjustment
+    [theme.breakpoints.up("xl")]: {
         height: "1069px",
     },
 
@@ -20,6 +24,7 @@ export const VideoHeader = styled(Box)(({ theme }) => ({
         position: "absolute",
         inset: 0,
         zIndex: 1,
+        background: "rgba(0,0,0,0.2)",
     },
 
     "&::after": {
@@ -29,13 +34,13 @@ export const VideoHeader = styled(Box)(({ theme }) => ({
         zIndex: 2,
         backdropFilter: "blur(26px)",
         WebkitBackdropFilter: "blur(26px)",
-
         WebkitMaskImage:
-            "radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 78%)",
+            "radial-gradient(ellipse at center, rgba(0,0,0,0) 30%, rgba(0,0,0,1) 85%)",
         maskImage:
-            "radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 78%)",
+            "radial-gradient(ellipse at center, rgba(0,0,0,0) 30%, rgba(0,0,0,1) 85%)",
     },
 }));
+
 
 export const BottomBlur = styled(Box)(({ theme }) => ({
     position: "absolute",
@@ -66,6 +71,7 @@ export const BackgroundVideo = styled("video")({
     width: "100%",
     height: "100%",
     objectFit: "cover",
+    opacity: "50%",
     zIndex: 0,
 });
 
