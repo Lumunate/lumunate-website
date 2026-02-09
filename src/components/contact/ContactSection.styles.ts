@@ -7,14 +7,13 @@ export const VideoHeader = styled(Box)(({ theme }) => ({
     width: "100%",
     overflow: "hidden",
 
-    height: "100vh",
+    height: "80vh",
     minHeight: "800px",
 
     [theme.breakpoints.up("md")]: {
         height: "100vh",
     },
 
-    // Large desktop adjustment
     [theme.breakpoints.up("xl")]: {
         height: "1069px",
     },
@@ -67,13 +66,12 @@ export const BottomBlur = styled(Box)(({ theme }) => ({
 
 export const BackgroundVideo = styled("video")({
     position: "absolute",
-    inset: 0,
+    inset: "0 -500px 0 0",
     width: "100%",
-    height: "100%",
-    objectFit: "cover",
     opacity: "50%",
     zIndex: 0,
 });
+
 
 export const HeroContent = styled(Box)(({ theme }) => ({
     position: "relative",
