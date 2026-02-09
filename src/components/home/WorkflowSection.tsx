@@ -14,7 +14,7 @@ import PageContainer from "../common/PageContainer";
 gsap.registerPlugin(ScrollTrigger);
 
 interface WorkflowSectionProps {
-  onComplete?: () => void; // callback after last card
+  onComplete?: () => void;
 }
 
 const workflowSections = [
@@ -30,7 +30,8 @@ const workflowSections = [
   {
     tag: "/Web & Mobile",
     title: "Web & Mobile Development",
-    description: "Apps that scale Fast, secure, and built for growth across all platforms.",
+    description:
+      "Apps that scale Fast, secure, and built for growth across all platforms.",
     video:
       "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
     buttonText: "Discover",
@@ -65,7 +66,8 @@ const workflowSections = [
   {
     tag: "/Digital",
     title: "Digital Transformation",
-    description: "Growth that sticks Data-driven strategies that maximize reach and ROI.",
+    description:
+      "Growth that sticks Data-driven strategies that maximize reach and ROI.",
     video:
       "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
     buttonText: "Discover",
@@ -76,20 +78,24 @@ const STACK_OFFSET = 18;
 const DEFAULT_CARD_HEIGHT = 460;
 const XL_CARD_HEIGHT = 560;
 
-function getCardHeight(): number {
+function getCardHeight() {
   if (typeof window === "undefined") return DEFAULT_CARD_HEIGHT;
   return window.innerWidth >= 1920 ? XL_CARD_HEIGHT : DEFAULT_CARD_HEIGHT;
 }
 
 export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [cardHeight, setCardHeight] = useState<number>(DEFAULT_CARD_HEIGHT);
+  const [cardHeight, setCardHeight] = useState(DEFAULT_CARD_HEIGHT);
 
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const isAnimatingRef = useRef(false);
 
-  // Update card height on resize
+  const extraStackSpace = useMemo(
+    () => STACK_OFFSET * (workflowSections.length - 1),
+    []
+  );
+
   useEffect(() => {
     const updateHeight = () => setCardHeight(getCardHeight());
     updateHeight();
@@ -97,16 +103,25 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
     return () => window.removeEventListener("resize", updateHeight);
   }, []);
 
-  const extraStackSpace = useMemo(
-    () => STACK_OFFSET * (workflowSections.length - 1),
-    []
-  );
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
 
-  // Animate stacked cards
+    const trigger = ScrollTrigger.create({
+      trigger: el,
+      start: "top top",
+      end: () => `+=${window.innerHeight * workflowSections.length}`,
+      pin: true,
+      pinSpacing: true,
+      scrub: false,
+    });
+
+    return () => trigger.kill();
+  }, []);
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       const cards = cardsRef.current.filter(Boolean) as HTMLDivElement[];
-      if (!cards.length) return;
 
       cards.forEach((card, i) => {
         gsap.set(card, {
@@ -114,11 +129,10 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
           opacity: i <= activeIndex ? 1 : 0,
           zIndex: 10 + i,
           pointerEvents: i === activeIndex ? "auto" : "none",
-          willChange: "transform, opacity",
         });
       });
 
-      const activeCard = cardsRef.current[activeIndex];
+      const activeCard = cards[activeIndex];
       if (!activeCard) return;
 
       gsap.fromTo(
@@ -136,36 +150,52 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
     return () => ctx.revert();
   }, [activeIndex, cardHeight]);
 
-  // Start autoplay when section enters viewport
+
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
 
-    const trigger = ScrollTrigger.create({
-      trigger: el,
-      start: "top 75%",
-      once: true,
-      onEnter: () => {
-        setActiveIndex(0);
-        intervalRef.current = setInterval(() => {
-          setActiveIndex((prev) => {
-            const next = prev + 1;
-            if (next >= workflowSections.length) {
-              clearInterval(intervalRef.current!);
-              onComplete?.();
-              return prev; 
-            }
-            return next;
-          });
-        }, 4000);
-      },
-    });
+    const onWheel = (e: WheelEvent) => {
+      const rect = el.getBoundingClientRect();
+      const isPinned =
+        rect.top <= 0 && rect.bottom >= window.innerHeight;
 
-    return () => {
-      trigger.kill();
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (!isPinned) return;
+
+      if (
+        (activeIndex === workflowSections.length - 1 && e.deltaY > 0) ||
+        (activeIndex === 0 && e.deltaY < 0)
+      ) {
+        return;
+      }
+
+      e.preventDefault();
+
+      if (isAnimatingRef.current) return;
+      isAnimatingRef.current = true;
+
+      setActiveIndex((prev) =>
+        e.deltaY > 0
+          ? Math.min(prev + 1, workflowSections.length - 1)
+          : Math.max(prev - 1, 0)
+      );
+
+      setTimeout(() => {
+        isAnimatingRef.current = false;
+      }, 800);
     };
-  }, [onComplete]);
+
+    window.addEventListener("wheel", onWheel, { passive: false });
+    return () => window.removeEventListener("wheel", onWheel);
+  }, [activeIndex]);
+
+
+  useEffect(() => {
+    if (activeIndex === workflowSections.length - 1) {
+      onComplete?.();
+      ScrollTrigger.refresh();
+    }
+  }, [activeIndex, onComplete]);
 
   return (
     <WorkflowSectionRoot ref={sectionRef}>
@@ -173,8 +203,8 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
         {workflowSections.map((section, i) => (
           <NavItem
             key={section.title}
-            onClick={() => setActiveIndex(i)}
             className={activeIndex === i ? "active" : ""}
+            onClick={() => setActiveIndex(i)}
           >
             {section.title}
           </NavItem>
@@ -197,11 +227,10 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
               ref={(el) => {
                 cardsRef.current[i] = el;
               }}
+
               style={{
                 position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
+                inset: 0,
                 height: cardHeight,
               }}
             >
