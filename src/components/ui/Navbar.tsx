@@ -217,6 +217,7 @@ export default function Navbar() {
                                 anchorEl={anchorEl}
                                 open={Boolean(anchorEl)}
                                 onClose={handleMenuClose}
+                                disableScrollLock
                                 anchorReference="anchorPosition"
                                 anchorPosition={menuPos || { top: 0, left: 0 }}
                                 transformOrigin={{ vertical: "top", horizontal: "left" }}

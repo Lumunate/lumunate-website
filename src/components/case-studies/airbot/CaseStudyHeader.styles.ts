@@ -6,7 +6,7 @@ export const HeaderRoot = styled(Box)(({ theme }) => ({
     position: "relative",
     width: "100%",
     height: "100vh",
-    minHeight: "800px",
+    minHeight: "600px",
     maxHeight: "1070px",
     overflow: "hidden",
     color: theme.palette.text.primary,

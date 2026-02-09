@@ -32,42 +32,6 @@ const Works = () => {
       imageSrc: "/project4.svg",
       url: "/projects/cut-connect",
     },
-    {
-      title: "Ayse",
-      year: 2024,
-      imageSrc: "/project5.svg",
-      url: "/projects/ayse",
-    },
-    {
-      title: "Zeal",
-      year: 2025,
-      imageSrc: "/project6.svg",
-      url: "/projects/zeal",
-    },
-    {
-      title: "Fast Clean Service",
-      year: 2025,
-      imageSrc: "/project7.svg",
-      url: "/projects/fast-clean",
-    },
-    {
-      title: "Ace My Exam",
-      year: 2025,
-      imageSrc: "/project8.svg",
-      url: "/projects/airbot",
-    },
-    {
-      title: "Map Mavens",
-      year: 2025,
-      imageSrc: "/project9.svg",
-      url: "/projects/airbot",
-    },
-    {
-      title: "CutConnect",
-      year: 2025,
-      imageSrc: "/project10.svg",
-      url: "/projects/airbot",
-    },
   ];
 
   return (

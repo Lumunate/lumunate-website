@@ -154,7 +154,7 @@ export const SocialStack = styled(Stack)(({ theme }) => ({
     flexDirection: "column",
     gap: theme.spacing(1.5),
     alignItems: "flex-end",
-    padding: "0 30px",
+    padding: "0 0px",
     zIndex: 2,
 
     [theme.breakpoints.down("md")]: {
