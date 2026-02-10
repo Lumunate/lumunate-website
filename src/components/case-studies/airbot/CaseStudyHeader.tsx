@@ -90,6 +90,7 @@ export default function CaseStudyHeader({
 
               {metaItems.length > 0 && (
                 <Box
+                  className="meta-container"
                   sx={{
                     display: "grid",
                     gridTemplateColumns: "1fr auto",
