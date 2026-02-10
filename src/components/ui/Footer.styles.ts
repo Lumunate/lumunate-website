@@ -5,6 +5,9 @@ import Link from "next/link";
 const NAV_SPACER_WIDTH = 64;
 const ICON_CELL_WIDTH = 64;
 const ICON_SPACER_WIDTH = 24;
+const NOISE_SVG =
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E";
+
 
 export const FooterRoot = styled("footer")(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
@@ -13,11 +16,60 @@ export const FooterRoot = styled("footer")(({ theme }) => ({
 }));
 
 export const FooterTop = styled(Box)(({ theme }) => ({
+    position: "relative",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
     height: 56,
+    overflow: "hidden",
+    backgroundColor: "transparent",
+    /* === CENTER STRIP (GRADIENT + NOISE) === */
+    "&::before": {
+        content: '""',
+        position: "absolute",
+        top: 0,
+        bottom: 0,
+        left: NAV_SPACER_WIDTH * 4,
+        right: NAV_SPACER_WIDTH * 4,
+
+        backgroundImage: `
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,0.09) 0%,
+            rgba(255,255,255,0.02) 100%
+        ),
+        url("${NOISE_SVG}")
+    `,
+        backgroundRepeat: "repeat",
+        backgroundSize: "auto",
+
+        opacity: 0.15,
+        pointerEvents: "none",
+        zIndex: 0,
+    },
+
+
+    /* === INNER SHADOW (matches Figma effect panel) === */
+    "&::after": {
+        content: '""',
+        position: "absolute",
+        top: 0,
+        bottom: 0,
+        left: NAV_SPACER_WIDTH * 4,
+        right: NAV_SPACER_WIDTH * 4,
+
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
+        pointerEvents: "none",
+        zIndex: 1,
+    },
+
+    /* Keep content above effects */
+    "& > *": {
+        position: "relative",
+        zIndex: 2,
+    },
 }));
+
 
 export const FooterSpacer = styled(Box)<{ variant?: "icon" }>(({ theme, variant }) => ({
     width: variant === "icon" ? ICON_SPACER_WIDTH : NAV_SPACER_WIDTH,
