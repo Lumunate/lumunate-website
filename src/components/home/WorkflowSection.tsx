@@ -62,6 +62,13 @@ const workflowSections = [
     video: "https://res.cloudinary.com/dqvzaju7x/video/upload/creative-design_lghliw.mp4",
     buttonText: "Discover",
   },
+  {
+    tag: "",
+    title: "",
+    description: "",
+    video: "",
+    buttonText: "",
+  },
 ];
 
 const STACK_OFFSET = 12;

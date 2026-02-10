@@ -76,7 +76,8 @@ const TrackRecord: React.FC = () => {
                   numberRefs.current[index] = el;
                 }}
               >
-                0
+                {/* Set initial state to match the prefix/suffix of the data */}
+                {item.prefix || ""}0{item.suffix || ""}
               </NumberText>
 
               <DescriptionText sx={{ color: "text.primary" }} variant="h5">
