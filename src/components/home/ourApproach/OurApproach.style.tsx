@@ -126,7 +126,7 @@ export const SubContentWrapper = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   justifyContent: "flex-end",
   alignItems: "center",
-  paddingBottom: theme.spacing(11.625),
+  paddingBottom: theme.spacing(5.25),
   [theme.breakpoints.down("xl")]: {
     alignItems: "flex-start",
     padding: theme.spacing(5, 2),
@@ -182,7 +182,7 @@ export const RightBottomBox = styled(Box)(({ theme }) => ({
 
 export const NumberTypography = styled(Typography)(({ theme }) => ({
   fontSize: "260px",
-  lineHeight: 0.7,
+  lineHeight: 0.8,
   fontWeight: 400,
   background: `linear-gradient(to bottom, ${alpha(theme.palette.text.primary, 0.35)} 0%, ${alpha(theme.palette.background.default, 0.35)} 100%)`,
   WebkitBackgroundClip: "text",

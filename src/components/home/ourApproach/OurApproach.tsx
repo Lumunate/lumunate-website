@@ -76,48 +76,26 @@ const OurApproach = ({ onComplete }: Props) => {
 
     if (!numberEl || !titleEl || !descEl || !btnEl) return;
 
-    // Kill any previous float animations
-    gsap.killTweensOf([numberEl, titleEl]);
+    // 1. Kill any active animations to prevent "fighting" during rapid scrolling
+    gsap.killTweensOf([numberEl, titleEl, descEl, btnEl]);
 
-    if (activeIndex === 0) {
-      // Step 1 animation: number & title from left
-      gsap.fromTo(
-        [numberEl, titleEl],
-        { opacity: 0, x: -60 },
-        { opacity: 1, x: 0, duration: 0.8, ease: "power3.out", stagger: 0.1 }
-      );
-    } else {
-      // Steps 2-5 animation: float/blink effect
-      const tl = gsap.timeline({ defaults: { duration: 0.6, ease: "power1.out" } });
+    // 2. Reset positions immediately to avoid layout shifts
+    gsap.set([numberEl, titleEl, descEl, btnEl], { clearProps: "all" });
 
-      tl.fromTo(
-        numberEl,
-        { opacity: 0, y: 30, scale: 0.95 },
-        { opacity: 1, y: 0, scale: 1 }
-      ).fromTo(
-        titleEl,
-        { opacity: 0, y: 30, scale: 0.95 },
-        { opacity: 1, y: 0, scale: 1 },
-        "<"
-      );
+    // 3. Simple, stable entrance animation
+    const tl = gsap.timeline({ defaults: { ease: "power2.out", duration: 0.6 } });
 
-      // subtle infinite float after animation
-      gsap.to([numberEl, titleEl], {
-        y: -5,
-        duration: 1.2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        delay: 0.6, // wait for fade-in to finish
-      });
-    }
-
-    // Right-bottom desc & button animation (all steps)
-    gsap.fromTo(
+    tl.fromTo(
+      [numberEl, titleEl],
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, stagger: 0.1 }
+    ).fromTo(
       [descEl, btnEl],
-      { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", stagger: 0.08 }
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, stagger: 0.1 },
+      "-=0.4" // Start slightly before the first pair finishes
     );
+
   }, [activeIndex]);
 
   // Scroll-driven step change
