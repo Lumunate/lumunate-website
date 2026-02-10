@@ -24,7 +24,6 @@ export const DescriptionText = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
   fontSize: "22px",
   fontqWeight: 400,
-  marginBottom: "32px",
   [theme.breakpoints.down("sm")]: {
     fontSize: "18px",
   },
