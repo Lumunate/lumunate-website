@@ -70,6 +70,8 @@ export const BackgroundVideo = styled("video")({
     width: "100%",
     opacity: "50%",
     zIndex: 0,
+    height: "60vh",
+    minHeight: "500px",
 });
 
 

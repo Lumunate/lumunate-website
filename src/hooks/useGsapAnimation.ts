@@ -247,44 +247,43 @@ export const useGsapCounterAnimation = (
         if (!el) return;
 
         const { total: finalValue, suffix, prefix = "" } = data[index];
+
+        // Explicitly set the starting text to 0 to prevent "layout flash"
+        el.textContent = `${prefix}0${suffix}`;
+
         const counter = { value: 0 };
 
-        gsap.fromTo(
-          counter,
-          { value: 0 },
-          {
-            value: finalValue,
-            duration: 3, // REDUCED SPEED: Changed from 2 to 3 seconds for a premium feel
-            ease: "power2.out", // SMOOTHER FINISH: power2 decelerates more elegantly than power1
-            scrollTrigger: {
-              trigger: el,
-              start: "top 90%", // Start slightly earlier so user sees the beginning
-              once: true,
-            },
-            onUpdate: () => {
-              if (!el) return;
+        gsap.to(counter, {
+          value: finalValue,
+          duration: 4, // SLOWER: 4 seconds gives a more premium, steady count
+          ease: "expo.out", // SMOOTHER: expo.out is very smooth for counting animations
+          scrollTrigger: {
+            trigger: el,
+            start: "top 95%", // Starts slightly before it's fully in view
+            once: true,
+          },
+          onUpdate: () => {
+            if (!el) return;
 
-              let formattedNumber: string;
+            let formattedNumber: string;
 
-              if (finalValue >= 1000) {
-                // For large numbers: 740,000
-                formattedNumber = Math.floor(counter.value).toLocaleString();
-              } else if (finalValue % 1 !== 0) {
-                // For decimals: Fixes "jumping" by padding the decimal place
-                formattedNumber = counter.value.toFixed(1);
-              } else {
-                // For standard small integers
-                formattedNumber = Math.floor(counter.value).toString();
-              }
+            if (finalValue >= 1000) {
+              // Standard currency/large number formatting (e.g., 740,000)
+              formattedNumber = Math.floor(counter.value).toLocaleString();
+            } else if (finalValue % 1 !== 0) {
+              // For decimals like 6.2, ensures we show the decimal place
+              formattedNumber = counter.value.toFixed(1);
+            } else {
+              // For whole numbers
+              formattedNumber = Math.floor(counter.value).toString();
+            }
 
-              el.textContent = `${prefix}${formattedNumber}${suffix}`;
-            },
-          }
-        );
+            el.textContent = `${prefix}${formattedNumber}${suffix}`;
+          },
+        });
       });
     });
 
     return () => ctx.revert();
   }, [refs, data]);
 };
-
