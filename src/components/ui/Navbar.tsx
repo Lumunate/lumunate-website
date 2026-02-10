@@ -336,6 +336,7 @@ export default function Navbar() {
                                             py: 1,
                                             fontWeight: 400,
                                             fontFamily: "Montserrat, sans-serif",
+                                            fontSize: "16px",
                                             borderRadius: 0,
                                             color: theme.palette.navbar.itemText,
                                             backgroundColor: "transparent",

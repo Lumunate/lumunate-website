@@ -51,7 +51,7 @@ export const Title = styled(Typography)(({ theme }) => ({
         marginBottom: 56,
     },
     [theme.breakpoints.down("sm")]: {
-        fontSize: 40,
+        fontSize: 30,
         marginBottom: 40,
         letterSpacing: "-1px",
     },
@@ -110,7 +110,7 @@ export const QuestionText = styled(Typography)(({ theme }) => ({
     lineHeight: "normal",
 
     [theme.breakpoints.down("md")]: { fontSize: 20 },
-    [theme.breakpoints.down("sm")]: { fontSize: 18 },
+    [theme.breakpoints.down("sm")]: { fontSize: 14 },
 }));
 
 export const AnswerText = styled(Typography)(({ theme }) => ({
@@ -123,7 +123,8 @@ export const AnswerText = styled(Typography)(({ theme }) => ({
     paddingBottom: 20,
 
     [theme.breakpoints.down("sm")]: {
-        paddingBottom: 16,
+        paddingBottom: 14,
+        fontSize: 14,
     },
 }));
 
@@ -147,6 +148,9 @@ export const BottomText = styled(Typography)(({ theme }) => ({
     fontStyle: "normal",
     fontWeight: 400,
     lineHeight: "normal",
+     [theme.breakpoints.down("sm")]: {
+        fontSize: 14,
+    },
 }));
 
 export const TalkLink = styled(Link)(({ theme }) => ({

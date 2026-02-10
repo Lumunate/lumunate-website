@@ -7,16 +7,22 @@ export const TrackContainer = styled(Box)({
   paddingBottom: "59px",
 });
 
-export const TitleWrapper = styled(Box)({
+export const TitleWrapper = styled(Box)(({ theme }) => ({
   marginBottom: "40px",
-});
+  [theme.breakpoints.down("md")]: {
+    marginBottom: "20px",
+  },
+}));
 
 export const TitleText = styled(Typography)(({ theme }) => ({
   fontSize: "56px",
   marginBottom: "16px",
   color: theme.palette.text.primary,
   [theme.breakpoints.down("md")]: {
-    fontSize: "32px",
+    fontSize: "42px",
+  },
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "30px",
   },
 }));
 
@@ -25,7 +31,8 @@ export const DescriptionText = styled(Typography)(({ theme }) => ({
   fontSize: "22px",
   fontqWeight: 400,
   [theme.breakpoints.down("sm")]: {
-    fontSize: "18px",
+    fontSize: "16px",
+
   },
 }));
 
@@ -36,11 +43,12 @@ export const StatusWrapper = styled(Box)(({ theme }) => ({
   gap: "0px",
   alignItems: "stretch",
 
-  [theme.breakpoints.down("lg")]: {
+  [theme.breakpoints.down("xl")]: {
     gridTemplateColumns: "repeat(2, 1fr)",
   },
   [theme.breakpoints.down("sm")]: {
     gridTemplateColumns: "1fr",
+    marginTop: "40px",
   },
 }));
 
@@ -51,6 +59,7 @@ export const StatusCard = styled(Box)(({ theme }) => ({
   height: "345px",
   [theme.breakpoints.down("sm")]: {
     height: "250px",
+    padding: "30px 20px 80px 20px",
   },
 }));
 
@@ -63,9 +72,9 @@ export const NumberText = styled(Box)(({ theme }) => ({
     fontSize: "55px",
   },
   [theme.breakpoints.down("xl")]: {
-    fontSize: "45px",
+    fontSize: "60px",
   },
   [theme.breakpoints.down("sm")]: {
-    fontSize: "32px",
+    fontSize: "48px",
   },
 }));

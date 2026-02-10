@@ -23,7 +23,6 @@ export const FooterTop = styled(Box)(({ theme }) => ({
     height: 56,
     overflow: "hidden",
     backgroundColor: "transparent",
-    /* === CENTER STRIP (GRADIENT + NOISE) === */
     "&::before": {
         content: '""',
         position: "absolute",

@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, styled } from "@mui/material";
+import { alignItems } from "@mui/system";
 
 export const WorkflowSectionRoot = styled(Box)(({ theme }) => ({
     width: "100%",
@@ -69,7 +70,7 @@ export const NavItem = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    padding: `${theme.spacing(2.3)} ${theme.spacing(2)}`,
+    padding: `${theme.spacing(4)} ${theme.spacing(4)}`,
     cursor: "pointer",
 
     color: theme.palette.text.secondary,
@@ -126,7 +127,7 @@ export const NavItem = styled(Box)(({ theme }) => ({
 
     [theme.breakpoints.down("sm")]: {
         fontSize: "0.8rem",
-        padding: `${theme.spacing(1)} ${theme.spacing(1.8)}`,
+        padding: "23px",
         minWidth: "130px",
     },
 }));
