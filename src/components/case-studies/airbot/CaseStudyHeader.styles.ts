@@ -103,7 +103,7 @@ export const HeaderRight = styled(Box)(({ theme }) => ({
             transform: "translateY(-15px)",
         },
         [theme.breakpoints.up("xl")]: {
-            transform: "translateY(-25px)",
+            transform: "translateY(-35px)",
         }
     },
 

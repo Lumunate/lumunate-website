@@ -12,3 +12,11 @@ body.startup-active footer {
   display: none !important;
   visibility: hidden !important;
 }
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}

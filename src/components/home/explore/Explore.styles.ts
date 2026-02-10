@@ -9,7 +9,7 @@ export const ExploreWrapper = styled(Box)(({ theme }) => ({
     alignItems: "center",
     overflow: "hidden",
     padding: theme.spacing(0, 0),
-  paddingBottom: "139px",
+    paddingBottom: "139px",
     [theme.breakpoints.down("md")]: {
         padding: theme.spacing(6, 0),
     },
@@ -20,7 +20,7 @@ export const ExploreText = styled(Typography)(({ theme }) => ({
     textAlign: "center",
     fontWeight: 300,
     fontFamily: "Neue Montreal",
-    fontSize: "clamp(2rem, 8.2vw, 14rem)",
+    fontSize: "clamp(2rem, 8.6vw, 14rem)",
     whiteSpace: "nowrap",
     color: `${theme.palette.text.primary}08`,
     letterSpacing: "0.05em",

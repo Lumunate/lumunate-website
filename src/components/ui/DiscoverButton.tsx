@@ -9,20 +9,16 @@ const rotateSnake = keyframes`
 `;
 
 const StyledDiscoverButton = styled(Button)(({ theme }) => ({
-
-    padding: "16px 24px", //  vertical | horizontal
+    padding: "16px 24px",
     gap: "8px",
     minHeight: "56px",
-
     fontSize: "16px",
     fontFamily: "Montserrat, sans-serif",
     fontWeight: 500,
     lineHeight: 1,
     color: "#FFFFFF",
-
     borderRadius: "15px",
     textTransform: "none",
-
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
@@ -30,49 +26,52 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
     overflow: "hidden",
     zIndex: 1,
     border: "none",
-
     backgroundColor: "#00412D",
-    transition:
-        "background-color 0.4s ease, box-shadow 0.4s ease, transform 0.2s ease",
-
+    transition: "all 0.4s ease",
 
     "&::before": {
         content: '""',
         position: "absolute",
         zIndex: -2,
-        left: "-50%",
-        top: "-50%",
-        width: "200%",
-        height: "200%",
-        backgroundImage:
-            "conic-gradient(transparent, transparent, #8EFFAC, transparent 25%)",
+        backgroundImage: `conic-gradient(
+        from 0deg,
+        transparent 0%,
+        transparent 10%, 
+        #8EFFAC 25%, 
+        transparent 40%,
+        transparent 100%
+    )`,
         opacity: 0,
         transition: "opacity 0.3s ease",
+        width: "200%",
+        height: "200%",
+        left: "-50%",
+        top: "-50%",
     },
-
 
     "&::after": {
         content: '""',
         position: "absolute",
         zIndex: -1,
         inset: "2px",
-        borderRadius: "15px",
-        backgroundColor: "#015B3F",
+        borderRadius: "12px",
+        backgroundColor: "#00412D",
         transition: "background-color 0.4s ease",
     },
 
     "&:hover": {
-        backgroundColor: "transparent",
-        boxShadow: `0 0 25px 2px ${alpha("#8EFFAC", 0.3)}`,
+        backgroundColor: "#00412D",
+        boxShadow: `0 0 25px 2px ${alpha("#8EFFAC", 0.2)}`,
         transform: "translateY(-1px)",
 
         "&::before": {
             opacity: 1,
-            animation: `${rotateSnake} 1.5s linear infinite`,
+            animation: `${rotateSnake} 1.8s linear infinite`,
         },
 
         "&::after": {
-            backgroundColor: "#047C57",
+            backgroundColor: "#015B3F",
+            inset: "5px",
         },
 
         "& .MuiButton-endIcon": {
@@ -80,12 +79,10 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
         },
     },
 
-
     "& .MuiButton-endIcon": {
         margin: 0,
         transition: "transform 0.3s ease",
         zIndex: 2,
-
         "& svg": {
             fontSize: "20px",
         },

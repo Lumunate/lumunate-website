@@ -376,6 +376,7 @@ export default function Navbar() {
                                 borderRadius: 0,
                                 left: 0,
                                 right: 0,
+                                boxShadow: "none",
                             },
                         },
                         backdrop: {
@@ -385,7 +386,7 @@ export default function Navbar() {
                         },
                     }}
                 >
-                    <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                    <Box sx={{ height: "100%", display: "flex", flexDirection: "column", bgcolor: theme.palette.navbar.bg }}>
                         {/* Top bar */}
                         <Box
                             sx={{
@@ -409,7 +410,7 @@ export default function Navbar() {
                         </Box>
 
                         {/* Menu items */}
-                        <List sx={{ px: 2, pt: 2 }}>
+                        <List sx={{ px: 2, pt: 2, flexGrow: 1, bgcolor: theme.palette.navbar.bg }}>
                             {navLinks.map((link) => (
                                 <ListItem key={link.label} disablePadding>
                                     <ListItemButton
@@ -501,6 +502,7 @@ export default function Navbar() {
                                 py: 2.5,
                                 borderTop: `1px solid ${theme.palette.navbar.border}`,
                                 textAlign: "center",
+                                bgcolor: theme.palette.navbar.bg,
                             }}
                         >
                             <Typography
