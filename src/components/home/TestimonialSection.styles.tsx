@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Typography, styled } from "@mui/material";
+import { fontSize } from "@mui/system";
 
 export const TestimonialRoot = styled(Box)(({ theme }) => ({
     width: "100vw",
@@ -31,12 +32,14 @@ export const TestimonialContent = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down("md")]: {
         flexDirection: "column",
         alignItems: "center",
-        gap: theme.spacing(4),
         textAlign: "center",
+        gap: theme.spacing(4),
     },
 
     [theme.breakpoints.down("sm")]: {
-        gap: theme.spacing(2),
+        alignItems: "flex-start",
+        textAlign: "left",
+        gap: 0,
     },
 }));
 
@@ -48,14 +51,18 @@ export const TestimonialHeading = styled(Typography)(({ theme }) => ({
     fontFamily: "Montserrat, sans-serif",
     maxWidth: "1098px",
 
-    [theme.breakpoints.down("md")]: {
-        fontSize: "48px",
+    [theme.breakpoints.down("lg")]: {
+        fontWeight: 400,
+        fontSize: "40px",
         maxWidth: "100%",
-        marginLeft: 0,
+        marginRight: "30px",
     },
-    [theme.breakpoints.down("sm")]: {
-        fontSize: "32px",
-        marginLeft: 0,
+
+    [theme.breakpoints.down("md")]: {
+        fontWeight: 400,
+        fontSize: "30px",
+        textAlign: "left",
+        marginBottom: "60px",
     },
 }));
 
@@ -67,7 +74,11 @@ export const TestimonialBox = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down("md")]: {
         alignItems: "center",
         maxWidth: "100%",
-        marginRight: 0,
+    },
+
+    [theme.breakpoints.down("sm")]: {
+        alignItems: "flex-start",
+        width: "100%",
     },
 }));
 
@@ -75,6 +86,9 @@ export const StarsRow = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     marginBottom: theme.spacing(1),
+    [theme.breakpoints.down("md")]: {
+        marginBottom: "16px",
+    },
 }));
 
 export const TestimonialText = styled(Typography)(({ theme }) => ({
@@ -83,8 +97,11 @@ export const TestimonialText = styled(Typography)(({ theme }) => ({
     marginBottom: theme.spacing(2),
     fontSize: "18px",
     fontFamily: "Montserrat, sans-serif",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
         fontSize: "16px",
+        textAlign: "left",
+        marginBottom: "20px",
+        fontWeight: 400,
     },
 }));
 
@@ -92,6 +109,9 @@ export const AuthorRow = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     gap: theme.spacing(2),
+    [theme.breakpoints.down("md")]: {
+        alignItems: "flex-start",
+    },
 }));
 
 export const AuthorAvatar = styled(Box)(({ theme }) => ({
@@ -114,6 +134,10 @@ export const AuthorInfo = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down("md")]: {
         alignItems: "center",
     },
+
+    [theme.breakpoints.down("sm")]: {
+        alignItems: "flex-start",
+    },
 }));
 
 export const AuthorName = styled(Typography)(({ theme }) => ({
@@ -125,4 +149,5 @@ export const AuthorName = styled(Typography)(({ theme }) => ({
 export const AuthorTitle = styled(Typography)(({ theme }) => ({
     color: theme.palette.section.desc,
     fontSize: theme.typography.body1.fontSize,
+    fontWeight: 400,
 }));

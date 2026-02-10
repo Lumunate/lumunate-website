@@ -17,6 +17,8 @@ import { useGsapTimelineAnimation } from "@/hooks/useGsapAnimation";
 import PageContainer from "../common/PageContainer";
 import { useNavbarRef } from "@/components/ui/NavbarContext";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+import DiscoverButton from "../ui/DiscoverButton";
 
 export default function HeaderSection({ animate }: { animate: boolean }) {
   const navRef = useNavbarRef();
@@ -60,6 +62,31 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
               business. From AI-powered platforms to enterprise solutions,
               we&apos;re the technology partner that turns vision into velocity.
             </StyledParagraph>
+
+            <Link
+              href="/contact"
+              passHref
+              style={{
+                textDecoration: "none",
+                display: "flex",
+                width: "100%",
+              }}
+            >
+              <DiscoverButton
+                sx={{
+                  mt: "40px",
+                  width: "fit-content",
+                  alignSelf: { xs: "flex-start", md: "center", lg: "flex-end" },
+                  display: {
+                    xs: "inline-flex",
+                    sm: "inline-flex",
+                    md: "none",
+                  },
+                }}
+              >
+                Get Started
+              </DiscoverButton>
+            </Link>
 
             <SocialStack ref={socialRef}>
               <IconButton

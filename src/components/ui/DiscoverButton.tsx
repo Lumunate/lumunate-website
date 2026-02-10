@@ -54,14 +54,15 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
         position: "absolute",
         zIndex: -1,
         inset: "2px",
-        borderRadius: "12px",
+        borderRadius: "15px",
         backgroundColor: "#00412D",
-        transition: "background-color 0.4s ease",
+        transition: "all 0.4s ease",
     },
 
     "&:hover": {
-        backgroundColor: "#00412D",
-        boxShadow: `0 0 25px 2px ${alpha("#8EFFAC", 0.2)}`,
+        // 1. Darkens the outer "frame" of the button
+        backgroundColor: "#002419",
+        boxShadow: `0 0 25px 2px ${alpha("#8EFFAC", 0.15)}`,
         transform: "translateY(-1px)",
 
         "&::before": {
@@ -70,8 +71,13 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
         },
 
         "&::after": {
-            backgroundColor: "#015B3F",
-            inset: "5px",
+            // 2. This creates the "dark sides/top/bottom" and "bright center" effect
+            // The center remains #00412D while the edges fade into #002B1E
+            background: `radial-gradient(circle, #135f48 0%, #002B1E 100%)`,
+
+            // 3. Reduces the box height/width for the snake track
+            inset: "3px",
+            borderRadius: "12px",
         },
 
         "& .MuiButton-endIcon": {
@@ -88,7 +94,6 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
         },
     },
 }));
-
 export default function DiscoverButton(props: ButtonProps) {
     return (
         <StyledDiscoverButton
