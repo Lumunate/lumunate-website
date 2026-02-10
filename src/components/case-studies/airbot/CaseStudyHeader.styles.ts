@@ -67,7 +67,7 @@ export const HeaderLeft = styled(Box)(({ theme }) => ({
 }));
 
 export const Title = styled(Typography)(({ theme }) => ({
-    fontSize: "clamp(48px, 8vw, 110px)",
+    fontSize: "90px",
     fontWeight: 500,
     lineHeight: 1.1,
     letterSpacing: "-0.02em",
@@ -84,10 +84,10 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
     color: theme.palette.text.primary,
     marginTop: "21px",
     [theme.breakpoints.down("md")]: {
-        fontSize: "22px",
+        fontSize: theme.typography.h5.fontSize,
     },
     [theme.breakpoints.down("sm")]: {
-        fontSize: "22px",
+        fontSize: theme.typography.h5.fontSize,
         textAlign: "center",
     },
 }));
@@ -98,30 +98,44 @@ export const HeaderRight = styled(Box)(({ theme }) => ({
     flexDirection: "column",
     alignItems: "flex-start",
 
+    "& .meta-container": {
+        [theme.breakpoints.up("md")]: {
+            transform: "translateY(-15px)",
+        },
+        [theme.breakpoints.up("xl")]: {
+            transform: "translateY(-25px)",
+        }
+    },
+
     [theme.breakpoints.down("md")]: {
         alignItems: "center",
     },
 }));
 
+
 export const Description = styled(Typography)(({ theme }) => ({
     ...theme.typography.body1,
     color: theme.palette.section.caseStudyDesc,
-    opacity: 0.9,
+    opacity: 1,
+    fontSize: theme.typography.body1.fontSize,
     marginBottom: "54px",
     maxWidth: "823px",
     [theme.breakpoints.down("md")]: { fontSize: "16px", textAlign: "center" },
 }));
 
+
 export const MetaLabel = styled(Typography)(({ theme }) => ({
     fontFamily: "Montserrat, sans-serif",
     fontWeight: 400,
-    fontSize: "1rem",
+    fontSize: theme.typography.h6.fontSize,
     color: theme.palette.section.caseStudyLabel,
+    lineHeight: 1.2,
 }));
 
 export const MetaValue = styled(Typography)(({ theme }) => ({
     fontFamily: "Montserrat, sans-serif",
     fontWeight: 400,
-    fontSize: "1rem",
+    fontSize: theme.typography.h6.fontSize,
     color: theme.palette.text.primary,
+    lineHeight: 1.2,
 }));

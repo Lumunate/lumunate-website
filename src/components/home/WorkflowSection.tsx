@@ -173,7 +173,7 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
       </NavBarContainer>
 
       <PageContainer>
-        <Box sx={{ width: "100%", px: { xs: 2, md: 4 } }}>
+        <Box sx={{ width: "100%", }}>
           <Box
             style={{
               position: "relative",
