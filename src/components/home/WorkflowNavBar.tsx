@@ -1,5 +1,6 @@
 "use client";
 
+import PageContainer from "../common/PageContainer";
 import { NavBarContainer, NavItem } from "./WorkflowNavBar.styles";
 
 
@@ -24,15 +25,17 @@ export default function WorkflowNavBar({
 }: WorkflowNavBarProps) {
     return (
         <NavBarContainer>
-            {sections.map((section) => (
-                <NavItem
-                    key={section.title}
-                    className={activeSection.title === section.title ? "active" : ""}
-                    onClick={() => setActiveSection(section)}
-                >
-                    {section.title}
-                </NavItem>
-            ))}
+                {sections.map((section) => (
+
+                    <NavItem
+                        key={section.title}
+                        className={activeSection.title === section.title ? "active" : ""}
+                        onClick={() => setActiveSection(section)}
+                    >
+                        {section.title}
+                    </NavItem>
+
+                ))}
         </NavBarContainer>
     );
 }

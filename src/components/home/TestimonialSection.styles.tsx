@@ -16,6 +16,9 @@ export const TestimonialRoot = styled(Box)(({ theme }) => ({
     marginLeft: "-50vw",
     marginRight: "-50vw",
     paddingBottom: "170px",
+    [theme.breakpoints.down("md")]: {
+        paddingBottom: "100px",
+    },
 }));
 
 export const TestimonialContent = styled(Box)(({ theme }) => ({

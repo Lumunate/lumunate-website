@@ -7,6 +7,7 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
   position: "relative",
   width: "100%",
   height: "100vh",
+  minHeight: "800px",
   maxHeight: "1070px",
   margin: "160px 0",
   overflow: "hidden",
@@ -55,10 +56,14 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
     backdropFilter: "blur(12px)",
     WebkitBackdropFilter: "blur(12px)",
   },
-
+  [theme.breakpoints.down("lg")]: {
+    height: "auto",
+    minHeight: "100vh",
+    paddingBottom: theme.spacing(10),
+  },
   [theme.breakpoints.down("md")]: {
     height: "auto",
-    minHeight: "900px",
+    minHeight: "800px",
     margin: "96px 0",
   },
 }));
@@ -100,7 +105,19 @@ export const FullBleedGrid = styled(Box)(({ theme }) => ({
   },
 
   [theme.breakpoints.down("md")]: {
-    "&::before, &::after": { display: "none" },
+    "&::before, &::after": { display: "block" },
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      left: 0,
+      right: 0,
+      top: "35%",
+      height: "1px",
+      zIndex: 1,
+      pointerEvents: "none",
+      background: `linear-gradient(to right, ${alpha(theme.palette.text.primary, 0)} 0%, ${alpha(theme.palette.text.primary, 0.22)} 50%, ${alpha(theme.palette.text.primary, 0)} 100%)`,
+      transform: "translateY(-0.5px)",
+    },
   },
 }));
 
@@ -114,8 +131,8 @@ export const ContentWrapper = styled(Box)(({ theme }) => ({
   zIndex: 2,
 
   [theme.breakpoints.down("md")]: {
-    gridTemplateColumns: "1fr",
-    gridTemplateRows: "auto",
+    gridTemplateColumns: "1fr 1fr",
+    gridTemplateRows: "auto auto",
   },
 }));
 
@@ -132,8 +149,11 @@ export const SubContentWrapper = styled(Box)(({ theme }) => ({
     padding: theme.spacing(5, 2),
   },
   [theme.breakpoints.down("md")]: {
+    gridColumn: "1 / 3",
+    paddingBottom: "60px",
     alignItems: "flex-start",
-    padding: theme.spacing(5, 2),
+    justifyContent: "flex-start",
+    padding: theme.spacing(0, 0),
   },
 }));
 
@@ -148,7 +168,9 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
     fontSize: "40px",
   },
   [theme.breakpoints.down("sm")]: {
-    fontSize: "32px",
+    fontSize: "24px",
+    textAlign: "left",
+    width: "100%",
   },
 }));
 export const TitleText = styled(Typography)(({ theme }) => ({
@@ -159,7 +181,7 @@ export const TitleText = styled(Typography)(({ theme }) => ({
   fontWeight: 400,
   marginBottom: theme.spacing(14.25),
   [theme.breakpoints.down("sm")]: {
-    fontSize: "32px",
+    fontSize: "18px",
   },
 }));
 
@@ -176,7 +198,15 @@ export const RightBottomBox = styled(Box)(({ theme }) => ({
     padding: theme.spacing(6, 6),
   },
   [theme.breakpoints.down("md")]: {
+    gridColumn: "1 / 3",
+    gridRow: "2 / 3",
     padding: theme.spacing(5, 0),
+    width: "100%",
+    alignItems: "flex-end",
+
+    "& a": {
+      alignSelf: "flex-end",
+    },
   },
 }));
 
@@ -194,7 +224,7 @@ export const NumberTypography = styled(Typography)(({ theme }) => ({
     fontSize: "180px",
   },
   [theme.breakpoints.down("sm")]: {
-    fontSize: "120px",
+    fontSize: "160px",
   },
 }));
 
@@ -203,8 +233,13 @@ export const DescriptionText = styled(Typography)(({ theme }) => ({
   fontSize: theme.typography.h5.fontSize,
   lineHeight: 1.6,
   maxWidth: "500px",
+  [theme.breakpoints.down("lg")]: {
+    fontSize: theme.typography.h5.fontSize,
+  },
 
   [theme.breakpoints.down("sm")]: {
-    fontSize: theme.typography.body2.fontSize,
+    fontSize: "15px",
+    textAlign: "right",
+    marginBottom: "-20px !important",
   },
 }));

@@ -49,11 +49,11 @@ export const NavBarContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const NavItem = styled(Box)(({ theme }) => ({
-    flex: "0 0 auto", 
+    flex: "0 0 auto",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    padding: `${theme.spacing(1.4)} ${theme.spacing(1.5)}`,
+    padding: "32px",
     cursor: "pointer",
     color: theme.palette.text.secondary,
     opacity: 0.55,

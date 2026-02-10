@@ -29,17 +29,18 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
     backgroundColor: "#00412D",
     transition: "all 0.4s ease",
 
+    // Snake rotating gradient layer
     "&::before": {
         content: '""',
         position: "absolute",
         zIndex: -2,
         backgroundImage: `conic-gradient(
-        from 0deg,
-        transparent 0%,
-        transparent 10%, 
-        #8EFFAC 25%, 
-        transparent 40%,
-        transparent 100%
+      from 0deg,
+      transparent 0%,
+      transparent 10%, 
+      #8EFFAC 25%, 
+      transparent 40%,
+      transparent 100%
     )`,
         opacity: 0,
         transition: "opacity 0.3s ease",
@@ -49,6 +50,7 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
         top: "-50%",
     },
 
+    // Inner base layer
     "&::after": {
         content: '""',
         position: "absolute",
@@ -60,24 +62,30 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
     },
 
     "&:hover": {
-        // 1. Darkens the outer "frame" of the button
         backgroundColor: "#002419",
-        boxShadow: `0 0 25px 2px ${alpha("#8EFFAC", 0.15)}`,
         transform: "translateY(-1px)",
 
+        // Outer drop shadow
+        boxShadow: `
+      0 8px 20px rgba(0, 0, 0, 0.6),
+      0 0 25px 2px ${alpha("#8EFFAC", 0.25)}
+    `,
+
+        // Snake animation layer
         "&::before": {
             opacity: 1,
             animation: `${rotateSnake} 1.8s linear infinite`,
         },
 
+        // Inner shadow layer + radial gradient for depth
         "&::after": {
-            // 2. This creates the "dark sides/top/bottom" and "bright center" effect
-            // The center remains #00412D while the edges fade into #002B1E
-            background: `radial-gradient(circle, #135f48 0%, #002B1E 100%)`,
-
-            // 3. Reduces the box height/width for the snake track
             inset: "3px",
             borderRadius: "12px",
+            background: `radial-gradient(circle, #135f48 0%, #002B1E 100%)`,
+            boxShadow: `
+        inset 0 2px 6px rgba(0,0,0,0.6),
+        inset 0 -2px 6px rgba(0,0,0,0.6)
+      `,
         },
 
         "& .MuiButton-endIcon": {
@@ -94,6 +102,7 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
         },
     },
 }));
+
 export default function DiscoverButton(props: ButtonProps) {
     return (
         <StyledDiscoverButton

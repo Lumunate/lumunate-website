@@ -10,7 +10,7 @@ import {
   StyledParagraph,
   SocialStack,
 } from "./HeaderSection.styles";
-import { IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import Image from "next/image";
 import { useRef } from "react";
 import { useGsapTimelineAnimation } from "@/hooks/useGsapAnimation";
@@ -63,6 +63,7 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
               we&apos;re the technology partner that turns vision into velocity.
             </StyledParagraph>
 
+
             <Link
               href="/contact"
               passHref
@@ -72,20 +73,39 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
                 width: "100%",
               }}
             >
-              <DiscoverButton
-                sx={{
-                  mt: "40px",
-                  width: "fit-content",
-                  alignSelf: { xs: "flex-start", md: "center", lg: "flex-end" },
-                  display: {
-                    xs: "inline-flex",
-                    sm: "inline-flex",
-                    md: "none",
-                  },
-                }}
-              >
-                Get Started
-              </DiscoverButton>
+              <Box ref={descRef}>
+                <DiscoverButton
+
+                  sx={{
+                    mt: "40px",
+                    width: "fit-content",
+
+                    alignSelf: {
+                      xs: "flex-start",
+                      md: "center",
+                      lg: "flex-end",
+                    },
+
+                    display: {
+                      xs: "inline-flex",
+                      sm: "inline-flex",
+                      md: "none",
+                    },
+
+                    px: {
+                      xs: "24px",
+                    },
+                    py: {
+                      xs: "12px",
+                    },
+                    gap: {
+                      xs: "8px",
+                    },
+                  }}
+                >
+                  Get Started
+                </DiscoverButton>
+              </Box>
             </Link>
 
             <SocialStack ref={socialRef}>

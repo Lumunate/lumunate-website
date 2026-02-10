@@ -3,36 +3,57 @@
 import { Box, Button, styled } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 
-export const WorkWrapper = styled(Box)(() => ({
+export const WorkWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   paddingBottom: "220px",
-}));
 
-export const ProjectsWrapper = styled(Box)(({ theme }) => ({
-  marginTop: theme.spacing(8),
-  display: "grid",
-  gridTemplateColumns: "repeat(4, 1fr)",
-  gap: theme.spacing(2),
-  [theme.breakpoints.down("lg")]: {
-    gridTemplateColumns: "repeat(3, 1fr)",
+  "& .swiper": {
+    width: "100vw",
+    marginLeft: "calc(50% - 50vw)",
+    marginRight: "calc(50% - 50vw)",
+    paddingBottom: "12px !important",
+
+    [theme.breakpoints.up("sm")]: {
+      width: "100%",
+      margin: 0,
+      paddingBottom: 0,
+    }
   },
-  [theme.breakpoints.down("md")]: {
-    gridTemplateColumns: "repeat(2, 1fr)",
+
+  "& .swiper-pagination": {
+    bottom: "0px !important",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "12px",
+    marginTop: "12px"
   },
-  [theme.breakpoints.down("sm")]: {
-    gridTemplateColumns: "1fr",
+
+  "& .swiper-pagination-bullet": {
+    width: "10px",
+    height: "10px",
+    backgroundColor: alpha(theme.palette.text.primary, 0.4),
+    opacity: 1,
+    transition: "all 0.3s ease-in-out",
+    margin: "0 !important",
   },
+
+  "& .swiper-pagination-bullet-active": {
+    width: "16px",
+    height: "16px",
+    borderRadius: "50%",
+    backgroundColor: theme.palette.text.primary,
+    boxShadow: `0px 0px 10px ${alpha(theme.palette.text.primary, 0.5)}`,
+  }
 }));
 
 export const TitleWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  padding: theme.spacing(1.5),
-  borderRadius: (theme.shape.borderRadius as number) * 1.5,
+  padding: theme.spacing(1.5, 2),
 
   backgroundColor: alpha(theme.palette.background.default, 0.72),
-
   boxShadow: `
     0px 4px 14.8px ${alpha("#000", 0.9)},
     inset 0px 4px 18.1px ${theme.palette.mode === "dark"
@@ -40,16 +61,35 @@ export const TitleWrapper = styled(Box)(({ theme }) => ({
       : alpha("#000", 0.1)
     }
   `,
+
+  [theme.breakpoints.down("sm")]: {
+    borderRadius: 8,
+    border: `1px solid ${alpha(theme.palette.text.primary, 0.1)}`,
+  },
+  [theme.breakpoints.up("sm")]: {
+    borderRadius: (theme.shape.borderRadius as number) * 1.5,
+  }
 }));
 
-
-export const ImageContainer = styled(Box)(() => ({
+export const ImageContainer = styled(Box)(({ theme }) => ({
   width: "100%",
-  borderRadius: "12px",
-  overflow: "hidden",
   marginTop: "24px",
   position: "relative",
   cursor: "pointer",
+  overflow: "hidden",
+  boxSizing: "border-box",
+
+  [theme.breakpoints.down("sm")]: {
+    borderRadius: 6,
+    marginTop: "16px",
+    border: `1px solid ${alpha(theme.palette.text.primary, 0.2)}`,
+    
+  },
+  [theme.breakpoints.up("sm")]: {
+    borderRadius: "12px",
+    border: "none",
+  },
+
   "&:hover .hoverImage": {
     filter: "blur(6px)",
     transform: "scale(1.02)",
@@ -86,5 +126,21 @@ export const ViewButton = styled(Button)(({ theme }) => ({
 
   "&:hover": {
     background: alpha(theme.palette.background.default, 0.25),
+  },
+}));
+
+export const ProjectsWrapper = styled(Box)(({ theme }) => ({
+  marginTop: theme.spacing(8),
+  display: "grid",
+  gridTemplateColumns: "repeat(4, 1fr)",
+  gap: theme.spacing(2),
+  [theme.breakpoints.down("lg")]: {
+    gridTemplateColumns: "repeat(3, 1fr)",
+  },
+  [theme.breakpoints.down("md")]: {
+    gridTemplateColumns: "repeat(2, 1fr)",
+  },
+  [theme.breakpoints.down("sm")]: {
+    gridTemplateColumns: "1fr",
   },
 }));

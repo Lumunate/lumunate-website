@@ -8,9 +8,9 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
     maxWidth: "100%",
     height: "100%",
     // minHeight: "814px",
-    backgroundColor: theme.palette.background.paper,
+    // backgroundColor: theme.palette.background.paper,
     borderRadius: 32,
-    boxShadow: "0 20px 50px rgba(0,0,0,0.2)",
+    boxShadow: "0 20px 50px rgba(0,0,0,0.8)",
     overflow: "hidden",
 
     [theme.breakpoints.down("md")]: {
@@ -26,12 +26,11 @@ export const CardLeft = styled(Box)(({ theme }) => ({
     justifyContent: "center",
     padding: "66px 38px",
     gap: "32px",
-
     color: theme.palette.text.primary,
     position: "relative",
     zIndex: 2,
 
-    backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.2) 100%), url('/design-bg.png')`,
+    backgroundImage: `linear-gradient(to left, rgba(0,0,0,0.80) 100%, rgba(0,0,0,0.2) 100%), url('/design-bg.png')`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center left",
@@ -47,13 +46,14 @@ export const CardRight = styled(Box)(({ theme }) => ({
     alignItems: "stretch",
     justifyContent: "center",
     overflow: "hidden",
-    backgroundColor: theme.palette.background.default,
+    borderRadius: 32,
 }));
 
 export const WorkflowVideo = styled("video")(({ theme }) => ({
     width: "100%",
     height: "100%",
     objectFit: "cover",
+    borderRadius: 32,
 }));
 
 export const TopText = styled(Typography)(({ theme }) => ({
