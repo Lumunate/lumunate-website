@@ -73,29 +73,29 @@ export const ContentBox = styled(Box)(({ theme }) => ({
         padding: 0,
     },
     [theme.breakpoints.down("sm")]: {
-        maxWidth: "100%",
-        padding: 0,
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
+        textAlign: "left",
+        paddingTop: "100px",
+        gap: theme.spacing(3),
     },
 }));
 
 export const StyledH1 = styled(Typography)(({ theme }) => ({
     ...theme.typography.h1,
-
-    // Heading color from theme
     color: theme.palette.section.heading,
-
     maxWidth: "713px",
     lineHeight: "97%",
     fontSize: "90px",
     fontFamily: "Montserrat, sans-serif",
+    [theme.breakpoints.down("xl")]: {
+        fontSize: "70px",
+    },
     [theme.breakpoints.down("lg")]: {
-        fontSize: "90px",
+        fontSize: "50px",
     },
     [theme.breakpoints.down("md")]: {
-        fontSize: "32px",
-    },
-    [theme.breakpoints.down("sm")]: {
-        fontSize: "24px",
+        fontSize: "40px",
     },
 }));
 
@@ -108,6 +108,11 @@ export const LeftBox = styled(Box)(({ theme }) => ({
         justifyContent: "center",
         marginLeft: 0,
         marginBottom: theme.spacing(2),
+    },
+    [theme.breakpoints.down("sm")]: {
+        justifyContent: "flex-start",
+        width: "100%",
+        marginBottom: "20px",
     },
 }));
 
@@ -126,24 +131,23 @@ export const RightBox = styled(Box)(({ theme }) => ({
 
 export const StyledParagraph = styled(Typography)(({ theme }) => ({
     ...theme.typography.body1,
-
-    //  Description color from theme
     color: theme.palette.section.desc,
 
     maxWidth: "607px",
     lineHeight: 1.6,
 
     [theme.breakpoints.down("lg")]: {
-        fontSize: "18px",
+        ...theme.typography.body1,
         maxWidth: 550,
     },
     [theme.breakpoints.down("md")]: {
         textAlign: "center",
-        fontSize: "15px",
+        ...theme.typography.h6,
         maxWidth: "100%",
     },
     [theme.breakpoints.down("sm")]: {
-        fontSize: "13px",
+        textAlign: "left",
+        ...theme.typography.h6,
     },
 }));
 
@@ -154,7 +158,7 @@ export const SocialStack = styled(Stack)(({ theme }) => ({
     flexDirection: "column",
     gap: theme.spacing(1.5),
     alignItems: "flex-end",
-    padding: "0 0px",
+    padding: "0 0",
     zIndex: 2,
 
     [theme.breakpoints.down("md")]: {
@@ -163,5 +167,10 @@ export const SocialStack = styled(Stack)(({ theme }) => ({
         justifyContent: "center",
         alignItems: "center",
         marginTop: theme.spacing(3),
+    },
+    [theme.breakpoints.down("sm")]: {
+        width: "100%",
+        justifyContent: "flex-end",
+        alignSelf: "flex-end",
     },
 }));

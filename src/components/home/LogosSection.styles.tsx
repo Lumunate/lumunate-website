@@ -3,13 +3,16 @@
 import { Box, styled } from "@mui/material";
 
 /* Root container */
-export const LogosRoot = styled(Box)(({ }) => ({
+export const LogosRoot = styled(Box)(({ theme }) => ({
     width: "100vw",
     overflow: "hidden",
     padding: "0 0",
     paddingBottom: "205px",
     paddingTop: "45px",
     position: "relative",
+    [theme.breakpoints.down("md")]: {
+        paddingBottom: "100px",
+    },
 }));
 
 /* Moving track */
@@ -46,7 +49,7 @@ export const LogosTrack = styled(Box)(({ theme }) => ({
 }));
 
 /* Individual logo */
-export const LogoItem = styled(Box)(({ }) => ({
+export const LogoItem = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -59,6 +62,16 @@ export const LogoItem = styled(Box)(({ }) => ({
         filter: "grayscale(1)",
         opacity: 0.65,
         transition: "all 0.3s ease",
+
+        [theme.breakpoints.down("md")]: {
+            width: 60,
+            height: 45,
+        },
+
+        [theme.breakpoints.down("sm")]: {
+            width: 48,
+            height: 36,
+        },
     },
 
     "&:hover img": {
