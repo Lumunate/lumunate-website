@@ -95,19 +95,17 @@ export const IconWrapper = styled(IconButton)<any>(({ theme }) => ({
         top: '50%',
         transform: 'translate(-50%, -50%)'
     },
-    "&:hover::before": {
-        opacity: 1
-    },
-    "&:hover": {
-        backgroundColor: "transparent"
-    },
+    "&:hover::before": { opacity: 1 },
+    "&:hover": { backgroundColor: "transparent" },
 
     "&.mobile-icon": {
         flex: 1,
         maxWidth: 100,
+        "&:first-of-type": {
+            borderLeft: "none !important",
+        },
     }
 }));
-
 export const FooterSpacer = styled(Box)<{ size?: "small" }>(({ theme, size }) => ({
     width: size === "small" ? SMALL_SPACER_WIDTH : NAV_SPACER_WIDTH,
     height: "100%",

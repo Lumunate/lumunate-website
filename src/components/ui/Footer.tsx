@@ -32,20 +32,23 @@ export default function Footer() {
                     flex: 1,
                     justifyContent: "center",
                     position: "relative",
-                    borderLeft: (theme) => `1px solid ${theme.palette.divider}`,
-                    borderRight: (theme) => `1px solid ${theme.palette.divider}`,
                 }}>
                     <NoiseOverlay />
 
                     <Box sx={{ display: "flex", zIndex: 1 }}>
-                        <IconWrapper component="a" href="tel:+923310200888" sx={{ borderLeft: 'none' }}>
+                        <IconWrapper component="a" href="tel:+923310200888">
                             <Image src="/icons/phone.svg" alt="Call" width={20} height={20} />
                         </IconWrapper>
+
                         <FooterSpacer size="small" />
+
                         <IconWrapper component="a" href="mailto:info@lumunate.com">
                             <Image src="/icons/mail.svg" alt="Mail" width={20} height={20} />
                         </IconWrapper>
+
                         <FooterSpacer size="small" />
+
+                        {/* LinkedIn Icon */}
                         <IconWrapper
                             component="a"
                             href="https://www.linkedin.com/company/lumunate/"
@@ -53,10 +56,14 @@ export default function Footer() {
                         >
                             <Image src="/icons/linkedin.svg" alt="LinkedIn" width={20} height={20} />
                         </IconWrapper>
+
+                        <Box sx={{ borderLeft: (theme) => `1px solid ${theme.palette.divider}`, height: '100%' }} />
                     </Box>
                 </Box>
 
-                <FooterNavItem href="/privacy-policy" sx={{ borderLeft: 'none' }}>Privacy Policy</FooterNavItem>
+                <FooterNavItem href="/privacy-policy" sx={{ borderLeft: 'none' }}>
+                    Privacy Policy
+                </FooterNavItem>
                 <FooterSpacer />
             </Box>
 
