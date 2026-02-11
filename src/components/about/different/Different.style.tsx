@@ -6,6 +6,9 @@ export const DifferentContainer = styled(Box)(({ theme }) => ({
     width: "100%",
     color: theme.palette.text.primary,
     marginTop: "45px",
+    [theme.breakpoints.down("md")]: {
+        marginTop: "100px",
+    },
 }));
 
 export const ContentContainer = styled(Box)(({ theme }) => ({

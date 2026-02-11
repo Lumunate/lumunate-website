@@ -3,11 +3,7 @@
 import { createTheme } from "@mui/material/styles";
 import type { PaletteMode } from "@mui/material";
 
-/**
- * Custom palette keys:
- * theme.palette.navbar.*
- * theme.palette.section.*
- */
+
 declare module "@mui/material/styles" {
   interface Palette {
     navbar: {
@@ -112,12 +108,9 @@ const theme = createTheme({
   typography,
 
   components: {
-    // optional consistency: remove MUI dark overlay globally on papers you control
     MuiPaper: {
       styleOverrides: {
         root: {
-          // keep default for general papers if you want,
-          // but Menu dropdown is handled explicitly in Navbar.
         },
       },
     },

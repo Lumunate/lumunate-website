@@ -29,10 +29,10 @@ export default function ImpactSection({
     return (
         <SectionRoot>
             <PageContainer>
-                <RowFlex sx={{ marginBottom: "55px" }}>
+                <RowFlex sx={{ marginBottom: { xs: "20px", md: "55px" } }}>
                     <TitleText
                         sx={{
-                            fontSize: { xs: "22px", md: "33px" },
+                            fontSize: { xs: "30px", md: "33px" },
                             fontWeight: 400,
                             flexShrink: 0,
                         }}
@@ -49,11 +49,11 @@ export default function ImpactSection({
                     </ContentRight>
                 </RowFlex>
 
-                <RowFlex sx={{ mb: 0, alignItems: { xs: "flex-start", md: "center" }, }}>
+                <RowFlex sx={{ mb: 0, alignItems: { xs: "flex-start", xl: "center" }, }}>
 
                     <TitleText
                         sx={{
-                            fontSize: { xs: "22px", md: "33px" },
+                            fontSize: { xs: "30px", md: "33px" },
                             fontWeight: 400,
                             flexShrink: 0,
                             whiteSpace: "nowrap",

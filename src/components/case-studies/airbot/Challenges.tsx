@@ -49,11 +49,15 @@ export default function Challenges({
                                 paddingBottom: theme.spacing(4),
                                 gap: theme.spacing(2),
                             },
+                            [theme.breakpoints.down("sm")]: {
+                                gap: "20px",
+                                paddingBottom: "40px"
+                            },
                         })}
                     >
                         <Typography
                             sx={{
-                                fontSize: { xs: "22px", md: "33px" },
+                                fontSize: { xs: "30px", md: "33px" },
                                 fontWeight: 400,
                                 flexShrink: 0,
                             }}
@@ -68,6 +72,7 @@ export default function Challenges({
                                 maxWidth: "819px",
                                 textAlign: "left",
                                 marginLeft: "auto",
+                                fontSize: { xs: "16px", md: "18px" },
                             })}
                         >
                             {description}

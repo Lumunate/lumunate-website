@@ -196,8 +196,8 @@ export default function ContactSection() {
                                 fontFamily: "Montserrat",
                                 textAlign: "left",
                                 color: theme.palette.text.primary,
-                                mb: { xs: "32px", md: "43px" },
-                                fontSize: { xs: "52px", md: "90px" },
+                                mb: { xs: "40px", md: "43px" },
+                                fontSize: { xs: "40px", sm: "60px", lg: "90px" },
                             }}
                         >
                             Get in Touch
@@ -349,9 +349,7 @@ export default function ContactSection() {
                                     type="submit"
                                     disabled={isSubmitting}
                                     sx={{
-                                        mt: "43px",
-                                        // px: "24px",
-                                        // py: "12px",
+                                        mt: { xs: "40px", md: "43px" },
                                         minHeight: "auto",
                                         minWidth: "auto",
                                     }}

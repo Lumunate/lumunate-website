@@ -8,6 +8,10 @@ export const SectionRoot = styled(Box)(({ theme }) => ({
   color: theme.palette.text.primary,
   paddingTop: "93px",
   paddingBottom: "191px",
+  [theme.breakpoints.down("md")]: {
+    paddingTop: "40px",
+    paddingBottom: "100px",
+  },
 }));
 
 export const RowFlex = styled(Box)(({ theme }) => ({
@@ -19,11 +23,12 @@ export const RowFlex = styled(Box)(({ theme }) => ({
 
   marginBottom: theme.spacing(4),
 
-  [theme.breakpoints.down("md")]: {
+  [theme.breakpoints.down("xl")]: {
     flexDirection: "column",
     alignItems: "flex-start",
     gap: theme.spacing(2),
     textAlign: "left",
+    marginTop: "40px"
   },
 }));
 
@@ -31,6 +36,7 @@ export const TitleText = styled(Typography)(({ theme }) => ({
   fontFamily: "Montserrat, sans-serif",
   fontWeight: 400,
   color: theme.palette.text.primary,
+
 }));
 
 
@@ -52,6 +58,7 @@ export const ListWrapper = styled(List)(({ theme }) => ({
 
   [theme.breakpoints.down("md")]: {
     paddingInlineStart: theme.spacing(3),
+
   },
 }));
 
@@ -61,6 +68,9 @@ export const ListItemStyled = styled(ListItem)(({ theme }) => ({
   color: theme.palette.section.caseStudyDesc,
   fontSize: theme.typography.body1.fontSize,
   lineHeight: 1.6,
+  [theme.breakpoints.down("md")]: {
+    fontSize: "16px",
+  },
 }));
 
 export const ServicesWrapper = styled(Box)(({ theme }) => ({
@@ -78,5 +88,9 @@ export const ServiceChip = styled(Chip)(({ theme }) => ({
 
   "&:hover": {
     backgroundColor: theme.palette.action.hover,
+  },
+  [theme.breakpoints.down("md")]: {
+    fontSize: "16px",
+    
   },
 }));

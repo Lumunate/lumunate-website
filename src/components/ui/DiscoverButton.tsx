@@ -28,7 +28,10 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
     border: "none",
     backgroundColor: "#00412D",
     transition: "all 0.4s ease",
-
+    [theme.breakpoints.down("md")]: {
+        padding: "12px 24px",
+        gap: "8px",
+    },
     // Snake rotating gradient layer
     "&::before": {
         content: '""',

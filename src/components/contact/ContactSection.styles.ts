@@ -6,12 +6,12 @@ export const VideoHeader = styled(Box)(({ theme }) => ({
     position: "relative",
     width: "100%",
     overflow: "hidden",
-
-    height: "80vh",
+    height: "auto",
     minHeight: "800px",
 
     [theme.breakpoints.up("md")]: {
         height: "100vh",
+        minHeight: "900px",
     },
 
     [theme.breakpoints.up("xl")]: {
@@ -78,14 +78,19 @@ export const BackgroundVideo = styled("video")({
 export const HeroContent = styled(Box)(({ theme }) => ({
     position: "relative",
     zIndex: 7,
-    height: "100%",
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "flex-end",
-    paddingBottom: "36px",
+    paddingTop: "120px",
+    paddingBottom: "80px",
+    justifyContent: "flex-start",
 
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("xs")]: {
+        height: "100%",
+        paddingTop: "320px",
+        justifyContent: "flex-end",
+        paddingBottom: "60px",
+
     },
 }));
 
@@ -110,6 +115,9 @@ export const ContactTextField = styled(TextField)(({ theme }) => ({
         transform: "none",
         position: "relative",
         marginBottom: "16px",
+        [theme.breakpoints.down("md")]: {
+            fontSize: "18px",
+        },
     },
 
     "& .MuiInputLabel-root.Mui-focused": {
