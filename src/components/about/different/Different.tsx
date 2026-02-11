@@ -30,8 +30,8 @@ const Different = () => {
   return (
     <DifferentContainer>
       <PageContainer>
-        <Box sx={{ paddingBottom: "65px" }}>
-          <Typography sx={{ fontSize: { xs: "32px", sm: "56px" }, color: "text.primary" }} variant="h1">
+        <Box sx={{ paddingBottom: { xs: "40px", sm: "65px" } }}>
+          <Typography sx={{ fontSize: { xs: "30px", md: "46px", lg: "56px" }, color: "text.primary" }} variant="h1">
             What Makes Us Different
           </Typography>
         </Box>
@@ -47,7 +47,7 @@ const Different = () => {
                   borderRight: index === 0 || index === 2 ? "1px solid" : "none",
                   borderColor: "divider",
 
-                  padding: { xs: "40px 20px", sm: "80px 28px", lg: "160px 32px" },
+                  padding: { xs: "23px 43px 99px 23px", sm: "80px 28px", md: "160px 32px" },
                   backgroundImage: isGifBackground ? "url(/aboutCardBg.gif)" : "none",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
@@ -62,7 +62,7 @@ const Different = () => {
 
 
                 <Typography
-                  sx={{ fontSize: { xs: "32px", md: "45px", lg: "56px" }, color: "text.primary" }}
+                  sx={{ fontSize: { xs: "32px", md: "45px", lg: "50px", xl: "56px" }, color: "text.primary" }}
                   variant="h1"
                 >
                   {item.title}
@@ -71,8 +71,8 @@ const Different = () => {
                 <Typography
                   variant="h5"
                   sx={{
-                    fontSize: { xs: "18px", md: "22px" },
-                    marginTop: "32px",
+                    fontSize: { xs: "16px", md: "20px", lg: "22px" },
+                    marginTop: { xs: "23px", sm: "32px" },
 
                     color: isGifBackground ? "text.primary" : "text.secondary",
 

@@ -47,6 +47,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
           <Typography
             variant="h5"
             sx={{
+              fontSize: { xs: "18px", sm: "22px" },
               color: theme.palette.text.primary,
               fontWeight: 400,
             }}
@@ -66,10 +67,10 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
               ))}
             </StarsWrapper>
           )}
-          <Box sx={{ marginTop: { xs: "30px", md: "50px", lg: "65px" } }}>
+          <Box sx={{ marginTop: { xs: "47px", md: "50px", lg: "65px" } }}>
             <Typography
               sx={{
-                fontSize: { xs: "22px", sm: "32px", md: "42px", lg: "60px" },
+                fontSize: { xs: "28px", sm: "32px", md: "42px", lg: "60px" },
                 color: theme.palette.text.primary,
                 fontWeight: 400,
                 lineHeight: 1.3,
@@ -79,7 +80,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
             </Typography>
           </Box>
 
-          <Box sx={{ marginTop: { xs: "25px", md: "40px", lg: "65px" } }}>
+          <Box sx={{ marginTop: { xs: "40px", md: "50px", lg: "65px" } }}>
             <Typography
               sx={{
                 fontWeight: 700,
@@ -92,7 +93,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
             </Typography>
             <Typography
               variant="body1"
-              sx={{ color: theme.palette.text.secondary }}
+              sx={{ color: theme.palette.text.secondary,  fontSize: { xs: "16px", sm: "18px" }, }}
             >
               {role}
             </Typography>

@@ -27,14 +27,14 @@ const Hero = () => {
               flexDirection: { xs: "column", md: "row" },
               justifyContent: "space-between",
               width: "100%",
-              alignItems: { xs: "start", md: "center" },
-              gap: { xs: "50px", md: "20px" },
+              alignItems: { xs: "flex-start", md: "center" },
+              gap: { xs: 0, md: "20px" },
             }}
           >
             <Box>
               <Typography
                 sx={{
-                  fontSize: { xs: "52px", md: "66px", xl: "90px" },
+                  fontSize: { xs: "40px", md: "60px", xl: "90px" },
                   color: theme.palette.text.primary,
                 }}
               >
@@ -43,8 +43,9 @@ const Hero = () => {
 
               <Typography
                 sx={{
-                  fontSize: { xs: "18px", sm: "22px" },
+                  fontSize: { xs: "16px", sm: "22px" },
                   color: theme.palette.text.secondary,
+                  mt: { xs: "16px", md: 0 }, 
                 }}
                 variant="h5"
               >
@@ -52,11 +53,15 @@ const Hero = () => {
               </Typography>
             </Box>
 
-            <Box>
+            <Box
+              sx={{
+                mt: { xs: "60px", md: 0 }, 
+              }}
+            >
               <Typography
                 sx={{
                   maxWidth: "668px",
-                  fontSize: "16px",
+                  fontSize: { xs: "14px", md: "16px" },
                   color: theme.palette.text.secondary,
                 }}
                 variant="body1"
@@ -68,6 +73,7 @@ const Hero = () => {
               </Typography>
             </Box>
           </Box>
+
         </PageContainer>
       </ContentContainer>
 

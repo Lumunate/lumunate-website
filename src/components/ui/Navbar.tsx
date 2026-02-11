@@ -55,7 +55,7 @@ const navLinks = [
 export default function Navbar() {
 
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+    const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
     const pathname = usePathname();
     const navRef = useNavbarRef();
     const isHome = pathname === "/";
@@ -90,7 +90,8 @@ export default function Navbar() {
             textTransform: "none",
             letterSpacing: "0.5px",
             backgroundColor: "transparent",
-
+            whiteSpace: "nowrap",
+            minWidth: "fit-content",
             "&:hover": {
                 color: theme.palette.section.heading,
                 backgroundColor: "transparent",
@@ -275,19 +276,14 @@ export default function Navbar() {
                                                     overflowWrap: "anywhere",
                                                     color: theme.palette.section.desc,
 
-                                                    /* ───────── GRID BORDERS (NO DOUBLES) ───────── */
-
-                                                    // horizontal separators
                                                     ...(!isFirstRow && {
                                                         borderTop: `1px solid ${theme.palette.navbar.border}`,
                                                     }),
 
-                                                    // vertical separators (internal only)
                                                     ...(!isFirstCol && {
                                                         borderLeft: `1px solid ${theme.palette.navbar.border}`,
                                                     }),
 
-                                                    // bottom edge (last row only)
                                                     ...(isLastRow && {
                                                         borderBottom: `1px solid ${theme.palette.navbar.border}`,
                                                     }),
@@ -341,6 +337,8 @@ export default function Navbar() {
                                             color: theme.palette.navbar.itemText,
                                             backgroundColor: "transparent",
                                             boxShadow: "none",
+                                            whiteSpace: "nowrap",
+                                            minWidth: "fit-content",
                                             "&:hover": {
                                                 color: theme.palette.navbar.itemTextHover,
                                                 boxShadow: "none",
@@ -419,10 +417,10 @@ export default function Navbar() {
                                         href={link.href}
                                         onClick={toggleDrawer(false)}
                                         sx={{
-                                            borderBottom: `1px solid ${theme.palette.navbar.border}`,
                                             py: 1.5,
                                             "&:hover": { bgcolor: theme.palette.navbar.itemHoverBg },
                                         }}
+
                                     >
                                         <ListItemText
                                             primary={link.label}
@@ -443,7 +441,6 @@ export default function Navbar() {
                                 <ListItemButton
                                     onClick={() => setMobileProjectsOpen((open) => !open)}
                                     sx={{
-                                        borderBottom: `1px solid ${theme.palette.navbar.border}`,
                                         py: 1.5,
                                         "&:hover": { bgcolor: theme.palette.navbar.itemHoverBg },
                                     }}
@@ -501,7 +498,6 @@ export default function Navbar() {
                                 mt: "auto",
                                 px: 3,
                                 py: 2.5,
-                                borderTop: `1px solid ${theme.palette.navbar.border}`,
                                 textAlign: "center",
                                 bgcolor: theme.palette.navbar.bg,
                             }}

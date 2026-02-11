@@ -9,6 +9,10 @@ export const HeroContainer = styled(Box)(({ theme }) => ({
   overflow: "hidden",
   backgroundColor: theme.palette.background.default,
   color: theme.palette.text.primary,
+
+  [theme.breakpoints.down("sm")]: {
+    height: "600px",
+  },
 }));
 
 export const BackgroundVideo = styled("video")({
@@ -19,7 +23,6 @@ export const BackgroundVideo = styled("video")({
   objectFit: "cover",
   zIndex: 0,
 });
-
 
 export const ContentContainer = styled(Box)(({ theme }) => ({
   height: "100%",
@@ -33,7 +36,7 @@ export const ContentContainer = styled(Box)(({ theme }) => ({
   zIndex: 2,
 
   [theme.breakpoints.down("lg")]: {
-    paddingBottom: theme.spacing(8),
+    paddingBottom: theme.spacing(12),
     flexDirection: "column",
     justifyContent: "flex-end",
     alignItems: "center",
@@ -42,7 +45,11 @@ export const ContentContainer = styled(Box)(({ theme }) => ({
   },
 
   [theme.breakpoints.down("sm")]: {
+    paddingTop: "100px",        
     paddingBottom: theme.spacing(6),
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    textAlign: "left",
   },
 }));
 
@@ -51,14 +58,11 @@ export const BottomBlurOverlay = styled(Box)(({ theme }) => ({
   left: 0,
   width: "100%",
   height: "260px",
-
   bottom: "-14rem",
-
   backdropFilter: "blur(14px)",
   WebkitBackdropFilter: "blur(14px)",
   background:
     "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0))",
-
   zIndex: 1,
   pointerEvents: "none",
 }));

@@ -66,10 +66,11 @@ const Ready = ({
         <TextWrapper>
           <Typography
             sx={{
-              fontSize: { xs: "32px", sm: "56px", md: "78px" },
+              fontSize: { xs: "30px", sm: "56px", md: "78px" },
               color: theme.palette.text.primary,
               fontWeight: 400,
-              fontFamily: 'Montserrat'
+              fontFamily: 'Montserrat',
+              lineHeight: "100%"
             }}
           >
             {title}
@@ -102,6 +103,7 @@ const Ready = ({
               <Typography
                 variant="h4"
                 sx={{
+                  fontSize: { xs: "20px", sm: "28px" },
                   display: "inline-flex",
                   alignItems: "center",
                   color: theme.palette.text.primary,

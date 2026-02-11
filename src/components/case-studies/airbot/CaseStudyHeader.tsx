@@ -78,6 +78,10 @@ export default function CaseStudyHeader({
                 textAlign: "center",
                 gap: theme.spacing(3),
               },
+              [theme.breakpoints.down("sm")]: {
+                alignItems: "flex-start",
+                textAlign: "left",
+              },
             })}
           >
             <HeaderLeft>
@@ -96,6 +100,7 @@ export default function CaseStudyHeader({
                     gridTemplateColumns: "1fr auto",
                     columnGap: metaColumnGap,
                     width: "100%",
+                    mt: { xs: "30px", sm: 0 },
                   }}
                 >
 
