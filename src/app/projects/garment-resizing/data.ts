@@ -2,7 +2,7 @@ export const GarmentResizingData = {
     header: {
         background: {
             kind: "video" as const,
-            src: "/videos/koinfolio-bg.mp4",
+            src: "https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770906021/Case_study_hero_jjcnzp.webm",
             poster: "/images/koinfolio-poster.jpg",
         },
         title: "Garment Resizing",
@@ -25,7 +25,7 @@ export const GarmentResizingData = {
         title: "Challenges",
         description:
             "Garment sizing is prone to inconsistency due to varied manufacturer charts, relaxed vs stretched measurements, and differing fit preferences. The client’s existing implementation was partially complete but relied on hard-coded logic, lacked robust validation, and did not support scalable manufacturer onboarding. The challenge was to consolidate sizing logic, refine the user experience, and deliver a production-ready system without compromising future extensibility.",
-        imageSrc: "/case-studies/TCR-1.svg",
+        imageSrc: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770911010/Garment_Resizing_11zon_w8wwub.webp",
     },
 
     impact: {

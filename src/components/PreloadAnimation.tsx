@@ -59,7 +59,7 @@ const PreloadAnimation = ({ onComplete }: PreloadAnimationProps) => {
             }}
         >
             <video
-                src="https://res.cloudinary.com/dbcnkqule/video/upload/v1760622297/preload_umadhz.webm"
+                src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770911368/preload_zszdxp.webm"
                 autoPlay
                 muted
                 playsInline

@@ -2,7 +2,7 @@ export const ElumiData = {
     header: {
         background: {
             kind: "video" as const,
-            src: "/videos/koinfolio-bg.mp4",
+            src: "https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770906021/Case_study_hero_jjcnzp.webm",
             poster: "/images/koinfolio-poster.jpg",
         },
         title: "Elumi",
@@ -25,7 +25,7 @@ export const ElumiData = {
         title: "Challenges",
         description:
             "As a new brand with an unfamiliar product format, Elumi needed to overcome product education barriers while establishing luxury credibility and emotional resonance. The challenge was to communicate how Sand Wax works, convey premium positioning, and create a sense of ritual and lifestyle without overwhelming users or feeling transactional.",
-        imageSrc: "/case-studies/TCR-1.svg",
+        imageSrc: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770910096/Elumi_11zon_z3dh5c.webp",
     },
 
     impact: {

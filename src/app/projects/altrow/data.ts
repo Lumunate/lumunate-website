@@ -2,7 +2,7 @@ export const AltrowData = {
     header: {
         background: {
             kind: "video" as const,
-            src: "/videos/koinfolio-bg.mp4",
+            src: "https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770906021/Case_study_hero_jjcnzp.webm",
             poster: "/images/koinfolio-poster.jpg",
         },
         title: "Altrow",
@@ -25,7 +25,7 @@ export const AltrowData = {
         title: "Challenges",
         description:
             "The comfort wear market is highly saturated, making differentiation difficult. ALTROW needed to stand out as both premium and accessible, clearly organize multiple categories without fragmenting the brand, and communicate lifestyle and credibility as an online-first retailer. Additionally, the platform needed to serve the Pakistani market with localized trust signals while maintaining an international luxury appeal.",
-        imageSrc: "/case-studies/TCR-1.svg",
+        imageSrc: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770910504/Altrow_11zon_dcetsg.webp",
     },
 
     impact: {

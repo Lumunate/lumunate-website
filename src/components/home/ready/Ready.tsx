@@ -24,7 +24,7 @@ type ReadyProps = {
 const Ready = ({
   title,
   description,
-  videoSrc = "https://res.cloudinary.com/dqvzaju7x/video/upload/ctabg_crlgz3.mp4",
+  videoSrc = "https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770893377/orb_init0e.webm",
   linkText = "Let’s Connect",
   linkHref = "/contact",
 }: ReadyProps) => {

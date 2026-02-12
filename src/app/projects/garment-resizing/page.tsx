@@ -27,8 +27,8 @@ export default function GarmentResizingPage() {
             <Challenges
                 title="Solution"
                 description="We designed and delivered a two-milestone sizing system that transforms raw body measurements into reliable garment size recommendations. The solution includes individual and bulk CSV sizing flows, manufacturer-driven measurement normalization, controlled fit logic, and a clean, conversion-oriented UI. The architecture separates sizing logic from manufacturer data, ensuring accuracy."
-                imageLeftSrc="/case-studies/TCR-2.svg"
-                imageRightSrc="/case-studies/TCR-3.svg"
+                imageLeftSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770911008/Free_iPhone_17_Pro-2_hax41w.webp"
+                imageRightSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770911008/Frame_1000002387-2_ay8a58.webp"
             />
 
             <ImpactSection

@@ -27,8 +27,8 @@ export default function ScoplexPage() {
             <Challenges
                 title="Solution"
                 description="We redesigned and developed a modern Shopify storefront for Scoplex with a strong focus on UI clarity, UX optimization, and conversion performance. The final implementation ensured performance optimization, accessibility readiness, and seamless integration , creating a storefront that is both visually compelling and technically robust."
-                imageLeftSrc="/case-studies/TCR-2.svg"
-                imageRightSrc="/case-studies/TCR-3.svg"
+                imageLeftSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770909902/Scoplex-1_ruajfp.webp"
+                imageRightSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770909902/Scoplex-2_rxf840.webp"
             />
 
             <ImpactSection

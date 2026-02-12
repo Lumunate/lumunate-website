@@ -47,8 +47,8 @@ const Different = () => {
                   borderRight: index === 0 || index === 2 ? "1px solid" : "none",
                   borderColor: "divider",
 
-                  padding: { xs: "23px 43px 99px 23px", sm: "80px 28px", md: "160px 32px" },
-                  backgroundImage: isGifBackground ? "url(/aboutCardBg.gif)" : "none",
+                  padding: { xs: "40px 20px", sm: "80px 28px", lg: "160px 32px" },
+                  backgroundImage: isGifBackground ? "url(/trackbg.gif)" : "none",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   color: "text.primary",

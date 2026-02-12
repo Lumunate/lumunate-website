@@ -27,8 +27,8 @@ export default function CorpfitPage() {
             <Challenges
                 title="Solution"
                 description="We extended the existing platform with modular, non-breaking feature enhancements focused on usability, control, and scalability. The solution includes role-based user management, a structured exercise library, a robust program builder, improved trainee program access, a mobile-first workout player, AI-driven timers, workout history tracking, and continuity safeguards for the AI agent."
-                imageLeftSrc="/case-studies/TCR-2.svg"
-                imageRightSrc="/case-studies/TCR-3.svg"
+                imageLeftSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770910733/Free_iPhone_17_Pro-1_zp2maw.webp"
+                imageRightSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770910732/Frame_1000002387-1_cxptrn.webp"
             />
 
             <ImpactSection
