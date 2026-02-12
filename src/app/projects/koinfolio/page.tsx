@@ -22,13 +22,17 @@ export default function KoinfolioPage() {
             <Challenges
                 title={koinfolioData.challenges.title}
                 description={koinfolioData.challenges.description}
+<<<<<<< HEAD
                 imageSrc={koinfolioData.challenges.imageSrc}   // 👈 single image
+=======
+                imageSrc={koinfolioData.challenges.imageSrc}
+>>>>>>> fb57b5d (feat: Integrated all the Assets from Cloudinary)
             />
             <Challenges
                 title="Solution"
                 description="We built Koinfolio, a Next.js web application integrating real-time asset tracking, customizable dashboards, and secure Web3 payment gateways (PayPal, Stripe, Coinbase). The platform also supports advanced analytics and ongoing feature enhancements, including bubble visualizations and portfolio comparisons."
-                imageLeftSrc="/case-studies/koinfolio-2.svg"
-                imageRightSrc="/case-studies/koinfolio-3.svg"
+                imageLeftSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770906416/koinfolio-2_hhsdml.webp"
+                imageRightSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770906415/KOinfolio-3_k7l7yx.webp"
             />
 
             <ImpactSection

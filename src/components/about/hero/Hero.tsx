@@ -13,7 +13,7 @@ const Hero = () => {
     <HeroContainer>
       <BackgroundVideo autoPlay muted loop playsInline>
         <source
-          src="https://res.cloudinary.com/dqvzaju7x/video/upload/q_auto,f_auto/about_hero_bg_drepea.mp4"
+          src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770896346/About_US_q641uq.webm"
           type="video/mp4"
         />
         Your browser does not support the video tag.

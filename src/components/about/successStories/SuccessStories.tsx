@@ -32,7 +32,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
         key="success-stories-section-video"
         autoPlay muted loop playsInline>
         <source
-          src="https://res.cloudinary.com/dqvzaju7x/video/upload/q_auto,f_auto/about_hero_bg2_dp38xc.mp4"
+          src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770896280/Feedback_bg_ftbegc.webm"
           type="video/mp4"
 
         />
@@ -84,19 +84,54 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
               sx={{
                 fontWeight: 700,
                 color: theme.palette.text.primary,
-                marginBottom: "4px",
+                marginRight: logoUrl || flagUrl ? "4px" : 0,
               }}
               variant="body2"
             >
               {name}
             </Typography>
-            <Typography
-              variant="body1"
-              sx={{ color: theme.palette.text.secondary }}
-            >
-              {role}
-            </Typography>
+
+            {/* Logo (optional) */}
+            {logoUrl && (
+              <Image
+                src={logoUrl}
+                alt={`${name} Logo`}
+                width={30}
+                height={30}
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  objectFit: "contain",
+                  marginRight: flagUrl ? "4px" : 0,
+                }}
+              />
+            )}
+
+            {/* Flag (optional) */}
+            {flagUrl && (
+              <Image
+                src={flagUrl}
+                alt={`${name} Flag`}
+                width={30}
+                height={30}
+                style={{
+                  width: "20px",
+                  height: "16px",
+                  objectFit: "cover",
+                }}
+              />
+            )}
           </Box>
+
+          <Typography
+            variant="body1"
+            sx={{
+              color: theme.palette.text.secondary,
+              fontSize: { xs: "16px", sm: "18px" },
+            }}
+          >
+            {role}
+          </Typography>
         </PageContainer>
       </ContentContainer>
     </SuccessStoriesContainer>

@@ -10,7 +10,7 @@ export default function CutConnectCaseStudyPage() {
 
         <>
             <CaseStudyHeader
-                background={{ kind: "video", src: "https://res.cloudinary.com/dqvzaju7x/video/upload/v1759933021/airbot-header_gx3fsp.mp4", }}
+                background={{ kind: "video", src: "https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770906021/Case_study_hero_jjcnzp.webm", }}
                 title="Cut Connect"
                 subtitle="Men’s Grooming SaaS Platform"
                 description={
@@ -35,14 +35,14 @@ export default function CutConnectCaseStudyPage() {
             <Challenges
                 title="Challenge"
                 description="Traditional barbershops lacked digital tools to manage appointments, seat allocations, and customer engagement, limiting their ability to scale and modernize."
-                imageSrc="/case-studies/cut-connect-1.svg"
+                imageSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770909411/Cut_connect_2_zjugp1.webp"
             />
 
             <Challenges
                 title="Solution"
                 description="We designed and developed Cut Connect, a custom SaaS platform that enables clients to book appointments via web and mobile apps, while shop owners manage schedules, pricing, and multi-seat configurations. The platform includes subscription models, real-time availability, and growth-ready infrastructure."
-                imageLeftSrc="/case-studies/cut-connect-2.svg"
-                imageRightSrc="/case-studies/cut-connect-3.svg"
+                imageLeftSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770909410/Cut_connect-1_h46jbt.webp"
+                imageRightSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770909410/Cut_connect-2_itb1ch.webp"
             />
 
 

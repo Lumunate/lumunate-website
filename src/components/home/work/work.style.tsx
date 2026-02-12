@@ -11,7 +11,7 @@ export const WorkWrapper = styled(Box)(({ theme }) => ({
     width: "100vw",
     marginLeft: "calc(50% - 50vw)",
     marginRight: "calc(50% - 50vw)",
-    paddingBottom: "12px !important",
+    paddingBottom: "40px !important",
 
     [theme.breakpoints.up("sm")]: {
       width: "100%",
@@ -79,22 +79,30 @@ export const ImageContainer = styled(Box)(({ theme }) => ({
   overflow: "hidden",
   boxSizing: "border-box",
 
+  aspectRatio: "16 / 10",
+
   [theme.breakpoints.down("sm")]: {
     borderRadius: 6,
     marginTop: "16px",
     border: `1px solid ${alpha(theme.palette.text.primary, 0.2)}`,
-    
   },
   [theme.breakpoints.up("sm")]: {
     borderRadius: "12px",
     border: "none",
   },
 
-  "&:hover .hoverImage": {
-    filter: "blur(6px)",
-    transform: "scale(1.02)",
+  "& .hoverImage": {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
     transition: "all 0.4s ease-in-out",
   },
+
+  "&:hover .hoverImage": {
+    filter: "blur(6px)",
+    transform: "scale(1.05)",
+  },
+
   "&:hover .viewButton": {
     opacity: 1,
     transform: "translateY(0)",

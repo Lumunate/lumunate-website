@@ -10,7 +10,7 @@ export default function AllfredCaseStudyPage() {
 
         <>
             <CaseStudyHeader
-                background={{ kind: "video", src: "https://res.cloudinary.com/dqvzaju7x/video/upload/v1759933021/airbot-header_gx3fsp.mp4", }}
+                background={{ kind: "video", src: "https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770906021/Case_study_hero_jjcnzp.webm", }}
                 title="Allfred"
                 subtitle="Healthcare ERP"
                 description={
@@ -32,14 +32,14 @@ export default function AllfredCaseStudyPage() {
             <Challenges
                 title="Challenge"
                 description="Healthcare centers and therapy practices often struggle with managing multiple administrative workflows, from patient records and billing to scheduling and compliance. Existing systems were fragmented, non-intuitive, and lacked features tailored to medical professionals."
-                imageSrc="/case-studies/allfred-1.svg"
+                imageSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770909214/Allfred_cover_clwbj9.webp"
             />
 
             <Challenges
                 title="Solution"
                 description="We built Allfred, a custom ERP and scheduling platform tailored for healthcare and therapy centers. The solution included medical billing & invoicing, patient tracking & management, shared calendars for 25+ therapists, and secure file storage. The system was designed to be GDPR-compliant, locally hosted for data privacy, and fully integrated with payment systems and automated invoicing."
-                imageLeftSrc="/case-studies/allfred-2.svg"
-                imageRightSrc="/case-studies/allfred-3.svg"
+                imageLeftSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770909214/9327350075c436aad7f861f492e029a93fa12764_yihpow.webp"
+                imageRightSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770909214/Allfred-2_dhegtw.webp"
             />
 
             <ImpactSection

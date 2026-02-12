@@ -10,7 +10,7 @@ export default function AirbotCaseStudyPage() {
 
         <>
             <CaseStudyHeader
-                background={{ kind: "video", src: "https://res.cloudinary.com/dqvzaju7x/video/upload/v1759933021/airbot-header_gx3fsp.mp4", }}
+                background={{ kind: "video", src: "https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770906021/Case_study_hero_jjcnzp.webm", }}
                 title="Airbot"
                 subtitle="AI-Powered Hospitality Assistant"
                 description={
@@ -38,14 +38,14 @@ export default function AirbotCaseStudyPage() {
                 description="Managing multiple listings, handling high volumes of guest messages, 
       and ensuring timely, personalized communication is a major challenge for property managers and co-hosts. 
       Manual handling often leads to inefficiencies and burnout."
-                imageSrc="/case-studies/Airbot-3.svg"
+                imageSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770893373/Airbot_nagyon.webp"
             />
 
             <Challenges
                 title="Solution"
                 description="We built AirBot, an AI assistant that automates guest communication, drives upsells, integrates with PMS platforms, and helps property managers boost revenue."
-                imageLeftSrc="/case-studies/Airbot-3.svg"
-                imageRightSrc="/case-studies/Airbot-4.svg"
+                imageLeftSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770893373/Airbot_nagyon.webp"
+                imageRightSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770906206/Airbot_2_bwsi6b.webp"
             />
 
             <ImpactSection

@@ -53,7 +53,7 @@ export default function CaseStudyHeader({
       <BackgroundVideo
         key="case-studies-video"
         component="video"
-        src="https://res.cloudinary.com/dqvzaju7x/video/upload/v1759933021/airbot-header_gx3fsp.mp4"
+        src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770906021/Case_study_hero_jjcnzp.webm"
         autoPlay
         muted
         loop
