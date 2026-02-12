@@ -57,9 +57,10 @@ export default function CutConnectCaseStudyPage() {
             />
 
             <SuccessStories
-                storyText="The team at Luminate is simply the best. They do the best jobs as always and have brought our idea for Koinfolio to life. Will continue the work with them for sure!"
-                name="Ebrahim"
-                role="CEO, Koinfolio"
+                storyText="The team delivered exactly what was scoped, with smooth functionality and a clear, usable interface."
+                name="// Furqan Shaykh -"
+                flagUrl="/case-studies/Denmark-flag.svg"
+                role="CEO, Cut Connect"
                 showStars={true}
             />
 

@@ -43,7 +43,12 @@ const projects = [
     { name: "Koinfolio – Cryptocurrency Portfolio Manager", href: "/projects/koinfolio" },
     { name: "Allfred – Healthcare ERP", href: "/projects/allfred" },
     { name: "Cut Connect – Men’s Grooming SaaS Platform", href: "/projects/cut-connect" },
-    // { name: "TCR Properties – Dubai Real Estate Platform", href: "/projects/tcr-properties" },
+    { name: "TCR Properties – Real-estate Management", href: "/projects/tcr-properties" },
+    { name: "Scoplex – Science-led skincare E-commerce", href: "/projects/scoplex" },
+    { name: "Elumi – Luxury Home Fragrance E-commerce", href: "/projects/elumi" },
+    { name: "Altrow – Comfort Wear E-commerce", href: "/projects/altrow" },
+    { name: "Corpfit – AI-Powered Training Platform", href: "/projects/corpfit" },
+    { name: "Garment Resizing – Automated Garment Sizing Tool", href: "/projects/garment-resizing" },
 ];
 
 const navLinks = [

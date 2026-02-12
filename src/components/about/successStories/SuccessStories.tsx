@@ -10,12 +10,15 @@ import {
 import { Box, Typography, useTheme } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import PageContainer from "@/components/common/PageContainer";
+import Image from "next/image";
 
 type SuccessStoriesProps = {
   storyText: string;
   name: string;
   role: string;
   showStars?: boolean;
+  flagUrl?: string;
+  logoUrl?: string
 };
 
 const SuccessStories: React.FC<SuccessStoriesProps> = ({
@@ -23,6 +26,8 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
   name,
   role,
   showStars = false,
+  flagUrl,
+  logoUrl,
 }) => {
   const theme = useTheme();
 
@@ -30,11 +35,14 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
     <SuccessStoriesContainer>
       <BackgroundVideo
         key="success-stories-section-video"
-        autoPlay muted loop playsInline>
+        autoPlay
+        muted
+        loop
+        playsInline
+      >
         <source
           src="https://res.cloudinary.com/dqvzaju7x/video/upload/q_auto,f_auto/about_hero_bg2_dp38xc.mp4"
           type="video/mp4"
-
         />
         Your browser does not support the video tag.
       </BackgroundVideo>
@@ -54,6 +62,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
           >
             Client Success Stories
           </Typography>
+
           {showStars && (
             <StarsWrapper>
               {[...Array(5)].map((_, idx) => (
@@ -67,6 +76,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
               ))}
             </StarsWrapper>
           )}
+
           <Box sx={{ marginTop: { xs: "47px", md: "50px", lg: "65px" } }}>
             <Typography
               sx={{
@@ -80,24 +90,66 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
             </Typography>
           </Box>
 
-          <Box sx={{ marginTop: { xs: "40px", md: "50px", lg: "65px" } }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              marginTop: { xs: "40px", md: "50px", lg: "65px" },
+            }}
+          >
+            {/* Name */}
             <Typography
               sx={{
                 fontWeight: 700,
                 color: theme.palette.text.primary,
-                marginBottom: "4px",
+                marginRight: logoUrl || flagUrl ? "4px" : 0, 
               }}
               variant="body2"
             >
               {name}
             </Typography>
-            <Typography
-              variant="body1"
-              sx={{ color: theme.palette.text.secondary,  fontSize: { xs: "16px", sm: "18px" }, }}
-            >
-              {role}
-            </Typography>
+
+            {/* Logo (optional) */}
+            {logoUrl && (
+              <Image
+                src={logoUrl}
+                alt={`${name} Logo`}
+                width={30}
+                height={30}
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  objectFit: "contain",
+                  marginRight: flagUrl ? "4px" : 0, 
+                }}
+              />
+            )}
+
+            {/* Flag (optional) */}
+            {flagUrl && (
+              <Image
+                src={flagUrl}
+                alt={`${name} Flag`}
+                width={30}
+                height={30}
+                style={{
+                  width: "20px",
+                  height: "16px",
+                  objectFit: "cover",
+                }}
+              />
+            )}
           </Box>
+
+          <Typography
+            variant="body1"
+            sx={{
+              color: theme.palette.text.secondary,
+              fontSize: { xs: "16px", sm: "18px" },
+            }}
+          >
+            {role}
+          </Typography>
         </PageContainer>
       </ContentContainer>
     </SuccessStoriesContainer>
