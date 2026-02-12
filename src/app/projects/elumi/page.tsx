@@ -27,8 +27,8 @@ export default function ElumiPage() {
             <Challenges
                 title="Solution"
                 description="We designed a cinematic, storytelling-driven Shopify experience that balances inspiration, education, and commerce. The solution includes experience-first layouts, visual ritual guidance, warm Mediterranean aesthetics, and modular sections built on Shopify 2.0 for scalability. Carefully paced storytelling, clear product cues, and intuitive navigation guide users from discovery to understanding and purchase while reinforcing Elumi’s luxury identity."
-                imageLeftSrc="/case-studies/TCR-2.svg"
-                imageRightSrc="/case-studies/TCR-3.svg"
+                imageLeftSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770910096/MacBook_13_imbwqa.webp"
+                imageRightSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770910095/iPhone_15_Pro_jl8vvh.webp"
             />
 
             <ImpactSection

@@ -36,6 +36,11 @@ export const CardLeft = styled(Box)(({ theme }) => ({
     position: "relative",
     zIndex: 2,
 
+    backgroundImage: `linear-gradient(to left, rgba(0,0,0,0.80) 100%, rgba(0,0,0,0.2) 100%), url('https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770893374/Cards_Background_q9vqww.webp')`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center left",
+
     [theme.breakpoints.down("md")]: {
         padding: "40px 24px 0px 24px",
     },

@@ -67,38 +67,31 @@ const OurApproach = ({ onComplete }: Props) => {
   const descRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  // Step 1 & Steps 2-5 animations
+  // Animation logic for content changes
   useEffect(() => {
-    const numberEl = numberRef.current;
-    const titleEl = titleRef.current;
-    const descEl = descRef.current;
-    const btnEl = buttonRef.current;
+    const targets = [numberRef.current, titleRef.current, descRef.current, buttonRef.current];
+    if (targets.some(el => !el)) return;
 
-    if (!numberEl || !titleEl || !descEl || !btnEl) return;
+    // Kill existing and reset
+    gsap.killTweensOf(targets);
 
-    // 1. Kill any active animations to prevent "fighting" during rapid scrolling
-    gsap.killTweensOf([numberEl, titleEl, descEl, btnEl]);
-
-    // 2. Reset positions immediately to avoid layout shifts
-    gsap.set([numberEl, titleEl, descEl, btnEl], { clearProps: "all" });
-
-    // 3. Simple, stable entrance animation
-    const tl = gsap.timeline({ defaults: { ease: "power2.out", duration: 0.6 } });
-
-    tl.fromTo(
-      [numberEl, titleEl],
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, stagger: 0.1 }
-    ).fromTo(
-      [descEl, btnEl],
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, stagger: 0.1 },
-      "-=0.4" // Start slightly before the first pair finishes
+    // Entrance animation
+    gsap.fromTo(
+      targets,
+      { opacity: 0, y: 30, filter: "blur(10px)" },
+      {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        stagger: 0.1,
+        duration: 0.8,
+        ease: "power3.out",
+        overwrite: true
+      }
     );
-
   }, [activeIndex]);
 
-  // Scroll-driven step change
+  // SCROLL TRIGGER 
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -107,22 +100,30 @@ const OurApproach = ({ onComplete }: Props) => {
     const trigger = ScrollTrigger.create({
       trigger: containerRef.current,
       start: "top top",
-      end: () => `+=${window.innerHeight * totalSteps}`,
-      scrub: 0.6,
+      // Increased multiplier slightly for smoother transition between steps
+      end: () => `+=${window.innerHeight * (totalSteps + 1)}`,
+      scrub: 1, // Increased scrub for smoother "magnetic" feel
       pin: true,
+      pinSpacing: true,
       anticipatePin: 1,
       invalidateOnRefresh: true,
       onUpdate: (self) => {
-        const index = Math.min(totalSteps - 1, Math.floor(self.progress * totalSteps));
-        setActiveIndex(index);
+        // More robust index calculation to prevent jumping at the ends
+        const rawIndex = Math.floor(self.progress * totalSteps);
+        const index = Math.max(0, Math.min(totalSteps - 1, rawIndex));
+
+        // Only update if index actually changed to prevent re-renders
+        setActiveIndex((prev) => (prev !== index ? index : prev));
       },
       onLeave: () => {
         onComplete?.();
       },
     });
 
-    return () => trigger.kill();
-  }, [data, onComplete]);
+    return () => {
+      trigger.kill();
+    };
+  }, [data.length, onComplete])
 
   return (
     <OurApproachContainer ref={containerRef}>
@@ -131,7 +132,7 @@ const OurApproach = ({ onComplete }: Props) => {
 
       <video autoPlay loop muted playsInline>
         <source
-          src="https://res.cloudinary.com/dqvzaju7x/video/upload/approachbg_g7xwx5.mp4"
+          src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770893375/liquid-gradient-abstract-background_qpknyp.webm"
           type="video/mp4"
         />
       </video>

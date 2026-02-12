@@ -1,7 +1,6 @@
 "use client";
 
 import { Box, styled } from "@mui/material";
-import { alignItems } from "@mui/system";
 
 export const WorkflowSectionRoot = styled(Box)(({ theme }) => ({
     width: "100%",

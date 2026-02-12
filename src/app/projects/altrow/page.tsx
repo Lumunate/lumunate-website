@@ -27,8 +27,8 @@ export default function AltrowPage() {
             <Challenges
                 title="Solution"
                 description="We designed a lifestyle-first e-commerce experience that blends warm photography, intuitive navigation, and story-driven content. The solution includes a clear mega-menu structure for Men, Women, and Unisex collections, community-driven social proof, localized market optimizations, and modular layouts built for scalability. Balanced visual hierarchy and uncluttered layouts guide users smoothly from inspiration to purchase while reinforcing ALTROW’s effortless luxury positioning."
-                imageLeftSrc="/case-studies/TCR-2.svg"
-                imageRightSrc="/case-studies/TCR-3.svg"
+                imageLeftSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770910536/Free_iPhone_17_Pro_kx0t7h.webp"
+                imageRightSrc="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770910504/Frame_1000002387_gjtzbd.webp"
             />
 
             <ImpactSection

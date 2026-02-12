@@ -41,7 +41,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
         playsInline
       >
         <source
-          src="https://res.cloudinary.com/dqvzaju7x/video/upload/q_auto,f_auto/about_hero_bg2_dp38xc.mp4"
+          src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770896280/Feedback_bg_ftbegc.webm"
           type="video/mp4"
         />
         Your browser does not support the video tag.
@@ -102,7 +102,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
               sx={{
                 fontWeight: 700,
                 color: theme.palette.text.primary,
-                marginRight: logoUrl || flagUrl ? "4px" : 0, 
+                marginRight: logoUrl || flagUrl ? "4px" : 0,
               }}
               variant="body2"
             >
@@ -120,7 +120,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
                   width: "20px",
                   height: "20px",
                   objectFit: "contain",
-                  marginRight: flagUrl ? "4px" : 0, 
+                  marginRight: flagUrl ? "4px" : 0,
                 }}
               />
             )}

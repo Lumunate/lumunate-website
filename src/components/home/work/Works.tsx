@@ -18,10 +18,10 @@ const Works = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const projects = [
-    { title: "AirBot", year: 2025, imageSrc: "/project1.svg", url: "/projects/airbot" },
-    { title: "Allfred", year: 2025, imageSrc: "/project2.svg", url: "/projects/allfred" },
-    { title: "Koinfolio", year: 2024, imageSrc: "/project3.svg", url: "/projects/koinfolio" },
-    { title: "CutConnect", year: 2025, imageSrc: "/project4.svg", url: "/projects/cut-connect" },
+    { title: "AirBot", year: 2025, imageSrc: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770893373/Airbot_nagyon.webp", url: "/projects/airbot" },
+    { title: "Allfred", year: 2025, imageSrc: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770898186/Allfred-Home_11zon_t92k4g.webp", url: "/projects/allfred" },
+    { title: "Koinfolio", year: 2024, imageSrc: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770898186/Koinfolio_1__11zon_gdiwkt.webp", url: "/projects/koinfolio" },
+    { title: "CutConnect", year: 2025, imageSrc: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770898378/Cut_connect_1_ysrdaf.webp", url: "/projects/cut-connect" },
   ];
 
   const renderProjectCard = (project: typeof projects[0], index: number) => (
@@ -39,10 +39,10 @@ const Works = () => {
         <Image
           src={project.imageSrc}
           alt={project.title}
-          width={600}
-          height={400}
-          style={{ width: '100%', height: 'auto', display: 'block' }}
+          fill
+          sizes="(max-width: 600px) 100vw, 50vw"
           className="hoverImage"
+          style={{ objectFit: 'cover' }}
         />
         <Link href={project.url}>
           <ViewButton className="viewButton">

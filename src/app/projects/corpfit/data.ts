@@ -2,7 +2,7 @@ export const CorpfitData = {
     header: {
         background: {
             kind: "video" as const,
-            src: "/videos/koinfolio-bg.mp4",
+            src: "https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770906021/Case_study_hero_jjcnzp.webm",
             poster: "/images/koinfolio-poster.jpg",
         },
         title: "Corpfit",
@@ -25,7 +25,7 @@ export const CorpfitData = {
         title: "Challenges",
         description:
             "As the platform evolved, it needed to move beyond a feature-complete prototype into a stable, scalable, and commercially viable product. Key challenges included managing complex user roles, structuring workout programs and exercise data, maintaining AI prompt continuity, improving the mobile workout experience, and preparing the system for monetization—without breaking existing functionality or overhauling the UI unnecessarily.",
-        imageSrc: "/case-studies/TCR-1.svg",
+        imageSrc: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770910732/Corpfit_11zon_z3fitv.webp",
     },
 
     impact: {

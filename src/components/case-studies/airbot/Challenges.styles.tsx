@@ -31,7 +31,7 @@ export const ImageWrapper = styled(Box)(() => ({
 export const ImageGridWrapper = styled(Box)(({ theme }) => ({
   display: "grid",
   gridTemplateColumns: "1fr 1fr",
-  gap: 0,
+  gap: "16px",
   width: "100%",
   marginTop: theme.spacing(2),
 
@@ -39,7 +39,7 @@ export const ImageGridWrapper = styled(Box)(({ theme }) => ({
     width: "100%",
     height: "100%",
     aspectRatio: "19/12",
-    borderRadius: theme.shape.borderRadius,
+    borderRadius: "12px",
     objectFit: "cover",
   },
   [theme.breakpoints.down("sm")]: {
