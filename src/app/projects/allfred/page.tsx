@@ -52,9 +52,10 @@ export default function AllfredCaseStudyPage() {
             />
 
             <SuccessStories
-                storyText="The team at Luminate is simply the best. They do the best jobs as always and have brought our idea for Koinfolio to life. Will continue the work with them for sure!"
-                name="Ebrahim"
-                role="CEO, Koinfolio"
+                storyText="Strong execution, clear communication, and a product that works reliably in real-world use.  If you are looking for a high-quality development team, do not hesitate to use Lumunate’s services."
+                name="// Christopher Sindelar -"
+                flagUrl="/case-studies/Austria-flag.svg"
+                role="CEO, Austria"
                 showStars={true}
             />
 

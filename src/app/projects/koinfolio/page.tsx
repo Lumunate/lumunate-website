@@ -22,7 +22,7 @@ export default function KoinfolioPage() {
             <Challenges
                 title={koinfolioData.challenges.title}
                 description={koinfolioData.challenges.description}
-                imageSrc={koinfolioData.challenges.imageSrc}   // 👈 single image
+                imageSrc={koinfolioData.challenges.imageSrc} 
             />
             <Challenges
                 title="Solution"

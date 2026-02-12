@@ -22,7 +22,7 @@ export default function TCRPage() {
             <Challenges
                 title={TCRData.challenges.title}
                 description={TCRData.challenges.description}
-                imageSrc={TCRData.challenges.imageSrc}  
+                imageSrc={TCRData.challenges.imageSrc}
             />
             <Challenges
                 title="Solution"
@@ -39,6 +39,7 @@ export default function TCRPage() {
             <SuccessStories
                 storyText={TCRData.success.story}
                 name={TCRData.success.name}
+                flagUrl="/case-studies/UAE-flag.svg"
                 role={TCRData.success.role}
                 showStars={true}
             />

@@ -38,8 +38,8 @@ export const TCRData = {
     },
     success: {
         story:
-            "The team at Lumunate is simply the best. They do the best jobs as always and have brought our idea for Koinfolio to life. Will continue the work with them for sure!",
-        name: "// Ebrahim",
-        role: "CEO, Koinfolio",
+            "They translated our requirements into a dependable product that aligns with both business and user needs. They are clearly experts in their field.",
+        name: "// Naseer Khan - ",
+        role: "CEO, TCR",
     },
 };
