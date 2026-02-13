@@ -14,10 +14,15 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center",
-
+    alignItems: "stretch",
+    minHeight: "514px",
+    [theme.breakpoints.up("xl")]: {
+        minHeight: "814px",
+    },
     [theme.breakpoints.down("md")]: {
         flexDirection: "column",
         height: "auto",
+        minHeight: "unset",
     },
 }));
 
@@ -25,14 +30,14 @@ export const CardLeft = styled(Box)(({ theme }) => ({
     flex: 1,
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "start",
     padding: "66px 38px",
     color: theme.palette.text.primary,
     position: "relative",
     zIndex: 2,
 
     [theme.breakpoints.down("md")]: {
-        padding: theme.spacing(4),
+        padding: "40px 24px 0px 24px",
     },
 }));
 
@@ -42,45 +47,58 @@ export const CardRight = styled(Box)(({ theme }) => ({
     alignItems: "stretch",
     justifyContent: "center",
     position: "relative",
-    overflow: "hidden",
-    borderRadius: "30px 20px 30px 20px",
-    padding: "0 0px 0 0",
-
-    "&::after": {
-        content: '""',
-        position: "absolute",
-        top: 0,
-        bottom: 0,
-        right: "16px",
-        left: 0,
-        borderRadius: "30px 20px 30px 20px",
-        pointerEvents: "none",
-        zIndex: 1,
-        background: "linear-gradient(to left, rgba(0,0,0,0.4) 0%, transparent 30%)",
-    },
+    padding: 0,
 
     [theme.breakpoints.down("md")]: {
-        padding: "0",
+        width: "100%",
+        padding: 0,
+        overflow: "visible",
         "&::after": {
-            inset: 0,
-            borderRadius: 0
+            content: '""',
+            position: "absolute",
+            inset: "30px 0 auto 0",
+            height: "100px",
+            borderRadius: "30px",
+            background: "linear-gradient(to bottom, #000 20%, transparent 100%)",
+            zIndex: 5,
+            pointerEvents: "none",
         }
     },
+    [theme.breakpoints.up("md")]: {
+        borderRadius: "30px 20px 30px 20px",
+        overflow: "hidden",
+        "&::after": {
+            content: '""',
+            position: "absolute",
+            inset: 0,
+            pointerEvents: "none",
+            zIndex: 2,
+            background: "linear-gradient(to left, rgba(0,0,0,0.4) 0%, transparent 30%)",
+        },
+    }
 }));
 
 export const WorkflowVideo = styled("video")(({ theme }) => ({
     width: "100%",
     height: "100%",
     objectFit: "cover",
-    borderRadius: "30px 20px 30px 20px",
-    zIndex: 0,
+    zIndex: 1,
+    backgroundColor: "transparent",
+
     [theme.breakpoints.down("md")]: {
         width: "100%",
-        height: "100%",
-        maxHeight: "297px",
-        maxWidth: "345px",
-        objectFit: "cover"
+        minHeight: "420px",
+        borderRadius: "0",
+        mixBlendMode: "screen",
+        display: "block",
+
+        boxShadow: "0px -50px 60px 10px rgba(0,0,0,1)",
+
+        filter: "contrast(1.1) brightness(1.1)",
     },
+    [theme.breakpoints.up("md")]: {
+        borderRadius: "30px 20px 30px 20px",
+    }
 }));
 
 export const TopText = styled(Typography)(({ theme }) => ({

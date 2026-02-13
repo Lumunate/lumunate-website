@@ -170,37 +170,49 @@ export const useGsapSlideAnimation = (data: unknown[]) => {
 export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
   refs: React.RefObject<T | null>[],
   delay = 0,
-  enabled = true
+  enabled = true,
+  isHome = true
 ) => {
   useEffect(() => {
     if (!enabled) return;
 
     const elements = refs
-      .filter((r): r is React.RefObject<T> => Boolean(r && r.current))
-      .map((r) => r.current!) as T[];
+      .map((r) => r.current)
+      .filter((el): el is T => el !== null);
 
     if (!elements.length) return;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: delay + 3, });
+      const tl = gsap.timeline({ delay: delay + 3 });
 
-      // Navbar
       if (elements[0]) {
-        tl.fromTo(
-          elements[0],
-          { y: -60, opacity: 0, pointerEvents: "none" },
-          {
+        if (isHome) {
+          // Start hidden and animate in only on Home
+          tl.fromTo(
+            elements[0],
+            { y: -60, opacity: 0, pointerEvents: "none" },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 1.1,
+              ease: "power3.out",
+              onComplete: () => {
+                elements[0].style.pointerEvents = "auto";
+              },
+            }
+          );
+        } else {
+          // Force visible immediately on other pages
+          gsap.set(elements[0], {
             y: 0,
             opacity: 1,
-            duration: 1.1,
-            ease: "power3.out",
-            onComplete: () => {
-              elements[0].style.pointerEvents = "auto";
-            },
-          }
-        );
+            pointerEvents: "auto",
+            visibility: "visible"
+          });
+        }
       }
 
+      // HERO TEXT / SUB-ELEMENTS (Index 1)
       if (elements[1]) {
         tl.fromTo(
           elements[1],
@@ -210,6 +222,7 @@ export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
         );
       }
 
+      // ADDITIONAL ELEMENTS (Index 2 & 3)
       if (elements[2]) {
         tl.fromTo(
           elements[2],
@@ -230,9 +243,8 @@ export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
     });
 
     return () => ctx.revert();
-  }, [refs, delay, enabled]);
+  }, [refs, delay, enabled, isHome]);
 };
-
 
 // useGsapCounterAnimation - Track Record counters
 export const useGsapCounterAnimation = (

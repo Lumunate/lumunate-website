@@ -182,6 +182,7 @@ export const TitleText = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(14.25),
   [theme.breakpoints.down("sm")]: {
     fontSize: "18px",
+    padding: "16px 0",
   },
 }));
 
@@ -224,7 +225,7 @@ export const NumberTypography = styled(Typography)(({ theme }) => ({
     fontSize: "180px",
   },
   [theme.breakpoints.down("sm")]: {
-    fontSize: "160px",
+    fontSize: "120px",
   },
 }));
 

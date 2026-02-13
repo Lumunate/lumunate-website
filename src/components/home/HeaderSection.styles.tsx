@@ -69,7 +69,7 @@ export const ContentBox = styled(Box)(({ theme }) => ({
         flexDirection: "column",
         justifyContent: "center",
         textAlign: "center",
-        gap: theme.spacing(4),
+        gap: theme.spacing(0),
         padding: 0,
     },
     [theme.breakpoints.down("sm")]: {
@@ -77,7 +77,7 @@ export const ContentBox = styled(Box)(({ theme }) => ({
         justifyContent: "flex-start",
         textAlign: "left",
         paddingTop: "100px",
-        gap: theme.spacing(3),
+        gap: theme.spacing(0),
     },
 }));
 
@@ -126,6 +126,7 @@ export const RightBox = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down("md")]: {
         alignItems: "center",
         marginRight: 0,
+        gap: theme.spacing(0),
     },
 }));
 

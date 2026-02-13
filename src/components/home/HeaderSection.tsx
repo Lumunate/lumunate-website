@@ -93,7 +93,7 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
                     },
 
                     px: {
-                      xs: "24px",
+                      xs: "16px",
                     },
                     py: {
                       xs: "12px",

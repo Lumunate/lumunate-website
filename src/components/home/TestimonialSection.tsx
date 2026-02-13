@@ -60,18 +60,8 @@ export default function TestimonialSection() {
                         </TestimonialText>
 
                         <AuthorRow>
-                            <AuthorAvatar>
-                                <Image
-                                    src="/Ebrahim.png"
-                                    alt="Ebrahim"
-                                    width={48}
-                                    height={48}
-                                    style={{ borderRadius: "50%" }}
-                                />
-                            </AuthorAvatar>
-
                             <AuthorInfo>
-                                <AuthorName>Ebrahim</AuthorName>
+                                <AuthorName>// Ebrahim</AuthorName>
                                 <AuthorTitle>CEO, Koinfolio</AuthorTitle>
                             </AuthorInfo>
                         </AuthorRow>

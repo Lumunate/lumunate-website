@@ -22,9 +22,12 @@ export const ExploreText = styled(Typography)(({ theme }) => ({
     fontFamily: "Neue Montreal",
     fontSize: "clamp(2rem, 8.6vw, 14rem)",
     whiteSpace: "nowrap",
-    color: `${theme.palette.text.primary}08`,
+    color: "rgba(255, 255, 255, 0.03)",
     letterSpacing: "0.05em",
     filter: "blur(1px)",
     userSelect: "none",
     lineHeight: 1.2,
+    [theme.breakpoints.down("md")]: {
+        color: "rgba(255, 255, 255, 0.10)",
+    },
 }));

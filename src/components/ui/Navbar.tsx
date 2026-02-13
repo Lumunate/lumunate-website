@@ -25,7 +25,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-
+import CloseIcon from "@mui/icons-material/Close";
 
 import {
     NavContainer,
@@ -147,10 +147,6 @@ export default function Navbar() {
             position="sticky"
             elevation={0}
             sx={{
-                opacity: isHome ? 0 : 1,
-                transform: isHome ? "translateY(-60px)" : "none",
-                pointerEvents: isHome ? "none" : "auto",
-                transition: isHome ? "none" : "opacity 0.2s ease",
                 top: 0,
                 left: 0,
                 width: "100%",
@@ -158,6 +154,7 @@ export default function Navbar() {
                 backgroundColor: theme.palette.navbar.bg,
                 borderTop: `1px solid ${theme.palette.navbar.border}`,
                 borderBottom: `1px solid ${theme.palette.navbar.border}`,
+                visibility: "visible",
             }}
         >
 
@@ -311,11 +308,15 @@ export default function Navbar() {
                         {/* Mobile/Tablet: Hamburger */}
                         {isMobile && (
                             <IconButton
-                                onClick={toggleDrawer(true)}
-                                sx={{ color: theme.palette.section.heading, p: 1 }}
-                                aria-label="Open menu"
+                                onClick={toggleDrawer(!drawerOpen)}
+                                sx={{
+                                    color: theme.palette.section.heading,
+                                    p: 1,
+                                    zIndex: 1400
+                                }}
+                                aria-label={drawerOpen ? "Close menu" : "Open menu"}
                             >
-                                <MenuIcon />
+                                {drawerOpen ? <CloseIcon /> : <MenuIcon />}
                             </IconButton>
                         )}
 
@@ -358,95 +359,74 @@ export default function Navbar() {
                 <Drawer
                     anchor="right"
                     open={drawerOpen}
-                    onClose={toggleDrawer(false)}
-                    ModalProps={{
-                        keepMounted: true,
-                    }}
+                    onClose={() => setDrawerOpen(false)}
+                    ModalProps={{ keepMounted: true }}
                     slotProps={{
                         paper: {
                             sx: {
                                 width: "100vw",
-                                maxWidth: "100vw",
                                 height: "100vh",
                                 bgcolor: theme.palette.navbar.bg,
                                 color: theme.palette.section.desc,
-                                p: 0,
-                                m: 0,
+                                display: "flex",
+                                flexDirection: "column",
                                 borderRadius: 0,
-                                left: 0,
-                                right: 0,
                                 boxShadow: "none",
-                            },
-                        },
-                        backdrop: {
-                            sx: {
-                                backgroundColor: "rgba(0,0,0,0.55)",
+                                overflowY: "auto",
                             },
                         },
                     }}
                 >
-                    <Box sx={{ height: "100%", display: "flex", flexDirection: "column", bgcolor: theme.palette.navbar.bg }}>
-                        {/* Top bar */}
-                        <Box
-                            sx={{
-                                height: 64,
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                px: 3,
-                                borderBottom: `1px solid ${theme.palette.navbar.border}`,
-                            }}
-                        >
+                    <Box
+                        sx={{
+                            position: "sticky",
+                            top: 0,
+                            zIndex: 1100,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            px: { xs: "24px", md: "80px" },
+                            height: { xs: "64px", md: "80px" },
+                            bgcolor: theme.palette.navbar.bg,
+                            borderBottom: `1px solid ${theme.palette.navbar.border}`,
+                        }}
+                    >
+                        <LogoBox>
                             <Logo />
+                        </LogoBox>
 
-                            <IconButton
-                                onClick={toggleDrawer(false)}
-                                aria-label="Close menu"
-                                sx={{ color: theme.palette.section.heading }}
-                            >
-                                <Typography sx={{ fontSize: 22, lineHeight: 1 }}>✕</Typography>
-                            </IconButton>
-                        </Box>
+                        <IconButton
+                            onClick={() => setDrawerOpen(false)}
+                            sx={{ color: theme.palette.section.heading, p: 1 }}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    </Box>
 
-                        {/* Menu items */}
-                        <List sx={{ px: 2, pt: 2, flexGrow: 1, bgcolor: theme.palette.navbar.bg }}>
-                            {navLinks.map((link) => (
-                                <ListItem key={link.label} disablePadding>
-                                    <ListItemButton
-                                        LinkComponent={Link}
-                                        href={link.href}
-                                        onClick={toggleDrawer(false)}
-                                        sx={{
-                                            py: 1.5,
-                                            "&:hover": { bgcolor: theme.palette.navbar.itemHoverBg },
-                                        }}
+                    <Box sx={{ pt: "20px", bgcolor: theme.palette.navbar.bg }} />
 
-                                    >
-                                        <ListItemText
-                                            primary={link.label}
-                                            primaryTypographyProps={{
-                                                sx: {
-                                                    fontFamily: "Montserrat, sans-serif",
-                                                    fontSize: "16px",
-                                                    color: theme.palette.section.heading,
-                                                },
-                                            }}
-                                        />
-                                    </ListItemButton>
-                                </ListItem>
-                            ))}
-
-                            {/* Case Studies */}
-                            <ListItem disablePadding sx={{ mt: 1 }}>
+                    {/* MENU ITEMS */}
+                    <List
+                        sx={{
+                            px: 2,
+                            py: 0,
+                            flexGrow: 1,
+                            bgcolor: theme.palette.navbar.bg
+                        }}
+                    >
+                        {navLinks.map((link) => (
+                            <ListItem key={link.label} disablePadding>
                                 <ListItemButton
-                                    onClick={() => setMobileProjectsOpen((open) => !open)}
+                                    LinkComponent={Link}
+                                    href={link.href}
+                                    onClick={toggleDrawer(false)}
                                     sx={{
                                         py: 1.5,
                                         "&:hover": { bgcolor: theme.palette.navbar.itemHoverBg },
                                     }}
                                 >
                                     <ListItemText
-                                        primary="Case Studies"
+                                        primary={link.label}
                                         primaryTypographyProps={{
                                             sx: {
                                                 fontFamily: "Montserrat, sans-serif",
@@ -455,65 +435,89 @@ export default function Navbar() {
                                             },
                                         }}
                                     />
-                                    {mobileProjectsOpen ? (
-                                        <ExpandLessIcon sx={{ color: theme.palette.section.heading }} />
-                                    ) : (
-                                        <ExpandMoreIcon sx={{ color: theme.palette.section.heading }} />
-                                    )}
                                 </ListItemButton>
                             </ListItem>
+                        ))}
 
-                            {mobileProjectsOpen &&
-                                projects.map((proj) => (
-                                    <ListItem key={proj.name} disablePadding sx={{ pl: 2 }}>
-                                        <ListItemButton
-                                            LinkComponent={Link}
-                                            href={proj.href}
-                                            onClick={toggleDrawer(false)}
-                                            sx={{
-                                                py: 1.25,
-                                                borderBottom: `1px solid ${theme.palette.navbar.border}`,
-                                                "&:hover": { bgcolor: theme.palette.navbar.itemHoverBg },
-                                            }}
-                                        >
-                                            <ListItemText
-                                                primary={proj.name}
-                                                primaryTypographyProps={{
-                                                    sx: {
-                                                        fontFamily: "Montserrat, sans-serif",
-                                                        fontSize: "14px",
-                                                        color: theme.palette.section.desc,
-                                                        whiteSpace: "normal",
-                                                    },
-                                                }}
-                                            />
-                                        </ListItemButton>
-                                    </ListItem>
-                                ))}
-                        </List>
-
-                        {/* Footer text at bottom (replaces Get Started in sm/md) */}
-                        <Box
-                            sx={{
-                                mt: "auto",
-                                px: 3,
-                                py: 2.5,
-                                textAlign: "center",
-                                bgcolor: theme.palette.navbar.bg,
-                            }}
-                        >
-                            <Typography
+                        {/* Case Studies Toggle */}
+                        <ListItem disablePadding sx={{ mt: 1 }}>
+                            <ListItemButton
+                                onClick={() => setMobileProjectsOpen((open) => !open)}
                                 sx={{
-                                    color: theme.palette.section.muted,
-                                    fontFamily: "Montserrat, sans-serif",
-                                    letterSpacing: "0.3px",
-                                    fontSize: "13px",
-                                    fontWeight: 400,
+                                    py: 1.5,
+                                    "&:hover": { bgcolor: theme.palette.navbar.itemHoverBg },
                                 }}
                             >
-                                LUMUNATE &copy; {new Date().getFullYear()} All rights reserved
-                            </Typography>
-                        </Box>
+                                <ListItemText
+                                    primary="Case Studies"
+                                    primaryTypographyProps={{
+                                        sx: {
+                                            fontFamily: "Montserrat, sans-serif",
+                                            fontSize: "16px",
+                                            color: theme.palette.section.heading,
+                                        },
+                                    }}
+                                />
+                                {mobileProjectsOpen ? (
+                                    <ExpandLessIcon sx={{ color: theme.palette.section.heading }} />
+                                ) : (
+                                    <ExpandMoreIcon sx={{ color: theme.palette.section.heading }} />
+                                )}
+                            </ListItemButton>
+                        </ListItem>
+
+                        {/* Project Sub-items */}
+                        {mobileProjectsOpen &&
+                            projects.map((proj) => (
+                                <ListItem key={proj.name} disablePadding sx={{ pl: 2 }}>
+                                    <ListItemButton
+                                        LinkComponent={Link}
+                                        href={proj.href}
+                                        onClick={toggleDrawer(false)}
+                                        sx={{
+                                            py: 1.25,
+                                            borderBottom: `1px solid ${theme.palette.navbar.border}`,
+                                            "&:hover": { bgcolor: theme.palette.navbar.itemHoverBg },
+                                        }}
+                                    >
+                                        <ListItemText
+                                            primary={proj.name}
+                                            primaryTypographyProps={{
+                                                sx: {
+                                                    fontFamily: "Montserrat, sans-serif",
+                                                    fontSize: "14px",
+                                                    color: theme.palette.section.desc,
+                                                    whiteSpace: "normal",
+                                                },
+                                            }}
+                                        />
+                                    </ListItemButton>
+                                </ListItem>
+                            ))}
+                    </List>
+
+                    {/* FOOTER */}
+                    <Box
+                        sx={{
+                            mt: "auto",
+                            px: 3,
+                            pt: "40px",
+                            pb: 4,
+                            textAlign: "center",
+                            bgcolor: theme.palette.navbar.bg,
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                color: theme.palette.section.muted,
+                                fontFamily: "Montserrat, sans-serif",
+                                letterSpacing: "0.3px",
+                                fontSize: "13px",
+                                fontWeight: 400,
+                            }}
+                        >
+                            LUMUNATE &copy; {new Date().getFullYear()} All rights reserved
+                        </Typography>
                     </Box>
                 </Drawer>
             </NavContainer>
