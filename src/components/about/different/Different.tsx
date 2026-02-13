@@ -48,7 +48,7 @@ const Different = () => {
                   borderColor: "divider",
 
                   padding: { xs: "40px 20px", sm: "80px 28px", lg: "160px 32px" },
-                  backgroundImage: isGifBackground ? "url(/trackbg.gif)" : "none",
+                  backgroundImage: isGifBackground ? "url(https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770963764/ezgif-63db9d777461cb41_niae5n.gif)" : "none",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   color: "text.primary",

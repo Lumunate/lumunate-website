@@ -50,7 +50,7 @@ const TrackRecord: React.FC = () => {
               key={index}
               sx={{
                 ...(index === 0 || index === 2) && {
-                  backgroundImage: "url('/trackbg.gif')",
+                  backgroundImage: "url('https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770963764/ezgif-63db9d777461cb41_niae5n.gif')",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 },
