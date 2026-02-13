@@ -24,7 +24,6 @@ export default function KoinfolioPage() {
                 description={koinfolioData.challenges.description}
 
                 imageSrc={koinfolioData.challenges.imageSrc}
->>>>>>> fb57b5d (feat: Integrated all the Assets from Cloudinary)
             />
             <Challenges
                 title="Solution"
