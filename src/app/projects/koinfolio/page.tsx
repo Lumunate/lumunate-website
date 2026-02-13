@@ -22,11 +22,8 @@ export default function KoinfolioPage() {
             <Challenges
                 title={koinfolioData.challenges.title}
                 description={koinfolioData.challenges.description}
-<<<<<<< HEAD
-                imageSrc={koinfolioData.challenges.imageSrc}   // 👈 single image
-=======
+
                 imageSrc={koinfolioData.challenges.imageSrc}
->>>>>>> fb57b5d (feat: Integrated all the Assets from Cloudinary)
             />
             <Challenges
                 title="Solution"
