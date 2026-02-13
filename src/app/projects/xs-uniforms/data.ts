@@ -5,7 +5,7 @@ export const GarmentResizingData = {
             src: "https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770906021/Case_study_hero_jjcnzp.webm",
             poster: "/images/koinfolio-poster.jpg",
         },
-        title: "Garment Resizing",
+        title: "XS Uniforms",
         subtitle: "Automated Garment Sizing Tool",
         description:
             "The Automated Garment Sizing & Recommendation Tool delivers a production-ready, data-driven sizing experience designed to reduce uncertainty in apparel purchasing. Embedded directly within the website’s hero section, the tool translates body measurements into accurate size recommendations using manufacturer-defined garment charts. The result is a professional, trustworthy sizing solution that supports both individual customers and large teams while improving purchase confidence and operational efficiency.",

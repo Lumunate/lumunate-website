@@ -25,7 +25,7 @@ export const TCRData = {
         title: "Challenges",
         description:
             "Real estate businesses often struggle with outdated websites that fail to present properties clearly, lack user-friendly navigation, and don’t inspire trust. TCR Properties needed a digital platform that could present listings professionally, communicate brand credibility, and allow users to quickly understand available properties without confusion or friction.",
-        imageSrc: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770909629/TCR_Cover_cwtqng.webp",
+        imageSrc: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1771004739/TCR_11zon_preirp.webp",
     },
 
     impact: {

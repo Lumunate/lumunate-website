@@ -62,10 +62,11 @@ const Works = () => {
           {isMobile ? (
             <Swiper
               modules={[Pagination]}
-              spaceBetween={0}
+              spaceBetween={16}
               slidesPerView={1}
               pagination={{ clickable: true }}
               style={{
+                width: "100%",
                 "--swiper-pagination-color": theme.palette.text.primary,
                 "--swiper-pagination-bullet-inactive-color": theme.palette.text.secondary,
                 "--swiper-pagination-bullet-inactive-opacity": "0.4",
@@ -73,7 +74,10 @@ const Works = () => {
             >
               {projects.map((project, index) => (
                 <SwiperSlide key={index}>
-                  {renderProjectCard(project, index)}
+
+                  <Box sx={{ px: 0 }}>
+                    {renderProjectCard(project, index)}
+                  </Box>
                 </SwiperSlide>
               ))}
             </Swiper>

@@ -8,9 +8,8 @@ export const WorkWrapper = styled(Box)(({ theme }) => ({
   paddingBottom: "220px",
 
   "& .swiper": {
-    width: "100vw",
-    marginLeft: "calc(50% - 50vw)",
-    marginRight: "calc(50% - 50vw)",
+    width: "100%",
+    margin: 0,
     paddingBottom: "40px !important",
 
     [theme.breakpoints.up("sm")]: {

@@ -9,7 +9,7 @@ export default function PageContainer({ children }: { children: React.ReactNode 
                     xs: "24px",
                     sm: "24px",
                     md: "48px",
-                    lg: "132px",
+                    lg: "48px",
                     xl: "132px",
                 },
             }}

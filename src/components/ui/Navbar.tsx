@@ -48,7 +48,7 @@ const projects = [
     { name: "Elumi – Luxury Home Fragrance E-commerce", href: "/projects/elumi" },
     { name: "Altrow – Comfort Wear E-commerce", href: "/projects/altrow" },
     { name: "Corpfit – AI-Powered Training Platform", href: "/projects/corpfit" },
-    { name: "Garment Resizing – Automated Garment Sizing Tool", href: "/projects/garment-resizing" },
+    { name: "XS Uniforms – Automated Garment Sizing Tool", href: "/projects/xs-uniforms" },
 ];
 
 const navLinks = [
@@ -328,7 +328,7 @@ export default function Navbar() {
                         {/* Desktop: Get Started */}
                         {!isMobile && (
                             <>
-                                <VerticalDivider />
+                                <VerticalDivider sx={{ display: { xs: 'none', xl: 'block' } }} />
                                 <Box sx={{ pl: "32px" }}>
                                     <Button
                                         href="https://calendly.com/saad-b-javaid22/consultation"

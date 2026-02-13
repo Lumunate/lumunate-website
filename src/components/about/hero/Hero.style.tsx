@@ -39,13 +39,13 @@ export const ContentContainer = styled(Box)(({ theme }) => ({
     paddingBottom: theme.spacing(12),
     flexDirection: "column",
     justifyContent: "flex-end",
-    alignItems: "center",
-    textAlign: "center",
+    alignItems: "flex-start",
+    textAlign: "left",
     gap: theme.spacing(4),
   },
 
   [theme.breakpoints.down("sm")]: {
-    paddingTop: "100px",        
+    paddingTop: "100px",
     paddingBottom: theme.spacing(6),
     justifyContent: "flex-start",
     alignItems: "flex-start",

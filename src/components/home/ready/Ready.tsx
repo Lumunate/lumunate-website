@@ -66,7 +66,7 @@ const Ready = ({
         <TextWrapper>
           <Typography
             sx={{
-              fontSize: { xs: "30px", sm: "56px", md: "78px" },
+              fontSize: { xs: "30px", sm: "56px", md: "60px", lg: "60px", xl: "78px" },
               color: theme.palette.text.primary,
               fontWeight: 400,
               fontFamily: 'Montserrat',

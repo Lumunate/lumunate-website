@@ -5,21 +5,19 @@ import { styled, Box, Typography } from "@mui/material";
 export const HeaderRoot = styled(Box)(({ theme }) => ({
     position: "relative",
     width: "100%",
-    height: "100vh",
-    minHeight: "600px",
-    maxHeight: "1070px",
+    // Changed: Remove hard maxHeight/minHeight to let content breathe
+    minHeight: "100vh",
     overflow: "hidden",
     color: theme.palette.text.primary,
     backgroundColor: theme.palette.background.default,
-    [theme.breakpoints.down("xl")]: {
-        height: "700px",
-        minHeight: "800px",
-        maxHeight: "700px",
+    display: "flex",
+    flexDirection: "column",
+
+    [theme.breakpoints.down("lg")]: {
+        minHeight: "750px", // Increased for 1024px screens
     },
     [theme.breakpoints.down("md")]: {
-        height: "700px",
-        minHeight: "700px",
-        maxHeight: "700px",
+        minHeight: "850px", // Increased for 768px screens to prevent cutting
     },
 }));
 
@@ -30,10 +28,9 @@ export const BackgroundVideo = styled(Box)(() => ({
     width: "100%",
     height: "100%",
     objectFit: "cover",
-    objectPosition: "center bottom",
+    objectPosition: "center center", // Changed to center
     zIndex: 0,
-    transform: "scale(1.1)",
-    transformOrigin: "bottom center",
+    transform: "scale(1.05)", // Reduced scale slightly
 })) as typeof Box;
 
 
@@ -53,75 +50,64 @@ export const HeaderContent = styled(Box, {
     position: "relative",
     zIndex: 1,
     width: "100%",
-    height: "100%",
+    flexGrow: 1, 
+    display: "flex",
+    alignItems: "flex-end",
+  
+    paddingTop: "120px",
+    paddingBottom: "80px",
 
     background: `linear-gradient(
     to bottom,
     rgba(0,0,0,${overlayopacity}) 0%,
     rgba(0,0,0,0) 50%,
-    rgba(0,0,0,${overlayopacity}) 100%
+    rgba(0,0,0,0.8) 100%
   )`,
 
-    display: "flex",
-    alignItems: "flex-end",
-    paddingBottom: "60px",
-
-    /* Bottom Blur Fade into theme background */
     "&::after": {
         content: '""',
         position: "absolute",
         left: 0,
         bottom: 0,
         width: "100%",
-        height: "40px",
-        backdropFilter: "blur(24px)",
-        WebkitBackdropFilter: "blur(24px)",
-        background: `linear-gradient(
-      to bottom,
-      rgba(0,0,0,0) 0%,
-      ${theme.palette.background.default} 100%
-    )`,
+        height: "100px",
+        background: `linear-gradient(to bottom, rgba(0,0,0,0), ${theme.palette.background.default})`,
         pointerEvents: "none",
         zIndex: 2,
     },
 
     [theme.breakpoints.down("md")]: {
-        paddingBottom: theme.spacing(4),
+        alignItems: "center", 
+        paddingBottom: theme.spacing(8),
     },
 
     [theme.breakpoints.down("sm")]: {
         alignItems: "flex-start",
         paddingTop: "100px",
-        paddingBottom: 0,
+        paddingBottom: "40px",
     },
 }));
 
-
-
 export const HeaderLeft = styled(Box)(({ theme }) => ({
     flex: 1,
-    paddingBottom: "47px",
     [theme.breakpoints.down("md")]: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
         textAlign: "center",
+        marginBottom: theme.spacing(2),
     },
     [theme.breakpoints.down("sm")]: {
-        alignItems: "flex-start",
         textAlign: "left",
-        paddingBottom: "0px",
     },
 }));
 
 export const Title = styled(Typography)(({ theme }) => ({
-    fontSize: "90px",
+    fontSize: "clamp(40px, 6vw, 90px)",
     fontWeight: 500,
     lineHeight: 1.1,
     letterSpacing: "-0.02em",
-    color: theme.palette.text.primary,
+    whiteSpace: "nowrap",
     [theme.breakpoints.down("md")]: {
         fontSize: "40px",
+        maxwidth: "279px",
     },
 }));
 
@@ -131,8 +117,8 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
     lineHeight: 1.3,
     color: theme.palette.text.primary,
     marginTop: "21px",
-    [theme.breakpoints.down("md")]: {
-        fontSize: theme.typography.h5.fontSize,
+    [theme.breakpoints.down("lg")]: {
+        fontSize: theme.typography.body1.fontSize,
     },
     [theme.breakpoints.down("sm")]: {
         fontSize: "24px",
@@ -146,14 +132,13 @@ export const HeaderRight = styled(Box)(({ theme }) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
+    width: "100%",
+    maxWidth: "100%",
 
     "& .meta-container": {
         [theme.breakpoints.up("md")]: {
-            transform: "translateY(-35px)",
+            marginTop: "20px",
         },
-        [theme.breakpoints.up("xl")]: {
-            transform: "translateY(-35px)",
-        }
     },
 
     [theme.breakpoints.down("md")]: {
@@ -166,19 +151,20 @@ export const HeaderRight = styled(Box)(({ theme }) => ({
 
 
 export const Description = styled(Typography)(({ theme }) => ({
-    ...theme.typography.body1,
     color: theme.palette.section.caseStudyDesc,
-    opacity: 1,
-    fontSize: theme.typography.body1.fontSize,
-    marginBottom: "54px",
+    fontSize: "18px",
+    lineHeight: 1.6,
+    marginBottom: "40px",
     maxWidth: "823px",
+    [theme.breakpoints.down("lg")]: {
+        fontSize: "16px",
+        textAlign: "left", 
+    },
     [theme.breakpoints.down("md")]: {
-        fontSize: "16px", textAlign: "center"
+        textAlign: "center",
     },
     [theme.breakpoints.down("sm")]: {
         textAlign: "left",
-        marginTop: "0px",
-        marginBottom: "30px",
         fontSize: "14px",
     },
 }));
@@ -192,6 +178,7 @@ export const MetaLabel = styled(Typography)(({ theme }) => ({
     lineHeight: 1.2,
     [theme.breakpoints.down("sm")]: {
         fontSize: "14px",
+        whiteSpace: "nowrap",
     },
 }));
 
@@ -201,6 +188,7 @@ export const MetaValue = styled(Typography)(({ theme }) => ({
     fontSize: theme.typography.h6.fontSize,
     color: theme.palette.text.primary,
     lineHeight: 1.2,
+
     [theme.breakpoints.down("sm")]: {
         fontSize: "14px",
     },

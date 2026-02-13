@@ -164,8 +164,9 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.primary,
   textAlign: "center",
 
-  [theme.breakpoints.down(1440)]: {
+  [theme.breakpoints.down("xl")]: {
     fontSize: "40px",
+    textAlign: "left",
   },
   [theme.breakpoints.down("sm")]: {
     fontSize: "24px",
@@ -180,6 +181,9 @@ export const TitleText = styled(Typography)(({ theme }) => ({
   fontSize: theme.typography.h5.fontSize,
   fontWeight: 400,
   marginBottom: theme.spacing(14.25),
+  [theme.breakpoints.down("xl")]: {
+    padding: "24px 0",
+  },
   [theme.breakpoints.down("sm")]: {
     fontSize: "18px",
     padding: "16px 0",
@@ -221,8 +225,9 @@ export const NumberTypography = styled(Typography)(({ theme }) => ({
   backgroundClip: "text",
   color: "transparent",
 
-  [theme.breakpoints.down(1440)]: {
+  [theme.breakpoints.down("xl")]: {
     fontSize: "180px",
+    textAlign: "left",
   },
   [theme.breakpoints.down("sm")]: {
     fontSize: "120px",
