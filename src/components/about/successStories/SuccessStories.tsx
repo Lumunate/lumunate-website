@@ -10,18 +10,23 @@ import {
 import { Box, Typography, useTheme } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import PageContainer from "@/components/common/PageContainer";
+import Image from "next/image";
 
 type SuccessStoriesProps = {
   storyText: string;
   name: string;
   role: string;
   showStars?: boolean;
+  logoUrl?: string;
+  flagUrl?: string;
 };
 
 const SuccessStories: React.FC<SuccessStoriesProps> = ({
   storyText,
   name,
   role,
+  logoUrl,
+  flagUrl,
   showStars = false,
 }) => {
   const theme = useTheme();
@@ -122,16 +127,6 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
               />
             )}
           </Box>
-
-          <Typography
-            variant="body1"
-            sx={{
-              color: theme.palette.text.secondary,
-              fontSize: { xs: "16px", sm: "18px" },
-            }}
-          >
-            {role}
-          </Typography>
         </PageContainer>
       </ContentContainer>
     </SuccessStoriesContainer>
