@@ -76,7 +76,7 @@ export default function Footer() {
 
                 <Box sx={{
                     display: "flex",
-                    height: 80,
+                    height: 56,
                     px: "32px",
                     borderBottom: "1px solid",
                     borderColor: "divider",
@@ -96,6 +96,7 @@ export default function Footer() {
                     >
                         <Image src="/icons/linkedin.svg" alt="LinkedIn" width={24} height={24} />
                     </IconWrapper>
+                    
                 </Box>
             </Box>
 

@@ -11,10 +11,10 @@ export const ReadyContainer = styled(Box)(({ theme }) => ({
   overflow: "hidden",
 
   [theme.breakpoints.down("md")]: {
-    height: "80vh",
+    height: "780px",
   },
   [theme.breakpoints.down("sm")]: {
-    height: "70vh",
+    height: "580px",
   },
 }));
 
@@ -36,7 +36,7 @@ export const Overlay = styled(Box)(({ theme }) => ({
   height: "100%",
   background:
     theme.palette.mode === "dark"
-      ? alpha(theme.palette.background.default, 0.45)
+      ? `linear-gradient(to bottom, ${alpha(theme.palette.background.default, 0.45)} 0%, transparent 100%)`
       : alpha(theme.palette.common.white, 0.25),
   zIndex: 1,
 }));
@@ -45,13 +45,19 @@ export const TextWrapper = styled(Box)(({ theme }) => ({
   position: "relative",
   display: "flex",
   justifyContent: "center",
+  height: "100%",
   margin: "0 auto",
   flexDirection: "column",
   textAlign: "center",
   letterSpacing: "-1.5px",
   zIndex: 2,
-  padding: theme.spacing(0, 2),
+  padding: theme.spacing(0, 0),
   color: theme.palette.text.primary,
+
+  [theme.breakpoints.down("sm")]: {
+    paddingTop: "0px",
+    justifyContent: "flex-start",
+  },
 
   "& h1, & h2": {
     lineHeight: 1.1,
@@ -62,5 +68,4 @@ export const TextWrapper = styled(Box)(({ theme }) => ({
       lineHeight: 1.02,
     },
   },
-
 }));
