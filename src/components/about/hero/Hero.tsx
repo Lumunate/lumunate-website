@@ -28,7 +28,7 @@ const Hero = () => {
               justifyContent: "space-between",
               width: "100%",
               alignItems: { xs: "flex-start", md: "center" },
-              gap: { xs: 0, md: "20px" },
+              gap: { xs: 0, md: "100px", lg: "150px" },
             }}
           >
             <Box>
@@ -36,6 +36,7 @@ const Hero = () => {
                 sx={{
                   fontSize: { xs: "40px", md: "60px", xl: "90px" },
                   color: theme.palette.text.primary,
+                  whiteSpace: { xs: "normal", md: "nowrap" },
                 }}
               >
                 About Us
@@ -43,9 +44,9 @@ const Hero = () => {
 
               <Typography
                 sx={{
-                  fontSize: { xs: "16px", sm: "22px" },
+                  fontSize: { xs: "16px", sm: "18px", xl: "22px" },
                   color: theme.palette.text.secondary,
-                  mt: { xs: "16px", md: 0 }, 
+                  mt: { xs: "16px", md: 0 },
                 }}
                 variant="h5"
               >
@@ -55,7 +56,7 @@ const Hero = () => {
 
             <Box
               sx={{
-                mt: { xs: "60px", md: 0 }, 
+                mt: { xs: "60px", md: 0 },
               }}
             >
               <Typography

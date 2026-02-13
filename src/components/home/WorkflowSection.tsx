@@ -66,7 +66,7 @@ const workflowSections = [
 
 const STACK_OFFSET = 12;
 const HEIGHTS = {
-  MOBILE: 500,
+  MOBILE: 600,
   LAPTOP: 450,
   DESKTOP: 750,
   XL: 850
@@ -88,15 +88,10 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
   useEffect(() => {
     const updateDimensions = () => {
       const width = window.innerWidth;
-      if (width >= 1920) {
-        setCardHeight(HEIGHTS.XL);
-      } else if (width >= 1600) {
-        setCardHeight(HEIGHTS.DESKTOP);
-      } else if (width >= 1024) {
-        setCardHeight(HEIGHTS.LAPTOP);
-      } else {
-        setCardHeight(HEIGHTS.MOBILE);
-      }
+      if (width >= 1920) setCardHeight(HEIGHTS.XL);
+      else if (width >= 1600) setCardHeight(HEIGHTS.DESKTOP);
+      else if (width >= 1024) setCardHeight(HEIGHTS.LAPTOP);
+      else setCardHeight(HEIGHTS.MOBILE);
     };
 
     updateDimensions();
@@ -108,7 +103,8 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
     const el = sectionRef.current;
     if (!el) return;
 
-    const scrollDistance = window.innerHeight * 3;
+    // Increased scroll distance for smoother transitions
+    const scrollDistance = window.innerHeight * 4;
 
     mainTriggerRef.current = ScrollTrigger.create({
       trigger: el,
@@ -133,16 +129,32 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
 
     cards.forEach((card, i) => {
       const isActive = i === activeIndex;
-
       gsap.to(card, {
         opacity: isActive ? 1 : 0,
         y: isActive ? 0 : 20,
-        duration: 0.8,
-        ease: "power2.inOut",
+        duration: 0.6,
+        ease: "power2.out",
         zIndex: isActive ? 50 : 10,
         pointerEvents: isActive ? "auto" : "none",
       });
     });
+
+    // NAVIGATION SYNC WITH PROPER TYPESCRIPT CASTING
+    const navContainer = sectionRef.current?.querySelector('.nav-bar-scroll-container') as HTMLElement | null;
+    if (navContainer) {
+      const activeNav = navContainer.querySelector('.active') as HTMLElement | null;
+      if (activeNav) {
+        const containerWidth = navContainer.offsetWidth;
+        const itemOffset = activeNav.offsetLeft;
+        const itemWidth = activeNav.offsetWidth;
+        const scrollTo = itemOffset - (containerWidth / 2) + (itemWidth / 2);
+
+        navContainer.scrollTo({
+          left: scrollTo,
+          behavior: 'smooth'
+        });
+      }
+    }
 
     if (activeIndex === workflowSections.length - 1) onComplete?.();
   }, [activeIndex]);
@@ -150,21 +162,21 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
   const scrollToCard = (index: number) => {
     if (!mainTriggerRef.current) return;
     const trigger = mainTriggerRef.current;
-    const targetScroll = trigger.start + ((trigger.end - trigger.start) * (index / workflowSections.length)) + 10;
+    const targetScroll = trigger.start + ((trigger.end - trigger.start) * (index / workflowSections.length)) + 50;
     gsap.to(window, {
       scrollTo: { y: targetScroll, autoKill: false },
-      duration: 0.8,
+      duration: 1,
       ease: "power3.inOut",
     });
   };
 
   return (
-    <WorkflowSectionRoot ref={sectionRef} sx={{ minHeight: "100vh", display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-      <NavBarContainer>
+    <WorkflowSectionRoot ref={sectionRef}>
+      <NavBarContainer className="nav-bar-scroll-container">
         {workflowSections.map((section, i) => (
           <NavItem
             key={section.title}
-            className={activeIndex === i ? "active" : ""}
+            className={`${activeIndex === i ? "active" : ""}`}
             onClick={() => scrollToCard(i)}
           >
             {section.title}
@@ -173,7 +185,7 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
       </NavBarContainer>
 
       <PageContainer>
-        <Box sx={{ width: "100%", }}>
+        <Box sx={{ width: "100%" }}>
           <Box
             style={{
               position: "relative",

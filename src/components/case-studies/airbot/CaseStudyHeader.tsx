@@ -70,7 +70,7 @@ export default function CaseStudyHeader({
               alignItems: "flex-end",
               justifyContent: "space-between",
 
-              gap: { xs: theme.spacing(3), md: theme.spacing(6), lg: "307px" },
+              gap: { xs: theme.spacing(3), md: theme.spacing(6), lg: "200px", xl: "298px" },
 
               [theme.breakpoints.down("md")]: {
                 flexDirection: "column",
@@ -100,7 +100,7 @@ export default function CaseStudyHeader({
                     gridTemplateColumns: "1fr auto",
                     columnGap: metaColumnGap,
                     width: "100%",
-                    mt: { xs: "30px", sm: 0 },
+                    mt: { xs: "0px", sm: 0 },
                   }}
                 >
 

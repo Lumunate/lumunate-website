@@ -64,16 +64,30 @@ export const BottomBlur = styled(Box)(({ theme }) => ({
 }));
 
 
-export const BackgroundVideo = styled("video")({
+export const BackgroundVideo = styled("video")(({ theme }) => ({
     position: "absolute",
-    inset: "0 -500px 0 0",
+    inset: "0 -500px auto 0",
     width: "100%",
-    opacity: "50%",
+    opacity: "0.5",
     zIndex: 0,
-    height: "60vh",
-    minHeight: "500px",
-});
+    objectFit: "cover",
 
+    height: "50vh",
+    minHeight: "400px",
+
+    [theme.breakpoints.up("sm")]: {
+        height: "45vh",
+        minHeight: "450px",
+    },
+
+    [theme.breakpoints.up("md")]: {
+        height: "45vh",
+        minHeight: "300px",
+        inset: "0 0 auto 0",
+    },
+
+
+}));
 
 export const HeroContent = styled(Box)(({ theme }) => ({
     position: "relative",
