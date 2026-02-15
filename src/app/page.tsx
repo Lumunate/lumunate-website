@@ -105,19 +105,13 @@ export default function Home({
 
   return (
     <>
-      {!preloadDone && (
-        <PreloadAnimation onComplete={() => setPreloadDone(true)} />
-      )}
-
-      {preloadDone && !startupDone && (
-        <StartupAnimation onComplete={() => setStartupDone(true)} />
-      )}
+      {!preloadDone && <PreloadAnimation onComplete={() => setPreloadDone(true)} />}
+      {preloadDone && !startupDone && <StartupAnimation onComplete={() => setStartupDone(true)} />}
 
       <Box
         sx={{
           opacity: fadeIn ? 1 : 0,
-          transform: fadeIn ? "none" : "translateY(30px)",
-          transition: "opacity 1s ease, transform 1s ease",
+          transition: "opacity 1s ease",
         }}
       >
         <HeaderSection animate={startupDone} />

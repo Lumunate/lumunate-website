@@ -70,7 +70,7 @@ export default function Footer() {
             {/* SM Screen View */}
             <Box sx={{ display: { xs: "block", sm: "none" } }}>
                 <FooterTop sx={{ justifyContent: "space-around" }}>
-                    <FooterNavItem href="/terms">Terms & Services</FooterNavItem>
+                    <FooterNavItem href="/terms-&-conditions">Terms & Services</FooterNavItem>
                     <FooterNavItem href="/privacy-policy">Privacy Policy</FooterNavItem>
                 </FooterTop>
 
@@ -96,7 +96,7 @@ export default function Footer() {
                     >
                         <Image src="/icons/linkedin.svg" alt="LinkedIn" width={24} height={24} />
                     </IconWrapper>
-                    
+
                 </Box>
             </Box>
 

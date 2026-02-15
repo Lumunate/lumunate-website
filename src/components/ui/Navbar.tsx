@@ -159,7 +159,13 @@ export default function Navbar() {
                 backgroundColor: theme.palette.navbar.bg,
                 borderTop: `1px solid ${theme.palette.navbar.border}`,
                 borderBottom: `1px solid ${theme.palette.navbar.border}`,
-                visibility: "visible",
+                // FIX: Hides navbar on Home ONLY until GSAP starts
+                visibility: isHome ? "hidden" : "visible",
+                // Ensure sticky works
+                transition: "background-color 0.3s ease",
+                "& .MuiToolbar-root": {
+                    minHeight: "auto"
+                }
             }}
         >
 
