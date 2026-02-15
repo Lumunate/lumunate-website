@@ -174,6 +174,7 @@ export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
   isHome = true
 ) => {
   useEffect(() => {
+    // If not enabled or elements aren't ready, do nothing
     if (!enabled) return;
 
     const elements = refs
@@ -183,62 +184,48 @@ export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
     if (!elements.length) return;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: delay + 3 });
+      // Create a timeline that starts after the preload/startup sequence
+      const tl = gsap.timeline({ delay: delay });
 
       if (elements[0]) {
+        const navbar = elements[0];
+
         if (isHome) {
-          // Start hidden and animate in only on Home
+          // NAVBAR ANIMATION (Only on Home)
           tl.fromTo(
-            elements[0],
-            { y: -60, opacity: 0, pointerEvents: "none" },
+            navbar,
+            { y: -100, opacity: 0, visibility: "visible" }, // Start off-screen
             {
               y: 0,
               opacity: 1,
-              duration: 1.1,
-              ease: "power3.out",
+              duration: 1.2,
+              ease: "power4.out",
+              clearProps: "transform", // CRITICAL: Removes GSAP transform after animation
               onComplete: () => {
-                elements[0].style.pointerEvents = "auto";
+                navbar.style.pointerEvents = "auto";
+                navbar.style.position = "sticky"; // Ensure it stays sticky
               },
             }
           );
         } else {
-          // Force visible immediately on other pages
-          gsap.set(elements[0], {
+          // NON-HOME PAGES: Force visible immediately with no animation
+          gsap.set(navbar, {
             y: 0,
             opacity: 1,
+            visibility: "visible",
             pointerEvents: "auto",
-            visibility: "visible"
+            position: "sticky"
           });
         }
       }
 
-      // HERO TEXT / SUB-ELEMENTS (Index 1)
+      // HERO ELEMENTS (Index 1, 2, 3)
+      // Use "-=0.8" to overlap the navbar animation for a cohesive feel
       if (elements[1]) {
-        tl.fromTo(
-          elements[1],
-          { y: -80, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1.1, ease: "power3.out" },
-          "-=0.6"
-        );
+        tl.fromTo(elements[1], { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, "-=0.8");
       }
-
-      // ADDITIONAL ELEMENTS (Index 2 & 3)
       if (elements[2]) {
-        tl.fromTo(
-          elements[2],
-          { x: "20%", y: "-50%", opacity: 0, scale: 0.8 },
-          { x: 0, y: 0, opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" },
-          "-=0.7"
-        );
-      }
-
-      if (elements[3]) {
-        tl.fromTo(
-          elements[3],
-          { x: "20%", y: "-50%", opacity: 0, scale: 0.8 },
-          { x: 0, y: 0, opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" },
-          "-=0.8"
-        );
+        tl.fromTo(elements[2], { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, "-=0.6");
       }
     });
 

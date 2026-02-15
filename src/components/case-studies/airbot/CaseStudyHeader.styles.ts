@@ -50,10 +50,10 @@ export const HeaderContent = styled(Box, {
     position: "relative",
     zIndex: 1,
     width: "100%",
-    flexGrow: 1, 
+    flexGrow: 1,
     display: "flex",
     alignItems: "flex-end",
-  
+
     paddingTop: "120px",
     paddingBottom: "80px",
 
@@ -77,7 +77,7 @@ export const HeaderContent = styled(Box, {
     },
 
     [theme.breakpoints.down("md")]: {
-        alignItems: "center", 
+        alignItems: "center",
         paddingBottom: theme.spacing(8),
     },
 
@@ -156,12 +156,17 @@ export const Description = styled(Typography)(({ theme }) => ({
     lineHeight: 1.6,
     marginBottom: "40px",
     maxWidth: "823px",
-    [theme.breakpoints.down("lg")]: {
+     [theme.breakpoints.down("xl")]: {
         fontSize: "16px",
-        textAlign: "left", 
+        textAlign: "left",
+    },
+    [theme.breakpoints.down("lg")]: {
+        fontSize: "14px",
+        textAlign: "left",
     },
     [theme.breakpoints.down("md")]: {
         textAlign: "center",
+        fontSize: "14px",
     },
     [theme.breakpoints.down("sm")]: {
         textAlign: "left",

@@ -42,7 +42,7 @@ export default function Challenges({
 
                             gap: "17px",
 
-                            [theme.breakpoints.down("md")]: {
+                            [theme.breakpoints.down("xl")]: {
                                 flexDirection: "column",
                                 justifyContent: "flex-start",
                                 paddingTop: theme.spacing(4),
