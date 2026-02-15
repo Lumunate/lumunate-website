@@ -3,6 +3,8 @@
 import { Box, Typography, styled } from "@mui/material";
 import React from "react";
 import PageContainer from "./common/PageContainer";
+import ExploreSection from "./home/explore/Explore";
+import Ready from "./home/ready/Ready";
 
 const LayoutRoot = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
@@ -96,6 +98,17 @@ export default function LegalLayout({ title, lastUpdated, children }: Props) {
                 <MainTitle variant="h1">{title}</MainTitle>
                 <UpdateDate>Last Updated: {lastUpdated}</UpdateDate>
                 <ContentBox>{children}</ContentBox>
+
+                <Box sx={{ marginTop: "100px" }}>
+                    <ExploreSection />
+
+                    <Ready
+                        title="Tell us about your vision"
+                        description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions that drive real results."
+                        linkText="Let's Connect"
+                        linkHref="/contact"
+                    />
+                </Box>
             </PageContainer>
         </LayoutRoot>
     );
