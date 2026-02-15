@@ -46,15 +46,7 @@ export const NavItem = styled(Box)(({ theme }) => ({
         color: theme.palette.text.primary,
         fontWeight: 600,
         backgroundColor: theme.palette.background.default,
-        "&::after": {
-            content: '""',
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            width: "100%",
-            height: "3px",
-            backgroundColor: theme.palette.primary.main,
-        }
+
     },
 
     [theme.breakpoints.down("md")]: {
