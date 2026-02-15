@@ -25,7 +25,7 @@ export default function Footer() {
                 borderColor: "divider",
             }}>
                 <FooterSpacer sx={{ borderLeft: 'none' }} />
-                <FooterNavItem href="/terms">Terms & Services</FooterNavItem>
+                <FooterNavItem href="/terms-&-conditions">Terms & Services</FooterNavItem>
 
                 <Box sx={{
                     display: "flex",
