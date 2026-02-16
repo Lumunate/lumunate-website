@@ -1,11 +1,11 @@
 "use client";
 
 import { styled, Box, Typography } from "@mui/material";
+import { maxWidth } from "@mui/system";
 
 export const HeaderRoot = styled(Box)(({ theme }) => ({
     position: "relative",
     width: "100%",
-    // Changed: Remove hard maxHeight/minHeight to let content breathe
     minHeight: "100vh",
     overflow: "hidden",
     color: theme.palette.text.primary,
@@ -14,10 +14,10 @@ export const HeaderRoot = styled(Box)(({ theme }) => ({
     flexDirection: "column",
 
     [theme.breakpoints.down("lg")]: {
-        minHeight: "750px", // Increased for 1024px screens
+        minHeight: "750px",
     },
     [theme.breakpoints.down("md")]: {
-        minHeight: "850px", // Increased for 768px screens to prevent cutting
+        minHeight: "850px",
     },
 }));
 
@@ -28,9 +28,9 @@ export const BackgroundVideo = styled(Box)(() => ({
     width: "100%",
     height: "100%",
     objectFit: "cover",
-    objectPosition: "center center", // Changed to center
+    objectPosition: "center center",
     zIndex: 0,
-    transform: "scale(1.05)", // Reduced scale slightly
+    transform: "scale(1.05)",
 })) as typeof Box;
 
 
@@ -96,6 +96,7 @@ export const HeaderLeft = styled(Box)(({ theme }) => ({
     },
     [theme.breakpoints.down("sm")]: {
         textAlign: "left",
+        maxWidth: "100%",
     },
 }));
 
@@ -104,98 +105,26 @@ export const Title = styled(Typography)(({ theme }) => ({
     fontWeight: 400,
     lineHeight: 1.1,
     letterSpacing: "-0.02em",
-    whiteSpace: "nowrap",
     [theme.breakpoints.down("md")]: {
+        fontSize: "56px",
+        maxWidth: "100%",
+    },
+    [theme.breakpoints.down("sm")]: {
         fontSize: "40px",
-        maxwidth: "279px",
     },
 }));
 
 export const SubTitle = styled(Typography)(({ theme }) => ({
-    fontSize: "33px",
+    fontSize: theme.typography.h6.fontSize,
     fontWeight: 400,
     lineHeight: 1.3,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.secondary,
     marginTop: "21px",
-    [theme.breakpoints.down("lg")]: {
-        fontSize: theme.typography.body1.fontSize,
-    },
+
     [theme.breakpoints.down("sm")]: {
-        fontSize: "24px",
         marginTop: "10px",
         textAlign: "left",
     },
 }));
 
-export const HeaderRight = styled(Box)(({ theme }) => ({
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    width: "100%",
-    maxWidth: "100%",
 
-    "& .meta-container": {
-        [theme.breakpoints.up("md")]: {
-            marginTop: "20px",
-        },
-    },
-
-    [theme.breakpoints.down("md")]: {
-        alignItems: "center",
-    },
-    [theme.breakpoints.down("sm")]: {
-        alignItems: "flex-start",
-    },
-}));
-
-
-export const Description = styled(Typography)(({ theme }) => ({
-    color: theme.palette.section.caseStudyDesc,
-    fontSize: "18px",
-    lineHeight: 1.6,
-    marginBottom: "40px",
-    maxWidth: "823px",
-    [theme.breakpoints.down("xl")]: {
-        fontSize: "16px",
-        textAlign: "left",
-    },
-    [theme.breakpoints.down("lg")]: {
-        fontSize: "14px",
-        textAlign: "left",
-    },
-    [theme.breakpoints.down("md")]: {
-        textAlign: "center",
-        fontSize: "14px",
-    },
-    [theme.breakpoints.down("sm")]: {
-        textAlign: "left",
-        fontSize: "14px",
-    },
-}));
-
-
-export const MetaLabel = styled(Typography)(({ theme }) => ({
-    fontFamily: "Montserrat, sans-serif",
-    fontWeight: 400,
-    fontSize: theme.typography.h6.fontSize,
-    color: theme.palette.section.caseStudyLabel,
-    lineHeight: 1.2,
-    whiteSpace: "nowrap",
-    [theme.breakpoints.down("sm")]: {
-        fontSize: "14px",
-        whiteSpace: "nowrap",
-    },
-}));
-
-export const MetaValue = styled(Typography)(({ theme }) => ({
-    fontFamily: "Montserrat, sans-serif",
-    fontWeight: 400,
-    fontSize: theme.typography.h6.fontSize,
-    color: theme.palette.text.primary,
-    lineHeight: 1.2,
-
-    [theme.breakpoints.down("sm")]: {
-        fontSize: "14px",
-    },
-}));

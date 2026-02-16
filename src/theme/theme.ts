@@ -12,6 +12,7 @@ declare module "@mui/material/styles" {
       itemText: string;
       itemTextHover: string;
       itemHoverBg: string;
+      mobileItem: string;
     };
     section: {
       heading: string;
@@ -41,6 +42,7 @@ export const TOKENS = {
     itemText: "#363636",
     itemTextHover: "#FFFFFF",
     itemHoverBg: "rgba(255,255,255,0.08)",
+    mobileItem: "#5E5E5E",
   },
   section: {
     heading: "#FFFFFF",
