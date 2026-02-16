@@ -156,7 +156,7 @@ export const Description = styled(Typography)(({ theme }) => ({
     lineHeight: 1.6,
     marginBottom: "40px",
     maxWidth: "823px",
-     [theme.breakpoints.down("xl")]: {
+    [theme.breakpoints.down("xl")]: {
         fontSize: "16px",
         textAlign: "left",
     },
@@ -181,6 +181,7 @@ export const MetaLabel = styled(Typography)(({ theme }) => ({
     fontSize: theme.typography.h6.fontSize,
     color: theme.palette.section.caseStudyLabel,
     lineHeight: 1.2,
+    whiteSpace: "nowrap",
     [theme.breakpoints.down("sm")]: {
         fontSize: "14px",
         whiteSpace: "nowrap",

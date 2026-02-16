@@ -34,23 +34,22 @@ export default function Challenges({
                     <Box
                         sx={(theme) => ({
                             display: "flex",
+                            flexDirection: "column",
                             alignItems: "flex-start",
-                            justifyContent: "space-between",
+                            justifyContent: "flex-start",
 
                             paddingTop: "38px",
                             paddingBottom: "58px",
+                            gap: "20px",
 
-                            gap: "17px",
-
-                            [theme.breakpoints.down("xl")]: {
-                                flexDirection: "column",
-                                justifyContent: "flex-start",
-                                paddingTop: theme.spacing(4),
-                                paddingBottom: theme.spacing(4),
-                                gap: theme.spacing(2),
+                            [theme.breakpoints.up("lg")]: {
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "flex-start",
+                                gap: "40px",
                             },
+
                             [theme.breakpoints.down("sm")]: {
-                                gap: "20px",
                                 paddingBottom: "40px"
                             },
                         })}
@@ -71,8 +70,11 @@ export default function Challenges({
                                 color: theme.palette.section.caseStudyDesc,
                                 maxWidth: "819px",
                                 textAlign: "left",
-                                marginLeft: "auto",
                                 fontSize: { xs: "16px", md: "18px" },
+
+                                [theme.breakpoints.up("lg")]: {
+                                    marginLeft: "auto",
+                                },
                             })}
                         >
                             {description}
