@@ -202,6 +202,9 @@ export const RightBottomBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down(1440)]: {
     padding: theme.spacing(6, 6),
   },
+  [theme.breakpoints.down("lg")]: {
+    padding: theme.spacing(3, 2),
+  },
   [theme.breakpoints.down("md")]: {
     gridColumn: "1 / 3",
     gridRow: "2 / 3",
@@ -240,7 +243,8 @@ export const DescriptionText = styled(Typography)(({ theme }) => ({
   lineHeight: 1.6,
   maxWidth: "500px",
   [theme.breakpoints.down("lg")]: {
-    fontSize: theme.typography.h5.fontSize,
+    fontSize: theme.typography.h6.fontSize,
+
   },
 
   [theme.breakpoints.down("sm")]: {

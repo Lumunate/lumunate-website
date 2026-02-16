@@ -28,7 +28,7 @@ export const RowFlex = styled(Box)(({ theme }) => ({
     alignItems: "flex-start",
     gap: theme.spacing(2),
     textAlign: "left",
-    marginTop: "40px"
+    marginTop: "0px",
   },
 }));
 
@@ -44,6 +44,10 @@ export const ContentRight = styled(Box)(({ theme }) => ({
   marginLeft: "auto",
   width: "100%",
   maxWidth: "804px",
+  [theme.breakpoints.down("xl")]: {
+    marginLeft: 0,
+    maxWidth: "100%",
+  },
 }));
 
 export const ListWrapper = styled(List)(({ theme }) => ({
@@ -91,6 +95,6 @@ export const ServiceChip = styled(Chip)(({ theme }) => ({
   },
   [theme.breakpoints.down("md")]: {
     fontSize: "16px",
-    
+
   },
 }));
