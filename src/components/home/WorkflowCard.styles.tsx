@@ -8,19 +8,26 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
     position: "relative",
     borderRadius: 32,
     alignItems: "stretch",
-    minHeight: "514px",
+    minHeight: "714px",
     overflow: "hidden",
-    border: "none",
-    outline: "none",
 
-    boxShadow: `
-        0 10px 40px rgba(0, 0, 0, 0.6), 
-        0 30px 70px rgba(0, 0, 0, 0.4)
+    backgroundColor: "#000",
+    backgroundImage: `
+        linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 100%), 
+        url('https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770893374/Cards_Background_q9vqww.webp')
     `,
-
-    backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 100%), url('https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770893374/Cards_Background_q9vqww.webp')`,
     backgroundSize: "cover",
     backgroundPosition: "center",
+    backgroundBlendMode: "normal", // Blends the gradient and the image layer
+
+    //  EFFECTS ---
+    boxShadow: `
+        /* 1. Inner Shadow (Figma: Inner shadow) */
+        inset 0px 4px 10px rgba(255, 255, 255, 0.05),
+        /* 2. Drop Shadow (Figma: Drop shadow) */
+        0px 10px 40px rgba(0, 0, 0, 0.6), 
+        0px 30px 70px rgba(0, 0, 0, 0.4)
+    `,
 
     [theme.breakpoints.up("xl")]: {
         minHeight: "714px",
@@ -30,55 +37,42 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
         flexDirection: "column",
         height: "auto",
         minHeight: "unset",
-        borderRadius: 24,
-        backgroundPosition: "top center",
-        backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 100%), url('https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770893374/Cards_Background_q9vqww.webp')`,
+        borderRadius: 32,
+        backgroundImage: `
+            linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 100%), 
+            url('https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770893374/Cards_Background_q9vqww.webp')
+        `,
     },
 }));
 
 export const CardLeft = styled(Box)(({ theme }) => ({
-    flex: 1,
+    flex: 1.2,
     display: "flex",
     flexDirection: "column",
-    padding: "66px 38px",
+    padding: "66px 48px",
     color: theme.palette.text.primary,
-    zIndex: 2,
-    backgroundColor: "transparent",
+    zIndex: 3,
     position: "relative",
 
     [theme.breakpoints.down("md")]: {
         padding: "50px 32px 40px 32px",
-
-        "&::after": {
-            content: '""',
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: "100px",
-            background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.9))",
-            zIndex: 1,
-            pointerEvents: "none",
-        }
     },
 }));
 
 export const CardRight = styled(Box)(({ theme }) => ({
-    flex: 1,
+    flex: 1.5,
     display: "flex",
     position: "relative",
-    overflow: "visible",
-    padding: "0 16px 0 0",
+    overflow: "hidden",
+    paddingRight: "16px",
+    maskImage: "linear-gradient(to right, transparent 0%, black 15%)",
+    WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%)",
 
     [theme.breakpoints.down("lg")]: {
         width: "100%",
-        padding: "0",
-        zIndex: 3,
-    },
-    [theme.breakpoints.down("md")]: {
-        width: "100%",
-        padding: "0",
-        zIndex: 3,
+        paddingRight: "0px",
+        maskImage: "linear-gradient(to bottom, transparent 0%, black 15%)",
+        WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%)",
     },
 }));
 
@@ -87,25 +81,15 @@ export const WorkflowVideo = styled("video")(({ theme }) => ({
     height: "100%",
     objectFit: "cover",
     zIndex: 1,
-    borderRadius: "24px",
+    aspectRatio: "16 / 16",
 
-    filter: "drop-shadow(-15px 0px 20px rgba(0,0,0,0.9)) drop-shadow(15px 0px 20px rgba(0,0,0,0.6))",
-
+    borderTopRightRadius: "32px",
+    borderBottomRightRadius: "32px",
     [theme.breakpoints.down("lg")]: {
-        width: "100%",
         aspectRatio: "16 / 9",
-        height: "auto",
-        borderRadius: "0",
-
-        filter: "drop-shadow(0px -15px 20px rgba(0,0,0,1))",
     },
     [theme.breakpoints.down("md")]: {
-        width: "100%",
-        aspectRatio: "4 / 4",
-        height: "auto",
-        borderRadius: "0",
-
-        filter: "drop-shadow(0px -15px 20px rgba(0,0,0,1))",
+        aspectRatio: "1 / 1",
     },
 }));
 

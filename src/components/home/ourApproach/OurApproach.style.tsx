@@ -250,6 +250,6 @@ export const DescriptionText = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     fontSize: "15px",
     textAlign: "right",
-    marginBottom: "-20px !important",
+    marginBottom: "0px !important",
   },
 }));

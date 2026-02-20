@@ -14,10 +14,10 @@ export const HeaderRoot = styled(Box)(({ theme }) => ({
     flexDirection: "column",
 
     [theme.breakpoints.down("lg")]: {
-        minHeight: "750px", // Increased for 1024px screens
+        minHeight: "650px",
     },
     [theme.breakpoints.down("md")]: {
-        minHeight: "850px", // Increased for 768px screens to prevent cutting
+        minHeight: "850px",
     },
 }));
 
@@ -28,9 +28,9 @@ export const BackgroundVideo = styled(Box)(() => ({
     width: "100%",
     height: "100%",
     objectFit: "cover",
-    objectPosition: "center center", // Changed to center
+    objectPosition: "center center",
     zIndex: 0,
-    transform: "scale(1.05)", // Reduced scale slightly
+    transform: "scale(1.05)",
 })) as typeof Box;
 
 
