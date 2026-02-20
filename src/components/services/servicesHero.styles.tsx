@@ -1,7 +1,6 @@
 "use client";
 
 import { styled, Box, Typography } from "@mui/material";
-import { maxWidth } from "@mui/system";
 
 export const HeaderRoot = styled(Box)(({ theme }) => ({
     position: "relative",

@@ -54,11 +54,11 @@ const projects = [
 
 const services = [
     { name: "UI/UX Design", href: "/services/ui-ux-design" },
-    { name: "Web Development", href: "/services/web-development" },
-    { name: "Mobile App Development", href: "/services/mobile-apps" },
-    { name: "E-commerce Solutions", href: "/services/ecommerce" },
-    { name: "Brand Identity", href: "/services/branding" },
-    { name: "Digital Strategy", href: "/services/strategy" },
+    { name: "Web & Mobile Development", href: "/services/web--mobile-development" },
+    { name: "AI/ML Solutions", href: "/services/ai-ml-solutions" },
+    { name: "Web3 & Blockchain", href: "/services/web3-blockchain" },
+    { name: "Enterprise Solutions", href: "/services/enterprise-solutions" },
+    { name: "Digital Marketing & Transformation", href: "/services/digital-marketing-transformation" },
 ];
 
 const navLinks = [
@@ -70,7 +70,7 @@ const navLinks = [
 
 export default function Navbar() {
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
+    const isMobile = useMediaQuery(theme.breakpoints.down("xl"));
     const pathname = usePathname();
     const navRef = useNavbarRef();
     const isHome = pathname === "/";
@@ -102,8 +102,14 @@ export default function Navbar() {
         setMobileServicesOpen(false);
     };
 
+
+
+    // Helper to check if a link is active
+    const isActive = (href: string) => pathname === href;
+    const isServicesPath = pathname.startsWith("/services");
+    const isProjectsPath = pathname.startsWith("/projects");
+
     const navButtonSx = useMemo(() => ({
-        color: theme.palette.navbar.itemText,
         fontWeight: 400,
         fontSize: "16px",
         fontFamily: "Montserrat, sans-serif",
@@ -112,8 +118,9 @@ export default function Navbar() {
         backgroundColor: "transparent",
         whiteSpace: "nowrap",
         minWidth: "fit-content",
+        transition: "color 0.3s ease",
         "&:hover": {
-            color: theme.palette.section.heading,
+            color: theme.palette.common.white,
             backgroundColor: "transparent",
         },
     }), [theme]);
@@ -172,21 +179,32 @@ export default function Navbar() {
                             <VerticalDivider />
 
                             {/* Home */}
-                            <Button LinkComponent={Link} href="/" sx={navButtonSx}>Home</Button>
+                            <Button LinkComponent={Link} href="/" sx={{
+                                ...navButtonSx,
+                                color: isActive("/") ? theme.palette.common.white : theme.palette.navbar.itemText
+                            }}>Home</Button>
 
                             {/* Services Dropdown */}
                             <Button
                                 color="inherit"
                                 onClick={(e) => setServicesAnchor(e.currentTarget)}
                                 endIcon={isServicesOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                                sx={{ ...navButtonSx, color: isServicesOpen ? theme.palette.section.heading : theme.palette.navbar.itemText }}
+                                sx={{
+                                    ...navButtonSx,
+                                    color: (isServicesOpen || isServicesPath) ? theme.palette.common.white : theme.palette.navbar.itemText
+                                }}
                             >
                                 Services
                             </Button>
 
                             {/* Remaining Nav Links (About, Blogs, Contact) */}
                             {navLinks.slice(1).map((link) => (
-                                <Button key={link.label} LinkComponent={Link} href={link.href} color="inherit" sx={navButtonSx}>
+                                <Button key={link.label} LinkComponent={Link} href={link.href} color="inherit"
+                                    sx={{
+                                        ...navButtonSx,
+                                        color: isActive(link.href) ? theme.palette.common.white : theme.palette.navbar.itemText
+                                    }}
+                                >
                                     {link.label}
                                 </Button>
                             ))}
@@ -196,7 +214,10 @@ export default function Navbar() {
                                 color="inherit"
                                 onClick={(e) => setProjectsAnchor(e.currentTarget)}
                                 endIcon={isProjectsOpen ? <KeyboardArrowUpIcon fontSize="small" /> : <KeyboardArrowDownIcon fontSize="small" />}
-                                sx={{ ...navButtonSx, color: isProjectsOpen ? theme.palette.section.heading : theme.palette.navbar.itemText }}
+                                sx={{
+                                    ...navButtonSx,
+                                    color: (isProjectsOpen || isProjectsPath) ? theme.palette.common.white : theme.palette.navbar.itemText
+                                }}
                             >
                                 Case Studies
                             </Button>
@@ -213,8 +234,11 @@ export default function Navbar() {
                                 anchorPosition={menuPos || { top: 0, left: 0 }}
                                 PaperProps={{
                                     sx: {
-                                        p: 0, borderRadius: 0, boxShadow: "none", width: `${menuWidth}px`,
-                                        bgcolor: theme.palette.background.default, border: `1px solid ${theme.palette.navbar.border}`,
+                                        p: 0, borderRadius: 0, boxShadow: "none",
+                                        width: `${menuWidth}px`,
+                                        bgcolor: theme.palette.navbar.bg,
+                                        border: `1px solid ${theme.palette.navbar.border}`,
+                                        backgroundImage: "none",
                                     }
                                 }}
                             >
@@ -245,8 +269,11 @@ export default function Navbar() {
                                 anchorPosition={menuPos || { top: 0, left: 0 }}
                                 PaperProps={{
                                     sx: {
-                                        p: 0, borderRadius: 0, boxShadow: "none", width: `${menuWidth}px`,
-                                        bgcolor: theme.palette.background.default, border: `1px solid ${theme.palette.navbar.border}`,
+                                        p: 0, borderRadius: 0, boxShadow: "none",
+                                        width: `${menuWidth}px`,
+                                        bgcolor: theme.palette.navbar.bg,
+                                        border: `1px solid ${theme.palette.navbar.border}`,
+                                        backgroundImage: "none", // Removes MUI default elevation overlays
                                     }
                                 }}
                             >
@@ -284,7 +311,8 @@ export default function Navbar() {
                                         target="_blank"
                                         sx={{
                                             ...navButtonSx, px: 2, py: 1, borderRadius: 0,
-                                            "&:hover": { color: theme.palette.navbar.itemTextHover }
+                                            color: theme.palette.navbar.itemText,
+                                            "&:hover": { color: theme.palette.common.white }
                                         }}
                                     >
                                         Get Started
@@ -321,7 +349,12 @@ export default function Navbar() {
                         {/* Mobile Nav Links */}
                         <ListItem disablePadding>
                             <ListItemButton component={Link} href="/" onClick={toggleDrawer(false)} sx={{ py: 1.5 }}>
-                                <ListItemText primary="Home" primaryTypographyProps={{ sx: { fontFamily: "Montserrat", fontSize: "16px", color: theme.palette.navbar.mobileItem } }} />
+                                <ListItemText primary="Home" primaryTypographyProps={{
+                                    sx: {
+                                        fontFamily: "Montserrat", fontSize: "16px", color: isActive("/") ? theme.palette.common.white : theme.palette.navbar.mobileItem,
+                                        fontWeight: isActive("/") ? 600 : 400
+                                    }
+                                }} />
                             </ListItemButton>
                         </ListItem>
 
@@ -332,21 +365,24 @@ export default function Navbar() {
                                 {mobileServicesOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                             </ListItemButton>
                         </ListItem>
-                        {mobileServicesOpen && services.map((s) => (
-                            <ListItem key={s.name} disablePadding sx={{ pl: 2 }}>
+                        {mobileServicesOpen && services.map((s, index) => (
+                            <ListItem key={s.name} disablePadding >
                                 <ListItemButton
                                     component={Link}
                                     href={s.href}
                                     onClick={toggleDrawer(false)}
-                                    sx={{ py: 1.25, borderBottom: `1px solid ${theme.palette.navbar.border}` }}
+                                    sx={{
+                                        py: 1.25,
+                                        // Logic: If it's NOT the last item, show the border
+                                        borderBottom: index !== services.length - 1
+                                            ? `1px solid ${theme.palette.navbar.border}`
+                                            : "none"
+                                    }}
                                 >
                                     <ListItemText
                                         primary={s.name}
                                         primaryTypographyProps={{
-                                            sx: {
-                                                fontSize: "14px",
-                                                color: theme.palette.navbar.mobileItem
-                                            }
+                                            sx: { fontSize: "14px", color: theme.palette.navbar.mobileItem }
                                         }}
                                     />
                                 </ListItemButton>
@@ -369,10 +405,26 @@ export default function Navbar() {
                                 {mobileProjectsOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                             </ListItemButton>
                         </ListItem>
-                        {mobileProjectsOpen && projects.map((proj) => (
-                            <ListItem key={proj.name} disablePadding sx={{ pl: 2 }}>
-                                <ListItemButton component={Link} href={proj.href} onClick={toggleDrawer(false)} sx={{ py: 1.25, borderBottom: `1px solid ${theme.palette.navbar.border}` }}>
-                                    <ListItemText primary={proj.name} primaryTypographyProps={{ sx: { fontSize: "14px", color: theme.palette.navbar.mobileItem } }} />
+                        {mobileProjectsOpen && projects.map((proj, index) => (
+                            <ListItem key={proj.name} disablePadding>
+                                <ListItemButton
+                                    component={Link}
+                                    href={proj.href}
+                                    onClick={toggleDrawer(false)}
+                                    sx={{
+                                        py: 1.25,
+                                        // Logic: If it's NOT the last item, show the border
+                                        borderBottom: index !== projects.length - 1
+                                            ? `1px solid ${theme.palette.navbar.border}`
+                                            : "none"
+                                    }}
+                                >
+                                    <ListItemText
+                                        primary={proj.name}
+                                        primaryTypographyProps={{
+                                            sx: { fontSize: "14px", color: theme.palette.navbar.mobileItem }
+                                        }}
+                                    />
                                 </ListItemButton>
                             </ListItem>
                         ))}

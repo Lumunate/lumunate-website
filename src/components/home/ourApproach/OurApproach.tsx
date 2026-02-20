@@ -159,7 +159,7 @@ const OurApproach = ({ onComplete }: Props) => {
                 {data[activeIndex].description}
               </DescriptionText>
               <Link href="/contact" passHref style={{ textDecoration: 'none' }}>
-                <DiscoverButton ref={buttonRef} sx={{ mt: "40px" }}>
+                <DiscoverButton ref={buttonRef} sx={{ mt: { xs: "40px", md: "22px", xl: "40px" } }}>
                   Discover
                 </DiscoverButton>
               </Link>
