@@ -53,7 +53,11 @@ export const CardLeft = styled(Box)(({ theme }) => ({
     color: theme.palette.text.primary,
     zIndex: 3,
     position: "relative",
-
+    // Fix for 1024px and below to give text more room
+    [theme.breakpoints.down(1025)]: {
+        flex: 1,
+        padding: "40px 32px",
+    },
     [theme.breakpoints.down("md")]: {
         padding: "50px 32px 40px 32px",
     },
@@ -65,8 +69,16 @@ export const CardRight = styled(Box)(({ theme }) => ({
     position: "relative",
     overflow: "hidden",
     paddingRight: "16px",
+    // Standard Desktop Mask
     maskImage: "linear-gradient(to right, transparent 0%, black 15%)",
     WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%)",
+
+    // Fix for 1024px: Reduce flex so video is smaller and adjust mask
+    [theme.breakpoints.down(1024)]: {
+        flex: 1, 
+        maskImage: "linear-gradient(to right, transparent 0%, black 10%)",
+        WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%)",
+    },
 
     [theme.breakpoints.down("lg")]: {
         width: "100%",
