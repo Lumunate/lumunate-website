@@ -187,8 +187,11 @@ export default function Navbar() {
                 width: "100%",
                 zIndex: 1300,
                 backgroundColor: theme.palette.navbar.bg,
+                borderTop: `1px solid ${theme.palette.navbar.border}`,
                 borderBottom: `1px solid ${theme.palette.navbar.border}`,
-                visibility: "visible", // Always visible so GSAP can handle the entry
+                // FIX: Start hidden so GSAP has full control
+                visibility: "hidden",
+                opacity: 0,
                 transition: "background-color 0.3s ease",
                 "& .MuiToolbar-root": { minHeight: "auto" }
             }}
@@ -255,6 +258,10 @@ export default function Navbar() {
                                 disableScrollLock
                                 anchorReference="anchorPosition"
                                 anchorPosition={menuPos || { top: 0, left: 0 }}
+                                MenuListProps={{
+                                    disablePadding: true,
+                                }}
+
                                 PaperProps={{
                                     sx: {
                                         p: 0, borderRadius: 0, boxShadow: "none",
@@ -262,22 +269,59 @@ export default function Navbar() {
                                         bgcolor: theme.palette.navbar.bg,
                                         border: `1px solid ${theme.palette.navbar.border}`,
                                         backgroundImage: "none",
+                                        overflow: "hidden",
                                     }
                                 }}
                             >
-                                <Box sx={{ display: "grid", gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
-                                    {services.map((item, index) => (
-                                        <MenuItem key={item.name} component={Link} href={item.href} onClick={handleMenuClose} disableGutters
+                                <Box
+                                    sx={{
+                                        display: "grid",
+                                        gridTemplateColumns: `repeat(${columns}, 1fr)`,
+                                        width: "100%",
+                                    }}
+                                >
+                                    {Array.from({ length: columns }).map((_, colIndex) => (
+                                        <Box
+                                            key={colIndex}
                                             sx={{
-                                                px: 2, py: 1.5, fontFamily: "Montserrat, sans-serif", fontSize: theme.typography.body2.fontSize,
-                                                color: theme.palette.section.desc,
-                                                borderTop: index >= columns ? `1px solid ${theme.palette.navbar.border}` : "none",
-                                                borderLeft: index % columns !== 0 ? `1px solid ${theme.palette.navbar.border}` : "none",
-                                                "&:hover": { color: theme.palette.section.heading, bgcolor: "transparent" }
+                                                height: "100%",
+                                                borderLeft:
+                                                    colIndex !== 0
+                                                        ? `1px solid ${theme.palette.navbar.border}`
+                                                        : "none",
                                             }}
                                         >
-                                            {item.name}
-                                        </MenuItem>
+                                            {services
+                                                .filter((_, i) => i % columns === colIndex)
+                                                .map((item, idx, colItems) => (
+                                                    <MenuItem
+                                                        key={item.name}
+                                                        component={Link}
+                                                        href={item.href}
+                                                        onClick={handleMenuClose}
+                                                        disableGutters
+                                                        sx={{
+                                                            px: "24px",
+                                                            py: "12px",
+                                                            fontFamily: "Montserrat, sans-serif",
+                                                            fontSize: theme.typography.body2.fontSize,
+                                                            color: theme.palette.section.desc,
+
+                                                            borderBottom:
+                                                                idx !== colItems.length - 1
+                                                                    ? `1px solid ${theme.palette.navbar.border}`
+                                                                    : "none",
+
+                                                            "&:hover": {
+                                                                color: theme.palette.section.heading,
+                                                                bgcolor: "transparent",
+                                                            },
+                                                        }}
+                                                    >
+                                                        {item.name}
+                                                    </MenuItem>
+                                                ))}
+                                        </Box>
                                     ))}
                                 </Box>
                             </Menu>
@@ -290,29 +334,72 @@ export default function Navbar() {
                                 disableScrollLock
                                 anchorReference="anchorPosition"
                                 anchorPosition={menuPos || { top: 0, left: 0 }}
+                                MenuListProps={{
+                                    disablePadding: true,
+                                }}
+
                                 PaperProps={{
                                     sx: {
-                                        p: 0, borderRadius: 0, boxShadow: "none",
+                                        p: 0,
+                                        borderRadius: 0,
+                                        boxShadow: "none",
                                         width: `${menuWidth}px`,
                                         bgcolor: theme.palette.navbar.bg,
                                         border: `1px solid ${theme.palette.navbar.border}`,
-                                        backgroundImage: "none", // Removes MUI default elevation overlays
+                                        backgroundImage: "none",
+                                        overflow: "hidden",
                                     }
                                 }}
                             >
-                                <Box sx={{ display: "grid", gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
-                                    {projects.map((proj, index) => (
-                                        <MenuItem key={proj.name} component={Link} href={proj.href} onClick={handleMenuClose} disableGutters
+                                <Box
+                                    sx={{
+                                        display: "grid",
+                                        gridTemplateColumns: `repeat(${columns}, 1fr)`,
+                                        width: "100%",
+                                    }}
+                                >
+                                    {Array.from({ length: columns }).map((_, colIndex) => (
+                                        <Box
+                                            key={colIndex}
                                             sx={{
-                                                px: 2, py: 1.5, fontFamily: "Montserrat, sans-serif", fontSize: theme.typography.body2.fontSize,
-                                                color: theme.palette.section.desc,
-                                                borderTop: index >= columns ? `1px solid ${theme.palette.navbar.border}` : "none",
-                                                borderLeft: index % columns !== 0 ? `1px solid ${theme.palette.navbar.border}` : "none",
-                                                "&:hover": { color: theme.palette.section.heading, bgcolor: "transparent" }
+                                                height: "100%",
+                                                borderLeft:
+                                                    colIndex !== 0
+                                                        ? `1px solid ${theme.palette.navbar.border}`
+                                                        : "none",
                                             }}
                                         >
-                                            {proj.name}
-                                        </MenuItem>
+                                            {projects
+                                                .filter((_, i) => i % columns === colIndex)
+                                                .map((proj, idx, colItems) => (
+                                                    <MenuItem
+                                                        key={proj.name}
+                                                        component={Link}
+                                                        href={proj.href}
+                                                        onClick={handleMenuClose}
+                                                        disableGutters
+                                                        sx={{
+                                                            px: "24px",
+                                                            py: "12px",
+                                                            fontFamily: "Montserrat, sans-serif",
+                                                            fontSize: theme.typography.body2.fontSize,
+                                                            color: theme.palette.section.desc,
+
+                                                            borderBottom:
+                                                                idx !== colItems.length - 1
+                                                                    ? `1px solid ${theme.palette.navbar.border}`
+                                                                    : "none",
+
+                                                            "&:hover": {
+                                                                color: theme.palette.section.heading,
+                                                                bgcolor: "rgba(255,255,255,0.05)",
+                                                            },
+                                                        }}
+                                                    >
+                                                        {proj.name}
+                                                    </MenuItem>
+                                                ))}
+                                        </Box>
                                     ))}
                                 </Box>
                             </Menu>
@@ -333,7 +420,7 @@ export default function Navbar() {
                                         href="https://calendly.com/saad-b-javaid22/consultation"
                                         target="_blank"
                                         sx={{
-                                            ...navButtonSx, px: 2, py: 1, borderRadius: 0,
+                                            ...navButtonSx, px: "24px", borderRadius: 0,
                                             color: theme.palette.navbar.itemText,
                                             "&:hover": { color: theme.palette.common.white }
                                         }}
@@ -362,7 +449,7 @@ export default function Navbar() {
                     <Box sx={{
                         display: "flex", alignItems: "center", justifyContent: "space-between",
                         px: { xs: "24px", md: "80px" }, height: { xs: "64px", md: "80px" },
-                        bgcolor: theme.palette.navbar.bg, borderBottom: `1px solid ${theme.palette.navbar.border}`
+                        bgcolor: theme.palette.navbar.bg,
                     }}>
                         <LogoBox><Logo /></LogoBox>
                         <IconButton onClick={() => setDrawerOpen(false)} sx={{ color: theme.palette.section.heading }}><CloseIcon /></IconButton>
@@ -371,7 +458,8 @@ export default function Navbar() {
                     <List sx={{ px: 2, py: 0, flexGrow: 1, bgcolor: theme.palette.navbar.bg }}>
                         {/* Mobile Nav Links */}
                         <ListItem disablePadding>
-                            <ListItemButton component={Link} href="/" onClick={toggleDrawer(false)} sx={{ py: 1.5 }}>
+                            <ListItemButton component={Link} href="/" onClick={toggleDrawer(false)}
+                                sx={{ px: "24px", }}>
                                 <ListItemText primary="Home" primaryTypographyProps={{
                                     sx: {
                                         fontFamily: "Montserrat", fontSize: "16px", color: isActive("/") ? theme.palette.common.white : theme.palette.navbar.mobileItem,
@@ -383,7 +471,9 @@ export default function Navbar() {
 
                         {/* Mobile Services Accordion */}
                         <ListItem disablePadding>
-                            <ListItemButton onClick={() => setMobileServicesOpen(!mobileServicesOpen)} sx={{ py: 1.5 }}>
+                            <ListItemButton onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                                sx={{ px: "24px", }}
+                            >
                                 <ListItemText primary="Services" primaryTypographyProps={{ sx: { fontFamily: "Montserrat", fontSize: "16px", color: theme.palette.navbar.mobileItem } }} />
                                 {mobileServicesOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                             </ListItemButton>
@@ -395,8 +485,10 @@ export default function Navbar() {
                                     href={s.href}
                                     onClick={toggleDrawer(false)}
                                     sx={{
-                                        py: 1.25,
-                                        // Logic: If it's NOT the last item, show the border
+                                        ml: "24px",
+                                        mr: "24px",
+                                        px: 0,
+
                                         borderBottom: index !== services.length - 1
                                             ? `1px solid ${theme.palette.navbar.border}`
                                             : "none"
@@ -415,7 +507,7 @@ export default function Navbar() {
                         {/* Other Mobile Links */}
                         {navLinks.slice(1).map((link) => (
                             <ListItem key={link.label} disablePadding>
-                                <ListItemButton component={Link} href={link.href} onClick={toggleDrawer(false)} sx={{ py: 1.5 }}>
+                                <ListItemButton component={Link} href={link.href} onClick={toggleDrawer(false)} sx={{ px: "24px" }}>
                                     <ListItemText primary={link.label} primaryTypographyProps={{ sx: { fontFamily: "Montserrat", fontSize: "16px", color: theme.palette.navbar.mobileItem } }} />
                                 </ListItemButton>
                             </ListItem>
@@ -423,7 +515,8 @@ export default function Navbar() {
 
                         {/* Mobile Case Studies Accordion */}
                         <ListItem disablePadding>
-                            <ListItemButton onClick={() => setMobileProjectsOpen(!mobileProjectsOpen)} sx={{ py: 1.5 }}>
+                            <ListItemButton onClick={() => setMobileProjectsOpen(!mobileProjectsOpen)}
+                                sx={{ px: "24px", }}>
                                 <ListItemText primary="Case Studies" primaryTypographyProps={{ sx: { fontFamily: "Montserrat", fontSize: "16px", color: theme.palette.navbar.mobileItem } }} />
                                 {mobileProjectsOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                             </ListItemButton>
@@ -435,8 +528,9 @@ export default function Navbar() {
                                     href={proj.href}
                                     onClick={toggleDrawer(false)}
                                     sx={{
-                                        py: 1.25,
-                                        // Logic: If it's NOT the last item, show the border
+                                        ml: "24px",
+                                        mr: "24px",
+                                        px: 0,
                                         borderBottom: index !== projects.length - 1
                                             ? `1px solid ${theme.palette.navbar.border}`
                                             : "none"
@@ -459,8 +553,7 @@ export default function Navbar() {
                                 sx={{
                                     ...navButtonSx,
                                     color: theme.palette.common.white,
-                                    px: 2,
-                                    py: 1,
+                                    px: "24px",
                                     borderRadius: 0,
                                     display: "flex",
                                     justifyContent: "space-between",
@@ -490,6 +583,6 @@ export default function Navbar() {
                     </Box>
                 </Drawer>
             </NavContainer>
-        </AppBar>
+        </AppBar >
     );
 }

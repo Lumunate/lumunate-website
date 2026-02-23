@@ -9,7 +9,7 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
   height: "100vh",
   minHeight: "800px",
   maxHeight: "1070px",
-  margin: "160px 0",
+  margin: "280px 0 160px 0",
   overflow: "hidden",
   display: "flex",
   flexDirection: "column",
@@ -60,11 +60,12 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
     height: "auto",
     minHeight: "100vh",
     paddingBottom: theme.spacing(10),
+
   },
   [theme.breakpoints.down("md")]: {
     height: "auto",
     minHeight: "800px",
-    margin: "96px 0",
+    margin: "180px 0",
   },
 }));
 
@@ -180,13 +181,14 @@ export const TitleText = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.primary,
   fontSize: theme.typography.h5.fontSize,
   fontWeight: 400,
-  marginBottom: theme.spacing(14.25),
+  marginBottom: theme.spacing(12.25),
   [theme.breakpoints.down("xl")]: {
     padding: "24px 0",
   },
   [theme.breakpoints.down("sm")]: {
     fontSize: "18px",
     padding: "16px 0",
+    marginBottom: theme.spacing(1),
   },
 }));
 
@@ -197,7 +199,7 @@ export const RightBottomBox = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   justifyContent: "flex-start",
   alignItems: "flex-start",
-  padding: theme.spacing(5.25, 20),
+  padding: theme.spacing(5.25, 10),
 
   [theme.breakpoints.down(1440)]: {
     padding: theme.spacing(6, 6),
@@ -233,7 +235,7 @@ export const NumberTypography = styled(Typography)(({ theme }) => ({
     textAlign: "left",
   },
   [theme.breakpoints.down("sm")]: {
-    fontSize: "120px",
+    fontSize: "100px",
   },
 }));
 
@@ -241,7 +243,7 @@ export const DescriptionText = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
   fontSize: theme.typography.h5.fontSize,
   lineHeight: 1.6,
-  maxWidth: "500px",
+  maxWidth: "900px",
   [theme.breakpoints.down("lg")]: {
     fontSize: theme.typography.h6.fontSize,
 

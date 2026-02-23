@@ -11,20 +11,17 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
     minHeight: "714px",
     overflow: "hidden",
 
-    backgroundColor: "#000",
+    backgroundColor: theme.palette.background.default,
     backgroundImage: `
-        linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 100%), 
+        linear-gradient(to right, ${theme.palette.background.default} 0%, rgba(0,0,0,0.4) 100%), 
         url('https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770893374/Cards_Background_q9vqww.webp')
     `,
     backgroundSize: "cover",
     backgroundPosition: "center",
-    backgroundBlendMode: "normal", // Blends the gradient and the image layer
 
-    //  EFFECTS ---
+    // Effects using theme values
     boxShadow: `
-        /* 1. Inner Shadow (Figma: Inner shadow) */
         inset 0px 4px 10px rgba(255, 255, 255, 0.05),
-        /* 2. Drop Shadow (Figma: Drop shadow) */
         0px 10px 40px rgba(0, 0, 0, 0.6), 
         0px 30px 70px rgba(0, 0, 0, 0.4)
     `,
@@ -37,9 +34,8 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
         flexDirection: "column",
         height: "auto",
         minHeight: "unset",
-        borderRadius: 32,
         backgroundImage: `
-            linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 100%), 
+            linear-gradient(to bottom, ${theme.palette.background.default} 0%, rgba(0,0,0,0.6) 100%), 
             url('https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770893374/Cards_Background_q9vqww.webp')
         `,
     },
@@ -49,17 +45,19 @@ export const CardLeft = styled(Box)(({ theme }) => ({
     flex: 1.2,
     display: "flex",
     flexDirection: "column",
+    justifyContent: "space-between",
     padding: "66px 48px",
     color: theme.palette.text.primary,
     zIndex: 3,
     position: "relative",
-    // Fix for 1024px and below to give text more room
+
     [theme.breakpoints.down(1025)]: {
         flex: 1,
         padding: "40px 32px",
     },
     [theme.breakpoints.down("md")]: {
-        padding: "50px 32px 40px 32px",
+        padding: "40px 32px 0px 32px",
+        justifyContent: "flex-start",
     },
 }));
 
@@ -68,28 +66,22 @@ export const CardRight = styled(Box)(({ theme }) => ({
     display: "flex",
     position: "relative",
     overflow: "hidden",
-    paddingRight: "0px", // Minimal padding to prevent sub-pixel bleeding
 
-    /* Updated Mask: 
-       1. Fades from 0-15% on the LEFT (to blend with text)
-       2. Stays solid from 15-95%
-       3. Fades from 95-100% on the RIGHT (to hide the sharp edge you circled)
-    */
     maskImage: "linear-gradient(to right, transparent 0%, black 15%, black 95%, transparent 100%)",
     WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%, black 95%, transparent 100%)",
 
-    [theme.breakpoints.down(1024)]: {
-        flex: 1,
-        maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 95%, transparent 100%)",
-        WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 95%, transparent 100%)",
-    },
-
     [theme.breakpoints.down("lg")]: {
         width: "100%",
-        paddingRight: "0px",
-        /* On mobile/tablet, fade the bottom edge instead of the right edge */
-        maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 95%, transparent 100%)",
-        WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 95%, transparent 100%)",
+        display: "flex",
+        flexDirection: "column",
+        margin: 0,
+        padding: 0,
+        flexGrow: 1,
+
+        lineHeight: 0,
+        fontSize: 0,
+        maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 100%, transparent 100%)",
+        WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 100%, transparent 100%)",
     },
 }));
 
@@ -98,18 +90,27 @@ export const WorkflowVideo = styled("video")(({ theme }) => ({
     height: "100%",
     objectFit: "cover",
     zIndex: 1,
+    display: "block",
     aspectRatio: "16 / 16",
-
     borderTopRightRadius: "32px",
     borderBottomRightRadius: "32px",
+
     [theme.breakpoints.down("lg")]: {
-        aspectRatio: "16 / 9",
+        aspectRatio: "unset",
+        width: "100%",
+        height: "100%",
+        minHeight: "400px",
+        borderTopRightRadius: "0px",
+        borderBottomLeftRadius: "32px",
+        borderBottomRightRadius: "32px",
+        margin: 0,
+        verticalAlign: "bottom",
     },
     [theme.breakpoints.down("md")]: {
-        aspectRatio: "1 / 1",
+        aspectRatio: "unset",
+        minHeight: "250px",
     },
 }));
-
 
 export const TopText = styled(Typography)(({ theme }) => ({
     color: theme.palette.text.secondary,

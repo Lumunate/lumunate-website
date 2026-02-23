@@ -9,32 +9,40 @@ export const NavBarContainer = styled(Box)(({ theme }) => ({
     borderTop: `1px solid ${theme.palette.navbar.border}`,
     borderBottom: `1px solid ${theme.palette.navbar.border}`,
 
+    position: "sticky",
+    zIndex: 1100,
+    top: "60px",
+    marginTop: "8px",
+
     overflowX: "auto",
     overflowY: "hidden",
     flexDirection: "row",
     flexWrap: "nowrap",
     justifyContent: "flex-start",
-
     WebkitOverflowScrolling: "touch",
     touchAction: "pan-x",
     scrollBehavior: "smooth",
-
     scrollbarWidth: "none",
     "&::-webkit-scrollbar": { display: "none" },
+
+    // Responsive offsets
+    [theme.breakpoints.up("sm")]: {
+        top: "72px",
+    },
 
     [theme.breakpoints.up("lg")]: {
         justifyContent: "center",
         overflowX: "hidden",
+        top: "88px",
     },
 }));
-
 
 export const NavItem = styled(Box)(({ theme }) => ({
     flex: "0 0 auto",
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    padding: "20px 24px",
+    padding: "12px 24px",
     minWidth: "fit-content",
     cursor: "pointer",
     color: theme.palette.text.secondary,

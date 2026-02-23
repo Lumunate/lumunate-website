@@ -54,7 +54,7 @@ export const HeaderContent = styled(Box, {
     alignItems: "flex-end",
 
     paddingTop: "120px",
-    paddingBottom: "80px",
+    paddingBottom: "120px",
 
     background: `linear-gradient(
     to bottom,
