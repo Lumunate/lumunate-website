@@ -191,33 +191,33 @@ export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
         const navbar = elements[0];
 
         if (isHome) {
-          // NAVBAR ANIMATION (Only on Home)
           tl.fromTo(
             navbar,
-            { y: -100, opacity: 0, visibility: "visible" }, // Start off-screen
+            { y: -100, opacity: 0, visibility: "visible" },
             {
               y: 0,
               opacity: 1,
               duration: 1.2,
               ease: "power4.out",
-              clearProps: "transform", // CRITICAL: Removes GSAP transform after animation
+              clearProps: "transform",
               onComplete: () => {
                 navbar.style.pointerEvents = "auto";
-                navbar.style.position = "sticky"; // Ensure it stays sticky
+                // CHANGE THIS FROM sticky TO fixed
+                navbar.style.position = "fixed";
               },
             }
           );
         } else {
-          // NON-HOME PAGES: Force visible immediately with no animation
           gsap.set(navbar, {
             y: 0,
             opacity: 1,
             visibility: "visible",
             pointerEvents: "auto",
-            position: "sticky"
+            // CHANGE THIS FROM sticky TO fixed
+            position: "fixed"
           });
-        }
-      }
+        };
+      };
 
       // HERO ELEMENTS (Index 1, 2, 3)
       // Use "-=0.8" to overlap the navbar animation for a cohesive feel

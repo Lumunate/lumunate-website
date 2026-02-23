@@ -21,6 +21,7 @@ declare module "@mui/material/styles" {
       caseStudyDesc: string;
       caseStudyLabel: string;
       muted: string;
+      processNumber: string;
     };
     button: {
       discoverBg: string;
@@ -51,6 +52,7 @@ export const TOKENS = {
     caseStudyLabel: "#B8B8B8",
     star: "#FFD600",
     muted: "#AAAAAA",
+    processNumber: "#00A270",
   },
   bg: {
     default: "#0E0E0E",

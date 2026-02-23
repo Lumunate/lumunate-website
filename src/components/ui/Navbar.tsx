@@ -152,20 +152,43 @@ export default function Navbar() {
 
     const columns = menuWidth >= 1050 ? 3 : menuWidth >= 740 ? 2 : 1;
 
+
+    // Add this new state
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        if (!isHome) return; // Only run scroll logic on Home page
+
+        const handleScroll = () => {
+            if (window.scrollY > 100) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [isHome]);
+
+    // Determine visibility
+    // If NOT on home, always show. If ON home, show only when scrolled.
+    const shouldBeVisible = !isHome || scrolled;
+
     return (
         <AppBar
             ref={navRef}
             elevation={0}
             sx={{
-                position: { xs: "fixed", xl: "sticky" },
+                // Use fixed for all screens below xl
+                position: { xs: "fixed !important", xl: "fixed !important" },
                 top: 0,
                 left: 0,
                 width: "100%",
                 zIndex: 1300,
                 backgroundColor: theme.palette.navbar.bg,
-                borderTop: `1px solid ${theme.palette.navbar.border}`,
                 borderBottom: `1px solid ${theme.palette.navbar.border}`,
-                visibility: isHome ? "hidden" : "visible",
+                visibility: "visible", // Always visible so GSAP can handle the entry
                 transition: "background-color 0.3s ease",
                 "& .MuiToolbar-root": { minHeight: "auto" }
             }}

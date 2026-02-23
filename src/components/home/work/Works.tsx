@@ -13,7 +13,14 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-const Works = () => {
+// Added optional props for title and project selection
+interface WorksProps {
+  title?: string;
+  includedTitles?: string[]; // e.g., ["AirBot", "Allfred"]
+  limit?: number;
+}
+
+const Works = ({ title = "Work", includedTitles, limit }: WorksProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -23,6 +30,16 @@ const Works = () => {
     { title: "Koinfolio", year: 2024, imageSrc: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770898186/Koinfolio_1__11zon_gdiwkt.webp", url: "/projects/koinfolio" },
     { title: "CutConnect", year: 2025, imageSrc: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770898378/Cut_connect_1_ysrdaf.webp", url: "/projects/cut-connect" },
   ];
+
+  // Filter by specific titles if provided
+  let displayedProjects = includedTitles
+    ? projects.filter(p => includedTitles.includes(p.title))
+    : projects;
+
+  // Apply the limit if provided
+  if (limit) {
+    displayedProjects = displayedProjects.slice(0, limit);
+  }
 
   const renderProjectCard = (project: typeof projects[0], index: number) => (
     <Box key={index}>
@@ -56,7 +73,7 @@ const Works = () => {
   return (
     <WorkWrapper>
       <PageContainer>
-        <Typography variant="h5">Work</Typography>
+        <Typography variant="h5">{title}</Typography>
 
         <Box sx={{ marginTop: "65px" }}>
           {isMobile ? (
@@ -72,9 +89,8 @@ const Works = () => {
                 "--swiper-pagination-bullet-inactive-opacity": "0.4",
               } as React.CSSProperties}
             >
-              {projects.map((project, index) => (
+              {displayedProjects.map((project, index) => (
                 <SwiperSlide key={index}>
-
                   <Box sx={{ px: 0 }}>
                     {renderProjectCard(project, index)}
                   </Box>
@@ -87,7 +103,7 @@ const Works = () => {
               gridTemplateColumns: "repeat(2, 1fr)",
               gap: "32px 16px"
             }}>
-              {projects.map((project, index) => renderProjectCard(project, index))}
+              {displayedProjects.map((project, index) => renderProjectCard(project, index))}
             </Box>
           )}
         </Box>
