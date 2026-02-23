@@ -147,7 +147,7 @@ export const useGsapSlideAnimation = (data: unknown[]) => {
       ScrollTrigger.create({
         trigger: el,
         start: "top top",
-        end: () => `+=${sections * window.innerHeight}`, // dynamic
+        end: () => `+=${sections * window.innerHeight}`,
         scrub: 0.5,
         pin: true,
         anticipatePin: 1,
@@ -174,7 +174,6 @@ export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
   isHome = true
 ) => {
   useEffect(() => {
-    // If not enabled or elements aren't ready, do nothing
     if (!enabled) return;
 
     const elements = refs
@@ -184,16 +183,22 @@ export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
     if (!elements.length) return;
 
     const ctx = gsap.context(() => {
-      // Create a timeline that starts after the preload/startup sequence
       const tl = gsap.timeline({ delay: delay });
 
       if (elements[0]) {
         const navbar = elements[0];
 
         if (isHome) {
-          tl.fromTo(
+
+          gsap.set(navbar, {
+            y: -100,
+            opacity: 0,
+            visibility: "visible",
+            position: "fixed"
+          });
+
+          tl.to(
             navbar,
-            { y: -100, opacity: 0, visibility: "visible" },
             {
               y: 0,
               opacity: 1,
@@ -202,25 +207,21 @@ export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
               clearProps: "transform",
               onComplete: () => {
                 navbar.style.pointerEvents = "auto";
-                // CHANGE THIS FROM sticky TO fixed
-                navbar.style.position = "fixed";
               },
             }
           );
         } else {
+
           gsap.set(navbar, {
             y: 0,
             opacity: 1,
             visibility: "visible",
             pointerEvents: "auto",
-            // CHANGE THIS FROM sticky TO fixed
             position: "fixed"
           });
-        };
-      };
+        }
+      }
 
-      // HERO ELEMENTS (Index 1, 2, 3)
-      // Use "-=0.8" to overlap the navbar animation for a cohesive feel
       if (elements[1]) {
         tl.fromTo(elements[1], { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, "-=0.8");
       }
@@ -247,18 +248,17 @@ export const useGsapCounterAnimation = (
 
         const { total: finalValue, suffix, prefix = "" } = data[index];
 
-        // Explicitly set the starting text to 0 to prevent "layout flash"
         el.textContent = `${prefix}0${suffix}`;
 
         const counter = { value: 0 };
 
         gsap.to(counter, {
           value: finalValue,
-          duration: 4, // SLOWER: 4 seconds gives a more premium, steady count
-          ease: "expo.out", // SMOOTHER: expo.out is very smooth for counting animations
+          duration: 4,
+          ease: "expo.out",
           scrollTrigger: {
             trigger: el,
-            start: "top 95%", // Starts slightly before it's fully in view
+            start: "top 95%",
             once: true,
           },
           onUpdate: () => {
@@ -267,13 +267,13 @@ export const useGsapCounterAnimation = (
             let formattedNumber: string;
 
             if (finalValue >= 1000) {
-              // Standard currency/large number formatting (e.g., 740,000)
+
               formattedNumber = Math.floor(counter.value).toLocaleString();
             } else if (finalValue % 1 !== 0) {
-              // For decimals like 6.2, ensures we show the decimal place
+
               formattedNumber = counter.value.toFixed(1);
             } else {
-              // For whole numbers
+
               formattedNumber = Math.floor(counter.value).toString();
             }
 

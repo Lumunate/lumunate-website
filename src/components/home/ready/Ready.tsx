@@ -86,6 +86,7 @@ const Ready = ({
               letterSpacing: "-0.2px",
               maxWidth: "1098px",
               mx: "auto",
+              fontSize: { xs: "14px", md: "16px" },
             }}
           >
             {description}

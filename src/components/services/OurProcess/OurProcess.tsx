@@ -1,7 +1,6 @@
 "use client";
 
 import { Typography, Stack, Box } from '@mui/material';
-import useGsapAnimation from '@/hooks/useGsapAnimation';
 import {
     ProcessSection,
     VideoBg,
@@ -9,6 +8,14 @@ import {
     StepNumber
 } from './OurProcess.styles';
 import PageContainer from '@/components/common/PageContainer';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// Register the plugin
+if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 const steps = [
     { id: '01', title: 'Understand', desc: 'We dive deep into your users, business goals, and competitive landscape to identify opportunities and constraints.' },
@@ -17,35 +24,21 @@ const steps = [
     { id: '04', title: 'Deliver', desc: 'We hand off production-ready designs with clear documentation and support for seamless developer implementation.' },
 ];
 
-const ProcessStep = ({ step, index }: { step: typeof steps[0], index: number }) => {
-    const animatedRef = useGsapAnimation<HTMLDivElement>({
-        direction: "left",
-        delay: index * 0.15,
-        duration: 1,
-        once: true
-    });
-
+const ProcessStep = ({ step }: { step: typeof steps[0] }) => {
     return (
         <Stack
-            ref={animatedRef}
+            className="process-step"
             direction="row"
             spacing="24px"
             alignItems="flex-start"
-            sx={{ width: '100%' }}
+            sx={{ width: '100%', opacity: 0 }}
         >
             <StepNumber>{step.id}</StepNumber>
-
             <Stack spacing="8px">
-                <Typography
-                    variant="h6"
-                    sx={{ fontSize: { xs: "18px", md: "20px" }, fontWeight: 400, color: 'section.heading' }}
-                >
+                <Typography variant="h6" sx={{ fontSize: { xs: "18px", md: "20px" }, fontWeight: 400, color: 'section.heading' }}>
                     {step.title}
                 </Typography>
-                <Typography
-                    variant="body2"
-                    sx={{ fontSize: { xs: "14px", md: "16px" }, color: 'section.desc', lineHeight: 1.6 }}
-                >
+                <Typography variant="body2" sx={{ fontSize: { xs: "14px", md: "16px" }, color: 'section.desc', lineHeight: 1.6 }}>
                     {step.desc}
                 </Typography>
             </Stack>
@@ -54,7 +47,38 @@ const ProcessStep = ({ step, index }: { step: typeof steps[0], index: number }) 
 };
 
 export default function OurProcess() {
-    const titleRef = useGsapAnimation<HTMLHeadingElement>({ direction: "fade" });
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el) return;
+
+        const ctx = gsap.context(() => {
+            gsap.fromTo(
+                ".process-step",
+                {
+                    x: -40, 
+                    opacity: 0,
+                    filter: "blur(4px)" 
+                },
+                {
+                    x: 0,
+                    opacity: 1,
+                    filter: "blur(0px)",
+                    duration: 1.2,
+                    stagger: 0.4, 
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 75%",
+                        toggleActions: "play none none none",
+                    }
+                }
+            );
+        }, containerRef);
+
+        return () => ctx.revert();
+    }, []);
 
     return (
         <ProcessSection>
@@ -63,28 +87,24 @@ export default function OurProcess() {
             </VideoBg>
 
             <PageContainer>
-
-                <RelativeContainer maxWidth={false} disableGutters>
+                <RelativeContainer ref={containerRef} maxWidth={false} disableGutters>
                     <Typography
-                        ref={titleRef}
                         variant="h4"
                         sx={{
                             fontSize: { xs: "18px", md: "22px" },
                             fontWeight: 400,
                             color: 'section.heading',
-                            mb: '32px',
+                            mb: '32px', 
                             textTransform: 'uppercase',
                             letterSpacing: '1px',
-                            textAlign: 'left',
-                            width: '100%'
                         }}
                     >
                         Our Process
                     </Typography>
 
-                    <Stack spacing="24px" sx={{ width: '100%', alignItems: 'flex-start' }}>
-                        {steps.map((step, index) => (
-                            <ProcessStep key={step.id} step={step} index={index} />
+                    <Stack spacing="40px" sx={{ width: '100%' }}>
+                        {steps.map((step) => (
+                            <ProcessStep key={step.id} step={step} />
                         ))}
                     </Stack>
                 </RelativeContainer>
