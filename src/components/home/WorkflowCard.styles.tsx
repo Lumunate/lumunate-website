@@ -8,7 +8,7 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
     position: "relative",
     borderRadius: 32,
     alignItems: "stretch",
-    minHeight: "714px",
+    minHeight: "514px",
     overflow: "hidden",
 
     backgroundColor: theme.palette.background.default,

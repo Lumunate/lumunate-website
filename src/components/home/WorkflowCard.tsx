@@ -78,7 +78,7 @@ export default function WorkflowCard({ activeSection }: WorkflowCardProps) {
                     </Description>
                 </Box>
                 <Link href="/contact" passHref style={{ textDecoration: 'none' }} className="animate-btn">
-                    <DiscoverButton sx={{ mt: { xs: "0px", md: "40px" }, width: "fit-content" }}>
+                    <DiscoverButton sx={{ mt: { xs: "0px", md: "0px" }, width: "fit-content" }}>
                         {activeSection.buttonText || "Discover"}
                     </DiscoverButton>
                 </Link>

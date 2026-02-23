@@ -6,13 +6,13 @@ export const NavBarContainer = styled(Box)(({ theme }) => ({
     display: "flex",
     width: "100%",
     backgroundColor: theme.palette.background.paper,
-    borderTop: `1px solid ${theme.palette.navbar.border}`,
     borderBottom: `1px solid ${theme.palette.navbar.border}`,
 
     position: "sticky",
     zIndex: 1100,
-    top: "60px",
-    marginTop: "8px",
+    top: "80px",
+    borderTop: "16px solid transparent",
+    backgroundClip: "padding-box",
 
     overflowX: "auto",
     overflowY: "hidden",
@@ -25,15 +25,11 @@ export const NavBarContainer = styled(Box)(({ theme }) => ({
     scrollbarWidth: "none",
     "&::-webkit-scrollbar": { display: "none" },
 
-    // Responsive offsets
-    [theme.breakpoints.up("sm")]: {
-        top: "72px",
-    },
-
     [theme.breakpoints.up("lg")]: {
         justifyContent: "center",
         overflowX: "hidden",
-        top: "88px",
+        top: "100px",
+        borderTop: "20px solid transparent",
     },
 }));
 
