@@ -181,7 +181,7 @@ export default function Navbar() {
             elevation={0}
             sx={{
                 // Use fixed for all screens below xl
-                position: { xs: "fixed !important", xl: "fixed !important" },
+                position: { xs: "fixed !important", xl: "sticky !important" },
                 top: 0,
                 left: 0,
                 width: "100%",
