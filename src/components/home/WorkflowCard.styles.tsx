@@ -68,23 +68,28 @@ export const CardRight = styled(Box)(({ theme }) => ({
     display: "flex",
     position: "relative",
     overflow: "hidden",
-    paddingRight: "16px",
-    // Standard Desktop Mask
-    maskImage: "linear-gradient(to right, transparent 0%, black 15%)",
-    WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%)",
+    paddingRight: "0px", // Minimal padding to prevent sub-pixel bleeding
 
-    // Fix for 1024px: Reduce flex so video is smaller and adjust mask
+    /* Updated Mask: 
+       1. Fades from 0-15% on the LEFT (to blend with text)
+       2. Stays solid from 15-95%
+       3. Fades from 95-100% on the RIGHT (to hide the sharp edge you circled)
+    */
+    maskImage: "linear-gradient(to right, transparent 0%, black 15%, black 95%, transparent 100%)",
+    WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%, black 95%, transparent 100%)",
+
     [theme.breakpoints.down(1024)]: {
-        flex: 1, 
-        maskImage: "linear-gradient(to right, transparent 0%, black 10%)",
-        WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%)",
+        flex: 1,
+        maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 95%, transparent 100%)",
+        WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 95%, transparent 100%)",
     },
 
     [theme.breakpoints.down("lg")]: {
         width: "100%",
         paddingRight: "0px",
-        maskImage: "linear-gradient(to bottom, transparent 0%, black 15%)",
-        WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%)",
+        /* On mobile/tablet, fade the bottom edge instead of the right edge */
+        maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 95%, transparent 100%)",
+        WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 95%, transparent 100%)",
     },
 }));
 

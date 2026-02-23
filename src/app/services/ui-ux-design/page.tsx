@@ -1,8 +1,11 @@
 
 import ExploreSection from "@/components/home/explore/Explore";
 import Ready from "@/components/home/ready/Ready";
+import Works from "@/components/home/work/Works";
+import OurProcess from "@/components/services/OurProcess/OurProcess";
 import ServiceOverview from "@/components/services/ServiceOverview/ServiceOverview";
-import ServicesHero from "@/components/services/ServicesHero";
+import ServicesHero from "@/components/services/ServicesHero/ServicesHero";
+import UIUXSection from "@/components/services/UIUXSection/UIUXSection";
 import { Box } from "@mui/material";
 
 const webDevCards = [
@@ -101,10 +104,18 @@ export default function UIUXPage() {
                 cards={webDevCards}
             />
 
+            <UIUXSection />
+
+            <OurProcess />
+
+            <Box sx={{ mt: "120px" }}>
+                <Works title="See Our Work" includedTitles={["AirBot", "Allfred"]} />
+            </Box>
+
             <ExploreSection />
 
             <Ready
-                title="Ready to Build What's Next?"
+                title="Tell us about your vision"
                 description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions that drive real results."
                 linkText="Let's Connect"
                 linkHref="/contact"
