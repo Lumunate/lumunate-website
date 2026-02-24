@@ -117,7 +117,7 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
       // Ensure animation plays if user lands mid-section
       ScrollTrigger.create({
         trigger: element,
-        start: "top 100%",
+        start: "top 90%",
         once,
         onEnter: () => anim.play(),
       });
