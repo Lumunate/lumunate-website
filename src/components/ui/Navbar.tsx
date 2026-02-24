@@ -54,7 +54,7 @@ const projects = [
 
 const services = [
     { name: "UI/UX Design", href: "/services/ui-ux-design" },
-    { name: "Web & Mobile Development", href: "/services/web--mobile-development" },
+    { name: "Web & Mobile Development", href: "/services/web-mobile-development" },
     { name: "AI/ML Solutions", href: "/services/ai-ml-solutions" },
     { name: "Web3 & Blockchain", href: "/services/web3-blockchain" },
     { name: "Enterprise Solutions", href: "/services/enterprise-solutions" },
@@ -180,7 +180,6 @@ export default function Navbar() {
             ref={navRef}
             elevation={0}
             sx={{
-                // Use fixed for all screens below xl
                 position: { xs: "fixed !important", xl: "sticky !important" },
                 top: 0,
                 left: 0,
@@ -189,10 +188,12 @@ export default function Navbar() {
                 backgroundColor: theme.palette.navbar.bg,
                 borderTop: `1px solid ${theme.palette.navbar.border}`,
                 borderBottom: `1px solid ${theme.palette.navbar.border}`,
-                // FIX: Start hidden so GSAP has full control
-                visibility: "hidden",
-                opacity: 0,
-                transition: "background-color 0.3s ease",
+
+                // FIX: Allow the shouldBeVisible state to override hidden defaults
+                visibility: shouldBeVisible ? "visible" : "hidden",
+                opacity: shouldBeVisible ? 1 : 0,
+
+                transition: "background-color 0.3s ease, opacity 0.5s ease",
                 "& .MuiToolbar-root": { minHeight: "auto" }
             }}
         >
