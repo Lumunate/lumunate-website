@@ -22,6 +22,7 @@ interface WorkflowCardProps {
         description: string;
         video: string;
         buttonText: string;
+        path: string;
     } | null;
 }
 
@@ -77,7 +78,12 @@ export default function WorkflowCard({ activeSection }: WorkflowCardProps) {
                         {activeSection.description}
                     </Description>
                 </Box>
-                <Link href="/contact" passHref style={{ textDecoration: 'none' }} className="animate-btn">
+                <Link
+                    href={activeSection.path || "/contact"}
+                    passHref
+                    style={{ textDecoration: 'none' }}
+                    className="animate-btn"
+                >
                     <DiscoverButton sx={{ mt: { xs: "0px", md: "0px" }, width: "fit-content" }}>
                         {activeSection.buttonText || "Discover"}
                     </DiscoverButton>

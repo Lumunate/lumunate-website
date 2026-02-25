@@ -26,6 +26,7 @@ const workflowSections = [
     description: "Interfaces that convert User-centered designs that turn visitors into customers.",
     video: "https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770893053/chips_onbeml.webm",
     buttonText: "Discover",
+    path: "/services/ui-ux-design",
   },
   {
     tag: "/Web & Mobile",
@@ -33,6 +34,7 @@ const workflowSections = [
     description: "Apps that scale Fast, secure, and built for growth across all platforms.",
     video: "https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770893053/chips_onbeml.webm",
     buttonText: "Discover",
+    path: "/services/web-mobile-development",
   },
   {
     tag: "/AI & ML",
@@ -40,6 +42,7 @@ const workflowSections = [
     description: "Intelligence that delivers Custom AI tools that automate, optimize, and accelerate your business.",
     video: "https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770893053/chips_onbeml.webm",
     buttonText: "Discover",
+    path: "/services/ai-ml-solutions",
   },
   {
     tag: "/Web3",
@@ -47,6 +50,7 @@ const workflowSections = [
     description: "Future-ready technology Decentralized solutions for tomorrow's digital economy.",
     video: "https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770893053/chips_onbeml.webm",
     buttonText: "Discover",
+    path: "/services/web3-blockchain",
   },
   {
     tag: "/Enterprise",
@@ -54,6 +58,7 @@ const workflowSections = [
     description: "Systems that perform Robust platforms that streamline operations and boost productivity.",
     video: "https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770893053/chips_onbeml.webm",
     buttonText: "Discover",
+    path: "/services/enterprise-solutions",
   },
   {
     tag: "/Digital",
@@ -61,6 +66,7 @@ const workflowSections = [
     description: "Growth that sticks Data-driven strategies that maximize reach and ROI.",
     video: "https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770893053/chips_onbeml.webm",
     buttonText: "Discover",
+    path: "/services/digital-marketing-transformation",
   },
 ];
 
