@@ -38,7 +38,7 @@ export default function ServiceOverview({
                     <Typography
                         variant="h1"
                         sx={{
-                            fontSize: { xs: "30px", md: "42px", lg: "56px" },
+                            fontSize: { xs: "22px", md: "22px", lg: "22px" },
                             color: theme.palette.section.heading,
                             mb: { xs: "20px", md: "32px" },
                             fontFamily: "Montserrat"

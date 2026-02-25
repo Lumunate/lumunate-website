@@ -8,7 +8,8 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
     position: "relative",
     borderRadius: 32,
     alignItems: "stretch",
-    minHeight: "514px",
+
+    minHeight: "560px",
     overflow: "hidden",
 
     backgroundColor: theme.palette.background.default,
@@ -19,15 +20,18 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
     backgroundSize: "cover",
     backgroundPosition: "center",
 
-    // Effects using theme values
     boxShadow: `
         inset 0px 4px 10px rgba(255, 255, 255, 0.05),
         0px 10px 40px rgba(0, 0, 0, 0.6), 
         0px 30px 70px rgba(0, 0, 0, 0.4)
     `,
 
-    [theme.breakpoints.up("xl")]: {
-        minHeight: "714px",
+    "@media (min-width: 1920px)": {
+        minHeight: "814px",
+    },
+
+    [theme.breakpoints.down("xl")]: {
+        minHeight: "514px",
     },
 
     [theme.breakpoints.down("lg")]: {
@@ -66,6 +70,7 @@ export const CardRight = styled(Box)(({ theme }) => ({
     display: "flex",
     position: "relative",
     overflow: "hidden",
+    marginRight: "13px",
 
     maskImage: "linear-gradient(to right, transparent 0%, black 15%, black 95%, transparent 100%)",
     WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%, black 95%, transparent 100%)",
@@ -82,6 +87,7 @@ export const CardRight = styled(Box)(({ theme }) => ({
         fontSize: 0,
         maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 100%, transparent 100%)",
         WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 100%, transparent 100%)",
+
     },
 }));
 
@@ -89,9 +95,10 @@ export const WorkflowVideo = styled("video")(({ theme }) => ({
     width: "100%",
     height: "100%",
     objectFit: "cover",
+    alignSelf: "center",
     zIndex: 1,
     display: "block",
-    aspectRatio: "16 / 16",
+    // aspectRatio: "16 / 12",
     borderTopRightRadius: "32px",
     borderBottomRightRadius: "32px",
 
