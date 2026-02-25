@@ -16,28 +16,29 @@ export const RootSection = styled(Box)<RootSectionProps>(({ theme, $mediaType })
     position: "relative",
     overflow: "hidden",
 
-    // TOP OVERLAY: Only visible for videos
+    // TOP OVERLAY
     "&::before": {
         content: '""',
         position: "absolute",
         top: 0,
         left: 0,
         width: "100%",
-        height: "200px",
+        height: "50px",
         background: `linear-gradient(to bottom, ${theme.palette.background.default} 0%, transparent 100%)`,
         zIndex: 1,
         pointerEvents: "none",
-        display: $mediaType === "video" ? "block" : "none",
+
+        display: ($mediaType === "video" || $mediaType === "image") ? "block" : "none",
     },
 
-    // BOTTOM OVERLAY: Always visible
+    // BOTTOM OVERLAY
     "&::after": {
         content: '""',
         position: "absolute",
         bottom: 0,
         left: 0,
         width: "100%",
-        height: "300px",
+        height: "50px",
         background: `linear-gradient(to top, ${theme.palette.background.default} 0%, transparent 100%)`,
         zIndex: 1,
         pointerEvents: "none",
@@ -86,7 +87,8 @@ export const CardWrapper = styled(Box)(({ theme }) => ({
     "&:hover": {
         backgroundColor: alpha(theme.palette.background.paper, 0.8),
         transform: "translateY(-8px)",
-        borderColor: alpha(theme.palette.primary.main, 0.6),
+
+        borderColor: theme.palette.section.processNumber,
         boxShadow: `0 20px 40px ${alpha(theme.palette.common.black, 0.6)}`,
     },
     [theme.breakpoints.down("lg")]: {

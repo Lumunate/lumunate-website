@@ -75,7 +75,7 @@ const Works = ({ title = "Work", includedTitles, limit }: WorksProps) => {
       <PageContainer>
         <Typography variant="h5">{title}</Typography>
 
-        <Box sx={{ marginTop: "65px" }}>
+        <Box sx={{ marginTop: "32px" }}>
           {isMobile ? (
             <Swiper
               modules={[Pagination]}

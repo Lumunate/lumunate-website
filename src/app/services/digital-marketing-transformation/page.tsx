@@ -120,7 +120,7 @@ export default function UIUXPage() {
             <BuildProcessSection
                 sectionTitle="How We Build"
                 steps={blockchainSteps}
-                // Match the prop name defined in your interface (bgImageUrl)
+              
                 bgImageUrl="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1771226329/Marketing_1_zbppfc.webm"
             />
 

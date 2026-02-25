@@ -46,7 +46,8 @@ export const VideoOverlay = styled(Box)(({ theme }) => ({
 
 export const ContentGrid = styled(Box)(({ theme }) => ({
     display: "grid",
-    gridTemplateColumns: "1fr 1fr",
+    gridTemplateColumns: "0.8fr 1.2fr",
+    gap: "64px",
     width: "100%",
     zIndex: 1,
     alignItems: "start",

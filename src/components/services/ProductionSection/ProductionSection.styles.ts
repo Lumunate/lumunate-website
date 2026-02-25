@@ -4,7 +4,7 @@ import { Box, styled, Typography, Paper } from "@mui/material";
 
 export const RootSection = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing(10, 0),
+    padding: theme.spacing(8, 0),
     color: theme.palette.text.primary,
 }));
 
@@ -43,8 +43,8 @@ export const VerticalDivider = styled(Box)(({ theme }) => ({
 
 export const RightContent = styled(Box)(({ theme }) => ({
     paddingLeft: "80px",
-    paddingTop: "80px",
-    paddingBottom: "80px",
+    paddingTop: "20px",
+    paddingBottom: "20px",
     [theme.breakpoints.down("lg")]: {
         paddingLeft: "32px",
         paddingTop: theme.spacing(2),
@@ -86,7 +86,7 @@ export const CardGrid = styled(Box)(({ theme }) => ({
 
 export const StyledCard = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
-    padding: "40px",
+    padding: "20px",
     borderRadius: "12px",
     border: `1px solid ${theme.palette.divider}`,
     backgroundImage: "none",
