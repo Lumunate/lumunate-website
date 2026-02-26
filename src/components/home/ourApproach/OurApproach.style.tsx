@@ -56,16 +56,18 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
     backdropFilter: "blur(12px)",
     WebkitBackdropFilter: "blur(12px)",
   },
-  [theme.breakpoints.down("lg")]: {
+  [theme.breakpoints.down("xl")]: {
     height: "auto",
     minHeight: "100vh",
     paddingBottom: theme.spacing(10),
 
   },
-  [theme.breakpoints.down("md")]: {
-    height: "auto",
-    minHeight: "800px",
-    margin: "180px 0",
+  [theme.breakpoints.down("lg")]: {
+    height: "100vh",
+    minHeight: "660px",
+    margin: 0,
+    display: "flex",
+    flexDirection: "column",
   },
 }));
 
@@ -105,14 +107,14 @@ export const FullBleedGrid = styled(Box)(({ theme }) => ({
     transform: "translateY(-0.5px)",
   },
 
-  [theme.breakpoints.down("md")]: {
+  [theme.breakpoints.down("lg")]: {
     "&::before, &::after": { display: "block" },
     "&::after": {
       content: '""',
       position: "absolute",
       left: 0,
       right: 0,
-      top: "35%",
+      top: "45%",
       height: "1px",
       zIndex: 1,
       pointerEvents: "none",
@@ -132,8 +134,11 @@ export const ContentWrapper = styled(Box)(({ theme }) => ({
   zIndex: 2,
 
   [theme.breakpoints.down("md")]: {
-    gridTemplateColumns: "1fr 1fr",
-    gridTemplateRows: "auto auto",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    height: "calc(100vh - 120px)",
+    padding: theme.spacing(4, 0),
   },
 }));
 
@@ -149,12 +154,12 @@ export const SubContentWrapper = styled(Box)(({ theme }) => ({
     alignItems: "flex-start",
     padding: theme.spacing(5, 2),
   },
-  [theme.breakpoints.down("md")]: {
+  [theme.breakpoints.down("lg")]: {
     gridColumn: "1 / 3",
-    paddingBottom: "60px",
+    paddingTop: theme.spacing(10),
+    paddingBottom: 0,
     alignItems: "flex-start",
     justifyContent: "flex-start",
-    padding: theme.spacing(0, 0),
   },
 }));
 
@@ -169,7 +174,7 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
     fontSize: "40px",
     textAlign: "left",
   },
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.down("lg")]: {
     fontSize: "24px",
     textAlign: "left",
     width: "100%",
@@ -186,10 +191,11 @@ export const TitleText = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down("xl")]: {
     padding: "24px 0",
   },
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.down("lg")]: {
     fontSize: "18px",
     padding: "16px 0",
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(0),
+    marginTop: theme.spacing(10),
   },
 }));
 
@@ -205,15 +211,17 @@ export const RightBottomBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down(1440)]: {
     padding: theme.spacing(6, 6),
   },
-  [theme.breakpoints.down("lg")]: {
+  [theme.breakpoints.down("xl")]: {
     padding: theme.spacing(3, 2),
   },
-  [theme.breakpoints.down("md")]: {
+  [theme.breakpoints.down("lg")]: {
     gridColumn: "1 / 3",
-    gridRow: "2 / 3",
-    padding: theme.spacing(5, 0),
+    gridRow: "auto",
     width: "100%",
+
     alignItems: "flex-end",
+    justifyContent: "flex-end",
+    paddingBottom: theme.spacing(6),
 
     "& a": {
       alignSelf: "flex-end",
@@ -245,14 +253,15 @@ export const DescriptionText = styled(Typography)(({ theme }) => ({
   fontSize: theme.typography.h5.fontSize,
   lineHeight: 1.6,
   maxWidth: "900px",
-  [theme.breakpoints.down("lg")]: {
+  [theme.breakpoints.down("xl")]: {
     fontSize: theme.typography.h6.fontSize,
 
   },
 
-  [theme.breakpoints.down("sm")]: {
-    fontSize: "15px",
+  [theme.breakpoints.down("lg")]: {
+    fontSize: "14px",
     textAlign: "right",
-    marginBottom: "0px !important",
+    maxWidth: "280px",
+    marginBottom: "16px !important",
   },
 }));

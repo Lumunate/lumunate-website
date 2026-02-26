@@ -10,9 +10,9 @@ export const NavBarContainer = styled(Box)(({ theme }) => ({
 
     position: "sticky",
     zIndex: 1100,
+
     top: "80px",
-    borderTop: "16px solid transparent",
-    backgroundClip: "padding-box",
+    marginTop: "16px",
 
     overflowX: "auto",
     overflowY: "hidden",
@@ -20,16 +20,15 @@ export const NavBarContainer = styled(Box)(({ theme }) => ({
     flexWrap: "nowrap",
     justifyContent: "flex-start",
     WebkitOverflowScrolling: "touch",
-    touchAction: "pan-x",
-    scrollBehavior: "smooth",
     scrollbarWidth: "none",
     "&::-webkit-scrollbar": { display: "none" },
 
     [theme.breakpoints.up("lg")]: {
         justifyContent: "center",
         overflowX: "hidden",
+
         top: "100px",
-        borderTop: "20px solid transparent",
+        marginTop: "20px",
     },
 }));
 

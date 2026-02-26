@@ -106,7 +106,7 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
           ease: "power3.out",
           scrollTrigger: {
             trigger: element,
-            start: "top 80%",
+            start: "top 85%",
             end: "bottom 10%",
             toggleActions: "play none none reverse",
             once,
@@ -115,12 +115,12 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
       );
 
       // Ensure animation plays if user lands mid-section
-      ScrollTrigger.create({
-        trigger: element,
-        start: "top 90%",
-        once,
-        onEnter: () => anim.play(),
-      });
+      // ScrollTrigger.create({
+      //   trigger: element,
+      //   start: "top 90%",
+      //   once,
+      //   onEnter: () => anim.play(),
+      // });
     }, elementRef);
 
     return () => ctx.revert();

@@ -6,6 +6,10 @@ interface RootSectionProps {
     $mediaType: "video" | "image";
 }
 
+interface MediaProps {
+    $mediaType: "video" | "image";
+}
+
 export const RootSection = styled(Box)<RootSectionProps>(({ theme, $mediaType }) => ({
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing(12, 0),
@@ -16,36 +20,36 @@ export const RootSection = styled(Box)<RootSectionProps>(({ theme, $mediaType })
     position: "relative",
     overflow: "hidden",
 
-    // TOP OVERLAY
+    // TOP SOFT FADE
     "&::before": {
         content: '""',
         position: "absolute",
         top: 0,
         left: 0,
         width: "100%",
-        height: "50px",
-        background: `linear-gradient(to bottom, ${theme.palette.background.default} 0%, transparent 100%)`,
-        zIndex: 1,
+        height: "150px",
+        background: `linear-gradient(to bottom, ${theme.palette.background.default} 0%, ${alpha(theme.palette.background.default, 0.8)} 20%, transparent 100%)`,
+        zIndex: 2, 
         pointerEvents: "none",
-
         display: ($mediaType === "video" || $mediaType === "image") ? "block" : "none",
     },
 
-    // BOTTOM OVERLAY
+    // BOTTOM SOFT FADE
     "&::after": {
         content: '""',
         position: "absolute",
         bottom: 0,
         left: 0,
         width: "100%",
-        height: "50px",
-        background: `linear-gradient(to top, ${theme.palette.background.default} 0%, transparent 100%)`,
-        zIndex: 1,
+        height: "150px",
+        background: `linear-gradient(to top, ${theme.palette.background.default} 0%, ${alpha(theme.palette.background.default, 0.8)} 20%, transparent 100%)`,
+        zIndex: 2, 
         pointerEvents: "none",
+        display: ($mediaType === "video" || $mediaType === "image") ? "block" : "none",
     }
 }));
 
-export const MediaBackground = styled(Box)({
+export const MediaBackground = styled(Box)<MediaProps>(({ $mediaType }) => ({
     position: "absolute",
     top: 0,
     left: 0,
@@ -53,8 +57,8 @@ export const MediaBackground = styled(Box)({
     height: "100%",
     objectFit: "cover",
     zIndex: 0,
-    filter: "brightness(0.5)",
-}) as any;
+    filter: $mediaType === "video" ? "brightness(0.5)" : "none",
+})) as any;
 
 export const ContentOverlay = styled(Box)({
     position: "relative",
@@ -73,9 +77,9 @@ export const SectionTitle = styled(Typography)(({ theme }) => ({
     },
 }));
 
-export const CardWrapper = styled(Box)(({ theme }) => ({
+export const CardWrapper = styled(Box)<MediaProps>(({ theme, $mediaType }) => ({
     backgroundColor: alpha(theme.palette.background.paper, 0.4),
-    backdropFilter: "blur(12px)",
+    backdropFilter: $mediaType === "video" ? "blur(12px)" : "none",
     border: `1px solid ${alpha(theme.palette.divider, 0.9)}`,
     borderRadius: "16px",
     padding: "40px",

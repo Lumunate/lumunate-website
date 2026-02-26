@@ -6,7 +6,7 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
     display: "flex",
     width: "100%",
     position: "relative",
-    borderRadius: 32,
+    borderRadius: "20px",
     alignItems: "stretch",
 
     minHeight: "560px",
@@ -14,7 +14,8 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
 
     backgroundColor: theme.palette.background.default,
     backgroundImage: `
-        linear-gradient(to right, ${theme.palette.background.default} 0%, rgba(0,0,0,0.4) 100%), 
+        linear-gradient(to left, ${theme.palette.background.default} 0%, rgba(0,0,0,0.4) 100%), 
+        linear-gradient(to right, ${theme.palette.background.default} 0%, rgba(0,0,0,0.4) 30%), 
         url('https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770893374/Cards_Background_q9vqww.webp')
     `,
     backgroundSize: "cover",
@@ -31,13 +32,22 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
     },
 
     [theme.breakpoints.down("xl")]: {
-        minHeight: "514px",
+        minHeight: "414px",
     },
 
     [theme.breakpoints.down("lg")]: {
         flexDirection: "column",
         height: "auto",
-        minHeight: "unset",
+        minHeight: "350px",
+        backgroundImage: `
+            linear-gradient(to bottom, ${theme.palette.background.default} 0%, rgba(0,0,0,0.6) 100%), 
+            url('https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770893374/Cards_Background_q9vqww.webp')
+        `,
+    },
+    [theme.breakpoints.down("md")]: {
+        flexDirection: "column",
+        height: "680px",
+        minHeight: "650px",
         backgroundImage: `
             linear-gradient(to bottom, ${theme.palette.background.default} 0%, rgba(0,0,0,0.6) 100%), 
             url('https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770893374/Cards_Background_q9vqww.webp')
@@ -71,9 +81,9 @@ export const CardRight = styled(Box)(({ theme }) => ({
     position: "relative",
     overflow: "hidden",
     marginRight: "13px",
-
-    maskImage: "linear-gradient(to right, transparent 0%, black 15%, black 95%, transparent 100%)",
-    WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%, black 95%, transparent 100%)",
+    borderRadius: "20px",
+    maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 10%)",
+    WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 10%)",
 
     [theme.breakpoints.down("lg")]: {
         width: "100%",
@@ -82,25 +92,24 @@ export const CardRight = styled(Box)(({ theme }) => ({
         margin: 0,
         padding: 0,
         flexGrow: 1,
-
         lineHeight: 0,
         fontSize: 0,
-        maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 100%, transparent 100%)",
-        WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 100%, transparent 100%)",
-
+        maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 100%)",
+        WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 100%)",
     },
 }));
 
 export const WorkflowVideo = styled("video")(({ theme }) => ({
     width: "100%",
     height: "100%",
+    //  minHeight: "550px",
     objectFit: "cover",
     alignSelf: "center",
     zIndex: 1,
     display: "block",
-    // aspectRatio: "16 / 12",
-    borderTopRightRadius: "32px",
-    borderBottomRightRadius: "32px",
+
+    borderTopRightRadius: "30px",
+    borderBottomRightRadius: "30px",
 
     [theme.breakpoints.down("lg")]: {
         aspectRatio: "unset",
@@ -108,14 +117,14 @@ export const WorkflowVideo = styled("video")(({ theme }) => ({
         height: "100%",
         minHeight: "400px",
         borderTopRightRadius: "0px",
-        borderBottomLeftRadius: "32px",
-        borderBottomRightRadius: "32px",
+        borderBottomLeftRadius: "0px",
+        borderBottomRightRadius: "0px",
         margin: 0,
         verticalAlign: "bottom",
     },
     [theme.breakpoints.down("md")]: {
         aspectRatio: "unset",
-        minHeight: "250px",
+        minHeight: "280px",
     },
 }));
 

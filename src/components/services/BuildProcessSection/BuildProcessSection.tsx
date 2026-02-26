@@ -29,28 +29,29 @@ export default function BuildProcessSection({
     steps,
     bgImageUrl,
 }: BuildProcessSectionProps) {
-    // Detect media type
     const isVideo = bgImageUrl?.match(/\.(webm|mp4|ogg|mov)$/i);
     const mediaType = isVideo ? "video" : "image";
+
     return (
         <RootSection $mediaType={mediaType}>
             {bgImageUrl && (
                 isVideo ? (
                     <MediaBackground
                         key="video-bg"
-                        component="video" // Renders <video>
+                        $mediaType={mediaType} // Pass prop here
+                        component="video"
                         src={bgImageUrl}
                         autoPlay
                         muted
                         loop
                         playsInline
-                        alt="background video"
                         sx={{ width: '100%', height: '100%' }}
                     />
                 ) : (
                     <MediaBackground
                         key="image-bg"
-                        component="img" // Renders <img>
+                        $mediaType={mediaType} // Pass prop here
+                        component="img"
                         src={bgImageUrl}
                         alt="background image"
                         sx={{ width: '100%', height: '100%' }}
@@ -65,7 +66,8 @@ export default function BuildProcessSection({
                     <Grid container spacing="32px" justifyContent="center">
                         {steps.map((step, index) => (
                             <Grid key={index} size={{ xs: 12, md: 4 }}>
-                                <CardWrapper>
+                                {/* Pass prop here to toggle backdropFilter */}
+                                <CardWrapper $mediaType={mediaType}>
                                     <CardTitle>{step.title}</CardTitle>
                                     <CardDesc>{step.desc}</CardDesc>
                                 </CardWrapper>
