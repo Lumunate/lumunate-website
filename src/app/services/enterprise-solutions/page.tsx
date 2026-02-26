@@ -121,7 +121,7 @@ export default function UIUXPage() {
             <BuildProcessSection
                 sectionTitle="How We Build"
                 steps={blockchainSteps}
-                bgImageUrl="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1771226242/Enrterprise_Solution_w9fhhl.webp"
+                bgImageUrl="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1772135294/how-it-works-img_vosuek.webp"
             />
 
             <Box sx={{ mt: "120px" }}>
