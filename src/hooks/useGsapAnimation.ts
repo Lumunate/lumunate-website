@@ -92,43 +92,54 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
           fromProps = { y: 50, opacity: 0 };
       }
 
-      const anim = gsap.fromTo(
-        element,
-        fromProps,
-        {
-          x: 0,
-          y: 0,
-          scale: 1,
-          opacity: 1,
-          duration,
-          delay,
-          stagger,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: element,
-            start: "top 85%",
-            end: "bottom 10%",
-            toggleActions: "play none none reverse",
-            once,
-          },
-        }
-      );
+      gsap.set(element, fromProps);
 
-      // Ensure animation plays if user lands mid-section
-      // ScrollTrigger.create({
-      //   trigger: element,
-      //   start: "top 90%",
-      //   once,
-      //   onEnter: () => anim.play(),
-      // });
+      const toProps: gsap.TweenVars = {
+        x: 0,
+        y: 0,
+        scale: 1,
+        opacity: 1,
+        fontSize: direction === "text-expand" ? "" : undefined,
+        duration,
+        delay,
+        stagger,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: element,
+          start: "top 90%",
+          end: "bottom 10%",
+          toggleActions: once
+            ? "play none none none"
+            : "play none none reverse",
+          onEnter: () => {
+            gsap.to(element, {
+              x: 0,
+              y: 0,
+              scale: 1,
+              opacity: 1,
+              duration,
+              delay,
+              ease: "power3.out",
+            });
+          },
+        },
+      };
+
+      gsap.to(element, toProps);
     }, elementRef);
 
-    return () => ctx.revert();
+    const refreshTimeout = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+
+    return () => {
+      ctx.revert();
+      clearTimeout(refreshTimeout);
+    };
   }, [direction, delay, duration, once, stagger]);
 
   return elementRef;
 };
-
 export default useGsapAnimation;
 
 

@@ -156,10 +156,11 @@ export const SubContentWrapper = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down("lg")]: {
     gridColumn: "1 / 3",
-    paddingTop: theme.spacing(10),
+    paddingTop: theme.spacing(5),
     paddingBottom: 0,
     alignItems: "flex-start",
     justifyContent: "flex-start",
+    paddingLeft: 0,
   },
 }));
 
@@ -245,6 +246,7 @@ export const NumberTypography = styled(Typography)(({ theme }) => ({
   },
   [theme.breakpoints.down("sm")]: {
     fontSize: "100px",
+    textAlign: "left",
   },
 }));
 
