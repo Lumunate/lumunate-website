@@ -11,8 +11,8 @@ export const NavBarContainer = styled(Box)(({ theme }) => ({
     position: "sticky",
     zIndex: 1100,
 
-    top: "80px",
-    marginTop: "16px",
+    top: "64px",
+    marginTop: "0px",
 
     overflowX: "auto",
     overflowY: "hidden",
@@ -27,11 +27,10 @@ export const NavBarContainer = styled(Box)(({ theme }) => ({
         justifyContent: "center",
         overflowX: "hidden",
 
-        top: "100px",
-        marginTop: "20px",
+        top: "80px",
+        marginTop: "0px",
     },
 }));
-
 export const NavItem = styled(Box)(({ theme }) => ({
     flex: "0 0 auto",
     display: "inline-flex",

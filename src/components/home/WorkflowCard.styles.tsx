@@ -46,7 +46,7 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
     },
     [theme.breakpoints.down("md")]: {
         flexDirection: "column",
-        height: "680px",
+        height: "500px",
         minHeight: "650px",
         backgroundImage: `
             linear-gradient(to bottom, ${theme.palette.background.default} 0%, rgba(0,0,0,0.6) 100%), 
@@ -124,7 +124,7 @@ export const WorkflowVideo = styled("video")(({ theme }) => ({
     },
     [theme.breakpoints.down("md")]: {
         aspectRatio: "unset",
-        minHeight: "280px",
+        minHeight: "200px",
     },
 }));
 
