@@ -17,10 +17,10 @@ if (typeof window !== "undefined") {
 }
 
 const steps = [
-    { id: '01', title: 'Understand', desc: 'We dive deep into your users, business goals, and competitive landscape to identify opportunities and constraints.' },
-    { id: '02', title: 'Design', desc: 'We create wireframes, prototypes, and high-fidelity designs that solve user problems with elegant simplicity.' },
-    { id: '03', title: 'Refine', desc: 'Through testing and iteration, we polish every detail to ensure the design meets both user and business objectives.' },
-    { id: '04', title: 'Deliver', desc: 'We hand off production-ready designs with clear documentation and support for seamless developer implementation.' },
+    { id: '01', title: 'Understand', desc: 'We dive deep into your users, business goals, and competitive landscape...' },
+    { id: '02', title: 'Design', desc: 'We create wireframes, prototypes, and high-fidelity designs...' },
+    { id: '03', title: 'Refine', desc: 'Through testing and iteration, we polish every detail...' },
+    { id: '04', title: 'Deliver', desc: 'We hand off production-ready designs with clear documentation...' },
 ];
 
 export default function OurProcess() {
@@ -37,35 +37,28 @@ export default function OurProcess() {
                 scrollTrigger: {
                     trigger: section,
                     start: "top top",
-
-                    end: "+=500%",
+                    end: "+=400%",
                     pin: true,
-
                     scrub: 1,
                     anticipatePin: 1,
                 }
             });
 
             processSteps.forEach((step, i) => {
-                // Exit animation for current step
-                if (i !== steps.length - 1) {
-                    // Fade out current
-                    tl.to(step, {
-                        opacity: 0,
-                        y: -40,
-                        duration: 1,
-                        ease: "power1.inOut"
-                    });
-                    // Fade in next
-                    tl.fromTo(processSteps[i + 1],
-                        { opacity: 0, y: 40 },
+                if (i > 0) {
+                    tl.fromTo(step,
+                        {
+                            opacity: 0,
+                            y: 50
+                        },
                         {
                             opacity: 1,
-                            y: 0,
+                            y: i * 110,
                             duration: 1,
-                            ease: "power1.inOut"
+                            ease: "power2.out"
                         },
-                        "<"
+
+                        `step-${i}`
                     );
                 }
             });
@@ -96,7 +89,7 @@ export default function OurProcess() {
                         Our Process
                     </Typography>
 
-                    <Box sx={{ position: 'relative', width: '100%', height: '220px' }}>
+                    <Box sx={{ position: 'relative', width: '100%', minHeight: '500px' }}>
                         {steps.map((step, index) => (
                             <Stack
                                 key={step.id}
@@ -109,8 +102,10 @@ export default function OurProcess() {
                                     position: 'absolute',
                                     top: 0,
                                     left: 0,
+                                    // Initially, Step 1 is visible at top, others are hidden
                                     opacity: index === 0 ? 1 : 0,
-                                    pointerEvents: index === 0 ? 'auto' : 'none',
+                                    transform: index === 0 ? 'translateY(0px)' : 'translateY(50px)',
+                                    pointerEvents: 'auto',
                                     transition: 'none'
                                 }}
                             >
@@ -119,7 +114,7 @@ export default function OurProcess() {
                                     <Typography variant="h6" sx={{ fontSize: { xs: "18px", md: "20px" }, fontWeight: 400, color: 'section.heading' }}>
                                         {step.title}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ fontSize: { xs: "14px", md: "16px" }, color: 'section.desc', lineHeight: 1.6 }}>
+                                    <Typography variant="body2" sx={{ fontSize: { xs: "14px", md: "16px" }, color: 'section.desc', lineHeight: 1.6, maxWidth: '600px' }}>
                                         {step.desc}
                                     </Typography>
                                 </Stack>
