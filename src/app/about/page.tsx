@@ -9,6 +9,8 @@ const page = () => {
   return (
     <>
       <Hero />
+
+
       <Different />
 
       <SuccessStories

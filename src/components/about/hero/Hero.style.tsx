@@ -45,7 +45,7 @@ export const ContentContainer = styled(Box)(({ theme }) => ({
   },
 
   [theme.breakpoints.down("sm")]: {
-    paddingTop: "100px",
+    paddingTop: "164px",
     paddingBottom: theme.spacing(6),
     justifyContent: "flex-start",
     alignItems: "flex-start",
