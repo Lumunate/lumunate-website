@@ -82,7 +82,7 @@ export const HeaderContent = styled(Box, {
 
     [theme.breakpoints.down("sm")]: {
         alignItems: "flex-start",
-        paddingTop: "100px",
+        paddingTop: "164px",
         paddingBottom: "40px",
     },
 }));
@@ -96,6 +96,7 @@ export const HeaderLeft = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down("sm")]: {
         textAlign: "left",
         maxWidth: "100%",
+        marginTop: 0,
     },
 }));
 
