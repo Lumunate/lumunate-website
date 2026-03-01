@@ -4,10 +4,10 @@ import { Box, Typography, Divider, Stack } from "@mui/material";
 
 import Grid from "@mui/material/Grid";
 import PageContainer from "@/components/common/PageContainer";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import * as S from "./BlogDetailContent.styles";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 
 const BlogDetailContent = () => {
     const tableOfContents = [
@@ -20,12 +20,12 @@ const BlogDetailContent = () => {
     ];
 
     return (
-        <Box sx={{ bgcolor: "background.default", py: { xs: 6, md: 10 } }}>
+        <Box sx={{ bgcolor: "background.default", py: { xs: 6, lg: 15 } }}>
             <PageContainer>
 
-                <Grid container spacing={6}>
+                <Grid container spacing={0} >
 
-                    <Grid size={{ xs: 12, md: 8 }}>
+                    <Grid size={{ xs: 12, lg: 7 }} sx={{ order: { xs: 3, lg: 1 } }}>
                         <S.ArticleBody>
                             <Typography variant="h4" gutterBottom>Introduction</Typography>
                             <Typography variant="body1" paragraph>
@@ -34,7 +34,7 @@ const BlogDetailContent = () => {
                                 As a software house that's watched this trend unfold and experimented with these platforms ourselves — we're here to cut through the noise and give you the honest truth about low-code development.
                             </Typography>
 
-                            <Divider sx={{ mb: "20px", borderColor: "rgba(255,255,255,0.1)" }} />
+                            <Divider sx={{ mb: "20px", borderColor: "divider" }} />
 
                             <Typography variant="h4" gutterBottom>What exactly are low code platforms?</Typography>
                             <Typography variant="body1" paragraph>
@@ -44,7 +44,7 @@ const BlogDetailContent = () => {
                                 Sounds perfect, right? Well, not quite.
                             </Typography>
 
-                            <Divider sx={{ mb: "20px", borderColor: "rgba(255,255,255,0.1)" }} />
+                            <Divider sx={{ mb: "20px", borderColor: "divider" }} />
 
                             <Typography variant="h4" gutterBottom>The Case FOR Low-Code: Why It's a Friend</Typography>
                             <Typography variant="body2" component="div">
@@ -64,7 +64,7 @@ const BlogDetailContent = () => {
                                 </ol>
                             </Typography>
 
-                            <Divider sx={{ mb: "20px", borderColor: "rgba(255,255,255,0.1)" }} />
+                            <Divider sx={{ mb: "20px", borderColor: "divider" }} />
 
                             <Typography variant="h4" gutterBottom>The Case AGAINST Low-Code: Why It's a Foe</Typography>
                             <Typography variant="body2" component="div">
@@ -84,7 +84,7 @@ const BlogDetailContent = () => {
                                 </ol>
                             </Typography>
 
-                            <Divider sx={{ mb: "20px", borderColor: "rgba(255,255,255,0.1)" }} />
+                            <Divider sx={{ mb: "20px", borderColor: "divider" }} />
 
                             <Typography variant="h4" gutterBottom>Our Hybrid Approach</Typography>
                             <Typography variant="body2" component="div">
@@ -96,7 +96,7 @@ const BlogDetailContent = () => {
                                 </Typography>
                             </Typography>
 
-                            <Divider sx={{ mb: "20px", borderColor: "rgba(255,255,255,0.1)" }} />
+                            <Divider sx={{ mb: "20px", borderColor: "divider" }} />
 
                             <Typography variant="h4" gutterBottom>What's Your Experience?</Typography>
                             <Typography variant="body2" component="div">
@@ -111,57 +111,94 @@ const BlogDetailContent = () => {
                         </S.ArticleBody>
                     </Grid>
 
-                    <Grid size={{ xs: 12, md: 4 }}>
-                        <S.StickySidebar>
-                            <Stack direction="row" spacing={"14px"} sx={{ mb: 5, color: "text.secondary" }}>
-                                <Stack direction="row" spacing={"4px"} alignItems="center"
-                                    sx={{ bgcolor: "#191919", padding: "10px 24px", borderRadius: "100px", border: "1px solid yellow" }} >
-                                    <FavoriteBorderIcon fontSize="small" sx={{ color: 'error.main' }} />
-                                    <Typography variant="body1">24.5k</Typography>
-                                </Stack>
-                                <Stack direction="row" spacing={"4px"} alignItems="center"
-                                    sx={{ bgcolor: "#191919", padding: "10px 24px", borderRadius: "100px", border: "1px solid yellow" }}
+                    {/* Sidebar Container */}
+                    <Grid size={{ xs: 12, lg: 5 }} sx={{ order: { xs: 2, lg: 3 } }}>
+                        <S.StickySidebar sx={{ p: 0, borderTop: 0 }}>
+                            <Divider sx={{ borderColor: "divider" }} />
+                            <Box sx={{ px: { xs: 0, md: "40px" }, py: { xs: 3, md: "40px" }, order: { xs: 1, lg: 1 } }}>
+                                <Stack
+                                    direction="row"
+                                    spacing={1.5}
+                                    justifyContent="space-between"
+                                    sx={{ mb: 0, color: "text.secondary" }}
                                 >
-                                    <VisibilityOutlinedIcon fontSize="small" />
-                                    <Typography variant="body1">50k</Typography>
-                                </Stack>
-                                <Stack direction="row" spacing={"4px"} alignItems="center"
-                                    sx={{ bgcolor: "#191919", padding: "10px 24px", borderRadius: "100px", border: "1px solid yellow" }}
-                                >
-                                    <ShareOutlinedIcon fontSize="small" />
-                                    <Typography variant="body1">208</Typography>
-                                </Stack>
-                            </Stack>
-
-                            <Divider sx={{ mb: 5, borderColor: "rgba(255,255,255,0.1)" }} />
-
-                            <Grid container spacing={"20px"} sx={{ mb: "50px" }}>
-                                <Grid size={{ xs: 4 }}>
-                                    <Typography variant="body1" color="text.secondary" display="block">Publication Date</Typography>
-                                    <Typography variant="body1" fontWeight={500}>October 15, 2023</Typography>
-                                </Grid>
-                                <Grid size={{ xs: 4 }}>
-                                    <Typography variant="body1" color="text.secondary" display="block">Category</Typography>
-                                    <Typography variant="body1" fontWeight={500}>Development</Typography>
-                                </Grid>
-                                <Grid size={{ xs: 4 }}>
-                                    <Typography variant="body1" color="text.secondary" display="block">Reading Time</Typography>
-                                    <Typography variant="body1" fontWeight={500}>10 Min</Typography>
-                                </Grid>
-                            </Grid>
-                            <Typography variant="body1" sx={{ mb: 2, letterSpacing: 1, color: "text.secondary" }}>Table of Contents</Typography>
-                            <S.TOCContainer>
-
-                                <Box component="ul" sx={{ p: 0, m: 0, listStyle: 'none' }}>
-                                    {tableOfContents.map((item, index) => (
-                                        <Box component="li" key={index} sx={{ mb: "20px", }}>
-                                            <Typography variant="body1" sx={{ color: "text.primary", cursor: 'pointer', '&:hover': { color: 'primary.main' } }}>
-                                                • {item}
-                                            </Typography>
-                                        </Box>
+                                    {[
+                                        { icon: <FavoriteIcon fontSize="medium" sx={{ color: 'error.main', fontSize: { xs: "14px", lg: "18px" } }} />, label: "24.5k" },
+                                        { icon: <VisibilityOutlinedIcon fontSize="medium" />, label: "50k" },
+                                        { icon: <SendOutlinedIcon fontSize="medium" />, label: "208" }
+                                    ].map((item, i) => (
+                                        <Stack key={i} direction="row" spacing={"4px"} alignItems="center"
+                                            sx={{
+                                                bgcolor: "background.paper",
+                                                px: { xs: 1.5, xl: 3 },
+                                                py: "10px",
+                                                borderRadius: "100px",
+                                                border: "1px solid #333",
+                                                flex: 1,
+                                                justifyContent: 'center'
+                                            }} >
+                                            {item.icon}
+                                            <Typography variant="body1" sx={{ fontWeight: 500, fontSize: { xs: "14px", md: "18px" } }}>{item.label}</Typography>
+                                        </Stack>
                                     ))}
-                                </Box>
-                            </S.TOCContainer>
+                                </Stack>
+                            </Box>
+
+                            <Divider sx={{ borderColor: "divider", width: "100%" }} />
+
+                            <Box sx={{ py: 4, px: { xs: 0, md: 5, lg: 5 }, order: { xs: 3, lg: 3 } }}>
+
+                                <Grid container spacing={3} sx={{ mb: 5 }}>
+                                    <Grid size={{ xs: 6, md: 4, lg: 5, xl: 4 }}>
+                                        <Typography variant="body1" color="text.secondary" sx={{ display: 'block', mb: 0.5, fontSize: { xs: "14px", lg: "18px" } }}>
+                                            Publication Date
+                                        </Typography>
+                                        <Typography variant="body1" sx={{ fontWeight: 500, fontSize: { xs: "14px", lg: "18px" } }}>
+                                            Oct 15, 2023
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid size={{ xs: 6, md: 4, xl: 4 }}>
+                                        <Typography variant="body1" color="text.secondary" sx={{ display: 'block', mb: 0.5, fontSize: { xs: "14px", lg: "18px" } }}>
+                                            Category
+                                        </Typography>
+                                        <Typography variant="body1" sx={{ fontWeight: 500, fontSize: { xs: "14px", lg: "18px" } }}>
+                                            Development
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid size={{ xs: 6, md: 4, xl: 4 }}>
+                                        <Typography variant="body1" color="text.secondary" sx={{ display: 'block', mb: 0.5, fontSize: { xs: "14px", lg: "18px" } }}>
+                                            Reading Time
+                                        </Typography>
+                                        <Typography variant="body1" sx={{ fontWeight: 500, fontSize: { xs: "14px", lg: "18px" } }}>
+                                            10 Min
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+
+                                <Typography variant="body1" sx={{ mb: 2, letterSpacing: 1, color: "text.secondary", fontSize: { xs: "14px", lg: "18px" } }}>
+                                    Table of Contents
+                                </Typography>
+
+                                <S.TOCContainer sx={{ p: "16px 20px 20px 20px", mb: { xs: 4, lg: 0 } }} >
+                                    <Box component="ul" sx={{ p: 0, m: 0, listStyle: 'none' }}>
+                                        {tableOfContents.map((item, index) => (
+                                            <Box component="li" key={index} sx={{ mb: { xs: "12px", lg: 2 } }}>
+                                                <Typography variant="body1" sx={{
+                                                    color: "text.primary",
+                                                    fontSize: { xs: "14px", md: "16px", lg: "18px" },
+                                                    cursor: 'pointer', display: 'flex', gap: { xs: 1, lg: 2 }, '&:hover': { color: 'button.discoverBg' }
+                                                }}>
+                                                    <span style={{ opacity: 0.5 }}>•</span> {item}
+                                                </Typography>
+                                            </Box>
+                                        ))}
+                                    </Box>
+                                </S.TOCContainer>
+                            </Box>
+
+
                         </S.StickySidebar>
                     </Grid>
                 </Grid>

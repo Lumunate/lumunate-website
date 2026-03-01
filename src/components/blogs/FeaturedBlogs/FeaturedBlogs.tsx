@@ -24,7 +24,7 @@ const FeaturedBlogs = () => {
                                 alt="Low Code Platforms"
                                 fill
                                 priority
-                                style={{ objectFit: "cover", zIndex: 0 }}
+                                style={{ objectFit: "cover", zIndex: 0, opacity: 0.5 }}
                             />
                             <S.CardOverlay />
 
@@ -33,7 +33,7 @@ const FeaturedBlogs = () => {
                                 <Typography sx={{ fontSize: { xs: "32px", md: "48px" }, lineHeight: 1.1, mb: { xs: "12px", md: "24px" } }}>
                                     Low-Code Platforms: Friend or Foe?
                                 </Typography>
-                                <Typography sx={{ fontSize: { xs: "16px", md: "18px" }, color: "#FFFFFFCC" }}>
+                                <Typography sx={{ fontSize: { xs: "16px", md: "18px" }, color: theme.palette.section.desc }}>
                                     Sunday 19, Sept 2024
                                 </Typography>
                             </Box>
@@ -77,7 +77,7 @@ const FeaturedBlogs = () => {
                                             <Typography sx={{ fontSize: { xs: "16px", lg: "22px" }, mb: "8px", lineHeight: 1.3, fontWeight: 500 }}>
                                                 {blog.title}
                                             </Typography>
-                                            <Typography sx={{ fontSize: { xs: "14px", md: "16px" }, color: "#FFFFFFCC" }}>
+                                            <Typography sx={{ fontSize: { xs: "14px", md: "16px" }, color: theme.palette.section.desc }}>
                                                 Sunday 19, Sept 2024
                                             </Typography>
                                         </Box>
@@ -91,7 +91,7 @@ const FeaturedBlogs = () => {
                                     src="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1772183483/f235c98380f5332377a7aabb7104774362324a7d_cupt9s.webp"
                                     alt="Building Tech Team"
                                     fill
-                                    style={{ objectFit: "cover", zIndex: 0 }}
+                                    style={{ objectFit: "cover", zIndex: 0, opacity: 0.5 }}
                                 />
                                 <S.CardOverlaySolid />
 
@@ -100,7 +100,7 @@ const FeaturedBlogs = () => {
                                     <Typography sx={{ fontSize: { xs: "32px", lg: "40px" }, mb: "16px", lineHeight: 1.2, fontWeight: 600 }}>
                                         Building a Tech Team That Actually Stays
                                     </Typography>
-                                    <Typography sx={{ fontSize: { xs: "16px", md: "18px" }, color: "#FFFFFFCC" }}>
+                                    <Typography sx={{ fontSize: { xs: "16px", md: "18px" }, color: theme.palette.section.desc }}>
                                         Sunday 19, Sept 2024
                                     </Typography>
                                 </Box>

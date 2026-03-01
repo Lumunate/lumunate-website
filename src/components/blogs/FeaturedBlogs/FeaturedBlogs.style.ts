@@ -1,5 +1,4 @@
-import { Box, styled, Typography, Chip } from "@mui/material";
-import { gap, margin } from "@mui/system";
+import { Box, styled, Typography, Chip, alpha } from "@mui/material";
 
 export const BlogSectionWrapper = styled(Box)(({ theme }) => ({
     paddingTop: theme.spacing(10),
@@ -23,7 +22,7 @@ export const RoleTag = styled(Chip)(({ theme }) => ({
     height: "auto",
     padding: "10px",
     backgroundColor: theme.palette.button.discoverBg,
-    color: "#FFFFFF",
+    color: theme.palette.section.heading,
     borderRadius: "20px",
     marginBottom: "24px",
     "& .MuiChip-label": {
@@ -67,7 +66,7 @@ export const SmallBlogBox = styled(Box)(({ theme }) => ({
     padding: "0px 24px 24px 24px",
 
     [theme.breakpoints.between("md", "lg")]: {
-        minHeight: "160px", // Shorter for tablet row
+        minHeight: "160px",
         padding: "16px",
         borderRight: `1px solid ${theme.palette.navbar.bg}`,
         "&:first-of-type": {
@@ -180,12 +179,12 @@ export const CardOverlay = styled(Box)(({ theme }) => ({
     position: "absolute",
     inset: 0,
     zIndex: 1,
-    background: "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.8) 100%)",
+    background: `linear-gradient(to bottom, transparent 50%, ${alpha(theme.palette.background.default, 0.8)} 100%)`,
 }));
 
 export const CardOverlaySolid = styled(Box)(({ theme }) => ({
     position: "absolute",
     inset: 0,
     zIndex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: alpha(theme.palette.background.default, 0.5),
 }));

@@ -78,6 +78,7 @@ export const ContentBox = styled(Box)({
     display: "flex",
     flexDirection: "column",
     flexGrow: 1,
+    
 });
 
 export const BlogDate = styled(Typography)(({ theme }) => ({
@@ -85,6 +86,9 @@ export const BlogDate = styled(Typography)(({ theme }) => ({
     fontSize: "16px",
     marginBottom: theme.spacing(1),
     fontWeight: 400,
+    [theme.breakpoints.down("md")]: {
+        fontSize: "14px",
+    },
 }));
 
 export const BlogTitle = styled(Typography)(({ theme }) => ({
