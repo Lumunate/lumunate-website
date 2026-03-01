@@ -175,6 +175,7 @@ export default function Navbar() {
     // If NOT on home, always show. If ON home, show only when scrolled.
     const shouldBeVisible = !isHome || scrolled;
 
+
     return (
         <AppBar
             ref={navRef}
@@ -189,9 +190,15 @@ export default function Navbar() {
                 borderTop: `1px solid ${theme.palette.navbar.border}`,
                 borderBottom: `1px solid ${theme.palette.navbar.border}`,
 
-                // FIX: Allow the shouldBeVisible state to override hidden defaults
-                visibility: shouldBeVisible ? "visible" : "hidden",
-                opacity: shouldBeVisible ? 1 : 0,
+                // CHANGE: Only apply the hidden/visible logic on Home. 
+                // On other pages, default to visible.
+                ...(isHome ? {
+                    visibility: shouldBeVisible ? "visible" : "hidden",
+                    opacity: shouldBeVisible ? 1 : 0,
+                } : {
+                    visibility: "visible",
+                    opacity: 1,
+                }),
 
                 transition: "background-color 0.3s ease, opacity 0.5s ease",
                 "& .MuiToolbar-root": { minHeight: "auto" }

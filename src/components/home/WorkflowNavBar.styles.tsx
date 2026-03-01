@@ -7,12 +7,11 @@ export const NavBarContainer = styled(Box)(({ theme }) => ({
     width: "100%",
     backgroundColor: theme.palette.background.paper,
     borderBottom: `1px solid ${theme.palette.navbar.border}`,
-
     position: "sticky",
     zIndex: 1100,
 
-    top: "64px",
-    marginTop: "0px",
+    top: "88px",
+    marginTop: "24px",
 
     overflowX: "auto",
     overflowY: "hidden",
@@ -26,9 +25,8 @@ export const NavBarContainer = styled(Box)(({ theme }) => ({
     [theme.breakpoints.up("lg")]: {
         justifyContent: "center",
         overflowX: "hidden",
-
-        top: "80px",
-        marginTop: "0px",
+        top: "120px",
+        marginTop: "40px",
     },
 }));
 export const NavItem = styled(Box)(({ theme }) => ({

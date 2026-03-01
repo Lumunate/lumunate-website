@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useMemo } from "react";
-import { Box, Typography, PaginationItem } from "@mui/material";
+import { Box, Typography, PaginationItem, useTheme, useMediaQuery } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Image from "next/image";
 import PageContainer from "@/components/common/PageContainer";
@@ -10,27 +10,34 @@ import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import { CATEGORIES, BLOG_DATA } from "@/data/blogData";
 import Link from "next/link";
 
-const ITEMS_PER_PAGE = 6;
-
 const BlogListing = () => {
     const [activeCategory, setActiveCategory] = useState(CATEGORIES[0]);
     const [currentPage, setCurrentPage] = useState(1);
     const navRef = useRef<HTMLDivElement>(null);
     const gridTopRef = useRef<HTMLDivElement>(null);
-
     const [hasInteracted, setHasInteracted] = useState(false);
+
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+    // Defined itemsPerPage based on screen size
+    const itemsPerPage = isMobile ? 3 : 6;
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [isMobile]);
 
     const filteredBlogs = useMemo(() => {
         if (activeCategory.tag === "all") return BLOG_DATA;
         return BLOG_DATA.filter((blog) => blog.tag === activeCategory.tag);
     }, [activeCategory]);
 
-    const totalPages = Math.ceil(filteredBlogs.length / ITEMS_PER_PAGE);
+    const totalPages = Math.ceil(filteredBlogs.length / itemsPerPage);
 
     const paginatedBlogs = useMemo(() => {
-        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-        return filteredBlogs.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-    }, [filteredBlogs, currentPage]);
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        return filteredBlogs.slice(startIndex, startIndex + itemsPerPage);
+    }, [filteredBlogs, currentPage, itemsPerPage]);
 
     useEffect(() => {
         if (!hasInteracted) return;

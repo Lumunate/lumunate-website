@@ -71,7 +71,7 @@ const ReadSimilarBlogs = () => {
                     scrollMarginTop: '100px'
                 }}
             >
-                <Typography sx={{ fontSize: "22px", fontWeight: 400, mb: "32px" }}>Read Similar</Typography>
+                <Typography sx={{ fontSize: { xs: "18px", md: "22px" }, fontWeight: 400, mb: "32px" }}>Read Similar</Typography>
                 <Grid container spacing={4}>
                     {paginatedBlogs.map((blog, index) => (
                         <Grid key={`${blog.tag}-${index}`} size={{ xs: 12, sm: 6, md: 4 }}>
