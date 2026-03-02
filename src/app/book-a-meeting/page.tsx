@@ -119,12 +119,11 @@ export default function BookCalenderPage() {
                             startIcon={<Image src="/troubleshooting.svg" alt="" width={18} height={18} />}
                             sx={{
                                 mt: 2,
-                                color: theme.palette.section.desc,
+                                color: theme.palette.section.heading,
                                 textTransform: "none",
                                 border: `1px solid ${theme.palette.divider}`,
-                                borderRadius: "8px",
-                                px: 2,
-                                py: 1,
+                                borderRadius: "15px",
+                                p: "11px 15px",
                                 "&:hover": {
                                     color: theme.palette.text.primary,
                                     border: `1px solid ${theme.palette.text.secondary}`,
