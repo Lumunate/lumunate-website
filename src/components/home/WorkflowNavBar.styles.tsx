@@ -13,6 +13,10 @@ export const NavBarContainer = styled(Box)(({ theme }) => ({
     top: "88px",
     marginTop: "24px",
 
+    [theme.breakpoints.up("md")]: {
+        top: "104px", // 80px navbar height + 24px gap (matches mobile gap ratio)
+    },
+
     overflowX: "auto",
     overflowY: "hidden",
     flexDirection: "row",

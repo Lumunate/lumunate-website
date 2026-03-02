@@ -94,10 +94,20 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
   useEffect(() => {
     const updateDimensions = () => {
       const width = window.innerWidth;
+      const height = window.innerHeight;
       if (width >= 1920) setCardHeight(HEIGHTS.XL);
       else if (width >= 1600) setCardHeight(HEIGHTS.DESKTOP);
       else if (width >= 1024) setCardHeight(HEIGHTS.LAPTOP);
-      else setCardHeight(HEIGHTS.MOBILE);
+      else {
+        // On mobile/tablet: fit card within available viewport minus navbar, tabs, margin, stack offset
+        const navbarH = width < 768 ? 64 : 80;
+        const sectionPaddingTop = 16; // matches WorkflowSectionRoot down("xl") paddingTop
+        const tabsH = 48;   // WorkflowSection nav tab bar height
+        const cardMarginTop = 40;
+        const stackSpace = STACK_OFFSET * (workflowSections.length - 1);
+        const available = height - navbarH - sectionPaddingTop - tabsH - cardMarginTop - stackSpace;
+        setCardHeight(Math.min(HEIGHTS.MOBILE, Math.max(available, 350)));
+      }
     };
 
     updateDimensions();
@@ -114,11 +124,16 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
 
     mainTriggerRef.current = ScrollTrigger.create({
       trigger: el,
-      start: "top top",
+      start: () => {
+        // Account for the fixed (mobile/tablet) or sticky (desktop) global navbar height
+        const navH = window.innerWidth < 768 ? 64 : 80;
+        return `top ${navH}px`;
+      },
       end: `+=${scrollDistance}`,
       pin: true,
       pinSpacing: true,
       scrub: 1,
+      invalidateOnRefresh: true,
       onUpdate: (self) => {
         const totalCards = workflowSections.length;
         let index = Math.floor(self.progress * totalCards);
