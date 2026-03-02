@@ -106,7 +106,7 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
         const cardMarginTop = 40;
         const stackSpace = STACK_OFFSET * (workflowSections.length - 1);
         const available = height - navbarH - sectionPaddingTop - tabsH - cardMarginTop - stackSpace;
-        setCardHeight(Math.min(HEIGHTS.MOBILE, Math.max(available, 350)));
+        setCardHeight(Math.min(HEIGHTS.MOBILE, Math.max(available, 500)));
       }
     };
 
