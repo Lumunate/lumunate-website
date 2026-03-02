@@ -26,7 +26,7 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
     overflow: "hidden",
     zIndex: 1,
     border: "none",
-    backgroundColor: "#00412D",
+    backgroundColor: "#015B3F",
     transition: "all 0.4s ease",
     [theme.breakpoints.down("md")]: {
         padding: "12px 24px",
@@ -60,7 +60,7 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
         zIndex: -1,
         inset: "2px",
         borderRadius: "15px",
-        backgroundColor: "#00412D",
+        backgroundColor: "#015B3F",
         transition: "all 0.4s ease",
     },
 

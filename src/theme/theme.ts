@@ -26,6 +26,7 @@ declare module "@mui/material/styles" {
     };
     button: {
       discoverBg: string;
+      CancelBg: string;
     };
   }
   interface PaletteOptions {
@@ -62,6 +63,7 @@ export const TOKENS = {
   },
   button: {
     discoverBg: "#015B3F",
+    CancelBg: "#2C2F32",
   },
 };
 
