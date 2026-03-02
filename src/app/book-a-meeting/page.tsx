@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Box,
     Typography,
-    Button,
     Stack,
     useTheme,
     Snackbar,
@@ -16,15 +15,17 @@ import { InlineWidget } from "react-calendly";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CheckIcon from "@mui/icons-material/Check";
+import { useRouter } from "next/navigation";
 
-// Internal Imports
 import BookingForm from "@/components/bookingCalendar/BookingForm";
 import { bookingSchema, BookingFormData } from "@/app/schemas/booking";
 import PageContainer from "@/components/common/PageContainer";
+import Button from "@mui/material/Button";
 
 export default function BookCalenderPage() {
     const theme = useTheme();
+    const router = useRouter();
     const [step, setStep] = useState(1);
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
@@ -33,6 +34,19 @@ export default function BookCalenderPage() {
         type: "error" as "success" | "error",
         message: "",
     });
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, [step]);
+
+    useEffect(() => {
+        if (isSuccessModalOpen) {
+            const timer = setTimeout(() => {
+                router.push("/");
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [isSuccessModalOpen, router]);
 
     const {
         control,
@@ -59,15 +73,9 @@ export default function BookCalenderPage() {
         }
     };
 
-    const handleCloseModal = () => {
-        setIsSuccessModalOpen(false);
-        setStep(1);
-    };
-
     return (
         <PageContainer>
             <Box sx={{ width: "100%", position: "relative" }}>
-                {/* SINGLE TITLE SECTION */}
                 <Typography
                     variant="h2"
                     sx={{
@@ -75,37 +83,53 @@ export default function BookCalenderPage() {
                         fontFamily: "Montserrat",
                         fontSize: { xs: "30px", md: "90px" },
                         mb: 1,
-                        color: "white"
+                        color: theme.palette.text.primary
                     }}
                 >
                     Book a Meeting
                 </Typography>
 
-                <Typography variant="body1" sx={{ color: "rgba(255,255,255,0.5)", mb: 6 }}>
+                <Typography variant="body1" sx={{ color: theme.palette.text.secondary, mb: 6 }}>
                     {step === 1 ? "Select date & Time" : "Enter your info"}
                 </Typography>
 
                 {/* CONTENT AREA */}
                 {step === 1 ? (
                     <Box sx={{
-                        bgcolor: "#111",
+                        bgcolor: theme.palette.section.calenderBg,
                         borderRadius: "15px",
                         border: `1px solid ${theme.palette.divider}`,
                         px: { xs: 2, md: 10 },
                         py: { xs: 4, md: 6 },
-                        position: "relative"
+                        position: "relative",
+                        overflow: "hidden",
+                        "& iframe": { overflow: "hidden" }
                     }}>
                         <InlineWidget
                             url="https://calendly.com/saad-b-javaid22/consultation"
-                            styles={{ height: "600px", width: "100%" }}
+                            styles={{ height: "650px", width: "100%" }}
+                            pageSettings={{
+                                hideEventTypeDetails: true,
+                                hideLandingPageDetails: true,
+                            }}
                         />
+
                         <Button
+                            variant="outlined"
                             startIcon={<Image src="/troubleshooting.svg" alt="" width={18} height={18} />}
                             sx={{
                                 mt: 2,
-                                color: "rgba(255,255,255,0.6)",
+                                color: theme.palette.section.desc,
                                 textTransform: "none",
-                                "&:hover": { color: "white" }
+                                border: `1px solid ${theme.palette.divider}`,
+                                borderRadius: "8px",
+                                px: 2,
+                                py: 1,
+                                "&:hover": {
+                                    color: theme.palette.text.primary,
+                                    border: `1px solid ${theme.palette.text.secondary}`,
+                                    bgcolor: "transparent"
+                                }
                             }}
                         >
                             Troubleshooting
@@ -118,23 +142,23 @@ export default function BookCalenderPage() {
                 )}
 
                 {/* NAVIGATION BUTTONS */}
-                <Stack
-                    direction="row"
-                    spacing={{ xs: 2, md: 4 }}
-                    justifyContent="center"
-                    sx={{ mt: 10 }}
-                >
+                <Stack direction="row" spacing={{ xs: 2, md: 4 }} justifyContent="center" sx={{ mt: 10 }}>
                     <Button
-                        onClick={() => step === 2 && setStep(1)}
+                        onClick={() => {
+                            if (step === 2) {
+                                setStep(1);
+                            } else {
+                                router.push("/");
+                            }
+                        }}
                         sx={{
-                            bgcolor: "#222",
+                            bgcolor: theme.palette.button.CancelBg,
                             minWidth: { xs: "101px", md: "188px" },
                             py: { xs: "12px", md: "18px" },
                             borderRadius: "15px",
-                            color: "white",
-                            fontSize: { xs: "16px", md: "18px" },
+                            color: theme.palette.text.primary,
                             textTransform: "none",
-                            "&:hover": { bgcolor: "#333" }
+                            "&:hover": { opacity: 0.9 }
                         }}
                     >
                         {step === 2 ? "Back" : "Cancel"}
@@ -144,73 +168,73 @@ export default function BookCalenderPage() {
                         disabled={isSubmitting}
                         onClick={step === 1 ? () => setStep(2) : handleSubmit(onFormSubmit)}
                         sx={{
-                            bgcolor: "#00a270",
+                            bgcolor: theme.palette.section.processNumber,
                             minWidth: { xs: "110px", md: "188px" },
                             py: { xs: "12px", md: "18px" },
                             borderRadius: "15px",
-                            color: "white",
-                            fontSize: { xs: "16px", md: "18px" },
+                            color: theme.palette.text.primary,
                             textTransform: "none",
-                            "&:hover": { bgcolor: "#008a60" },
-                            "&.Mui-disabled": { bgcolor: "rgba(0, 162, 112, 0.5)", color: "rgba(255,255,255,0.5)" }
+                            "&:hover": { opacity: 0.9 },
                         }}
                     >
-                        {step === 1 ? "Next" : isSubmitting ? "Confirm..." : "Confirm"}
+                        {step === 1 ? "Next" : isSubmitting ? "Confirming..." : "Confirm"}
                     </Button>
                 </Stack>
 
-                {/* SUCCESS MODAL WITH BLUR */}
+                {/* SUCCESS MODAL */}
                 <Dialog
                     open={isSuccessModalOpen}
-                    onClose={handleCloseModal}
+                    disableScrollLock={false}
                     TransitionComponent={Zoom}
                     PaperProps={{
                         sx: {
-                            bgcolor: "#111",
+                            bgcolor: theme.palette.section.calenderBg,
                             backgroundImage: "none",
                             borderRadius: "24px",
-                            p: { xs: 4, md: 6 },
+                            p: { xs: 4, md: "80px" },
                             textAlign: "center",
-                            maxWidth: "500px",
-                            border: "1px solid rgba(255,255,255,0.1)",
+                            maxWidth: "746px",
+                            border: `1px solid ${theme.palette.divider}`,
+                            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
                         }
                     }}
                     slotProps={{
                         backdrop: {
                             sx: {
-                                backdropFilter: "blur(10px)",
-                                backgroundColor: "rgba(0, 0, 0, 0.8)",
+                                backdropFilter: "blur(12px)",
+                                backgroundColor: "rgba(0, 0, 0, 0.7)",
                             }
                         }
                     }}
                 >
                     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
-                        <CheckCircleIcon sx={{ fontSize: 90, color: "#00a270", mb: 1 }} />
-                        <Typography variant="h4" sx={{ color: "white", fontWeight: 500 }}>
+                        <Box sx={{
+                            width: 80,
+                            height: 80,
+                            bgcolor: theme.palette.section.processNumber,
+                            borderRadius: "50%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            mb: "20px",
+                        }}>
+                            <CheckIcon sx={{ fontSize: 50, color: "white" }} />
+                        </Box>
+
+                        <Typography variant="h4" sx={{ color: theme.palette.text.primary, fontWeight: 500, fontSize: { xs: "22px", md: "32px" } }}>
                             Scheduled Successfully!
                         </Typography>
-                        <Typography variant="body1" sx={{ color: "rgba(255,255,255,0.6)", mb: 3 }}>
+
+                        <Typography variant="h5" sx={{ color: theme.palette.text.secondary, fontSize: { xs: "16px", md: "22px" }, maxWidth: "450px" }}>
                             A Calendar Invitation has been sent to your email.
                         </Typography>
-                        <Button
-                            onClick={handleCloseModal}
-                            fullWidth
-                            sx={{
-                                bgcolor: "#00a270",
-                                color: "white",
-                                borderRadius: "12px",
-                                py: 2,
-                                fontWeight: 600,
-                                textTransform: "none",
-                                "&:hover": { bgcolor: "#008a60" }
-                            }}
-                        >
-                            Close
-                        </Button>
+
+                        <Typography variant="body2" sx={{ color: theme.palette.section.muted, mt: 2 }}>
+                            Redirecting you to home...
+                        </Typography>
                     </Box>
                 </Dialog>
 
-                {/* ERROR TOAST */}
                 <Snackbar
                     open={snackbar.open}
                     autoHideDuration={4000}

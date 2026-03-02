@@ -85,7 +85,7 @@ const BookCalenderPage = () => {
                         />
                         <Button
                             startIcon={<Image src="/troubleshooting.svg" alt="" width={18} height={18} />}
-                            sx={{ position: "absolute", bottom: "50px", left: "200px", color: "white", textTransform: "none", display: { xs: "none", md: "flex" } }}
+                            sx={{ position: "absolute", bottom: "50px", left: "200px", color: theme.palette.section.heading, textTransform: "none", display: { xs: "none", md: "flex" } }}
                         >
                             Troubleshooting
                         </Button>
@@ -99,7 +99,7 @@ const BookCalenderPage = () => {
                     <Button
                         variant="contained"
                         onClick={handleBackOrCancel}
-                        sx={{ bgcolor: theme.palette.button.CancelBg, p: "18px 60px", borderRadius: "15px", color: "white", textTransform: "none" }}
+                        sx={{ bgcolor: theme.palette.button.CancelBg, p: "18px 60px", borderRadius: "15px", color: theme.palette.section.heading, textTransform: "none" }}
                     >
                         {step === 2 ? "Back" : "Cancel"}
                     </Button>
@@ -108,7 +108,7 @@ const BookCalenderPage = () => {
                         variant="contained"
                         onClick={step === 1 ? handleNext : handleSubmit(onSubmit)}
                         disabled={isSubmitting}
-                        sx={{ bgcolor: theme.palette.button.discoverBg, p: "18px 60px", borderRadius: "15px", color: "white", textTransform: "none" }}
+                        sx={{ bgcolor: theme.palette.button.discoverBg, p: "18px 60px", borderRadius: "15px", color: theme.palette.section.heading, textTransform: "none" }}
                     >
                         {step === 1 ? "Next" : isSubmitting ? "Confirming..." : "Confirm"}
                     </Button>
