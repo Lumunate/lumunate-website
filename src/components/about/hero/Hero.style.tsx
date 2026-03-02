@@ -57,12 +57,17 @@ export const BottomBlurOverlay = styled(Box)(({ theme }) => ({
   position: "absolute",
   left: 0,
   width: "100%",
-  height: "260px",
-  bottom: "-14rem",
+  height: "60px",
+  bottom: "0rem",
+  // This is the background blur effect
   backdropFilter: "blur(14px)",
   WebkitBackdropFilter: "blur(14px)",
-  background:
-    "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0))",
+  background: "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0))",
   zIndex: 1,
   pointerEvents: "none",
+
+  [theme.breakpoints.down("sm")]: {
+    backdropFilter: "none",
+    WebkitBackdropFilter: "none",
+  },
 }));

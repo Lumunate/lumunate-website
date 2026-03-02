@@ -1,4 +1,5 @@
-import { Box, styled, Typography, Pagination } from "@mui/material";
+
+import { Box, styled, Typography, Pagination, alpha } from "@mui/material";
 
 export const BlogGridWrapper = styled(Box)(({ theme }) => ({
     paddingBottom: theme.spacing(10),
@@ -33,17 +34,30 @@ export const BlogNavItem = styled(Box)(({ theme }) => ({
     opacity: 0.55,
     fontSize: "16px",
     fontWeight: 400,
-    borderLeft: `1px solid ${theme.palette.navbar.border}`,
-    "&:last-of-type": {
-        borderRight: `1px solid ${theme.palette.navbar.border}`,
+    transition: "all 0.3s ease",
+    borderRight: `1px solid ${theme.palette.navbar.border}`,
+
+    "&:first-of-type": {
+        borderLeft: `1px solid ${theme.palette.navbar.border}`,
     },
+
     "&.active": {
-        backgroundColor: `${theme.palette.navbar.border} !important`,
         color: theme.palette.text.primary,
         opacity: 1,
         fontWeight: 600,
-        boxShadow: "none",
+
+        background: `linear-gradient(180deg, 
+      ${alpha(theme.palette.common.white, 0.10)} 0%, 
+      ${alpha(theme.palette.common.white, 0.05)} 100%)`,
+
+        boxShadow: `inset 0px 1px 1px ${alpha(theme.palette.navbar.border, 0.3)}`,
     },
+
+    "&:hover": {
+        opacity: 1,
+        backgroundColor: theme.palette.action.hover,
+    },
+
     [theme.breakpoints.down("lg")]: {
         padding: "15px 12px",
         fontSize: "14px",
@@ -51,7 +65,7 @@ export const BlogNavItem = styled(Box)(({ theme }) => ({
 }));
 
 export const BlogCard = styled(Box)(({ theme }) => ({
-    backgroundColor: theme.palette.section.cardBg, // Using TOKENS.section.cardBg (#191919)
+    backgroundColor: theme.palette.section.cardBg,
     borderRadius: "10px",
     overflow: "hidden",
     height: "100%",
@@ -78,21 +92,21 @@ export const ContentBox = styled(Box)({
     display: "flex",
     flexDirection: "column",
     flexGrow: 1,
-    
+
 });
 
 export const BlogDate = styled(Typography)(({ theme }) => ({
-    color: theme.palette.section.desc, // Using TOKENS.section.desc (#9F9F9F)
+    color: theme.palette.section.desc,
     fontSize: "16px",
     marginBottom: theme.spacing(1),
     fontWeight: 400,
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("xl")]: {
         fontSize: "14px",
     },
 }));
 
 export const BlogTitle = styled(Typography)(({ theme }) => ({
-    color: theme.palette.text.primary, // Using TOKENS.section.heading (#FFFFFF)
+    color: theme.palette.text.primary,
     fontSize: "20px",
     fontWeight: 500,
     lineHeight: 1.4,
@@ -102,6 +116,9 @@ export const BlogTitle = styled(Typography)(({ theme }) => ({
     WebkitBoxOrient: "vertical",
     overflow: "hidden",
     [theme.breakpoints.down("lg")]: {
+        fontSize: "14px",
+    },
+    [theme.breakpoints.down("md")]: {
         fontSize: "18px",
     },
 }));
@@ -124,17 +141,23 @@ export const StyledPagination = styled(Pagination)(({ theme }) => ({
     marginTop: theme.spacing(4),
     display: "flex",
     justifyContent: "center",
+    "& .MuiPagination-ul": {
+        flexWrap: "nowrap",
+    },
     "& .MuiPaginationItem-root": {
         color: "#FFFFFFCC",
         fontSize: "14px",
         fontWeight: 500,
+        minWidth: "32px",
+        margin: "0 2px",
         "&.Mui-selected": {
-            backgroundColor: `${theme.palette.section.processNumber} !important`, // Using TOKENS.section.processNumber (#00A270)
+            backgroundColor: `${theme.palette.section.processNumber} !important`,
             color: "#FFFFFF !important",
             borderRadius: "4px",
         },
-        "&:hover": {
-            backgroundColor: "rgba(255, 255, 255, 0.08)",
-        },
+        [theme.breakpoints.down(350)]: {
+            fontSize: "12px",
+            padding: "0 4px",
+        }
     },
 }));
