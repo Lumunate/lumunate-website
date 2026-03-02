@@ -187,6 +187,7 @@ export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
   useEffect(() => {
     if (!enabled) return;
 
+    // Filter out nulls
     const elements = refs
       .map((r) => r.current)
       .filter((el): el is T => el !== null);
@@ -196,45 +197,8 @@ export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: delay });
 
-      if (elements[0]) {
-        const navbar = elements[0];
-
-        if (isHome) {
-
-          gsap.set(navbar, {
-            y: -100,
-            opacity: 0,
-            visibility: "visible",
-            position: "fixed"
-          });
-
-          tl.to(
-            navbar,
-            {
-              y: 0,
-              opacity: 1,
-              duration: 1.2,
-              ease: "power4.out",
-              clearProps: "transform",
-              onComplete: () => {
-                navbar.style.pointerEvents = "auto";
-              },
-            }
-          );
-        } else {
-
-          gsap.set(navbar, {
-            y: 0,
-            opacity: 1,
-            visibility: "visible",
-            pointerEvents: "auto",
-            position: "fixed"
-          });
-        }
-      }
-
       if (elements[1]) {
-        tl.fromTo(elements[1], { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, "-=0.8");
+        tl.fromTo(elements[1], { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1 });
       }
       if (elements[2]) {
         tl.fromTo(elements[2], { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, "-=0.6");
