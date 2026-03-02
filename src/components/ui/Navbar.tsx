@@ -153,35 +153,13 @@ export default function Navbar() {
     const columns = menuWidth >= 1050 ? 3 : menuWidth >= 740 ? 2 : 1;
 
 
-    // Add this new state
-    const [scrolled, setScrolled] = useState(false);
-
-    useEffect(() => {
-        if (!isHome) return; // Only run scroll logic on Home page
-
-        const handleScroll = () => {
-            if (window.scrollY > 100) {
-                setScrolled(true);
-            } else {
-                setScrolled(false);
-            }
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, [isHome]);
-
-    // Determine visibility
-    // If NOT on home, always show. If ON home, show only when scrolled.
-    const shouldBeVisible = !isHome || scrolled;
-
-
     return (
+
         <AppBar
             ref={navRef}
             elevation={0}
             sx={{
-                position: { xs: "fixed !important", xl: "sticky !important" },
+                position: { xs: "fixed", xl: "sticky" },
                 top: 0,
                 left: 0,
                 width: "100%",
@@ -190,18 +168,10 @@ export default function Navbar() {
                 borderTop: `1px solid ${theme.palette.navbar.border}`,
                 borderBottom: `1px solid ${theme.palette.navbar.border}`,
 
-                // CHANGE: Only apply the hidden/visible logic on Home. 
-                // On other pages, default to visible.
-                ...(isHome ? {
-                    visibility: shouldBeVisible ? "visible" : "hidden",
-                    opacity: shouldBeVisible ? 1 : 0,
-                } : {
-                    visibility: "visible",
-                    opacity: 1,
-                }),
-
-                transition: "background-color 0.3s ease, opacity 0.5s ease",
-                "& .MuiToolbar-root": { minHeight: "auto" }
+                visibility: "visible !important",
+                opacity: "1 !important",
+                pointerEvents: "auto !important",
+                transform: "none !important"
             }}
         >
             <NavContainer ref={navContainerRef}>

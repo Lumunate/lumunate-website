@@ -36,7 +36,7 @@ const BlogDetailContent = () => {
         <Box sx={{ bgcolor: "background.default", py: { xs: 6, lg: 15 } }}>
             <PageContainer>
 
-                <Grid container spacing={0} alignItems="stretch">
+                <Grid container spacing={0} alignItems="flex-start">
 
                     {/* Left Content Section */}
                     <Grid size={{ xs: 12, lg: 7 }} sx={{ order: { xs: 3, lg: 1 } }}>
@@ -117,15 +117,17 @@ const BlogDetailContent = () => {
                     </Grid>
 
                     {/* Sidebar Container */}
-                    <Grid size={{ xs: 12, lg: 5 }} sx={{ order: { xs: 2, lg: 3 }, position: 'relative' }}>
-
-                        <S.StickySidebar sx={{
-                            p: 0,
-                            borderTop: 0,
-                            position: 'sticky',
-                            top: '40px',
-                            height: 'fit-content'
-                        }}>
+                    <Grid
+                        size={{ xs: 12, lg: 5 }}
+                        sx={{
+                            order: { xs: 2, lg: 3 },
+                            position: { lg: 'sticky' },
+                            top: { lg: '100px' },
+                            height: { lg: 'fit-content' },
+                            alignSelf: { lg: 'flex-start' }
+                        }}
+                    >
+                        <S.StickySidebar sx={{ p: 0, borderTop: 0 }}>
                             <Divider sx={{ borderColor: "divider" }} />
                             <Box sx={{ px: { xs: 0, md: "40px" }, py: { xs: 3, md: "40px" } }}>
                                 <Stack direction="row" spacing={1.5} justifyContent="space-between" sx={{ color: "text.secondary" }}>
@@ -155,7 +157,7 @@ const BlogDetailContent = () => {
 
                             <Box sx={{ py: 4, px: { xs: 0, md: 5, lg: 5 } }}>
                                 <Grid container spacing={3} sx={{ mb: 5 }}>
-                                    <Grid size={{ xs: 6, md: 4, lg: 5, xl: 4 }}>
+                                    <Grid size={{ xs: 6, md: 4, lg: 7, xl: 4 }}>
                                         <Typography variant="body1" color="text.secondary" sx={{ display: 'block', whiteSpace: "nowrap", mb: 0.5, fontSize: { xs: "14px", lg: "16px" } }}>Publication Date</Typography>
                                         <Typography variant="body1" sx={{ fontWeight: 500, fontSize: { xs: "14px", lg: "16px" } }}>Oct 15, 2023</Typography>
                                     </Grid>

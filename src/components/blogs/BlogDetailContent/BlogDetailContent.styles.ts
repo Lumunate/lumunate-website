@@ -48,23 +48,17 @@ export const ArticleBody = styled(Box)(({ theme }) => ({
 }));
 
 export const StickySidebar = styled(Box)(({ theme }) => ({
-    position: "sticky",
-    top: "100px",
-    height: "fit-content", // CRITICAL: Allows the box to float
+    height: "fit-content",
     borderTop: `1px solid ${theme.palette.divider}`,
     borderBottom: `1px solid ${theme.palette.divider}`,
     borderRight: `1px solid ${theme.palette.divider}`,
     padding: "40px",
     [theme.breakpoints.down("lg")]: {
-        position: "relative",
-        top: 0,
         border: "none",
         borderLeft: `1px solid ${theme.palette.divider}`,
         borderRight: `1px solid ${theme.palette.divider}`,
     },
     [theme.breakpoints.down("md")]: {
-        position: "relative",
-        top: 0,
         border: "none",
         padding: "0px",
     },
