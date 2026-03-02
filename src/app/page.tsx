@@ -19,6 +19,7 @@ import StartupAnimation from "@/components/StartupAnimation";
 
 import gsap from "gsap";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
+import CEOSection from "@/components/home/CEOSection/CEOSection";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -132,6 +133,9 @@ export default function Home({
       <Works />
 
       <HowItWorks />
+
+      <CEOSection />
+
       <ExploreSection />
 
       <Ready
