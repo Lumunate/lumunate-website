@@ -1,4 +1,5 @@
-import { styled, Box } from "@mui/material";
+import { styled, alpha } from "@mui/material/styles";
+import { Box } from "@mui/material";
 
 export const SectionWrapper = styled(Box)(({ theme }) => ({
     position: "relative",
@@ -11,6 +12,10 @@ export const SectionWrapper = styled(Box)(({ theme }) => ({
     padding: theme.spacing(10, 0),
     overflow: "hidden",
     backgroundColor: theme.palette.background.default,
+    marginTop: "233px",
+    [theme.breakpoints.down("md")]: {
+        marginTop: "100px",
+    },
 }));
 
 export const VideoBackground = styled("video")({
@@ -21,6 +26,7 @@ export const VideoBackground = styled("video")({
     height: "100%",
     objectFit: "cover",
     zIndex: 0,
+    opacity: "40%",
 });
 
 export const Overlay = styled(Box)(({ theme }) => ({
@@ -29,18 +35,26 @@ export const Overlay = styled(Box)(({ theme }) => ({
     left: 0,
     width: "100%",
     height: "100%",
-    background: `linear-gradient(to bottom, ${theme.palette.background.default}B3 0%, ${theme.palette.background.default}E6 100%)`,
+    background: `linear-gradient(
+        to bottom, 
+        ${theme.palette.background.default} 0%, 
+        ${theme.palette.background.default}4D 20%, 
+        ${theme.palette.background.default}4D 80%, 
+        ${theme.palette.background.default} 100%
+    )`,
     zIndex: 1,
 }));
 
 export const MessageCard = styled(Box)(({ theme }) => ({
-    backgroundColor: `rgba(255, 255, 255, 0.1)`,
+    backgroundColor: alpha(theme.palette.section.heading, 0.1),
     backdropFilter: "blur(10px)",
     padding: "20px",
     borderRadius: "10px",
     width: "100%",
-    transition: "transform 0.3s ease",
+    border: `1px solid ${alpha(theme.palette.divider, 0.5)}`,
+    transition: "transform 0.3s ease, background-color 0.3s ease",
     "&:hover": {
-        backgroundColor: `rgba(255, 255, 255, 0.15)`,
+        backgroundColor: alpha(theme.palette.divider, 0.3),
+        transform: "translateY(-4px)",
     },
 }));

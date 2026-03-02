@@ -14,7 +14,7 @@ const CEOSection = () => {
     return (
         <S.SectionWrapper>
             <S.VideoBackground autoPlay muted loop playsInline>
-                <source src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770906021/Case_study_hero_jjcnzp.webm" type="video/mp4" />
+                <source src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1772440694/16296848-hd_1920_1080_24fps_vp2tgd.webm" type="video/mp4" />
             </S.VideoBackground>
 
             <S.Overlay />
