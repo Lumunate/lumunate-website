@@ -10,8 +10,11 @@ export const WorkflowSectionRoot = styled(Box)(({ theme }) => ({
     alignItems: "center",
     justifyContent: "center",
     paddingBottom: "119px",
-    [theme.breakpoints.down("xl")]: {
-        paddingTop: "16px", // visual gap below the fixed global navbar
+    [theme.breakpoints.up("lg")]: {
+        paddingTop: "16px",
+    },
+    [theme.breakpoints.down("lg")]: {
+        paddingTop: "16px",
     },
     [theme.breakpoints.down("md")]: {
         paddingBottom: theme.spacing(6),
