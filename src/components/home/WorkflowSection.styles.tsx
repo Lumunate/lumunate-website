@@ -10,8 +10,14 @@ export const WorkflowSectionRoot = styled(Box)(({ theme }) => ({
     alignItems: "center",
     justifyContent: "center",
     paddingBottom: "119px",
+    [theme.breakpoints.up("lg")]: {
+        paddingTop: "16px",
+    },
+    [theme.breakpoints.down("lg")]: {
+        paddingTop: "16px",
+    },
     [theme.breakpoints.down("md")]: {
-        padding: theme.spacing(6, 0),
+        paddingBottom: theme.spacing(6),
         minHeight: "auto",
     },
 }));

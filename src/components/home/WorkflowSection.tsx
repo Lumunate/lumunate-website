@@ -94,10 +94,20 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
   useEffect(() => {
     const updateDimensions = () => {
       const width = window.innerWidth;
+      const height = window.innerHeight;
       if (width >= 1920) setCardHeight(HEIGHTS.XL);
       else if (width >= 1600) setCardHeight(HEIGHTS.DESKTOP);
       else if (width >= 1024) setCardHeight(HEIGHTS.LAPTOP);
-      else setCardHeight(HEIGHTS.MOBILE);
+      else {
+
+        const navbarH = width < 768 ? 64 : 80;
+        const sectionPaddingTop = 16;
+        const tabsH = 48;
+        const cardMarginTop = 40;
+        const stackSpace = STACK_OFFSET * (workflowSections.length - 1);
+        const available = height - navbarH - sectionPaddingTop - tabsH - cardMarginTop - stackSpace;
+        setCardHeight(Math.min(HEIGHTS.MOBILE, Math.max(available, 500)));
+      }
     };
 
     updateDimensions();
@@ -105,20 +115,29 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
+
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
 
-    // Increased scroll distance for smoother transitions
     const scrollDistance = window.innerHeight * 4;
 
     mainTriggerRef.current = ScrollTrigger.create({
       trigger: el,
-      start: "top top",
+      start: () => {
+        const width = window.innerWidth;
+        if (width >= 1025) {
+          return "top top";
+        } else {
+          const navH = width < 768 ? 64 : 80;
+          return `top ${navH}px`;
+        }
+      },
       end: `+=${scrollDistance}`,
       pin: true,
       pinSpacing: true,
       scrub: 1,
+      invalidateOnRefresh: true,
       onUpdate: (self) => {
         const totalCards = workflowSections.length;
         let index = Math.floor(self.progress * totalCards);

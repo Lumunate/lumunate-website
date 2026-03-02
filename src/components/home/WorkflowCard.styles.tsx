@@ -46,8 +46,8 @@ export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
     },
     [theme.breakpoints.down("md")]: {
         flexDirection: "column",
-        height: "500px",
-        minHeight: "600px",
+        height: "100%",
+        minHeight: "unset",
         backgroundImage: `
             linear-gradient(to bottom, ${theme.palette.background.default} 0%, rgba(0,0,0,0.6) 100%), 
             url('https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770893374/Cards_Background_q9vqww.webp')
