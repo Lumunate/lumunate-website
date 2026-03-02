@@ -9,6 +9,8 @@ import * as S from "./BlogListing.styles";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import { CATEGORIES, BLOG_DATA } from "@/data/blogData";
 import Link from "next/link";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const BlogListing = () => {
     const [activeCategory, setActiveCategory] = useState(CATEGORIES[0]);
@@ -19,6 +21,7 @@ const BlogListing = () => {
 
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+    const isVerySmallMobile = useMediaQuery("(max-width:350px)");
 
     // Defined itemsPerPage based on screen size
     const itemsPerPage = isMobile ? 3 : 6;
@@ -68,7 +71,7 @@ const BlogListing = () => {
 
     return (
         <S.BlogGridWrapper>
-            <S.BlogNavBarContainer ref={navRef}>
+            <S.BlogNavBarContainer ref={navRef} sx={{ px: 3 }}>
                 {CATEGORIES.map((cat) => (
                     <S.BlogNavItem
                         key={cat.tag}
@@ -92,7 +95,7 @@ const BlogListing = () => {
                 >
                     <Grid container spacing={4}>
                         {paginatedBlogs.map((blog, index) => (
-                            <Grid key={`${blog.tag}-${index}`} size={{ xs: 12, sm: 6, md: 4 }}>
+                            <Grid key={`${blog.tag}-${index}`} size={{ xs: 12, sm: 6, md: 6, xl: 4 }}>
                                 <S.BlogCard sx={{ padding: "16px" }}>
                                     <S.ImageWrapper sx={{ position: "relative", width: "100%", aspectRatio: "16/9", overflow: "hidden", borderRadius: "8px", mb: 2 }}>
                                         <Image
@@ -140,17 +143,40 @@ const BlogListing = () => {
                         page={currentPage}
                         onChange={handlePageChange}
                         shape="rounded"
+                        // These props control how many numbers are visible
+                        siblingCount={isVerySmallMobile ? 0 : 1}
+                        boundaryCount={isVerySmallMobile ? 0 : 1}
                         renderItem={(item) => (
                             <PaginationItem
                                 slots={{
                                     previous: () => (
-                                        <Typography sx={{ mr: 1, color: 'text.secondary', fontSize: "14px", fontWeight: 500 }}>
-                                            ← Prev
+                                        <Typography
+                                            sx={{
+                                                mr: 1,
+                                                color: 'text.secondary',
+                                                fontSize: "16px",
+                                                fontWeight: 400,
+                                                display: "flex",
+                                                alignItems: "center",
+                                                gap: "8px",
+                                            }}
+                                        >
+                                            <ArrowBackIcon sx={{ fontSize: "18px" }} /> Prev
                                         </Typography>
                                     ),
                                     next: () => (
-                                        <Typography sx={{ ml: 1, color: 'text.secondary', fontSize: "14px", fontWeight: 500 }}>
-                                            Next →
+                                        <Typography
+                                            sx={{
+                                                ml: 1,
+                                                color: 'text.secondary',
+                                                fontSize: "16px",
+                                                fontWeight: 400,
+                                                display: "flex",
+                                                alignItems: "center",
+                                                gap: "8px",
+                                            }}
+                                        >
+                                            Next <ArrowForwardIcon sx={{ fontSize: "18px" }} />
                                         </Typography>
                                     )
                                 }}

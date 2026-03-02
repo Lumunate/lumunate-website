@@ -9,6 +9,8 @@ export const ArticleBody = styled(Box)(({ theme }) => ({
         fontSize: "32px",
         fontWeight: 400,
         marginBottom: "12px",
+        // This ensures the title doesn't hide under your header when scrolling
+        scrollMarginTop: "120px",
         [theme.breakpoints.down("sm")]: {
             fontSize: "24px",
             marginBottom: "16px",
@@ -48,6 +50,7 @@ export const ArticleBody = styled(Box)(({ theme }) => ({
 export const StickySidebar = styled(Box)(({ theme }) => ({
     position: "sticky",
     top: "100px",
+    height: "fit-content", // CRITICAL: Allows the box to float
     borderTop: `1px solid ${theme.palette.divider}`,
     borderBottom: `1px solid ${theme.palette.divider}`,
     borderRight: `1px solid ${theme.palette.divider}`,
