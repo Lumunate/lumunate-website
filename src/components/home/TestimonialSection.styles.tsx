@@ -4,17 +4,13 @@ import { Box, Typography, styled } from "@mui/material";
 import { fontSize } from "@mui/system";
 
 export const TestimonialRoot = styled(Box)(({ theme }) => ({
-    width: "100vw",
-    maxWidth: "1654px",
+    width: "100%", 
+    maxWidth: "100%", 
     background: theme.palette.background.default,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     position: "relative",
-    left: "50%",
-    right: "50%",
-    marginLeft: "-50vw",
-    marginRight: "-50vw",
     paddingBottom: "170px",
     [theme.breakpoints.down("md")]: {
         paddingBottom: "100px",
