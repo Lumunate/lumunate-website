@@ -22,6 +22,7 @@ import BookingForm from "@/components/bookingCalendar/BookingForm";
 import { bookingSchema, BookingFormData } from "@/app/schemas/booking";
 import PageContainer from "@/components/common/PageContainer";
 import Button from "@mui/material/Button";
+import DiscoverButton from "@/components/ui/DiscoverButton";
 
 export default function BookCalenderPage() {
     const theme = useTheme();
@@ -81,7 +82,7 @@ export default function BookCalenderPage() {
                     sx={{
                         fontWeight: 400,
                         fontFamily: "Montserrat",
-                        fontSize: { xs: "30px", md: "90px" },
+                        fontSize: { xs: "24px", md: "90px" },
                         mb: 1,
                         color: theme.palette.text.primary
                     }}
@@ -89,7 +90,7 @@ export default function BookCalenderPage() {
                     Book a Meeting
                 </Typography>
 
-                <Typography variant="body1" sx={{ color: theme.palette.text.secondary, mb: 6 }}>
+                <Typography variant="body1" sx={{ color: theme.palette.text.secondary, mb: 6, fontSize: { xs: "14px", md: "18px" }, }}>
                     {step === 1 ? "Select date & Time" : "Enter your info"}
                 </Typography>
 
@@ -163,11 +164,11 @@ export default function BookCalenderPage() {
                         {step === 2 ? "Back" : "Cancel"}
                     </Button>
 
-                    <Button
+                    <DiscoverButton hideIcon
                         disabled={isSubmitting}
                         onClick={step === 1 ? () => setStep(2) : handleSubmit(onFormSubmit)}
                         sx={{
-                            bgcolor: theme.palette.section.processNumber,
+                            bgcolor: theme.palette.button.discoverBg,
                             minWidth: { xs: "110px", md: "188px" },
                             py: { xs: "12px", md: "18px" },
                             borderRadius: "15px",
@@ -177,7 +178,7 @@ export default function BookCalenderPage() {
                         }}
                     >
                         {step === 1 ? "Next" : isSubmitting ? "Confirming..." : "Confirm"}
-                    </Button>
+                    </DiscoverButton>
                 </Stack>
 
                 {/* SUCCESS MODAL */}

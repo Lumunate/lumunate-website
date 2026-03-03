@@ -35,7 +35,7 @@ export const Title = styled(Typography)(({ theme }) => ({
     color: theme.palette.text.primary,
     textAlign: "center",
     fontFamily: "Montserrat",
-    fontSize: 78,
+    fontSize: "60px",
     fontStyle: "normal",
     fontWeight: 400,
     lineHeight: "96.85%",
@@ -148,7 +148,7 @@ export const BottomText = styled(Typography)(({ theme }) => ({
     fontStyle: "normal",
     fontWeight: 400,
     lineHeight: "normal",
-     [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("sm")]: {
         fontSize: 14,
     },
 }));
