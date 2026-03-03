@@ -57,4 +57,7 @@ export const MessageCard = styled(Box)(({ theme }) => ({
         backgroundColor: alpha(theme.palette.divider, 0.3),
         transform: "translateY(-4px)",
     },
+    [theme.breakpoints.down("md")]: {
+        padding: "14px 20px",
+    },
 }));

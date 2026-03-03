@@ -25,9 +25,9 @@ const CEOSection = () => {
                         variant="h1"
                         align="center"
                         sx={{
-                            fontSize: { xs: "30px", md: "48px", lg: "78px" },
+                            fontSize: { xs: "30px", md: "48px", lg: "60px" },
                             fontWeight: 400,
-                            mb: { xs: "40px", md: "80px" },
+                            mb: { xs: "20px", md: "80px" },
                             color: "text.primary",
                             ml: { md: "50px" },
                         }}
@@ -38,7 +38,7 @@ const CEOSection = () => {
                     <Box sx={{ maxWidth: "1000px", mx: "auto" }}>
                         <Stack
                             direction={{ xs: "column", md: "row" }}
-                            spacing={{ xs: "30px", md: "40px" }}
+                            spacing={{ xs: "20px", md: "40px" }}
                             alignItems={{ xs: "center", md: "flex-start" }}
                             justifyContent="center"
                         >
@@ -89,7 +89,7 @@ const CEOSection = () => {
 
                                 <Box
                                     sx={{
-                                        pt: { xs: "30px", md: "40px" },
+                                        pt: { xs: "0px", md: "20px" },
                                         display: "flex",
                                         justifyContent: { xs: "center", md: "flex-start" },
                                         width: "100%"

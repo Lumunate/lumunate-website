@@ -29,7 +29,7 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
     backgroundColor: "#015B3F",
     transition: "all 0.4s ease",
     [theme.breakpoints.down("md")]: {
-        padding: "12px 24px",
+        padding: "8px 18px",
         gap: "8px",
     },
     // Snake rotating gradient layer
@@ -106,12 +106,16 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
     },
 }));
 
-export default function DiscoverButton(props: ButtonProps) {
+interface DiscoverButtonProps extends ButtonProps {
+    hideIcon?: boolean;
+}
+
+export default function DiscoverButton({ hideIcon = false, ...props }: DiscoverButtonProps) {
     return (
         <StyledDiscoverButton
             variant="contained"
             disableElevation
-            endIcon={<ArrowOutwardIcon />}
+            endIcon={hideIcon ? null : <ArrowOutwardIcon />}
             {...props}
         >
             {props.children || "Discover"}
