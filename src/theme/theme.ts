@@ -24,6 +24,7 @@ declare module "@mui/material/styles" {
       processNumber: string;
       cardBg: string;
       calenderBg: string;
+      careersdots: string;
     };
     button: {
       discoverBg: string;
@@ -58,6 +59,7 @@ export const TOKENS = {
     processNumber: "#00A270",
     cardBg: "#191919",
     calenderBg: "#111111",
+    careersdots: "#535353",
   },
   bg: {
     default: "#0E0E0E",
