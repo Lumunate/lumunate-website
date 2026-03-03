@@ -71,16 +71,31 @@ const BlogListing = () => {
 
     return (
         <S.BlogGridWrapper>
-            <S.BlogNavBarContainer ref={navRef} sx={{ px: 3 }}>
-                {CATEGORIES.map((cat) => (
-                    <S.BlogNavItem
-                        key={cat.tag}
-                        className={activeCategory.tag === cat.tag ? "active" : ""}
-                        onClick={() => handleCategoryClick(cat)}
-                    >
-                        {cat.title}
-                    </S.BlogNavItem>
-                ))}
+            <S.BlogNavBarContainer>
+                <Box sx={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+                    <PageContainer>
+                        <Box
+                            ref={navRef}
+                            sx={{
+                                display: 'flex',
+                                width: '100%',
+                                overflowX: 'auto',
+                                scrollbarWidth: 'none',
+                                '&::-webkit-scrollbar': { display: 'none' }
+                            }}
+                        >
+                            {CATEGORIES.map((cat) => (
+                                <S.BlogNavItem
+                                    key={cat.tag}
+                                    className={activeCategory.tag === cat.tag ? "active" : ""}
+                                    onClick={() => handleCategoryClick(cat)}
+                                >
+                                    {cat.title}
+                                </S.BlogNavItem>
+                            ))}
+                        </Box>
+                    </PageContainer>
+                </Box>
             </S.BlogNavBarContainer>
 
             <PageContainer>
@@ -143,7 +158,6 @@ const BlogListing = () => {
                         page={currentPage}
                         onChange={handlePageChange}
                         shape="rounded"
-                        // These props control how many numbers are visible
                         siblingCount={isVerySmallMobile ? 0 : 1}
                         boundaryCount={isVerySmallMobile ? 0 : 1}
                         renderItem={(item) => (

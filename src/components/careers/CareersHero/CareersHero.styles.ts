@@ -24,6 +24,7 @@ export const VideoBackground = styled("video")({
     height: "100%",
     objectFit: "cover",
     zIndex: 1,
+    opacity: 0.5,
 });
 
 export const Overlay = styled(Box)(({ theme }) => ({

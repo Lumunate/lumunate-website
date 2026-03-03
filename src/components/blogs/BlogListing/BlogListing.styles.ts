@@ -7,7 +7,6 @@ export const BlogGridWrapper = styled(Box)(({ theme }) => ({
 }));
 
 export const BlogNavBarContainer = styled(Box)(({ theme }) => ({
-    display: "flex",
     width: "100%",
     backgroundColor: theme.palette.background.paper,
     borderTop: `1px solid ${theme.palette.navbar.border}`,
@@ -15,12 +14,6 @@ export const BlogNavBarContainer = styled(Box)(({ theme }) => ({
     position: "sticky",
     zIndex: 1100,
     top: "80px",
-    overflowX: "auto",
-    scrollbarWidth: "none",
-    "&::-webkit-scrollbar": { display: "none" },
-    [theme.breakpoints.up("lg")]: {
-        justifyContent: "center",
-    },
 }));
 
 export const BlogNavItem = styled(Box)(({ theme }) => ({
@@ -145,14 +138,14 @@ export const StyledPagination = styled(Pagination)(({ theme }) => ({
         flexWrap: "nowrap",
     },
     "& .MuiPaginationItem-root": {
-        color: "#FFFFFFCC",
+        color: theme.palette.text.secondary,
         fontSize: "14px",
         fontWeight: 500,
         minWidth: "32px",
         margin: "0 2px",
         "&.Mui-selected": {
             backgroundColor: `${theme.palette.section.processNumber} !important`,
-            color: "#FFFFFF !important",
+            color: `${theme.palette.common.white} !important`,
             borderRadius: "4px",
         },
         [theme.breakpoints.down(350)]: {
