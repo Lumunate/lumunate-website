@@ -223,14 +223,15 @@ export const useGsapCounterAnimation = (
 
         const { total: finalValue, suffix, prefix = "" } = data[index];
 
+        // Initial State
         el.textContent = `${prefix}0${suffix}`;
 
         const counter = { value: 0 };
 
         gsap.to(counter, {
           value: finalValue,
-          duration: 4,
-          ease: "expo.out",
+          duration: 3, // Slightly faster for better UX, kept identical for all
+          ease: "power2.out", // Changed for better synchronization
           scrollTrigger: {
             trigger: el,
             start: "top 95%",
@@ -241,19 +242,26 @@ export const useGsapCounterAnimation = (
 
             let formattedNumber: string;
 
+            // Use a consistent formatting logic during the animation
             if (finalValue >= 1000) {
-
               formattedNumber = Math.floor(counter.value).toLocaleString();
             } else if (finalValue % 1 !== 0) {
-
+              // Handle decimals (e.g., 6.2)
               formattedNumber = counter.value.toFixed(1);
             } else {
-
               formattedNumber = Math.floor(counter.value).toString();
             }
 
             el.textContent = `${prefix}${formattedNumber}${suffix}`;
           },
+          onComplete: () => {
+            if (!el) return;
+            // Force the exact final string on completion to handle rounding edge cases
+            const finalString = finalValue >= 1000
+              ? finalValue.toLocaleString()
+              : (finalValue % 1 !== 0 ? finalValue.toFixed(1) : finalValue.toString());
+            el.textContent = `${prefix}${finalString}${suffix}`;
+          }
         });
       });
     });
