@@ -6,18 +6,32 @@ import CareersProcess from "@/components/careers/CareersProcess/CareersProcess";
 import OpenPositions from "@/components/careers/OpenPositions/OpenPositions";
 import ExploreSection from "@/components/home/explore/Explore";
 import Ready from "@/components/home/ready/Ready";
+import { Box } from "@mui/material";
+import { useRef } from "react";
+
 
 export default function CareersPage() {
+
+    const positionsRef = useRef<HTMLDivElement>(null);
+
+    const scrollToPositions = () => {
+        positionsRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    };
     return (
 
         <>
             <CareersHero />
 
-            <CareerPath />
+            <CareerPath onButtonClick={scrollToPositions} />
 
             <CareersProcess />
 
-            <OpenPositions />
+            <Box ref={positionsRef}>
+                <OpenPositions />
+            </Box>
 
             <ExploreSection />
 

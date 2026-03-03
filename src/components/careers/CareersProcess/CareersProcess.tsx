@@ -1,10 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef } from "react";
 import * as S from "./CareersProcess.styles";
-import { Box } from "@mui/material";
-import ConnectButton from "@/components/ui/ConnectButton";
 import PageContainer from "@/components/common/PageContainer";
+import gsap from "gsap";
+import { useGsapSlideAnimation } from "@/hooks/useGsapAnimation";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const PROCESS_STEPS = [
     {
@@ -30,16 +33,61 @@ const PROCESS_STEPS = [
 ];
 
 export default function CareersProcess() {
-    const [activeStep, setActiveStep] = useState(0);
+    // Shifting scroll logic to the shared hook
+    const { elementRef: sectionRef, activeIndex: activeStep } = useGsapSlideAnimation(PROCESS_STEPS);
 
-    const handleNext = () => {
-        setActiveStep((prev) => (prev + 1) % PROCESS_STEPS.length);
+    const titleRef = useRef<HTMLHeadingElement>(null);
+    const descRef = useRef<HTMLParagraphElement>(null);
+
+    // Entrance animation when activeStep changes
+    useEffect(() => {
+        const targets = [titleRef.current, descRef.current];
+
+        gsap.fromTo(
+            targets,
+            { opacity: 0, y: 20, filter: "blur(8px)" },
+            {
+                opacity: 1,
+                y: 0,
+                filter: "blur(0px)",
+                stagger: 0.1,
+                duration: 0.6,
+                ease: "power2.out",
+                overwrite: true
+            }
+        );
+    }, [activeStep]);
+
+    const handleStepClick = (index: number) => {
+        if (!sectionRef.current) return;
+
+        // Find the specific ScrollTrigger instance for this section
+        const trigger = ScrollTrigger.getAll().find(st => st.trigger === sectionRef.current);
+
+        if (trigger) {
+            const totalSteps = PROCESS_STEPS.length;
+            const targetProgress = index / totalSteps + 0.01;
+            const targetScroll = trigger.start + (trigger.end - trigger.start) * targetProgress;
+
+            window.scrollTo({
+                top: targetScroll,
+                behavior: "smooth"
+            });
+        } else {
+            // Fallback if trigger isn't found
+            const sectionTop = sectionRef.current.offsetTop;
+            const scrollOffset = sectionTop + (index * window.innerHeight) + 50;
+            window.scrollTo({
+                top: scrollOffset,
+                behavior: "smooth"
+            });
+        }
     };
 
     const current = PROCESS_STEPS[activeStep];
 
     return (
-        <S.SectionRoot>
+        <S.SectionRoot ref={sectionRef}>
             <S.BgVideo autoPlay muted loop playsInline>
                 <source src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1772513890/14941280_1920_1080_24fps_1_n2eyqe.webm" type="video/mp4" />
             </S.BgVideo>
@@ -50,22 +98,27 @@ export default function CareersProcess() {
                 <S.ParentTitle>Our Process</S.ParentTitle>
 
                 <S.ContentBox>
-                    <S.MainTitle variant="h1">{current.title}</S.MainTitle>
-                    <S.Description>{current.description}</S.Description>
+                    <S.MainTitle ref={titleRef} variant="h1">
+                        {current.title}
+                    </S.MainTitle>
+                    <S.Description ref={descRef}>
+                        {current.description}
+                    </S.Description>
 
-                    <Box sx={{ display: "flex", justifyContent: "center" }}>
-                        <ConnectButton onClick={handleNext}>
+                    {/* <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+                        <ConnectButton>
                             Browse Opportunities
                         </ConnectButton>
-                    </Box>
+                    </Box> */}
                 </S.ContentBox>
             </PageContainer>
+
             <S.NavContainer>
                 {PROCESS_STEPS.map((step, index) => (
                     <React.Fragment key={step.id}>
                         <S.StepItem
                             active={activeStep === index}
-                            onClick={() => setActiveStep(index)}
+                            onClick={() => handleStepClick(index)}
                         >
                             {step.id}
                         </S.StepItem>

@@ -151,7 +151,8 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", closeOnScroll, true);
     }, [isProjectsOpen, isServicesOpen]);
 
-    const columns = menuWidth >= 1050 ? 3 : menuWidth >= 740 ? 2 : 1;
+    // const columns = menuWidth >= 1050 ? 3 : menuWidth >= 740 ? 2 : 1;
+    const columns = menuWidth >= 740 ? 2 : 1;
 
 
     return (
@@ -393,7 +394,7 @@ export default function Navbar() {
                         )}
                         {!isMobile && (
                             <>
-                                <VerticalDivider sx={{ display: { xs: 'none', xl: 'block' } }} />
+                                {/* <VerticalDivider sx={{ display: { xs: 'none', xl: 'block' } }} /> */}
                                 <Box sx={{ pl: "32px" }}>
                                     <Button
                                         href="https://calendly.com/saad-b-javaid22/consultation"

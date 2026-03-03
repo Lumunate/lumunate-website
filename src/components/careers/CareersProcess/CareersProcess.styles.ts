@@ -46,8 +46,12 @@ export const ParentTitle = styled(Typography)(({ theme }) => ({
     fontSize: "22px",
     zIndex: 4,
     color: theme.palette.text.primary,
+    [theme.breakpoints.down("xl")]: {
+        top: "100px",
+        fontSize: "18px",
+    },
     [theme.breakpoints.down("md")]: {
-        top: "60px",
+        top: "80px",
         fontSize: "18px",
     },
 }));
