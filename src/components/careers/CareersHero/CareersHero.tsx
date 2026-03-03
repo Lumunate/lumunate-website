@@ -14,7 +14,7 @@ export default function CareersHero() {
                 playsInline
                 poster="/images/careers-fallback.jpg"
             >
-                <source src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1772513859/12817760_1920_1080_30fps_1_eyl9u0.webm" type="video/mp4" />
+                <source src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1772569113/compressed_1_iwqivd.webm" type="video/mp4" />
             </S.VideoBackground>
 
             <S.Overlay />
