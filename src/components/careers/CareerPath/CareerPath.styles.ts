@@ -85,17 +85,19 @@ export const VideoOverlay = styled(Box)(({ theme }) => ({
     zIndex: 2,
     pointerEvents: "none",
     background: `
+    linear-gradient(to right, ${theme.palette.background.default} 0%, transparent 15%), // ADDED: Gradient from the left
     linear-gradient(to left, ${theme.palette.background.default} 0%, transparent 15%),
     linear-gradient(to top, ${theme.palette.background.default} 0%, transparent 15%),
     linear-gradient(to bottom, ${theme.palette.background.default} 0%, transparent 15%)
   `,
     [theme.breakpoints.down("md")]: {
         background: `
+      linear-gradient(to right, ${theme.palette.background.default} 0%, transparent 20%), // ADDED: Gradient from the left (mobile)
       linear-gradient(to left, ${theme.palette.background.default} 0%, transparent 20%),
       linear-gradient(to top, ${theme.palette.background.default} 0%, transparent 20%),
       linear-gradient(to bottom, ${theme.palette.background.default} 0%, transparent 20%)
     `,
-    }
+    },
 }));
 
 export const CareerVideo = styled("video")({

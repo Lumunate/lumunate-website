@@ -5,7 +5,11 @@ import { Box } from "@mui/material";
 import PageContainer from "@/components/common/PageContainer";
 import DiscoverButton from "@/components/ui/DiscoverButton";
 
-export default function CareerPath() {
+interface CareerPathProps {
+    onButtonClick?: () => void;
+}
+
+export default function CareersHero({ onButtonClick }: CareerPathProps) {
     return (
         <S.SectionRoot>
             <PageContainer>
@@ -22,7 +26,9 @@ export default function CareerPath() {
 
                     <S.ActionAndVideoArea>
                         <Box sx={{ flexShrink: 0 }}>
-                            <DiscoverButton sx={{ fontSize: { xs: "14px", lg: "16px" } }}>
+                            <DiscoverButton
+                                onClick={onButtonClick}
+                                sx={{ fontSize: { xs: "14px", lg: "16px" } }}>
                                 Browse Opportunities
                             </DiscoverButton>
                         </Box>

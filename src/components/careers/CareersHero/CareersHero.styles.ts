@@ -7,7 +7,7 @@ export const HeroRoot = styled(Box)(({ theme }) => ({
     width: "100%",
     height: "100vh",
     display: "flex",
-    alignItems: "flex-end",
+    alignItems: "center",
     overflow: "hidden",
     backgroundColor: theme.palette.background.default,
 
@@ -43,7 +43,8 @@ export const Overlay = styled(Box)(({ theme }) => ({
 export const ContentWrapper = styled(Box)(({ theme }) => ({
     position: "relative",
     zIndex: 3,
-    paddingBottom: "100px",
+    // paddingTop: "260px",
+    paddingBottom: "0px",
     width: "100%",
 
     [theme.breakpoints.down("md")]: {
