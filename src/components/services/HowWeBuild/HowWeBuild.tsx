@@ -76,7 +76,7 @@ const HowWeBuild = () => {
     return (
         <SectionContainer ref={containerRef}>
             <BackgroundVideo autoPlay loop muted playsInline>
-                <source src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1771915300/Development_1_uqht1w.webm" type="video/mp4" />
+                <source src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1772643969/3130284-hd_1920_1080_30fps_c1vxbo.webm" type="video/mp4" />
             </BackgroundVideo>
             <VideoOverlay />
 
