@@ -23,7 +23,10 @@ export const ArticleBody = styled(Box)(({ theme }) => ({
         color: theme.palette.section.caseStudyDesc,
         marginBottom: "20px",
         [theme.breakpoints.down("lg")]: {
-            fontSize: "18px",
+            fontSize: "16px",
+        },
+        [theme.breakpoints.down("md")]: {
+            fontSize: "14px",
         },
     },
     "& ol": {
@@ -37,6 +40,9 @@ export const ArticleBody = styled(Box)(({ theme }) => ({
             fontWeight: 400,
             [theme.breakpoints.down("lg")]: {
                 fontSize: "16px",
+            },
+            [theme.breakpoints.down("md")]: {
+                fontSize: "14px",
             },
         },
     },
