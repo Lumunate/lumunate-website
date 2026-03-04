@@ -1,61 +1,54 @@
 "use client";
 
-import { Box, styled } from "@mui/material";
+import { Box, styled, alpha } from "@mui/material";
 
 export const NavBarContainer = styled(Box)(({ theme }) => ({
-    display: "flex",
     width: "100%",
-    backgroundColor: theme.palette.background.paper,
-    borderBottom: `1px solid ${theme.palette.navbar.border}`,
+    backgroundColor: theme.palette.navbar.cardsNavBg,
+    borderTop: `1px solid ${theme.palette.divider}`,
+    borderBottom: `1px solid ${theme.palette.divider}`,
     position: "sticky",
     zIndex: 1100,
-
-    top: "88px",
-    marginTop: "24px",
-
-    [theme.breakpoints.up("md")]: {
-        top: "104px", // 80px navbar height + 24px gap (matches mobile gap ratio)
-    },
-
-    overflowX: "auto",
-    overflowY: "hidden",
-    flexDirection: "row",
-    flexWrap: "nowrap",
-    justifyContent: "flex-start",
-    WebkitOverflowScrolling: "touch",
-    scrollbarWidth: "none",
-    "&::-webkit-scrollbar": { display: "none" },
-
-    [theme.breakpoints.up("lg")]: {
-        justifyContent: "center",
-        overflowX: "hidden",
-        top: "120px",
-        marginTop: "40px",
-    },
+    top: "80px",
 }));
+
+
+
 export const NavItem = styled(Box)(({ theme }) => ({
-    flex: "0 0 auto",
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "12px 24px",
-    minWidth: "fit-content",
+    flexShrink: 0,
+    padding: "20px 32px",
     cursor: "pointer",
     color: theme.palette.text.secondary,
-    opacity: 0.55,
-    fontSize: "14px",
-    fontWeight: 400,
-    borderLeft: `1px solid ${theme.palette.navbar.border}`,
+    opacity: 0.6,
+    fontSize: "16px",
+    transition: "all 0.3s ease",
+    position: "relative",
+    borderLeft: `1px solid ${theme.palette.divider}`,
 
-    "&:first-of-type": {
-        borderLeft: "none",
+    "&:last-of-type": {
+        borderRight: `1px solid ${theme.palette.divider}`,
     },
 
     "&.active": {
-        backgroundColor: `${theme.palette.background.default} !important`,
         color: theme.palette.text.primary,
         opacity: 1,
         fontWeight: 600,
-        boxShadow: `inset 0 -2px 0 ${theme.palette.primary.main}`,
+
+        background: `linear-gradient(180deg, 
+            ${alpha(theme.palette.navbar.cardsNavActive, 0.10)} 0%, 
+            ${alpha(theme.palette.navbar.cardsNavActive, 0.09)} 100%)`,
+
+        // Inset shadow
+        boxShadow: `inset 0px 1px 1px ${alpha(theme.palette.divider, 0.3)}`,
+    },
+
+    "&:hover": {
+        opacity: 1,
+        backgroundColor: theme.palette.action.hover,
+    },
+
+    [theme.breakpoints.down("md")]: {
+        padding: "16px 20px",
+        fontSize: "14px",
     },
 }));

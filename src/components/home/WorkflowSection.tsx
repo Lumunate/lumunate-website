@@ -197,18 +197,42 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
 
   return (
     <WorkflowSectionRoot ref={sectionRef}>
-      <NavBarContainer className="nav-bar-scroll-container">
-        {workflowSections.map((section, i) => (
-          <NavItem
-            key={section.title}
-            className={`${activeIndex === i ? "active" : ""}`}
-            onClick={() => scrollToCard(i)}
+      <NavBarContainer>
+        <PageContainer
+          sx={{
+            "@media (min-width: 1025px)": {
+              maxWidth: "none",
+              px: 0,
+              display: 'flex',
+              justifyContent: 'center' // Centers the whole nav block
+            },
+          }}
+        >
+          <Box
+            className="nav-bar-scroll-container"
+            sx={{
+              display: "flex",
+              // On desktop, width fit-content ensures the borders wrap the items tightly
+              width: { xs: "100%", lg: "fit-content" },
+              overflowX: "auto",
+              scrollbarWidth: "none",
+              "&::-webkit-scrollbar": { display: "none" },
+            }}
           >
-            {section.title}
-          </NavItem>
-        ))}
+            {workflowSections.map((section, i) => (
+              <NavItem
+                key={section.title}
+                className={`${activeIndex === i ? "active" : ""}`}
+                onClick={() => scrollToCard(i)}
+              >
+                {section.title}
+              </NavItem>
+            ))}
+          </Box>
+        </PageContainer>
       </NavBarContainer>
 
+      {/* CARDS SECTION REMAINS THE SAME */}
       <PageContainer>
         <Box sx={{ width: "100%" }}>
           <Box
