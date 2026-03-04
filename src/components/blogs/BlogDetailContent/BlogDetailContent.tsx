@@ -27,13 +27,11 @@ const BlogDetailContent = () => {
         { title: "What's your experience?", id: "experience" },
     ];
 
-    // JS SCROLL LOGIC (STICKY SIDEBAR) 
-    // Modified to only apply logic on screens >= 1024px
+    // STICKY SIDEBAR LOGIC
     useEffect(() => {
         const handleScroll = () => {
             if (!containerRef.current || !sidebarRef.current) return;
 
-            // Only apply sticky logic for 1024px and up
             if (window.innerWidth < 1024) {
                 setIsFixed(false);
                 setIsPinnedBottom(false);
@@ -42,7 +40,10 @@ const BlogDetailContent = () => {
 
             const containerRect = containerRef.current.getBoundingClientRect();
             const sidebarHeight = sidebarRef.current.offsetHeight;
-            const stickyTopGap = 0;
+
+            // Logic for top offset based on screen width
+            const isMediumRange = window.innerWidth >= 1024 && window.innerWidth < 1440;
+            const stickyTopGap = isMediumRange ? 50 : 0;
 
             const parentWidth = sidebarRef.current.parentElement?.getBoundingClientRect().width || 0;
             setSidebarWidth(parentWidth);
@@ -64,10 +65,11 @@ const BlogDetailContent = () => {
         };
     }, []);
 
-    // INTERSECTION OBSERVER (Works on all screens) 
+    //  INTERSECTION OBSERVER LOGIC
     useEffect(() => {
         const observerOptions = {
-            rootMargin: "-20% 0% -70% 0%",
+            // High top margin to trigger when header hits the sticky point
+            rootMargin: "-10% 0% -80% 0%",
             threshold: 0,
         };
 
@@ -84,24 +86,14 @@ const BlogDetailContent = () => {
             if (el) observer.observe(el);
         });
 
-        const handleBottomReach = () => {
-            const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
-            if (isAtBottom) {
-                setActiveId(tableOfContents[tableOfContents.length - 1].id);
-            }
-        };
-
-        window.addEventListener("scroll", handleBottomReach);
-        return () => {
-            observer.disconnect();
-            window.removeEventListener("scroll", handleBottomReach);
-        };
+        return () => observer.disconnect();
     }, []);
 
     const scrollToSection = (id: string) => {
         const element = document.getElementById(id);
         if (element) {
-            const headerOffset = 100;
+            const isMediumRange = window.innerWidth >= 1024 && window.innerWidth < 1440;
+            const headerOffset = isMediumRange ? 150 : 100; // Adjusted for the 50px gap
             const elementPosition = element.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -109,6 +101,21 @@ const BlogDetailContent = () => {
             window.scrollTo({ top: offsetPosition, behavior: "smooth" });
         }
     };
+
+    // Find the index of the currently active section
+    const activeIndex = tableOfContents.findIndex(item => item.id === activeId);
+
+    // Determine the range of 2 items to show on 1024px - 1300px
+    // If we are at the last item, show [last-1, last]
+    // Otherwise, show [active, active+1]
+    let visibleIndices = [0, 1];
+    if (activeIndex !== -1) {
+        if (activeIndex === tableOfContents.length - 1) {
+            visibleIndices = [activeIndex - 1, activeIndex];
+        } else {
+            visibleIndices = [activeIndex, activeIndex + 1];
+        }
+    }
 
     return (
         <Box sx={{ bgcolor: "background.default", py: { xs: 6, lg: 15 } }}>
@@ -200,24 +207,29 @@ const BlogDetailContent = () => {
                         <Box
                             ref={sidebarRef}
                             sx={{
-                                // Width logic only applies when screen is lg (1024px+)
                                 width: { lg: (isFixed || isPinnedBottom) ? `${sidebarWidth}px` : '100%' },
-                                // Sticky/Pinned logic only triggers if isFixed/isPinnedBottom is true 
-                                // (which we now prevent on screens < 1024px)
                                 ...(isFixed && {
                                     position: 'fixed',
-                                    top: 0,
+                                    top: { lg: "70px", xl: "0px" }, // 1024-1440 gets 50px, 1440+ gets 0px
                                     zIndex: 10,
                                 }),
                                 ...(isPinnedBottom && {
                                     position: 'absolute',
                                     bottom: 0,
                                     top: 'auto',
+                                    left: 0,
                                 })
                             }}
                         >
                             <S.StickySidebar sx={{ p: 0, borderTop: 0 }}>
-                                <Divider sx={{ borderColor: "divider" }} />
+                                <Divider
+                                    sx={{
+                                        borderColor: "divider",
+                                        // Full width on mobile, reset on md+
+                                        mx: { xs: "-30px", sm: "-32px", md: 0 },
+                                        width: { xs: "calc(100% + 120px)", sm: "calc(100% + 64px)", md: "100%" }
+                                    }}
+                                />
                                 <Box sx={{ px: { xs: 0, md: "40px" }, py: { xs: 3, md: "40px" } }}>
                                     <Stack direction="row" spacing={1.5} justifyContent="space-between" sx={{ color: "text.secondary" }}>
                                         {[
@@ -242,7 +254,14 @@ const BlogDetailContent = () => {
                                     </Stack>
                                 </Box>
 
-                                <Divider sx={{ borderColor: "divider", width: "100%" }} />
+                                <Divider
+                                    sx={{
+                                        borderColor: "divider",
+                                        // Full width on mobile, reset on md+
+                                        mx: { xs: "-30px", sm: "-32px", md: 0 },
+                                        width: { xs: "calc(100% + 120px)", sm: "calc(100% + 64px)", md: "100%" }
+                                    }}
+                                />
 
                                 <Box sx={{ py: 4, px: { xs: 0, md: 5, lg: 5 } }}>
                                     <Grid container spacing={3} sx={{ mb: 5 }}>
@@ -266,26 +285,46 @@ const BlogDetailContent = () => {
 
                                     <S.TOCContainer sx={{ p: "16px 20px 20px 20px", mb: { xs: 4, lg: 0 } }} >
                                         <Box component="ul" sx={{ p: 0, m: 0, listStyle: 'none' }}>
-                                            {tableOfContents.map((item, index) => (
-                                                <Box component="li" key={index} sx={{ mb: { xs: "12px", lg: 2 } }}>
-                                                    <Typography
-                                                        variant="body1"
-                                                        onClick={() => scrollToSection(item.id)}
+                                            {tableOfContents.map((item, index) => {
+                                                const isVisibleOnSmallDesktop = visibleIndices.includes(index);
+
+                                                return (
+                                                    <Box
+                                                        component="li"
+                                                        key={index}
                                                         sx={{
-                                                            color: activeId === item.id ? "button.discoverBg" : "text.primary",
-                                                            fontSize: { xs: "14px", md: "16px", lg: "18px" },
-                                                            fontWeight: activeId === item.id ? 600 : 400,
-                                                            cursor: 'pointer',
-                                                            display: 'flex',
-                                                            gap: { xs: 1, lg: 2 },
-                                                            transition: 'all 0.2s ease',
-                                                            '&:hover': { color: 'button.discoverBg' }
+                                                            mb: { xs: "12px", lg: 2 },
+                                                            display: {
+                                                                // Logic: Show only the 2 items in our "sliding window" between 1024-1300px
+                                                                xs: 'block', // Or whatever mobile behavior you prefer
+                                                                lg: isVisibleOnSmallDesktop ? 'block' : 'none',
+                                                                xl: 'block' // Show all at 1440px+
+                                                            },
+                                                            // Custom breakpoint override
+                                                            '@media (min-width: 1301px) and (max-width: 1439px)': {
+                                                                display: 'block'
+                                                            }
                                                         }}
                                                     >
-                                                        <span style={{ opacity: 0.5 }}>•</span> {item.title}
-                                                    </Typography>
-                                                </Box>
-                                            ))}
+                                                        <Typography
+                                                            variant="body1"
+                                                            onClick={() => scrollToSection(item.id)}
+                                                            sx={{
+                                                                color: activeId === item.id ? "button.discoverBg" : "text.primary",
+                                                                fontSize: { xs: "14px", md: "16px", lg: "18px" },
+                                                                fontWeight: activeId === item.id ? 600 : 400,
+                                                                cursor: 'pointer',
+                                                                display: 'flex',
+                                                                gap: { xs: 1, lg: 2 },
+                                                                transition: 'all 0.2s ease',
+                                                                '&:hover': { color: 'button.discoverBg' }
+                                                            }}
+                                                        >
+                                                            <span style={{ opacity: 0.5 }}>•</span> {item.title}
+                                                        </Typography>
+                                                    </Box>
+                                                );
+                                            })}
                                         </Box>
                                     </S.TOCContainer>
                                 </Box>
