@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { Box, Typography, Divider, Stack } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import PageContainer from "@/components/common/PageContainer";
@@ -9,6 +10,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 
 const BlogDetailContent = () => {
+    const sidebarRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+
     const tableOfContents = [
         { title: "Introduction", id: "introduction" },
         { title: "What exactly are low code platforms?", id: "what-is-low-code" },
@@ -17,6 +21,42 @@ const BlogDetailContent = () => {
         { title: "Our Hybrid Approach", id: "hybrid-approach" },
         { title: "What's your experience?", id: "experience" },
     ];
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (!sidebarRef.current || !containerRef.current) return;
+
+            // Applied scroll logic for 1024px screens and up
+            if (window.innerWidth < 1024) {
+                sidebarRef.current.style.transform = `translateY(0px)`;
+                return;
+            }
+
+            const containerRect = containerRef.current.getBoundingClientRect();
+            const sidebarHeight = sidebarRef.current.offsetHeight;
+            const headerOffset = 100;
+
+            let scrollOffset = -containerRect.top + headerOffset;
+            const maxScroll = containerRect.height - sidebarHeight;
+
+            if (scrollOffset < 0) {
+                scrollOffset = 0;
+            } else if (scrollOffset > maxScroll) {
+                scrollOffset = maxScroll;
+            }
+
+            sidebarRef.current.style.transform = `translateY(${scrollOffset}px)`;
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("resize", handleScroll);
+        handleScroll();
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("resize", handleScroll);
+        };
+    }, []);
 
     const scrollToSection = (id: string) => {
         const element = document.getElementById(id);
@@ -35,8 +75,7 @@ const BlogDetailContent = () => {
     return (
         <Box sx={{ bgcolor: "background.default", py: { xs: 6, lg: 15 } }}>
             <PageContainer>
-
-                <Grid container spacing={0} alignItems="flex-start">
+                <Grid container spacing={0} alignItems="flex-start" ref={containerRef} sx={{ position: 'relative' }}>
 
                     {/* Left Content Section */}
                     <Grid size={{ xs: 12, lg: 7 }} sx={{ order: { xs: 3, lg: 1 } }}>
@@ -121,84 +160,89 @@ const BlogDetailContent = () => {
                         size={{ xs: 12, lg: 5 }}
                         sx={{
                             order: { xs: 2, lg: 3 },
-                            position: { lg: 'sticky' },
-                            top: { lg: '100px' },
-                            height: { lg: 'fit-content' },
-                            alignSelf: { lg: 'flex-start' }
+                            position: 'relative', // Relative for the JS transform to work properly
                         }}
                     >
-                        <S.StickySidebar sx={{ p: 0, borderTop: 0 }}>
-                            <Divider sx={{ borderColor: "divider" }} />
-                            <Box sx={{ px: { xs: 0, md: "40px" }, py: { xs: 3, md: "40px" } }}>
-                                <Stack direction="row" spacing={1.5} justifyContent="space-between" sx={{ color: "text.secondary" }}>
-                                    {[
-                                        { icon: <FavoriteIcon sx={{ color: 'error.main', fontSize: { xs: "14px", lg: "18px" } }} />, label: "24.5k" },
-                                        { icon: <VisibilityOutlinedIcon />, label: "50k" },
-                                        { icon: <SendOutlinedIcon />, label: "208" }
-                                    ].map((item, i) => (
-                                        <Stack key={i} direction="row" spacing={"4px"} alignItems="center"
-                                            sx={{
-                                                bgcolor: "background.paper",
-                                                px: { xs: 1.5, xl: 3 },
-                                                py: "10px",
-                                                borderRadius: "100px",
-                                                border: "1px solid #333",
-                                                flex: 1,
-                                                justifyContent: 'center'
-                                            }} >
-                                            {item.icon}
-                                            <Typography variant="body1" sx={{ fontWeight: 500, fontSize: { xs: "14px", md: "18px" } }}>{item.label}</Typography>
-                                        </Stack>
-                                    ))}
-                                </Stack>
-                            </Box>
-
-                            <Divider sx={{ borderColor: "divider", width: "100%" }} />
-
-                            <Box sx={{ py: 4, px: { xs: 0, md: 5, lg: 5 } }}>
-                                <Grid container spacing={3} sx={{ mb: 5 }}>
-                                    <Grid size={{ xs: 6, md: 4, lg: 7, xl: 4 }}>
-                                        <Typography variant="body1" color="text.secondary" sx={{ display: 'block', whiteSpace: "nowrap", mb: 0.5, fontSize: { xs: "14px", lg: "16px" } }}>Publication Date</Typography>
-                                        <Typography variant="body1" sx={{ fontWeight: 500, fontSize: { xs: "14px", lg: "16px" } }}>Oct 15, 2023</Typography>
-                                    </Grid>
-                                    <Grid size={{ xs: 6, md: 4, xl: 4 }}>
-                                        <Typography variant="body1" color="text.secondary" sx={{ display: 'block', mb: 0.5, fontSize: { xs: "14px", lg: "16px" } }}>Category</Typography>
-                                        <Typography variant="body1" sx={{ fontWeight: 500, fontSize: { xs: "14px", lg: "16px" } }}>Development</Typography>
-                                    </Grid>
-                                    <Grid size={{ xs: 6, md: 4, xl: 4 }}>
-                                        <Typography variant="body1" color="text.secondary" sx={{ display: 'block', mb: 0.5, whiteSpace: "nowrap", fontSize: { xs: "14px", lg: "16px" } }}>Reading Time</Typography>
-                                        <Typography variant="body1" sx={{ fontWeight: 500, fontSize: { xs: "14px", lg: "16px" } }}>10 Min</Typography>
-                                    </Grid>
-                                </Grid>
-
-                                <Typography variant="body1" sx={{ mb: 2, letterSpacing: "-3%", color: "text.secondary", fontSize: { xs: "14px", lg: "18px" } }}>
-                                    Table of Contents
-                                </Typography>
-
-                                <S.TOCContainer sx={{ p: "16px 20px 20px 20px", mb: { xs: 4, lg: 0 } }} >
-                                    <Box component="ul" sx={{ p: 0, m: 0, listStyle: 'none' }}>
-                                        {tableOfContents.map((item, index) => (
-                                            <Box component="li" key={index} sx={{ mb: { xs: "12px", lg: 2 } }}>
-                                                <Typography
-                                                    variant="body1"
-                                                    onClick={() => scrollToSection(item.id)}
-                                                    sx={{
-                                                        color: "text.primary",
-                                                        fontSize: { xs: "14px", md: "16px", lg: "18px" },
-                                                        cursor: 'pointer',
-                                                        display: 'flex',
-                                                        gap: { xs: 1, lg: 2 },
-                                                        '&:hover': { color: 'button.discoverBg' }
-                                                    }}
-                                                >
-                                                    <span style={{ opacity: 0.5 }}>•</span> {item.title}
-                                                </Typography>
-                                            </Box>
+                        <Box
+                            ref={sidebarRef}
+                            sx={{
+                                transition: 'transform 0.1s ease-out',
+                                willChange: 'transform'
+                            }}
+                        >
+                            <S.StickySidebar sx={{ p: 0, borderTop: 0 }}>
+                                <Divider sx={{ borderColor: "divider" }} />
+                                <Box sx={{ px: { xs: 0, md: "40px" }, py: { xs: 3, md: "40px" } }}>
+                                    <Stack direction="row" spacing={1.5} justifyContent="space-between" sx={{ color: "text.secondary" }}>
+                                        {[
+                                            { icon: <FavoriteIcon sx={{ color: 'error.main', fontSize: { xs: "14px", lg: "18px" } }} />, label: "24.5k" },
+                                            { icon: <VisibilityOutlinedIcon />, label: "50k" },
+                                            { icon: <SendOutlinedIcon />, label: "208" }
+                                        ].map((item, i) => (
+                                            <Stack key={i} direction="row" spacing={"4px"} alignItems="center"
+                                                sx={{
+                                                    bgcolor: "background.paper",
+                                                    px: { xs: 1.5, xl: 3 },
+                                                    py: "10px",
+                                                    borderRadius: "100px",
+                                                    border: "1px solid #333",
+                                                    flex: 1,
+                                                    justifyContent: 'center'
+                                                }} >
+                                                {item.icon}
+                                                <Typography variant="body1" sx={{ fontWeight: 500, fontSize: { xs: "14px", md: "18px" } }}>{item.label}</Typography>
+                                            </Stack>
                                         ))}
-                                    </Box>
-                                </S.TOCContainer>
-                            </Box>
-                        </S.StickySidebar>
+                                    </Stack>
+                                </Box>
+
+                                <Divider sx={{ borderColor: "divider", width: "100%" }} />
+
+                                <Box sx={{ py: 4, px: { xs: 0, md: 5, lg: 5 } }}>
+                                    <Grid container spacing={3} sx={{ mb: 5 }}>
+                                        <Grid size={{ xs: 6, md: 4, lg: 7, xl: 4 }}>
+                                            <Typography variant="body1" color="text.secondary" sx={{ display: 'block', whiteSpace: "nowrap", mb: 0.5, fontSize: { xs: "14px", lg: "16px" } }}>Publication Date</Typography>
+                                            <Typography variant="body1" sx={{ fontWeight: 500, fontSize: { xs: "14px", lg: "16px" } }}>Oct 15, 2023</Typography>
+                                        </Grid>
+                                        <Grid size={{ xs: 6, md: 4, xl: 4 }}>
+                                            <Typography variant="body1" color="text.secondary" sx={{ display: 'block', mb: 0.5, fontSize: { xs: "14px", lg: "16px" } }}>Category</Typography>
+                                            <Typography variant="body1" sx={{ fontWeight: 500, fontSize: { xs: "14px", lg: "16px" } }}>Development</Typography>
+                                        </Grid>
+                                        <Grid size={{ xs: 6, md: 4, xl: 4 }}>
+                                            <Typography variant="body1" color="text.secondary" sx={{ display: 'block', mb: 0.5, whiteSpace: "nowrap", fontSize: { xs: "14px", lg: "16px" } }}>Reading Time</Typography>
+                                            <Typography variant="body1" sx={{ fontWeight: 500, fontSize: { xs: "14px", lg: "16px" } }}>10 Min</Typography>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Typography variant="body1" sx={{ mb: 2, letterSpacing: "-3%", color: "text.secondary", fontSize: { xs: "14px", lg: "18px" } }}>
+                                        Table of Contents
+                                    </Typography>
+
+                                    <S.TOCContainer sx={{ p: "16px 20px 20px 20px", mb: { xs: 4, lg: 0 } }} >
+                                        <Box component="ul" sx={{ p: 0, m: 0, listStyle: 'none' }}>
+                                            {tableOfContents.map((item, index) => (
+                                                <Box component="li" key={index} sx={{ mb: { xs: "12px", lg: 2 } }}>
+                                                    <Typography
+                                                        variant="body1"
+                                                        onClick={() => scrollToSection(item.id)}
+                                                        sx={{
+                                                            color: "text.primary",
+                                                            fontSize: { xs: "14px", md: "16px", lg: "18px" },
+                                                            cursor: 'pointer',
+                                                            display: 'flex',
+                                                            gap: { xs: 1, lg: 2 },
+                                                            '&:hover': { color: 'button.discoverBg' }
+                                                        }}
+                                                    >
+                                                        <span style={{ opacity: 0.5 }}>•</span> {item.title}
+                                                    </Typography>
+                                                </Box>
+                                            ))}
+                                        </Box>
+                                    </S.TOCContainer>
+                                </Box>
+                            </S.StickySidebar>
+                        </Box>
                     </Grid>
                 </Grid>
             </PageContainer>
