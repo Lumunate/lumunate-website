@@ -12,6 +12,7 @@ import * as S from "./BlogDetailContent.styles";
 const BlogDetailContent = () => {
     const sidebarRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
+    const tocContainerRef = useRef<HTMLDivElement>(null);
 
     const [isFixed, setIsFixed] = useState(false);
     const [isPinnedBottom, setIsPinnedBottom] = useState(false);
@@ -27,6 +28,20 @@ const BlogDetailContent = () => {
         { title: "What's your experience?", id: "experience" },
     ];
 
+    // FIX: Auto-scroll TOC container - ONLY for Desktop (>= 1024px)
+    // This prevents the "jumping" issue on mobile/xs screens
+    useEffect(() => {
+        if (window.innerWidth >= 1024 && activeId && tocContainerRef.current) {
+            const activeItem = tocContainerRef.current.querySelector(`[data-toc-id="${activeId}"]`);
+            if (activeItem) {
+                activeItem.scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest",
+                });
+            }
+        }
+    }, [activeId]);
+
     // STICKY SIDEBAR LOGIC
     useEffect(() => {
         const handleScroll = () => {
@@ -40,10 +55,8 @@ const BlogDetailContent = () => {
 
             const containerRect = containerRef.current.getBoundingClientRect();
             const sidebarHeight = sidebarRef.current.offsetHeight;
-
-            // Logic for top offset based on screen width
             const isMediumRange = window.innerWidth >= 1024 && window.innerWidth < 1440;
-            const stickyTopGap = isMediumRange ? 50 : 0;
+            const stickyTopGap = isMediumRange ? 70 : 0;
 
             const parentWidth = sidebarRef.current.parentElement?.getBoundingClientRect().width || 0;
             setSidebarWidth(parentWidth);
@@ -65,11 +78,10 @@ const BlogDetailContent = () => {
         };
     }, []);
 
-    //  INTERSECTION OBSERVER LOGIC
+    // INTERSECTION OBSERVER LOGIC
     useEffect(() => {
         const observerOptions = {
-            // High top margin to trigger when header hits the sticky point
-            rootMargin: "-10% 0% -80% 0%",
+            rootMargin: "-15% 0% -75% 0%", // Slightly tighter margin for better mobile stability
             threshold: 0,
         };
 
@@ -93,7 +105,7 @@ const BlogDetailContent = () => {
         const element = document.getElementById(id);
         if (element) {
             const isMediumRange = window.innerWidth >= 1024 && window.innerWidth < 1440;
-            const headerOffset = isMediumRange ? 150 : 100; // Adjusted for the 50px gap
+            const headerOffset = isMediumRange ? 150 : 100;
             const elementPosition = element.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -101,21 +113,6 @@ const BlogDetailContent = () => {
             window.scrollTo({ top: offsetPosition, behavior: "smooth" });
         }
     };
-
-    // Find the index of the currently active section
-    const activeIndex = tableOfContents.findIndex(item => item.id === activeId);
-
-    // Determine the range of 2 items to show on 1024px - 1300px
-    // If we are at the last item, show [last-1, last]
-    // Otherwise, show [active, active+1]
-    let visibleIndices = [0, 1];
-    if (activeIndex !== -1) {
-        if (activeIndex === tableOfContents.length - 1) {
-            visibleIndices = [activeIndex - 1, activeIndex];
-        } else {
-            visibleIndices = [activeIndex, activeIndex + 1];
-        }
-    }
 
     return (
         <Box sx={{ bgcolor: "background.default", py: { xs: 6, lg: 15 } }}>
@@ -150,37 +147,28 @@ const BlogDetailContent = () => {
                                 Let's start with the positives, because there are genuinely compelling reasons businesses are flocking to these platforms:
                             </Typography>
                             <Box sx={{ color: 'text.secondary', mb: 4 }}>
-                                <Typography variant="body1" sx={{ mb: 2 }}>1. <strong>Speed to Market:</strong> When you need a functional MVP or internal tool yesterday, low-code platforms deliver. What might take weeks in traditional development can be prototype-ready in days. For startups testing ideas or enterprises building internal workflows, this speed is invaluable.</Typography>
-                                <Typography variant="body1" sx={{ mb: 2 }}>2. <strong>Empowering Non-Technical Teams:</strong> Marketing needs a landing page builder. Operations wants a custom dashboard. HR needs an onboarding portal. Low-code puts power in the hands of people who understand the problem intimately—without waiting on developer bandwidth.</Typography>
-                                <Typography variant="body1" sx={{ mb: 2 }}>3. <strong>Cost-Effective for Simple Use Cases:</strong> For straightforward CRUD applications, form builders, or basic workflows, low-code can be significantly cheaper than custom development. Why pay for a Ferrari when a sedan gets you there just fine?</Typography>
-                                <Typography variant="body1" sx={{ mb: 2 }}>4. <strong>Reducing Developer Burnout:</strong> By offloading repetitive, simple tasks to low-code tools, development teams can focus on complex, high-value work that actually requires their expertise.</Typography>
+                                <Typography variant="body1" sx={{ mb: 2 }}>1. <strong>Speed to Market:</strong> When you need a functional MVP or internal tool yesterday, low-code platforms deliver. What might take weeks in traditional development can be prototype-ready in days.</Typography>
+                                <Typography variant="body1" sx={{ mb: 2 }}>2. <strong>Empowering Non-Technical Teams:</strong> Low-code puts power in the hands of people who understand the problem intimately—without waiting on developer bandwidth.</Typography>
+                                <Typography variant="body1" sx={{ mb: 2 }}>3. <strong>Cost-Effective for Simple Use Cases:</strong> For straightforward CRUD applications, low-code can be significantly cheaper than custom development.</Typography>
+                                <Typography variant="body1" sx={{ mb: 2 }}>4. <strong>Reducing Developer Burnout:</strong> By offloading repetitive, simple tasks to low-code tools, development teams can focus on complex, high-value work.</Typography>
                             </Box>
 
                             <Divider sx={{ mb: 4, borderColor: "divider" }} />
 
                             <Typography variant="h4" id="case-against" gutterBottom sx={{ fontSize: { xs: '24px', md: '32px' } }}>The Case AGAINST Low-Code: Why It's a Foe</Typography>
-                            <Typography variant="body1" sx={{ mb: 2, color: 'text.secondary' }}>
-                                Now for the uncomfortable truths that low-code vendors won't advertise on their landing pages:
-                            </Typography>
                             <Box sx={{ color: 'text.secondary', mb: 4 }}>
-                                <Typography variant="body1" sx={{ mb: 2 }}>1. <strong>The Illusion of Simplicity:</strong> Low-code is easy until it isn't. The moment you need custom logic, complex integrations, or performance optimization, you hit a wall. And that wall often requires a developer anyway—except now they're debugging a visual workflow instead of clean code.</Typography>
-                                <Typography variant="body1" sx={{ mb: 2 }}>2. <strong>Vendor Lock-In:</strong> Most low-code platforms are proprietary black boxes. You can't easily migrate your application elsewhere. If the vendor raises prices, changes terms, or goes out of business, you're stuck. Your entire application is held hostage.</Typography>
-                                <Typography variant="body1" sx={{ mb: 2 }}>3. <strong>Scalability Concerns:</strong> That app that works beautifully for 50 users? Watch it crumble at 5,000. Low-code platforms often struggle with performance at scale, and optimization options are limited compared to custom-built solutions.</Typography>
-                                <Typography variant="body1" sx={{ mb: 2 }}>4. <strong>Security and Compliance Risks:</strong> When non-technical users build applications, they rarely consider security best practices, data privacy regulations, or compliance requirements. We've seen low-code apps leak sensitive data simply because the builder didn't understand authentication properly.</Typography>
-                                <Typography variant="body1" sx={{ mb: 2 }}>5. <strong>Technical Debt in Disguise:</strong> Low-code creates a different kind of technical debt. Instead of messy code, you get messy visual workflows that become impossible to understand, document, or hand off. Try onboarding a new team member to a spaghetti flowchart built by someone who left the company.</Typography>
+                                <Typography variant="body1" sx={{ mb: 2 }}>1. <strong>The Illusion of Simplicity:</strong> Low-code is easy until it isn't. The moment you need custom logic, you hit a wall.</Typography>
+                                <Typography variant="body1" sx={{ mb: 2 }}>2. <strong>Vendor Lock-In:</strong> Most platforms are proprietary black boxes. You can't easily migrate your application elsewhere.</Typography>
+                                <Typography variant="body1" sx={{ mb: 2 }}>3. <strong>Scalability Concerns:</strong> Low-code platforms often struggle with performance at scale.</Typography>
+                                <Typography variant="body1" sx={{ mb: 2 }}>4. <strong>Security and Compliance Risks:</strong> When non-technical users build applications, they rarely consider security best practices.</Typography>
+                                <Typography variant="body1" sx={{ mb: 2 }}>5. <strong>Technical Debt in Disguise:</strong> Low-code creates a different kind of technical debt—messy visual workflows.</Typography>
                             </Box>
 
                             <Divider sx={{ mb: 4, borderColor: "divider" }} />
 
                             <Typography variant="h4" id="hybrid-approach" gutterBottom sx={{ fontSize: { xs: '24px', md: '32px' } }}>Our Hybrid Approach</Typography>
                             <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary', lineHeight: 1.8 }}>
-                                At Lumunate, we don't see this as an either/or situation. We've successfully used low-code platforms for client admin panels and internal dashboards while building the core application logic in custom code.
-                                <br /><br />
-                                Low-code platforms aren't the enemy—but they're not a silver bullet either. They're a legitimate option in the developer's toolkit that deserves neither blind enthusiasm nor blanket dismissal.
-                                <br /><br />
-                                The real danger isn't the platforms themselves—it's the misconception that building software is now easy. Software is still complex. Good software still requires expertise. Low-code just changes where that expertise is applied.
-                                <br /><br />
-                                So before you dive into that shiny new low-code platform, ask yourself: Am I choosing this because it's the right tool for the job, or because I'm trying to avoid the hard work of building something properly? The answer to that question will determine whether low-code becomes your friend or your foe.
+                                At Lumunate, we don't see this as an either/or situation. We've successfully used low-code platforms for client admin panels while building the core application logic in custom code.
                             </Typography>
 
                             <Divider sx={{ mb: 4, borderColor: "divider" }} />
@@ -195,41 +183,17 @@ const BlogDetailContent = () => {
                     </Grid>
 
                     {/* Sidebar Section */}
-                    <Grid
-                        size={{ xs: 12, lg: 5 }}
-                        sx={{
-                            order: { xs: 2, lg: 3 },
-                            position: 'relative',
-                            display: 'flex',
-                            flexDirection: 'column'
-                        }}
-                    >
+                    <Grid size={{ xs: 12, lg: 5 }} sx={{ order: { xs: 2, lg: 3 }, position: 'relative', display: 'flex', flexDirection: 'column' }}>
                         <Box
                             ref={sidebarRef}
                             sx={{
                                 width: { lg: (isFixed || isPinnedBottom) ? `${sidebarWidth}px` : '100%' },
-                                ...(isFixed && {
-                                    position: 'fixed',
-                                    top: { lg: "70px", xl: "0px" }, // 1024-1440 gets 50px, 1440+ gets 0px
-                                    zIndex: 10,
-                                }),
-                                ...(isPinnedBottom && {
-                                    position: 'absolute',
-                                    bottom: 0,
-                                    top: 'auto',
-                                    left: 0,
-                                })
+                                ...(isFixed && { position: 'fixed', top: { lg: "70px", xl: "0px" }, zIndex: 10 }),
+                                ...(isPinnedBottom && { position: 'absolute', bottom: 0, top: 'auto', left: 0 })
                             }}
                         >
                             <S.StickySidebar sx={{ p: 0, borderTop: 0 }}>
-                                <Divider
-                                    sx={{
-                                        borderColor: "divider",
-                                        // Full width on mobile, reset on md+
-                                        mx: { xs: "-30px", sm: "-32px", md: 0 },
-                                        width: { xs: "calc(100% + 120px)", sm: "calc(100% + 64px)", md: "100%" }
-                                    }}
-                                />
+                                <Divider sx={{ borderColor: "divider", mx: { xs: "-30px", sm: "-32px", md: 0 }, width: { xs: "calc(100% + 120px)", sm: "calc(100% + 64px)", md: "100%" } }} />
                                 <Box sx={{ px: { xs: 0, md: "40px" }, py: { xs: 3, md: "40px" } }}>
                                     <Stack direction="row" spacing={1.5} justifyContent="space-between" sx={{ color: "text.secondary" }}>
                                         {[
@@ -237,16 +201,7 @@ const BlogDetailContent = () => {
                                             { icon: <VisibilityOutlinedIcon sx={{ fontSize: { xs: "14px", lg: "18px" } }} />, label: "50k" },
                                             { icon: <SendOutlinedIcon sx={{ fontSize: { xs: "14px", lg: "18px" } }} />, label: "208" }
                                         ].map((item, i) => (
-                                            <Stack key={i} direction="row" spacing={"4px"} alignItems="center"
-                                                sx={{
-                                                    bgcolor: "background.paper",
-                                                    px: { xs: 1.5, xl: 3 },
-                                                    py: "10px",
-                                                    borderRadius: "100px",
-                                                    border: "1px solid #333",
-                                                    flex: 1,
-                                                    justifyContent: 'center'
-                                                }} >
+                                            <Stack key={i} direction="row" spacing={"4px"} alignItems="center" sx={{ bgcolor: "background.paper", px: { xs: 1.5, xl: 3 }, py: "10px", borderRadius: "100px", border: "1px solid #333", flex: 1, justifyContent: 'center' }} >
                                                 {item.icon}
                                                 <Typography variant="body1" sx={{ fontWeight: 500, fontSize: { xs: "14px", md: "18px" } }}>{item.label}</Typography>
                                             </Stack>
@@ -254,14 +209,7 @@ const BlogDetailContent = () => {
                                     </Stack>
                                 </Box>
 
-                                <Divider
-                                    sx={{
-                                        borderColor: "divider",
-                                        // Full width on mobile, reset on md+
-                                        mx: { xs: "-30px", sm: "-32px", md: 0 },
-                                        width: { xs: "calc(100% + 120px)", sm: "calc(100% + 64px)", md: "100%" }
-                                    }}
-                                />
+                                <Divider sx={{ borderColor: "divider", mx: { xs: "-30px", sm: "-32px", md: 0 }, width: { xs: "calc(100% + 120px)", sm: "calc(100% + 64px)", md: "100%" } }} />
 
                                 <Box sx={{ py: 4, px: { xs: 0, md: 5, lg: 5 } }}>
                                     <Grid container spacing={3} sx={{ mb: 5 }}>
@@ -279,52 +227,39 @@ const BlogDetailContent = () => {
                                         </Grid>
                                     </Grid>
 
-                                    <Typography variant="body1" sx={{ mb: 2, letterSpacing: "-3%", color: "text.secondary", fontSize: { xs: "14px", lg: "18px" } }}>
-                                        Table of Contents
-                                    </Typography>
+                                    <Typography variant="body1" sx={{ mb: 2, letterSpacing: "-3%", color: "text.secondary", fontSize: { xs: "14px", lg: "18px" } }}>Table of Contents</Typography>
 
-                                    <S.TOCContainer sx={{ p: "16px 20px 20px 20px", mb: { xs: 4, lg: 0 } }} >
+                                    <S.TOCContainer
+                                        ref={tocContainerRef}
+                                        sx={{
+                                            p: "16px 20px 20px 20px",
+                                            mb: { xs: 4, lg: 0 },
+                                            maxHeight: { lg: "160px", xl: "none" },
+                                            overflowY: { lg: "auto", xl: "visible" },
+                                            '&::-webkit-scrollbar': { width: '4px' },
+                                            '&::-webkit-scrollbar-thumb': { backgroundColor: '#444', borderRadius: '10px' }
+                                        }} >
                                         <Box component="ul" sx={{ p: 0, m: 0, listStyle: 'none' }}>
-                                            {tableOfContents.map((item, index) => {
-                                                const isVisibleOnSmallDesktop = visibleIndices.includes(index);
-
-                                                return (
-                                                    <Box
-                                                        component="li"
-                                                        key={index}
+                                            {tableOfContents.map((item, index) => (
+                                                <Box component="li" key={index} data-toc-id={item.id} sx={{ mb: { xs: "12px", lg: 2 }, display: 'block' }}>
+                                                    <Typography
+                                                        variant="body1"
+                                                        onClick={() => scrollToSection(item.id)}
                                                         sx={{
-                                                            mb: { xs: "12px", lg: 2 },
-                                                            display: {
-                                                                // Logic: Show only the 2 items in our "sliding window" between 1024-1300px
-                                                                xs: 'block', // Or whatever mobile behavior you prefer
-                                                                lg: isVisibleOnSmallDesktop ? 'block' : 'none',
-                                                                xl: 'block' // Show all at 1440px+
-                                                            },
-                                                            // Custom breakpoint override
-                                                            '@media (min-width: 1301px) and (max-width: 1439px)': {
-                                                                display: 'block'
-                                                            }
+                                                            color: activeId === item.id ? "button.discoverBg" : "text.primary",
+                                                            fontSize: { xs: "14px", md: "16px", lg: "18px" },
+                                                            fontWeight: activeId === item.id ? 600 : 400,
+                                                            cursor: 'pointer',
+                                                            display: 'flex',
+                                                            gap: { xs: 1, lg: 2 },
+                                                            transition: 'all 0.2s ease',
+                                                            '&:hover': { color: 'button.discoverBg' }
                                                         }}
                                                     >
-                                                        <Typography
-                                                            variant="body1"
-                                                            onClick={() => scrollToSection(item.id)}
-                                                            sx={{
-                                                                color: activeId === item.id ? "button.discoverBg" : "text.primary",
-                                                                fontSize: { xs: "14px", md: "16px", lg: "18px" },
-                                                                fontWeight: activeId === item.id ? 600 : 400,
-                                                                cursor: 'pointer',
-                                                                display: 'flex',
-                                                                gap: { xs: 1, lg: 2 },
-                                                                transition: 'all 0.2s ease',
-                                                                '&:hover': { color: 'button.discoverBg' }
-                                                            }}
-                                                        >
-                                                            <span style={{ opacity: 0.5 }}>•</span> {item.title}
-                                                        </Typography>
-                                                    </Box>
-                                                );
-                                            })}
+                                                        <span style={{ opacity: 0.5 }}>•</span> {item.title}
+                                                    </Typography>
+                                                </Box>
+                                            ))}
                                         </Box>
                                     </S.TOCContainer>
                                 </Box>
