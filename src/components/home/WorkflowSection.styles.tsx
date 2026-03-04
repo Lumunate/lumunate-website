@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, styled } from "@mui/material";
+import { Box, styled, alpha } from "@mui/material";
 
 export const WorkflowSectionRoot = styled(Box)(({ theme }) => ({
     width: "100%",
@@ -25,7 +25,7 @@ export const WorkflowSectionRoot = styled(Box)(({ theme }) => ({
 export const NavBarContainer = styled(Box)(({ theme }) => ({
     width: "100%",
     display: "flex",
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.navbar.cardsNavBg,
     borderTop: `1px solid ${theme.palette.divider}`,
     borderBottom: `1px solid ${theme.palette.divider}`,
     overflowX: "auto",
@@ -47,17 +47,32 @@ export const NavItem = styled(Box)(({ theme }) => ({
     position: "relative",
     borderLeft: `1px solid ${theme.palette.divider}`,
 
-    "&.active": {
-        opacity: 1,
-        color: theme.palette.text.primary,
-        fontWeight: 600,
-        backgroundColor: theme.palette.background.default,
+    "&:last-of-type": {
+        borderRight: `1px solid ${theme.palette.divider}`,
+    },
 
+    "&.active": {
+        color: theme.palette.text.primary,
+        opacity: 1,
+        fontWeight: 600,
+
+        background: `linear-gradient(180deg, 
+            ${alpha(theme.palette.common.white, 0.09)} 0%, 
+            ${theme.palette.navbar.cardsNavActive} 100%)`,
+
+        backgroundColor: theme.palette.navbar.cardsNavActive,
+
+        // Inset shadow 
+        boxShadow: `inset 0px 1px 1px ${alpha(theme.palette.common.white, 0.1)}`,
+    },
+
+    "&:hover": {
+        opacity: 1,
+        backgroundColor: alpha(theme.palette.navbar.cardsNavActive, 0.5),
     },
 
     [theme.breakpoints.down("md")]: {
-        minWidth: "150px",
-        textAlign: "center",
         padding: "16px 20px",
+        fontSize: "14px",
     },
 }));

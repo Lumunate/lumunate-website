@@ -40,8 +40,10 @@ export const BlogNavItem = styled(Box)(({ theme }) => ({
         fontWeight: 600,
 
         background: `linear-gradient(180deg, 
-      ${alpha(theme.palette.common.white, 0.10)} 0%, 
-      ${alpha(theme.palette.common.white, 0.05)} 100%)`,
+            ${alpha(theme.palette.common.white, 0.09)} 0%, 
+            ${theme.palette.navbar.cardsNavActive} 100%)`,
+
+        backgroundColor: theme.palette.navbar.cardsNavActive,
 
         boxShadow: `inset 0px 1px 1px ${alpha(theme.palette.navbar.border, 0.3)}`,
     },
