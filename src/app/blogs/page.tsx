@@ -12,7 +12,7 @@ const blogsPage = () => {
             <Hero
                 title="The Commit Log"
                 subtitle=""
-                videoSrc="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1771915300/Development_1_uqht1w.webm"
+                videoSrc="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1772643969/3130284-hd_1920_1080_30fps_c1vxbo.webm"
                 description="Fresh perspectives on tech, innovation, and the digital stories worth telling."
                 descFontSize="16px"
             />
