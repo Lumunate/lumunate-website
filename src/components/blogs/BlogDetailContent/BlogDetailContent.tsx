@@ -232,7 +232,7 @@ const BlogDetailContent = () => {
                                     <S.TOCContainer
                                         ref={tocContainerRef}
                                         sx={{
-                                            p: "16px 20px 20px 20px",
+                                            p: { xs: "16px 20px 20px 20px", lg: "12px 16px", xl: "16px 20px 20px 20px" },
                                             mb: { xs: 4, lg: 0 },
                                             maxHeight: { lg: "160px", xl: "none" },
                                             overflowY: { lg: "auto", xl: "visible" },
