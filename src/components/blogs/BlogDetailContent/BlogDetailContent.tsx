@@ -247,11 +247,11 @@ const BlogDetailContent = () => {
                                                         onClick={() => scrollToSection(item.id)}
                                                         sx={{
                                                             color: activeId === item.id ? "button.discoverBg" : "text.primary",
-                                                            fontSize: { xs: "14px", md: "16px", lg: "18px" },
+                                                            fontSize: { xs: "14px", md: "16px", lg: "14px", xl: "18px" },
                                                             fontWeight: activeId === item.id ? 600 : 400,
                                                             cursor: 'pointer',
                                                             display: 'flex',
-                                                            gap: { xs: 1, lg: 2 },
+                                                            gap: { xs: 1, lg: 1, xl: 2 },
                                                             transition: 'all 0.2s ease',
                                                             '&:hover': { color: 'button.discoverBg' }
                                                         }}
