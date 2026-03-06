@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Logo from "./logo";
 import { useEffect, useRef, useState, useMemo } from "react";
-import gsap from "gsap";
 import {
     AppBar,
     Button,
@@ -110,6 +109,11 @@ export default function Navbar() {
     const isServicesPath = pathname.startsWith("/services");
     const isProjectsPath = pathname.startsWith("/projects");
 
+    const getActiveColor = (active: boolean) => {
+        if (!active) return theme.palette.navbar.itemText;
+        return theme.palette.mode === 'light' ? theme.palette.section.heading : theme.palette.navbar.itemTextHover;
+    };
+
     const navButtonSx = useMemo(() => ({
         fontWeight: 400,
         fontSize: "16px",
@@ -121,7 +125,7 @@ export default function Navbar() {
         minWidth: "fit-content",
         transition: "color 0.3s ease",
         "&:hover": {
-            color: theme.palette.common.white,
+            color: theme.palette.mode === 'light' ? theme.palette.section.heading : theme.palette.navbar.itemTextHover,
             backgroundColor: "transparent",
         },
     }), [theme]);
@@ -185,10 +189,17 @@ export default function Navbar() {
                             <VerticalDivider />
 
                             {/* Home */}
-                            <Button LinkComponent={Link} href="/" sx={{
-                                ...navButtonSx,
-                                color: isActive("/") ? theme.palette.common.white : theme.palette.navbar.itemText
-                            }}>Home</Button>
+                            <Button
+                                LinkComponent={Link}
+                                href="/"
+                                sx={{
+                                    ...navButtonSx,
+                                    color: getActiveColor(isActive("/")),
+                                    fontWeight: isActive("/") ? 600 : 400,
+                                }}
+                            >
+                                Home
+                            </Button>
 
                             {/* Services Dropdown */}
                             <Button
@@ -197,23 +208,34 @@ export default function Navbar() {
                                 endIcon={isServicesOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                                 sx={{
                                     ...navButtonSx,
-                                    color: (isServicesOpen || isServicesPath) ? theme.palette.common.white : theme.palette.navbar.itemText
+                                    color: getActiveColor(isServicesOpen || isServicesPath),
+                                    fontWeight: (isServicesOpen || isServicesPath) ? 600 : 400,
                                 }}
                             >
                                 Services
                             </Button>
 
-                            {/* Remaining Nav Links (About, Blogs, Contact) */}
-                            {navLinks.slice(1).map((link) => (
-                                <Button key={link.label} LinkComponent={Link} href={link.href} color="inherit"
-                                    sx={{
-                                        ...navButtonSx,
-                                        color: isActive(link.href) ? theme.palette.common.white : theme.palette.navbar.itemText
-                                    }}
-                                >
-                                    {link.label}
-                                </Button>
-                            ))}
+                            {/* Remaining Nav Links (About, Careers, Blogs, Contact) */}
+                            {navLinks.slice(1).map((link) => {
+                                const active = isActive(link.href);
+                                return (
+                                    <Button
+                                        key={link.label}
+                                        LinkComponent={Link}
+                                        href={link.href}
+                                        color="inherit"
+                                        sx={{
+                                            ...navButtonSx,
+                                            color: active
+                                                ? (theme.palette.mode === 'light' ? theme.palette.section.heading : theme.palette.navbar.itemTextHover)
+                                                : theme.palette.navbar.itemText,
+                                            fontWeight: active ? 600 : 400,
+                                        }}
+                                    >
+                                        {link.label}
+                                    </Button>
+                                );
+                            })}
 
                             {/* Case Studies Dropdown */}
                             <Button
@@ -222,12 +244,12 @@ export default function Navbar() {
                                 endIcon={isProjectsOpen ? <KeyboardArrowUpIcon fontSize="small" /> : <KeyboardArrowDownIcon fontSize="small" />}
                                 sx={{
                                     ...navButtonSx,
-                                    color: (isProjectsOpen || isProjectsPath) ? theme.palette.common.white : theme.palette.navbar.itemText
+                                    color: getActiveColor(isProjectsOpen || isProjectsPath),
+                                    fontWeight: (isProjectsOpen || isProjectsPath) ? 600 : 400,
                                 }}
                             >
                                 Case Studies
                             </Button>
-
                             <VerticalDivider ref={caseStudiesRightDividerRef} />
 
                             {/* Services Menu */}
@@ -286,15 +308,10 @@ export default function Navbar() {
                                                             fontFamily: "Montserrat, sans-serif",
                                                             fontSize: theme.typography.body2.fontSize,
                                                             color: theme.palette.section.desc,
-
-                                                            borderBottom:
-                                                                idx !== colItems.length - 1
-                                                                    ? `1px solid ${theme.palette.navbar.border}`
-                                                                    : "none",
-
+                                                            borderBottom: idx !== colItems.length - 1 ? `1px solid ${theme.palette.navbar.border}` : "none",
                                                             "&:hover": {
-                                                                color: theme.palette.section.heading,
-                                                                bgcolor: "transparent",
+                                                                color: theme.palette.mode === 'light' ? theme.palette.section.heading : theme.palette.section.heading,
+                                                                bgcolor: theme.palette.navbar.itemHoverBg,
                                                             },
                                                         }}
                                                     >
@@ -394,15 +411,19 @@ export default function Navbar() {
                         )}
                         {!isMobile && (
                             <>
-                                {/* <VerticalDivider sx={{ display: { xs: 'none', xl: 'block' } }} /> */}
                                 <Box sx={{ pl: "32px" }}>
                                     <Button
                                         href="https://calendly.com/saad-b-javaid22/consultation"
                                         target="_blank"
                                         sx={{
-                                            ...navButtonSx, px: "24px", borderRadius: 0,
+                                            ...navButtonSx,
+                                            px: "24px",
+                                            borderRadius: 0,
                                             color: theme.palette.navbar.itemText,
-                                            "&:hover": { color: theme.palette.common.white }
+                                            "&:hover": {
+                                                color: theme.palette.mode === 'light' ? theme.palette.section.heading : theme.palette.navbar.itemTextHover,
+                                                backgroundColor: "transparent",
+                                            }
                                         }}
                                     >
                                         Get Started
@@ -438,14 +459,23 @@ export default function Navbar() {
                     <List sx={{ px: 2, py: 0, flexGrow: 1, bgcolor: theme.palette.navbar.bg }}>
                         {/* Mobile Nav Links */}
                         <ListItem disablePadding>
-                            <ListItemButton component={Link} href="/" onClick={toggleDrawer(false)}
-                                sx={{ px: "24px", }}>
-                                <ListItemText primary="Home" primaryTypographyProps={{
-                                    sx: {
-                                        fontFamily: "Montserrat", fontSize: "16px", color: isActive("/") ? theme.palette.common.white : theme.palette.navbar.mobileItem,
-                                        fontWeight: isActive("/") ? 600 : 400
-                                    }
-                                }} />
+                            <ListItemButton
+                                component={Link}
+                                href="/"
+                                onClick={toggleDrawer(false)}
+                                sx={{ px: "24px" }}
+                            >
+                                <ListItemText
+                                    primary="Home"
+                                    primaryTypographyProps={{
+                                        sx: {
+                                            fontFamily: "Montserrat",
+                                            fontSize: "16px",
+                                            color: getActiveColor(isActive("/")),
+                                            fontWeight: isActive("/") ? 600 : 400,
+                                        }
+                                    }}
+                                />
                             </ListItemButton>
                         </ListItem>
 
@@ -454,7 +484,14 @@ export default function Navbar() {
                             <ListItemButton onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
                                 sx={{ px: "24px", }}
                             >
-                                <ListItemText primary="Services" primaryTypographyProps={{ sx: { fontFamily: "Montserrat", fontSize: "16px", color: theme.palette.navbar.mobileItem } }} />
+                                <ListItemText primary="Services" primaryTypographyProps={{
+                                    sx: {
+                                        fontFamily: "Montserrat",
+                                        fontSize: "16px",
+                                        color: getActiveColor(mobileServicesOpen || isServicesPath),
+                                        fontWeight: (mobileServicesOpen || isServicesPath) ? 600 : 400
+                                    }
+                                }} />
                                 {mobileServicesOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                             </ListItemButton>
                         </ListItem>
@@ -477,27 +514,59 @@ export default function Navbar() {
                                     <ListItemText
                                         primary={s.name}
                                         primaryTypographyProps={{
-                                            sx: { fontSize: "14px", color: theme.palette.navbar.mobileItem }
+                                            sx: {
+                                                fontSize: "14px",
+                                                color: getActiveColor(isActive(s.href)),
+                                                fontWeight: isActive(s.href) ? 600 : 400
+                                            }
                                         }}
                                     />
                                 </ListItemButton>
                             </ListItem>
                         ))}
 
-                        {/* Other Mobile Links */}
-                        {navLinks.slice(1).map((link) => (
-                            <ListItem key={link.label} disablePadding>
-                                <ListItemButton component={Link} href={link.href} onClick={toggleDrawer(false)} sx={{ px: "24px" }}>
-                                    <ListItemText primary={link.label} primaryTypographyProps={{ sx: { fontFamily: "Montserrat", fontSize: "16px", color: theme.palette.navbar.mobileItem } }} />
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
+                        {/* Other Mobile Links (About, Careers, Blogs, Contact) */}
+                        {navLinks.slice(1).map((link) => {
+                            const active = isActive(link.href);
+                            return (
+                                <ListItem key={link.label} disablePadding>
+                                    <ListItemButton
+                                        component={Link}
+                                        href={link.href}
+                                        onClick={toggleDrawer(false)}
+                                        sx={{ px: "24px" }}
+                                    >
+                                        <ListItemText
+                                            primary={link.label}
+                                            primaryTypographyProps={{
+                                                sx: {
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: "16px",
+                                                    color: getActiveColor(active),
+                                                    fontWeight: active ? 600 : 400
+                                                }
+                                            }}
+                                        />
+                                    </ListItemButton>
+                                </ListItem>
+                            );
+                        })}
 
                         {/* Mobile Case Studies Accordion */}
                         <ListItem disablePadding>
                             <ListItemButton onClick={() => setMobileProjectsOpen(!mobileProjectsOpen)}
-                                sx={{ px: "24px", }}>
-                                <ListItemText primary="Case Studies" primaryTypographyProps={{ sx: { fontFamily: "Montserrat", fontSize: "16px", color: theme.palette.navbar.mobileItem } }} />
+                                sx={{ px: "24px" }}>
+                                <ListItemText
+                                    primary="Case Studies"
+                                    primaryTypographyProps={{
+                                        sx: {
+                                            fontFamily: "Montserrat",
+                                            fontSize: "16px",
+                                            color: getActiveColor(mobileProjectsOpen || isProjectsPath),
+                                            fontWeight: (mobileProjectsOpen || isProjectsPath) ? 600 : 400
+                                        }
+                                    }}
+                                />
                                 {mobileProjectsOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                             </ListItemButton>
                         </ListItem>
@@ -519,12 +588,17 @@ export default function Navbar() {
                                     <ListItemText
                                         primary={proj.name}
                                         primaryTypographyProps={{
-                                            sx: { fontSize: "14px", color: theme.palette.navbar.mobileItem }
+                                            sx: {
+                                                fontSize: "14px",
+                                                color: getActiveColor(isActive(proj.href)),
+                                                fontWeight: isActive(proj.href) ? 600 : 400
+                                            }
                                         }}
                                     />
                                 </ListItemButton>
                             </ListItem>
                         ))}
+
                         <Box>
                             <Button
                                 href="https://calendly.com/saad-b-javaid22/consultation"
@@ -532,7 +606,9 @@ export default function Navbar() {
                                 endIcon={<ArrowOutwardIcon sx={{ fontSize: "20px !important" }} />}
                                 sx={{
                                     ...navButtonSx,
-                                    color: theme.palette.common.white,
+                                    color: theme.palette.mode === 'dark'
+                                        ? theme.palette.common.white
+                                        : theme.palette.navbar.itemText,
                                     px: "24px",
                                     borderRadius: 0,
                                     display: "flex",
@@ -540,13 +616,21 @@ export default function Navbar() {
                                     alignItems: "center",
                                     width: "100%",
                                     "&:hover": {
-                                        color: theme.palette.navbar.itemTextHover,
+                                        color: theme.palette.mode === 'light'
+                                            ? theme.palette.section.heading
+                                            : theme.palette.navbar.itemTextHover,
+                                        backgroundColor: "transparent",
                                         "& .MuiButton-endIcon": {
-                                            color: theme.palette.navbar.itemTextHover
+                                            color: theme.palette.mode === 'light'
+                                                ? theme.palette.section.heading
+                                                : theme.palette.navbar.itemTextHover,
                                         }
                                     },
                                     "& .MuiButton-endIcon": {
                                         marginLeft: "auto",
+                                        color: theme.palette.mode === 'dark'
+                                            ? theme.palette.common.white
+                                            : theme.palette.navbar.itemText,
                                     }
                                 }}
                             >

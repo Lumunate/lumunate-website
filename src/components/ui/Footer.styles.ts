@@ -55,7 +55,9 @@ export const FooterNavItem = styled(Link)(({ theme }) => ({
     justifyContent: "center",
     position: "relative",
     fontSize: "14px",
-    color: theme.palette.section.muted,
+    color: theme.palette.mode === 'light'
+        ? theme.palette.section.desc
+        : theme.palette.section.muted,
     textDecoration: "none",
     zIndex: 2,
     transition: theme.transitions.create("color", {
@@ -80,6 +82,15 @@ export const IconWrapper = styled(IconButton)<any>(({ theme }) => ({
     position: "relative",
     zIndex: 2,
     borderLeft: `1px solid ${theme.palette.divider}`,
+
+    // Target the image inside the wrapper
+    "& img": {
+        // In Light Mode, apply a filter to make white icons appear dark/black
+        filter: theme.palette.mode === 'light'
+            ? "brightness(0) saturate(100%) invert(30%)" // Adjust hex/color via filter
+            : "none",
+        transition: "filter 0.3s ease",
+    },
 
     "&::before": {
         content: '""',
@@ -106,6 +117,7 @@ export const IconWrapper = styled(IconButton)<any>(({ theme }) => ({
         },
     }
 }));
+
 export const FooterSpacer = styled(Box)<{ size?: "small" }>(({ theme, size }) => ({
     width: size === "small" ? SMALL_SPACER_WIDTH : NAV_SPACER_WIDTH,
     height: "100%",
@@ -122,7 +134,9 @@ export const FooterBottom = styled(Box)(({ theme }) => ({
 
 export const FooterText = styled("span")(({ theme }) => ({
     fontSize: "16px",
-    color: theme.palette.text.secondary,
+    color: theme.palette.mode === 'light'
+        ? theme.palette.section.desc
+        : theme.palette.text.secondary,
     letterSpacing: "0.5px",
     [theme.breakpoints.down("sm")]: {
         fontSize: "13px",

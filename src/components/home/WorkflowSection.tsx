@@ -245,9 +245,9 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
             }}
           >
             {workflowSections.map((section, i) => (
-              <div
+              <Box
                 key={section.title}
-                ref={(el) => { cardsRef.current[i] = el; }}
+                ref={(el: HTMLDivElement) => { cardsRef.current[i] = el; }}
                 style={{
                   position: "absolute",
                   inset: 0,
@@ -257,7 +257,7 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
                 }}
               >
                 <WorkflowCard activeSection={section} />
-              </div>
+              </Box>
             ))}
           </Box>
         </Box>

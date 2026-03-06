@@ -22,7 +22,9 @@ export const RoleTag = styled(Chip)(({ theme }) => ({
     height: "auto",
     padding: "10px",
     backgroundColor: theme.palette.button.discoverBg,
-    color: theme.palette.section.heading,
+    color: theme.palette.mode === 'light'
+        ? '#FFFFFF'
+        : theme.palette.section.heading,
     borderRadius: "20px",
     marginBottom: "24px",
     "& .MuiChip-label": {
@@ -58,7 +60,9 @@ export const MainFeaturedCard = styled(Box)(({ theme }) => ({
 // The Right Side Row Boxes
 export const SmallBlogBox = styled(Box)(({ theme }) => ({
     position: "relative",
-    backgroundColor: theme.palette.section.cardBg,
+    backgroundColor: theme.palette.mode === 'light'
+        ? theme.palette.section.muted
+        : theme.palette.section.cardBg,
     display: "flex",
     alignItems: "center",
     minHeight: "220px",

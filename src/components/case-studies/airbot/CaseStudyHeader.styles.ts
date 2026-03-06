@@ -100,6 +100,9 @@ export const HeaderLeft = styled(Box)(({ theme }) => ({
 }));
 
 export const Title = styled(Typography)(({ theme }) => ({
+    color: theme.palette.mode === 'light'
+        ? theme.palette.section.faqColor
+        : theme.palette.text.primary,
     fontSize: "clamp(40px, 6vw, 90px)",
     fontWeight: 400,
     lineHeight: 1.1,
@@ -115,7 +118,9 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
     fontSize: "33px",
     fontWeight: 400,
     lineHeight: 1.3,
-    color: theme.palette.text.primary,
+    color: theme.palette.mode === 'light'
+        ? theme.palette.section.faqColor
+        : theme.palette.text.primary,
     marginTop: "21px",
     [theme.breakpoints.down("lg")]: {
         fontSize: theme.typography.body1.fontSize,

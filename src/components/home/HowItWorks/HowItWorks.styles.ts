@@ -102,7 +102,9 @@ export const FaqSummary = styled(AccordionSummary)(({ theme }) => ({
 }));
 
 export const QuestionText = styled(Typography)(({ theme }) => ({
-    color: theme.palette.text.secondary,
+    color: theme.palette.mode === 'light'
+        ? theme.palette.section.faqColor
+        : theme.palette.text.secondary,
     fontFamily: "Montserrat",
     fontSize: 22,
     fontStyle: "normal",
@@ -114,7 +116,9 @@ export const QuestionText = styled(Typography)(({ theme }) => ({
 }));
 
 export const AnswerText = styled(Typography)(({ theme }) => ({
-    color: theme.palette.text.secondary,
+    color: theme.palette.mode === 'light'
+        ? theme.palette.section.faqColor
+        : theme.palette.text.secondary,
     fontFamily: "Montserrat",
     fontSize: 16,
     fontWeight: 400,
@@ -141,7 +145,9 @@ export const BottomRow = styled(Box)(({ theme }) => ({
 }));
 
 export const BottomText = styled(Typography)(({ theme }) => ({
-    color: theme.palette.text.secondary,
+    color: theme.palette.mode === 'light'
+        ? theme.palette.section.desc
+        : theme.palette.text.secondary,
     textAlign: "center",
     fontFamily: "Montserrat",
     fontSize: 16,

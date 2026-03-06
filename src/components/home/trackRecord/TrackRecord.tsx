@@ -89,7 +89,7 @@ const TrackRecord: React.FC = () => {
                 {item.prefix || ""}0{item.suffix || ""}
               </NumberText>
 
-              <DescriptionText sx={{ color: "text.primary" }} variant="h5">
+              <DescriptionText  variant="h5">
                 {item.title}
               </DescriptionText>
             </StatusCard>

@@ -39,7 +39,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased ${montserrat.className}`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased ${montserrat.className}`} suppressHydrationWarning>
         {/* Wrapped the client logic here */}
         <LayoutClient>{children}</LayoutClient>
       </body>

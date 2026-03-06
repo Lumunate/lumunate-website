@@ -28,10 +28,22 @@ const FeaturedBlogs = () => {
                     "&:hover": { opacity: 0.8 }
                 }}
             >
-                <Typography sx={{ fontSize: fontSize, fontWeight: 500, color: "#fff" }}>
+                <Typography sx={{ fontSize: fontSize, fontWeight: 500, color: 'text.primary' }}>
                     Read Now
                 </Typography>
-                <Box sx={{ width: 16, height: 16, position: "relative" }}>
+                <Box
+                    sx={{
+                        width: 16,
+                        height: 16,
+                        position: "relative",
+
+                        "& img": {
+                            filter: (theme) => theme.palette.mode === 'light'
+                                ? "brightness(0) saturate(100%) invert(39%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(90%)"
+                                : "none",
+                        }
+                    }}
+                >
                     <Image
                         src="/blogs/arrow-up-right.svg"
                         alt="arrow"

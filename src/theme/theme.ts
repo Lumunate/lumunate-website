@@ -3,7 +3,6 @@
 import { createTheme } from "@mui/material/styles";
 import type { PaletteMode } from "@mui/material";
 
-
 declare module "@mui/material/styles" {
   interface Palette {
     navbar: {
@@ -27,6 +26,8 @@ declare module "@mui/material/styles" {
       cardBg: string;
       calenderBg: string;
       careersdots: string;
+      lightThemeTitle: string;
+      faqColor: string;
     };
     button: {
       discoverBg: string;
@@ -38,11 +39,13 @@ declare module "@mui/material/styles" {
     section?: Partial<Palette["section"]>;
     button?: {
       discoverBg?: string;
+      CancelBg?: string;
     };
   }
 }
 
-export const TOKENS = {
+// Original Colors for DARK Theme...
+export const DARK_TOKENS = {
   navbar: {
     bg: "#101010",
     border: "#343434",
@@ -75,6 +78,43 @@ export const TOKENS = {
   },
 };
 
+// Light Mode Colors...
+export const LIGHT_TOKENS = {
+  navbar: {
+    bg: "#FFFFFF",
+    border: "#AAAAAA",
+    itemText: "#363636",
+    itemTextHover: "#000000",
+    itemHoverBg: "rgba(0,0,0,0.05)",
+    mobileItem: "#6C757D",
+    cardsNavBg: "#FFFFFF",
+    cardsNavActive: "#F1F3F5",
+  },
+  section: {
+    heading: "#015B3F",
+    desc: "#4A4A4A",
+    caseStudyDesc: "#343A40",
+    caseStudyLabel: "#495057",
+    star: "#EECA00",
+    muted: "#868E96",
+    processNumber: "#087F5B",
+    cardBg: "#FFFFFF",
+    calenderBg: "#F8F9FA",
+    careersdots: "#ADB5BD",
+    lightThemeTitle: "#0A0A0A",
+    faqColor: "#343434",
+
+  },
+  bg: {
+    default: "#FFFFFF",
+    paper: "#F8F9FA",
+  },
+  button: {
+    discoverBg: "#00A270",
+    CancelBg: "#E9ECEF",
+  },
+};
+
 const breakpoints = {
   values: {
     xs: 0,
@@ -99,53 +139,53 @@ const typography = {
   caption: { fontSize: "12px", fontWeight: 400 },
 };
 
-const theme = createTheme({
-  palette: {
-    mode: "dark" as PaletteMode,
+// Function to generate the theme dynamically
+export const getAppTheme = (mode: PaletteMode) => {
+  const tokens = mode === "dark" ? DARK_TOKENS : LIGHT_TOKENS;
 
-    background: {
-      default: TOKENS.bg.default,
-      paper: TOKENS.bg.paper,
+  return createTheme({
+    palette: {
+      mode,
+      background: {
+        default: tokens.bg.default,
+        paper: tokens.bg.paper,
+      },
+      text: {
+        primary: tokens.section.heading,
+        secondary: tokens.section.desc,
+      },
+      divider: tokens.navbar.border,
+      navbar: tokens.navbar,
+      section: tokens.section,
+      button: tokens.button,
     },
-
-    text: {
-      primary: TOKENS.section.heading,
-      secondary: TOKENS.section.desc,
-    },
-
-    divider: TOKENS.navbar.border,
-
-    navbar: TOKENS.navbar,
-    section: TOKENS.section,
-    button: TOKENS.button,
-  },
-
-  breakpoints,
-  typography,
-
-  components: {
-    MuiPaper: {
-      styleOverrides: {
-        root: {
+    breakpoints,
+    typography,
+    components: {
+      MuiPaper: {
+        styleOverrides: {
+          root: {},
+        },
+      },
+      MuiMenu: {
+        styleOverrides: {
+          paper: {
+            borderRadius: 0,
+          },
+        },
+      },
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            borderRadius: 0,
+            textTransform: "none",
+          },
         },
       },
     },
-    MuiMenu: {
-      styleOverrides: {
-        paper: {
-          borderRadius: 0,
-        },
-      },
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: 0,
-          textTransform: "none",
-        },
-      },
-    },
-  },
-});
+  });
+};
 
-export default theme;
+// Default export (optional, useful for initial SSR)
+const defaultTheme = getAppTheme("dark");
+export default defaultTheme;
