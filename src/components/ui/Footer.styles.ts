@@ -132,14 +132,12 @@ export const FooterSpacer = styled(Box)<{ size?: "small" }>(({ theme, size }) =>
     backgroundColor: "transparent",
 }));
 
-export const FooterSpacer = styled(Box)<{ size?: "small" }>(
-    ({ theme, size }) => ({
-        width: size === "small" ? SMALL_SPACER_WIDTH : NAV_SPACER_WIDTH,
-        height: "100%",
-        borderLeft: `1px solid ${theme.palette.divider}`,
-        backgroundColor: "transparent",
-    })
-);
+export const FooterSpacer = styled(Box)<{ size?: "small" }>(({ theme, size }) => ({
+    width: size === "small" ? SMALL_SPACER_WIDTH : NAV_SPACER_WIDTH,
+    height: "100%",
+    borderLeft: `1px solid ${theme.palette.divider}`,
+    backgroundColor: "transparent",
+}));
 
 export const FooterBottom = styled(Box)({
     height: 56,
