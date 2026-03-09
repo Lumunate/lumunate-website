@@ -61,21 +61,35 @@ export default function BookCalenderPage() {
     });
 
     const onFormSubmit = async (data: BookingFormData) => {
-        const res = await fetch("/api/booking", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-        });
+        try {
+            const res = await fetch("/api/booking", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
 
-        if (!res.ok) {
-            setSnackbar({ open: true, message: "Something went wrong. Please try again.", type: "error" });
-            return;
+            const result = await res.json();
+
+            if (!res.ok) {
+                // Use the specific error message from the API if available
+                setSnackbar({
+                    open: true,
+                    message: result.message || "Something went wrong. Please try again.",
+                    type: "error"
+                });
+                return;
+            }
+
+            setIsSuccessModalOpen(true);
+            reset();
+        } catch (err) {
+            setSnackbar({
+                open: true,
+                message: "Network error. Please check your connection.",
+                type: "error"
+            });
         }
-
-        setIsSuccessModalOpen(true);
-        reset();
     };
-
     return (
         <PageContainer>
             <Box sx={{ width: "100%", position: "relative" }}>

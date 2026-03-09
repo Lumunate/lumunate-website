@@ -11,13 +11,38 @@ const schema = z.object({
 });
 
 export async function POST(req: NextRequest) {
-    const body = await req.json();
-    const parsed = schema.safeParse(body);
+    try {
+        // 1. Parse JSON body safely
+        const body = await req.json();
 
-    if (!parsed.success) {
-        return NextResponse.json({ error: "Invalid form data." }, { status: 400 });
+        // 2. Validate with Zod
+        const parsed = schema.safeParse(body);
+        if (!parsed.success) {
+            return NextResponse.json(
+                { message: "Invalid form data.", errors: parsed.error.format() },
+                { status: 400 }
+            );
+        }
+
+        // 3. Attempt to send email
+        // We wrap this in the try-catch to prevent the 500 HTML error page
+        await emailService.sendContactEmail(parsed.data);
+
+        return NextResponse.json({
+            success: true,
+            message: "Email sent successfully!"
+        }, { status: 200 });
+
+    } catch (error: any) {
+        console.error("Contact API Error:", error);
+
+        // 4. Return a JSON error instead of letting the server crash
+        return NextResponse.json(
+            {
+                message: "Failed to send message. Please try again later.",
+                details: error.message
+            },
+            { status: 500 }
+        );
     }
-
-    await emailService.sendContactEmail(parsed.data);
-    return NextResponse.json({ success: true });
 }

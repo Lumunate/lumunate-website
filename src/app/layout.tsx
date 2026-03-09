@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   description:
     "We specialize in web and mobile development, systems integration and digital marketing to help businesses thrive in today’s fast-paced digital world.",
   icons: {
-    icon: "/favicon.ico.svg",
+    icon: "/favicon.png",
   },
 };
 

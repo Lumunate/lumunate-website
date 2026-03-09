@@ -121,19 +121,48 @@ export default function ContactSection() {
     );
 
     const onSubmit = async (data: ContactFormData) => {
-        const res = await fetch("/api/contact", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-        });
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(data),
+            });
 
-        if (!res.ok) {
-            setSnackbar({ open: true, type: "error", message: "Something went wrong. Please try again." });
-            return;
+            // 1. Get the content type to check if it's JSON
+            const contentType = res.headers.get("content-type");
+            let result: any = {};
+
+            if (contentType && contentType.includes("application/json")) {
+                result = await res.json();
+            } else {
+                // 2. If it's not JSON (like an HTML error page), get the text for debugging
+                const textError = await res.text();
+                console.error("Non-JSON response received:", textError);
+                throw new Error(`Server returned ${res.status}: ${res.statusText}`);
+            }
+
+            if (!res.ok) {
+                // Use the message from the API if it exists
+                throw new Error(result.message || `Submission failed with status ${res.status}`);
+            }
+
+            setSnackbar({
+                open: true,
+                type: "success",
+                message: "Your form has been submitted successfully!"
+            });
+            reset(); // Clears the form
+        } catch (error: any) {
+            console.error("Form submission error:", error);
+            setSnackbar({
+                open: true,
+                type: "error",
+                message: error.message || "Something went wrong. Please try again."
+            });
         }
-
-        setSnackbar({ open: true, type: "success", message: "Your form has been submitted successfully!" });
-        reset();
     };
 
     const onError = () => {
