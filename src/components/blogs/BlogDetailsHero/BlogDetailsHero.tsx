@@ -23,13 +23,13 @@ const BlogDetailsHero = ({ imgSrc, title }: BlogDetailsHeroProps) => {
         >
             <Box sx={{ position: "absolute", inset: 0, zIndex: 0 }}>
                 <Image
+                    key={imgSrc}
                     src={imgSrc}
                     alt={title}
                     fill
                     priority
                     style={{ objectFit: "cover" }}
                 />
-
                 <Box
                     sx={{
                         position: "absolute",
@@ -52,31 +52,22 @@ const BlogDetailsHero = ({ imgSrc, title }: BlogDetailsHeroProps) => {
                     zIndex: 10,
                 }}
             >
-                <Box sx={{ width: "100%", ml: { xs: 0, md: "auto" }, mr: { xs: 0, md: "auto" } }}>
-                    <PageContainer>
-                        <Box
+                <PageContainer>
+                    <Box sx={{ width: "100%", textAlign: { xs: "left", md: "center" } }}>
+                        <Typography
                             sx={{
-                                width: "100%",
-                                textAlign: { xs: "left", md: "center" },
-                                display: "flex",
-                                justifyContent: { xs: "flex-start", md: "center" }
+                                fontSize: { xs: "36px", md: "54px", lg: "72px" },
+                                fontWeight: 400,
+                                color: theme.palette.common.white,
+                                lineHeight: 1.2,
+                                maxWidth: "1284px",
+                                mx: "auto",
                             }}
                         >
-                            <Typography
-                                sx={{
-                                    fontSize: { xs: "36px", md: "54px", lg: "72px" },
-                                    fontWeight: 400,
-                                    color: theme.palette.text.primary,
-                                    lineHeight: 1.2,
-                                    maxWidth: "1284px",
-                                    mx: { xs: 0, md: "auto" },
-                                }}
-                            >
-                                {title}
-                            </Typography>
-                        </Box>
-                    </PageContainer>
-                </Box>
+                            {title}
+                        </Typography>
+                    </Box>
+                </PageContainer>
             </Box>
 
             <Image
