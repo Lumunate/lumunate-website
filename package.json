@@ -25,6 +25,7 @@
     "react-calendly": "^4.4.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.64.0",
+    "resend": "^6.9.3",
     "sanity": "^4.22.0",
     "styled-components": "^6.3.11",
     "swiper": "^12.1.0",
