@@ -61,17 +61,19 @@ export default function BookCalenderPage() {
     });
 
     const onFormSubmit = async (data: BookingFormData) => {
-        try {
-            await new Promise((resolve) => setTimeout(resolve, 1500));
-            setIsSuccessModalOpen(true);
-            reset();
-        } catch (error) {
-            setSnackbar({
-                open: true,
-                message: "Something went wrong. Please try again.",
-                type: "error"
-            });
+        const res = await fetch("/api/booking", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        });
+
+        if (!res.ok) {
+            setSnackbar({ open: true, message: "Something went wrong. Please try again.", type: "error" });
+            return;
         }
+
+        setIsSuccessModalOpen(true);
+        reset();
     };
 
     return (

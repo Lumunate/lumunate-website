@@ -120,17 +120,19 @@ export default function ContactSection() {
         [theme]
     );
 
-    /* Success submit: show toast + reset */
     const onSubmit = async (data: ContactFormData) => {
-        // simulate frontend submit (replace with API call later if needed)
-        console.log("Form Submitted ✅:", data);
-
-        setSnackbar({
-            open: true,
-            type: "success",
-            message: "Your form has been submitted successfully!",
+        const res = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
         });
 
+        if (!res.ok) {
+            setSnackbar({ open: true, type: "error", message: "Something went wrong. Please try again." });
+            return;
+        }
+
+        setSnackbar({ open: true, type: "success", message: "Your form has been submitted successfully!" });
         reset();
     };
 
