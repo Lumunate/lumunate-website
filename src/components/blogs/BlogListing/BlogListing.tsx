@@ -7,12 +7,16 @@ import Image from "next/image";
 import PageContainer from "@/components/common/PageContainer";
 import * as S from "./BlogListing.styles";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
-import { CATEGORIES, BLOG_DATA } from "@/data/blogData";
+import { CATEGORIES } from "@/data/blogData";
 import Link from "next/link";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-const BlogListing = () => {
+interface BlogListingProps {
+    initialBlogs: any[];
+}
+
+const BlogListing = ({ initialBlogs = [] }: BlogListingProps) => {
     const [activeCategory, setActiveCategory] = useState(CATEGORIES[0]);
     const [currentPage, setCurrentPage] = useState(1);
     const navRef = useRef<HTMLDivElement>(null);
@@ -23,17 +27,17 @@ const BlogListing = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
     const isVerySmallMobile = useMediaQuery("(max-width:350px)");
 
-    // Defined itemsPerPage based on screen size
     const itemsPerPage = isMobile ? 3 : 6;
 
     useEffect(() => {
         setCurrentPage(1);
     }, [isMobile]);
 
+    // Filtering logic using the prop from Sanity
     const filteredBlogs = useMemo(() => {
-        if (activeCategory.tag === "all") return BLOG_DATA;
-        return BLOG_DATA.filter((blog) => blog.tag === activeCategory.tag);
-    }, [activeCategory]);
+        if (activeCategory.tag === "all") return initialBlogs;
+        return initialBlogs.filter((blog) => blog.tag === activeCategory.tag);
+    }, [activeCategory, initialBlogs]);
 
     const totalPages = Math.ceil(filteredBlogs.length / itemsPerPage);
 
@@ -110,11 +114,11 @@ const BlogListing = () => {
                 >
                     <Grid container spacing={4}>
                         {paginatedBlogs.map((blog, index) => (
-                            <Grid key={`${blog.tag}-${index}`} size={{ xs: 12, sm: 6, md: 6, xl: 4 }}>
+                            <Grid key={`${blog.slug}-${index}`} size={{ xs: 12, sm: 6, md: 6, xl: 4 }}>
                                 <S.BlogCard sx={{ padding: "16px" }}>
                                     <S.ImageWrapper sx={{ position: "relative", width: "100%", aspectRatio: "16/9", overflow: "hidden", borderRadius: "8px", mb: 2 }}>
                                         <Image
-                                            src={blog.image}
+                                            src={blog.image || '/fallback.jpg'} // Added fallback
                                             alt={blog.title}
                                             fill
                                             priority={index < 3}
@@ -123,7 +127,7 @@ const BlogListing = () => {
                                     </S.ImageWrapper>
                                     <S.ContentBox sx={{ p: 0 }}>
                                         <S.BlogTitle>{blog.title}</S.BlogTitle>
-                                        <S.BlogDate>{blog.date}</S.BlogDate>
+                                        <S.BlogDate>{new Date(blog.date).toLocaleDateString()}</S.BlogDate>
 
                                         <S.ReadNowLink>
                                             <Link
@@ -164,32 +168,12 @@ const BlogListing = () => {
                             <PaginationItem
                                 slots={{
                                     previous: () => (
-                                        <Typography
-                                            sx={{
-                                                mr: 1,
-                                                color: 'text.secondary',
-                                                fontSize: "16px",
-                                                fontWeight: 400,
-                                                display: "flex",
-                                                alignItems: "center",
-                                                gap: "8px",
-                                            }}
-                                        >
+                                        <Typography sx={{ mr: 1, color: 'text.secondary', fontSize: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
                                             <ArrowBackIcon sx={{ fontSize: "18px" }} /> Prev
                                         </Typography>
                                     ),
                                     next: () => (
-                                        <Typography
-                                            sx={{
-                                                ml: 1,
-                                                color: 'text.secondary',
-                                                fontSize: "16px",
-                                                fontWeight: 400,
-                                                display: "flex",
-                                                alignItems: "center",
-                                                gap: "8px",
-                                            }}
-                                        >
+                                        <Typography sx={{ ml: 1, color: 'text.secondary', fontSize: "16px", display: "flex", alignItems: "center", gap: "8px" }}>
                                             Next <ArrowForwardIcon sx={{ fontSize: "18px" }} />
                                         </Typography>
                                     )
