@@ -11,11 +11,11 @@ export interface BlogPost {
     slug: string;
 }
 
-export const CATEGORIES: BlogNavItem[] = [
+export const CATEGORIES = [
     { title: "All", tag: "all" },
     { title: "Creative Design & UI/UX", tag: "design" },
-    { title: "Web & Mobile Development", tag: "dev" },
-    { title: "AI/ML Solutions", tag: "ai" },
+    { title: "Web & Mobile Development", tag: "web-dev" },
+    { title: "AI/ML Solutions", tag: "ai-ml" },
     { title: "Web3 & Blockchain", tag: "web3" },
     { title: "Enterprise Solutions", tag: "enterprise" },
 ];
@@ -23,7 +23,7 @@ export const CATEGORIES: BlogNavItem[] = [
 export const BLOG_DATA: BlogPost[] = [
     {
         slug: "developer-wishes-project-start",
-        tag: "dev",
+        tag: "dev-dev",
         image: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1772183484/330d52dbbcf387b814a1331a6e62b943d46fabe1_bm0po9.webp",
         title: "What Your Developer Wishes You Knew Before Starting a Project",
         date: "August 12, 2025",
@@ -51,7 +51,7 @@ export const BLOG_DATA: BlogPost[] = [
     },
     {
         slug: "ai-revolutionizing-software-lifecycle",
-        tag: "ai",
+        tag: "ai-ml",
         image: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1772183484/1eac1145edfdc9e8e4db30087de85e967d99eb07_uy6wai.webp",
         title: "How AI is Revolutionizing the Software Development Lifecycle",
         date: "December 10, 2025",
