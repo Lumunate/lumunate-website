@@ -1,12 +1,27 @@
-
 import Hero from '@/components/about/hero/Hero'
 import BlogListing from '@/components/blogs/BlogListing/BlogListing'
 import FeaturedBlogs from '@/components/blogs/FeaturedBlogs/FeaturedBlogs'
 import ExploreSection from '@/components/home/explore/Explore'
 import Ready from '@/components/home/ready/Ready'
+import { client } from "@/sanity/lib/client"
 
+const blogsPage = async () => {
+    // We fetch all posts for the listing, 
+    // and a specific slice (latest 4) for the Featured section
+    const query = `*[_type == "post"] | order(publishedAt desc) {
+        title,
+        "slug": slug.current,
+        "date": publishedAt,
+        "image": mainImage.asset->url,
+        "tag": category,
+        description // Add description if you want to use it in the hero
+    }`;
 
-const blogsPage = () => {
+    const blogs = await client.fetch(query);
+
+    // Pass the first 4 blogs to Featured, the rest (or all) to Listing
+    const featuredData = blogs.slice(0, 4);
+
     return (
         <>
             <Hero
@@ -17,9 +32,9 @@ const blogsPage = () => {
                 descFontSize="16px"
             />
 
-            <FeaturedBlogs />
+            <FeaturedBlogs posts={featuredData} />
 
-            <BlogListing />
+            <BlogListing initialBlogs={blogs} />
 
             <ExploreSection />
 
@@ -27,7 +42,6 @@ const blogsPage = () => {
                 title="Tell us about your vision"
                 description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions that drive real results."
             />
-
         </>
     )
 }
