@@ -1,36 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Snackbar, Alert, Typography, MenuItem, useTheme, Box, alpha } from "@mui/material";
 import {
-    Snackbar,
-    Alert,
-    Typography,
-    Button,
-    MenuItem,
-    useTheme,
-    Box,
-} from "@mui/material";
-import { 
-    ContactRoot,
-    ContactForm,
-    ContactTextField,
     VideoHeader,
     BackgroundVideo,
+    HeroContent,
+    ContactForm,
+    ContactTextField,
+    BottomBlur,
 } from "./ContactSection.styles";
+import { FullRow } from "./ContactSection.styles";
+
 import Ready from "../home/ready/Ready";
 import ExploreSection from "../home/explore/Explore";
 import { z } from "zod";
+import PageContainer from "../common/PageContainer";
+import DiscoverButton from "../ui/DiscoverButton";
+import { useEffect } from "react";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 
+/* Frontend schema (Zod) */
 const contactSchema = z.object({
-    email: z.string().email("Please enter a valid email address"),
+    email: z.string().trim().email("Please enter a valid email address"),
     phone: z
         .string()
+        .trim()
         .min(7, "Phone number is too short")
         .regex(/^[0-9+\-()\s]*$/, "Invalid phone number format"),
     interest: z.string().nonempty("Please select your interest"),
     budget: z.string().nonempty("Please select your budget"),
+    project: z
+        .string()
+        .trim()
+        .max(500, "Project details must be under 500 characters")
+        .optional()
+        .or(z.literal("")),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -60,10 +67,12 @@ export default function ContactSection() {
         handleSubmit,
         control,
         reset,
-        formState: { errors },
+        formState: { errors, isSubmitting },
     } = useForm<ContactFormData>({
         resolver: zodResolver(contactSchema),
-        defaultValues: { email: "", phone: "", interest: "", budget: "" },
+        defaultValues: { email: "", phone: "", interest: "", budget: "", project: "" },
+        mode: "onSubmit",
+        reValidateMode: "onChange",
     });
 
     const [snackbar, setSnackbar] = useState<{
@@ -76,14 +85,84 @@ export default function ContactSection() {
         message: "",
     });
 
-    const onSubmit = (data: ContactFormData) => {
-        console.log("Form Submitted ✅:", data);
-        setSnackbar({
-            open: true,
-            type: "success",
-            message: "Your form has been submitted successfully!",
-        });
-        reset();
+    const selectMenuProps = useMemo(
+        () => ({
+            disablePortal: false,
+            disableScrollLock: true,
+            PaperProps: {
+                sx: {
+                    mt: 0,
+                    borderRadius: "12px",
+                    backgroundColor: theme.palette.background.default,
+                    border: `1px solid ${theme.palette.divider}`,
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.6)",
+                    backgroundImage: "none",
+
+                    "& .MuiMenuItem-root": {
+                        fontSize: "14px",
+                        fontFamily: "Montserrat, sans-serif",
+                        color: theme.palette.section.muted,
+                        padding: "12px 16px",
+
+                        "&:hover": {
+                            backgroundColor: alpha(theme.palette.text.primary, 0.08),
+                        },
+                        "&.Mui-selected": {
+                            backgroundColor: alpha(theme.palette.text.primary, 0.12),
+                        },
+                        "&.Mui-selected:hover": {
+                            backgroundColor: alpha(theme.palette.text.primary, 0.16),
+                        },
+                    },
+                },
+            },
+        }),
+        [theme]
+    );
+
+    const onSubmit = async (data: ContactFormData) => {
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(data),
+            });
+
+            // 1. Get the content type to check if it's JSON
+            const contentType = res.headers.get("content-type");
+            let result: any = {};
+
+            if (contentType && contentType.includes("application/json")) {
+                result = await res.json();
+            } else {
+                // 2. If it's not JSON (like an HTML error page), get the text for debugging
+                const textError = await res.text();
+                console.error("Non-JSON response received:", textError);
+                throw new Error(`Server returned ${res.status}: ${res.statusText}`);
+            }
+
+            if (!res.ok) {
+                // Use the message from the API if it exists
+                throw new Error(result.message || `Submission failed with status ${res.status}`);
+            }
+
+            setSnackbar({
+                open: true,
+                type: "success",
+                message: "Your form has been submitted successfully!"
+            });
+            reset(); // Clears the form
+        } catch (error: any) {
+            console.error("Form submission error:", error);
+            setSnackbar({
+                open: true,
+                type: "error",
+                message: error.message || "Something went wrong. Please try again."
+            });
+        }
     };
 
     const onError = () => {
@@ -94,167 +173,245 @@ export default function ContactSection() {
         });
     };
 
-    return (
-        <>
-            {/* Background Video */}
-            <VideoHeader>
-                <BackgroundVideo autoPlay muted loop playsInline>
-                    <source src="https://res.cloudinary.com/dqvzaju7x/video/upload/contact-page-video_aeksqo.mp4" type="video/mp4" />
-                </BackgroundVideo>
-            </VideoHeader>
+    const [interestOpen, setInterestOpen] = useState(false);
+    const [budgetOpen, setBudgetOpen] = useState(false);
 
-            {/* Contact Form Section */}
-            <ContactRoot>
-                <Typography
-                    variant="h2"
-                    component="h2"
-                    sx={{
-                        fontWeight: 400,
-                        fontFamily: "Montserrat",
-                        textAlign: "left",
-                        alignSelf: "flex-start",
-                        mb: 4,
-                        ml: { xs: 2, md: 12 },
-                        color: theme.palette.text.primary,
+    useEffect(() => {
+        if (!interestOpen && !budgetOpen) return;
+
+        const closeOnScroll = () => {
+            setInterestOpen(false);
+            setBudgetOpen(false);
+        };
+
+        window.addEventListener("scroll", closeOnScroll, true);
+        return () => window.removeEventListener("scroll", closeOnScroll, true);
+    }, [interestOpen, budgetOpen]);
+
+    const renderSelectPlaceholder = (selected: unknown) => {
+        const value = (selected ?? "") as string;
+
+        if (!value) {
+            return (
+                <span
+                    style={{
+                        color: alpha(theme.palette.text.primary, 0.55),
                     }}
                 >
-                    Get in Touch
-                </Typography>
+                    --Select--
+                </span>
+            );
+        }
 
-                <ContactForm onSubmit={handleSubmit(onSubmit, onError)}>
-                    {/* Email */}
-                    <Controller
-                        name="email"
-                        control={control}
-                        render={({ field }) => (
-                            <ContactTextField
-                                {...field}
-                                label="Your Email"
-                                type="email"
-                                placeholder="you@email.com"
-                                fullWidth
-                                error={!!errors.email}
-                                helperText={errors.email?.message}
-                            />
-                        )}
+        return value;
+    };
+
+
+    return (
+        <>
+            <VideoHeader>
+                <BackgroundVideo autoPlay muted loop playsInline>
+                    <source
+                        src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770897842/Contact_Us_h2snzh.webm"
+                        type="video/mp4"
                     />
-
-                    {/* Phone */}
-                    <Controller
-                        name="phone"
-                        control={control}
-                        render={({ field }) => (
-                            <ContactTextField
-                                {...field}
-                                label="Your Phone"
-                                type="tel"
-                                placeholder="123-456-7890"
-                                fullWidth
-                                error={!!errors.phone}
-                                helperText={errors.phone?.message}
-                            />
-                        )}
-                    />
-
-                    {/* Interest */}
-                    <Controller
-                        name="interest"
-                        control={control}
-                        render={({ field }) => (
-                            <ContactTextField
-                                {...field}
-                                select
-                                label="I’m interested in..."
-                                fullWidth
-                                error={!!errors.interest}
-                                helperText={errors.interest?.message}
-                            >
-                                <MenuItem value="">– Select –</MenuItem>
-                                {interests.map((item) => (
-                                    <MenuItem key={item} value={item}>
-                                        {item}
-                                    </MenuItem>
-                                ))}
-                            </ContactTextField>
-                        )}
-                    />
-
-                    {/* Budget */}
-                    <Controller
-                        name="budget"
-                        control={control}
-                        render={({ field }) => (
-                            <ContactTextField
-                                {...field}
-                                select
-                                label="Your Budget"
-                                fullWidth
-                                error={!!errors.budget}
-                                helperText={errors.budget?.message}
-                            >
-                                <MenuItem value="">– Select –</MenuItem>
-                                {budgets.map((item) => (
-                                    <MenuItem key={item} value={item}>
-                                        {item}
-                                    </MenuItem>
-                                ))}
-                            </ContactTextField>
-                        )}
-                    />
-
-                    {/* Submit Button */}
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "flex-end",
-                            width: "100%",
-                        }}
-                    >
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="success"
+                </BackgroundVideo>
+                <BottomBlur />
+                <HeroContent>
+                    <PageContainer>
+                        <Typography
+                            variant="h2"
+                            component="h2"
                             sx={{
-                                mt: 4,
-                                px: 3,
-                                py: 1.7,
-                                minWidth: "160px",
-                                bgcolor: theme.palette.success.main,
-                                textTransform: "none",
-                                fontWeight: 600,
-                                borderRadius: "12px",
-                                "&:hover": { bgcolor: theme.palette.success.dark },
+                                fontWeight: 400,
+                                fontFamily: "Montserrat",
+                                textAlign: "left",
+                                color: theme.palette.text.primary,
+                                mb: { xs: "40px", md: "43px" },
+                                fontSize: { xs: "40px", sm: "60px", lg: "90px" },
                             }}
                         >
-                            Submit
-                        </Button>
-                    </Box>
-                </ContactForm>
-            </ContactRoot>
+                            Get in Touch
+                        </Typography>
 
-            {/* Snackbar (Toast) */}
+                        <ContactForm onSubmit={handleSubmit(onSubmit, onError)}>
+                            {/* Email */}
+                            <Controller
+                                name="email"
+                                control={control}
+                                render={({ field }) => (
+                                    <ContactTextField
+                                        {...field}
+                                        variant="standard"
+                                        label="Your Email"
+                                        type="email"
+                                        placeholder="you@email.com"
+                                        fullWidth
+                                        InputLabelProps={{ shrink: true }}
+                                        error={!!errors.email}
+                                        helperText={errors.email?.message}
+                                    />
+                                )}
+                            />
+
+                            {/* Phone */}
+                            <Controller
+                                name="phone"
+                                control={control}
+                                render={({ field }) => (
+                                    <ContactTextField
+                                        {...field}
+                                        variant="standard"
+                                        label="Your Phone"
+                                        type="tel"
+                                        placeholder="123-456-7890"
+                                        fullWidth
+                                        InputLabelProps={{ shrink: true }}
+                                        error={!!errors.phone}
+                                        helperText={errors.phone?.message}
+                                    />
+                                )}
+                            />
+
+                            {/* Interest */}
+                            <Controller
+                                name="interest"
+                                control={control}
+                                render={({ field }) => (
+                                    <ContactTextField
+                                        {...field}
+                                        variant="standard"
+                                        select
+                                        label="I’m Interested in..."
+                                        fullWidth
+                                        InputLabelProps={{ shrink: true }}
+                                        SelectProps={{
+                                            open: interestOpen,
+                                            onOpen: () => setInterestOpen(true),
+                                            onClose: () => setInterestOpen(false),
+
+                                            MenuProps: selectMenuProps,
+
+                                            displayEmpty: true,
+                                            renderValue: renderSelectPlaceholder,
+
+                                            IconComponent: KeyboardArrowDownRoundedIcon,
+                                        }}
+                                        error={!!errors.interest}
+                                        helperText={errors.interest?.message}
+                                    >
+                                        {interests.map((item) => (
+                                            <MenuItem key={item} value={item}>
+                                                {item}
+                                            </MenuItem>
+                                        ))}
+                                    </ContactTextField>
+                                )}
+                            />
+
+
+                            <Controller
+                                name="budget"
+                                control={control}
+                                render={({ field }) => (
+                                    <ContactTextField
+                                        {...field}
+                                        variant="standard"
+                                        select
+                                        label="Your Budget"
+                                        fullWidth
+                                        InputLabelProps={{ shrink: true }}
+                                        SelectProps={{
+                                            open: budgetOpen,
+                                            onOpen: () => setBudgetOpen(true),
+                                            onClose: () => setBudgetOpen(false),
+
+                                            MenuProps: selectMenuProps,
+
+                                            displayEmpty: true,
+                                            renderValue: renderSelectPlaceholder,
+
+                                            IconComponent: KeyboardArrowDownRoundedIcon,
+                                        }}
+                                        error={!!errors.budget}
+                                        helperText={errors.budget?.message}
+                                    >
+                                        {budgets.map((item) => (
+                                            <MenuItem key={item} value={item}>
+                                                {item}
+                                            </MenuItem>
+                                        ))}
+                                    </ContactTextField>
+                                )}
+                            />
+
+
+                            {/* Project */}
+                            <FullRow>
+                                <Controller
+                                    name="project"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <ContactTextField
+                                            {...field}
+                                            variant="standard"
+                                            label="More about the Project"
+                                            placeholder="Type here..."
+                                            InputLabelProps={{ shrink: true }}
+                                            fullWidth
+                                            multiline
+                                            minRows={1}
+                                            error={!!errors.project}
+                                            helperText={errors.project?.message}
+                                        />
+                                    )}
+                                />
+                            </FullRow>
+
+                            {/* Submit */}
+                            <Box
+                                sx={{
+                                    gridColumn: { xs: "auto", md: "1 / -1" },
+                                    display: "flex",
+                                    justifyContent: "flex-start",
+                                }}
+                            >
+                                <DiscoverButton
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    sx={{
+                                        mt: { xs: "40px", md: "43px" },
+                                        minHeight: "auto",
+                                        minWidth: "auto",
+                                    }}
+                                >
+                                    {isSubmitting ? "Submitting..." : "Submit"}
+                                </DiscoverButton>
+
+                            </Box>
+                        </ContactForm>
+                    </PageContainer>
+                </HeroContent>
+            </VideoHeader>
+
+            {/* Top-right toast */}
             <Snackbar
                 open={snackbar.open}
                 autoHideDuration={4000}
                 onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
             >
-                <Alert
-                    severity={snackbar.type}
-                    variant="filled"
-                    sx={{ width: "100%", fontSize: "16px" }}
-                >
+                <Alert severity={snackbar.type} variant="filled" sx={{ width: "100%", fontSize: "16px", backgroundColor: theme.palette.button.discoverBg, }}>
                     {snackbar.message}
                 </Alert>
             </Snackbar>
 
-            {/* Other Sections */}
             <ExploreSection />
             <Ready
                 title="Tell us about your vision"
                 description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions that drive real results."
                 linkText="Let's Connect"
-                linkHref="/contact"
+                linkHref="https://calendly.com/saad-b-javaid22/consultation"
             />
         </>
     );

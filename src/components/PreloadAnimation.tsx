@@ -9,23 +9,37 @@ interface PreloadAnimationProps {
 
 const PreloadAnimation = ({ onComplete }: PreloadAnimationProps) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
-    const [hasPlayed, setHasPlayed] = useState(false);
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
-        if (hasPlayed) return;
-        setHasPlayed(true);
+        // Check if preload has already been shown
+        const hasVisited = sessionStorage.getItem("preloadShown");
+        if (hasVisited) {
+            onComplete?.(); // Skip animation
+            return;
+        }
 
-        const container = containerRef.current;
+        // Mark preload as shown
+        sessionStorage.setItem("preloadShown", "true");
+        setVisible(true);
+
+        // Fade out after 3.5s
         const timer = setTimeout(() => {
-            if (container) {
-                container.style.transition = "opacity 0.8s ease";
-                container.style.opacity = "0";
-                setTimeout(() => onComplete?.(), 800);
+            if (containerRef.current) {
+                containerRef.current.style.transition = "opacity 0.8s ease";
+                containerRef.current.style.opacity = "0";
+
+                setTimeout(() => {
+                    setVisible(false);
+                    onComplete?.();
+                }, 800);
             }
         }, 3500);
 
         return () => clearTimeout(timer);
-    }, [onComplete, hasPlayed]);
+    }, [onComplete]);
+
+    if (!visible) return null;
 
     return (
         <Box
@@ -44,8 +58,8 @@ const PreloadAnimation = ({ onComplete }: PreloadAnimationProps) => {
                 overflow: "hidden",
             }}
         >
-            <video 
-                src="https://res.cloudinary.com/dbcnkqule/video/upload/v1760622297/preload_umadhz.webm"
+            <video
+                src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770911368/preload_zszdxp.webm"
                 autoPlay
                 muted
                 playsInline
@@ -60,9 +74,11 @@ const PreloadAnimation = ({ onComplete }: PreloadAnimationProps) => {
                     minHeight: "100vh",
                     objectFit: "cover",
                 }}
-                onEnded={() => onComplete?.()}
+                onEnded={() => {
+                    setVisible(false);
+                    onComplete?.();
+                }}
             />
-
         </Box>
     );
 };

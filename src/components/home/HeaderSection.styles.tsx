@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Typography, Stack, styled } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 
 export const HeaderRoot = styled(Box)(({ }) => ({
     width: "100vw",
@@ -12,7 +13,7 @@ export const HeaderRoot = styled(Box)(({ }) => ({
     justifyContent: "center",
 }));
 
-export const SvgBg = styled(Box)(() => ({
+export const SvgBg = styled(Box)(({ theme }) => ({
     position: "absolute",
     inset: 0,
     zIndex: -1,
@@ -24,6 +25,34 @@ export const SvgBg = styled(Box)(() => ({
         height: "100%",
         objectFit: "cover",
     },
+
+    // Bottom blur blended
+    "&::after": {
+        content: '""',
+        position: "absolute",
+        left: 0,
+        right: 0,
+        bottom: 0,
+
+        height: "40px",
+        zIndex: 2,
+        pointerEvents: "none",
+
+        // Tint the blur with theme background default (#0E0E0E)
+        background: `
+      linear-gradient(
+        to top,
+        ${alpha(theme.palette.background.default, 0.95)} 0%,
+        ${alpha(theme.palette.background.default, 0.75)} 30%,
+        ${alpha(theme.palette.background.default, 0.35)} 60%,
+        ${alpha(theme.palette.background.default, 0)} 100%
+      )
+    `,
+
+        // real blur
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+    },
 }));
 
 export const ContentBox = styled(Box)(({ theme }) => ({
@@ -31,9 +60,6 @@ export const ContentBox = styled(Box)(({ theme }) => ({
     alignItems: "center",
     justifyContent: "space-between",
     width: "100%",
-    maxWidth: "1440px",
-    margin: "0 auto",
-    padding: "0 30px",
     position: "relative",
     zIndex: 1,
     [theme.breakpoints.down("lg")]: {
@@ -43,28 +69,33 @@ export const ContentBox = styled(Box)(({ theme }) => ({
         flexDirection: "column",
         justifyContent: "center",
         textAlign: "center",
-        gap: theme.spacing(4),
+        gap: theme.spacing(0),
         padding: 0,
     },
     [theme.breakpoints.down("sm")]: {
-        maxWidth: "100%",
-        padding: 0,
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
+        textAlign: "left",
+        paddingTop: "100px",
+        gap: theme.spacing(0),
     },
 }));
 
 export const StyledH1 = styled(Typography)(({ theme }) => ({
     ...theme.typography.h1,
-    color: "#ffffff",
-    maxWidth: 400,
+    color: theme.palette.section.heading,
+    maxWidth: "713px",
     lineHeight: "97%",
+    fontSize: "90px",
+    fontFamily: "Montserrat, sans-serif",
+    [theme.breakpoints.down("xl")]: {
+        fontSize: "70px",
+    },
     [theme.breakpoints.down("lg")]: {
-        fontSize: "90px",
+        fontSize: "50px",
     },
     [theme.breakpoints.down("md")]: {
-        fontSize: "32px",
-    },
-    [theme.breakpoints.down("sm")]: {
-        fontSize: "24px",
+        fontSize: "40px",
     },
 }));
 
@@ -73,11 +104,15 @@ export const LeftBox = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start",
-    marginLeft: theme.spacing(2),
     [theme.breakpoints.down("md")]: {
         justifyContent: "center",
         marginLeft: 0,
         marginBottom: theme.spacing(2),
+    },
+    [theme.breakpoints.down("sm")]: {
+        justifyContent: "flex-start",
+        width: "100%",
+        marginBottom: "20px",
     },
 }));
 
@@ -88,41 +123,43 @@ export const RightBox = styled(Box)(({ theme }) => ({
     alignItems: "flex-end",
     justifyContent: "center",
     gap: theme.spacing(3),
-    marginRight: theme.spacing(2),
     [theme.breakpoints.down("md")]: {
         alignItems: "center",
         marginRight: 0,
+        gap: theme.spacing(0),
     },
 }));
 
 export const StyledParagraph = styled(Typography)(({ theme }) => ({
     ...theme.typography.body1,
-    color: theme.palette.text.secondary,
-    maxWidth: 420,
+    color: theme.palette.section.desc,
+
+    maxWidth: "607px",
     lineHeight: 1.6,
+
     [theme.breakpoints.down("lg")]: {
-        fontSize: "18px",
+        ...theme.typography.body1,
         maxWidth: 550,
     },
     [theme.breakpoints.down("md")]: {
         textAlign: "center",
-        fontSize: "15px",
+        ...theme.typography.h6,
         maxWidth: "100%",
     },
     [theme.breakpoints.down("sm")]: {
-        fontSize: "13px",
+        textAlign: "left",
+        ...theme.typography.h6,
     },
 }));
 
-
 export const SocialStack = styled(Stack)(({ theme }) => ({
     position: "absolute",
-    top: theme.spacing(28),
-    right: theme.spacing(4),
+    top: "280px",
+    bottom: "100px",
     flexDirection: "column",
     gap: theme.spacing(1.5),
     alignItems: "flex-end",
-    padding: "0 30px",
+    padding: "0 0",
     zIndex: 2,
 
     [theme.breakpoints.down("md")]: {
@@ -131,5 +168,10 @@ export const SocialStack = styled(Stack)(({ theme }) => ({
         justifyContent: "center",
         alignItems: "center",
         marginTop: theme.spacing(3),
+    },
+    [theme.breakpoints.down("sm")]: {
+        width: "100%",
+        justifyContent: "flex-end",
+        alignSelf: "flex-end",
     },
 }));

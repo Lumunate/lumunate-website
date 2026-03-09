@@ -1,19 +1,20 @@
 "use client";
 
 import { Box, Typography, styled } from "@mui/material";
+import { fontSize } from "@mui/system";
 
 export const TestimonialRoot = styled(Box)(({ theme }) => ({
-    width: "100vw",
+    width: "100%", 
+    maxWidth: "100%", 
     background: theme.palette.background.default,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     position: "relative",
-    left: "50%",
-    right: "50%",
-    marginLeft: "-50vw",
-    marginRight: "-50vw",
-    padding: `${theme.spacing(12)} ${theme.spacing(6)}`,
+    paddingBottom: "170px",
+    [theme.breakpoints.down("md")]: {
+        paddingBottom: "100px",
+    },
 }));
 
 export const TestimonialContent = styled(Box)(({ theme }) => ({
@@ -21,42 +22,46 @@ export const TestimonialContent = styled(Box)(({ theme }) => ({
     alignItems: "flex-start",
     justifyContent: "space-between",
     width: "100%",
-    maxWidth: "1654px",
-    margin: "0 auto",
-    padding: 0,
     gap: theme.spacing(8),
+
     [theme.breakpoints.down("lg")]: {
-        maxWidth: "1098px",
         gap: theme.spacing(4),
     },
+
     [theme.breakpoints.down("md")]: {
         flexDirection: "column",
         alignItems: "center",
-        gap: theme.spacing(4),
         textAlign: "center",
-        padding: 0,
+        gap: theme.spacing(4),
     },
+
     [theme.breakpoints.down("sm")]: {
-        maxWidth: "100%",
-        gap: theme.spacing(2),
-        padding: 0,
+        alignItems: "flex-start",
+        textAlign: "left",
+        gap: 0,
     },
 }));
 
 export const TestimonialHeading = styled(Typography)(({ theme }) => ({
     ...theme.typography.h2,
-    color: theme.palette.text.primary,
+    color: theme.palette.section.heading,
     fontWeight: 400,
-    maxWidth: 450,
-    marginLeft: theme.spacing(2),
-    [theme.breakpoints.down("md")]: {
-        fontSize: "2rem",
+    fontSize: "78px",
+    fontFamily: "Montserrat, sans-serif",
+    maxWidth: "1098px",
+
+    [theme.breakpoints.down("lg")]: {
+        fontWeight: 400,
+        fontSize: "40px",
         maxWidth: "100%",
-        marginLeft: 0,
+        marginRight: "30px",
     },
-    [theme.breakpoints.down("sm")]: {
-        fontSize: "1.4rem",
-        marginLeft: 0,
+
+    [theme.breakpoints.down("md")]: {
+        fontWeight: 400,
+        fontSize: "30px",
+        textAlign: "left",
+        marginBottom: "60px",
     },
 }));
 
@@ -65,11 +70,14 @@ export const TestimonialBox = styled(Box)(({ theme }) => ({
     flexDirection: "column",
     alignItems: "flex-start",
     maxWidth: 420,
-    marginRight: theme.spacing(2),
     [theme.breakpoints.down("md")]: {
         alignItems: "center",
         maxWidth: "100%",
-        marginRight: 0,
+    },
+
+    [theme.breakpoints.down("sm")]: {
+        alignItems: "flex-start",
+        width: "100%",
     },
 }));
 
@@ -77,15 +85,22 @@ export const StarsRow = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     marginBottom: theme.spacing(1),
+    [theme.breakpoints.down("md")]: {
+        marginBottom: "16px",
+    },
 }));
 
 export const TestimonialText = styled(Typography)(({ theme }) => ({
     ...theme.typography.body1,
-    color: theme.palette.text.secondary,
+    color: theme.palette.section.desc,
     marginBottom: theme.spacing(2),
-    fontSize: theme.typography.body1.fontSize,
-    [theme.breakpoints.down("sm")]: {
-        fontSize: theme.typography.body2.fontSize,
+    fontSize: "18px",
+    fontFamily: "Montserrat, sans-serif",
+    [theme.breakpoints.down("md")]: {
+        fontSize: "16px",
+        textAlign: "left",
+        marginBottom: "20px",
+        fontWeight: 400,
     },
 }));
 
@@ -93,13 +108,16 @@ export const AuthorRow = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     gap: theme.spacing(2),
+    [theme.breakpoints.down("md")]: {
+        alignItems: "flex-start",
+    },
 }));
 
 export const AuthorAvatar = styled(Box)(({ theme }) => ({
     width: 48,
     height: 48,
     borderRadius: "50%",
-    background: theme.palette.text.secondary,
+    background: theme.palette.section.desc,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -115,15 +133,20 @@ export const AuthorInfo = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down("md")]: {
         alignItems: "center",
     },
+
+    [theme.breakpoints.down("sm")]: {
+        alignItems: "flex-start",
+    },
 }));
 
 export const AuthorName = styled(Typography)(({ theme }) => ({
-    color: theme.palette.text.primary,
-    fontWeight: theme.typography.fontWeightBold,
-    fontSize: theme.typography.body1.fontSize,
+    color: theme.palette.section.heading,
+    fontSize: theme.typography.body2.fontSize,
+    fontWeight: 700,
 }));
 
 export const AuthorTitle = styled(Typography)(({ theme }) => ({
-    color: theme.palette.text.secondary,
-    fontSize: theme.typography.body2.fontSize,
+    color: theme.palette.section.desc,
+    fontSize: theme.typography.body1.fontSize,
+    fontWeight: 400,
 }));

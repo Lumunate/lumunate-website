@@ -73,13 +73,13 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
         case "fade":
           fromProps = { opacity: 0 };
           break;
-     case "scale-up":
-        fromProps = { scale: 0.5, opacity: 0, transformOrigin: "center center" };
-        break;
-      case "text-expand":
-        fromProps = { fontSize: "6px", opacity: 0, textShadow: "0px 0px 15px rgba(0,0,0,0.6)" };
-        break;
-          case "zoomTop":
+        case "scale-up":
+          fromProps = { scale: 0.5, opacity: 0, transformOrigin: "center center" };
+          break;
+        case "text-expand":
+          fromProps = { fontSize: "6px", opacity: 0, textShadow: "0px 0px 15px rgba(0,0,0,0.6)" };
+          break;
+        case "zoomTop":
           fromProps = { y: -40, scale: 0.6, opacity: 0 };
           break;
         case "zoomTopLeft":
@@ -92,43 +92,54 @@ const useGsapAnimation = <T extends HTMLElement = HTMLDivElement>({
           fromProps = { y: 50, opacity: 0 };
       }
 
-      const anim = gsap.fromTo(
-        element,
-        fromProps,
-        {
-          x: 0,
-          y: 0,
-          scale: 1,
-          opacity: 1,
-          duration,
-          delay,
-          stagger,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: element,
-            start: "top 80%",
-            end: "bottom 10%",
-            toggleActions: "play none none reverse",
-            once,
-          },
-        }
-      );
+      gsap.set(element, fromProps);
 
-      // Ensure animation plays if user lands mid-section
-      ScrollTrigger.create({
-        trigger: element,
-        start: "top 90%",
-        once,
-        onEnter: () => anim.play(),
-      });
+      const toProps: gsap.TweenVars = {
+        x: 0,
+        y: 0,
+        scale: 1,
+        opacity: 1,
+        fontSize: direction === "text-expand" ? "" : undefined,
+        duration,
+        delay,
+        stagger,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: element,
+          start: "top 90%",
+          end: "bottom 10%",
+          toggleActions: once
+            ? "play none none none"
+            : "play none none reverse",
+          onEnter: () => {
+            gsap.to(element, {
+              x: 0,
+              y: 0,
+              scale: 1,
+              opacity: 1,
+              duration,
+              delay,
+              ease: "power3.out",
+            });
+          },
+        },
+      };
+
+      gsap.to(element, toProps);
     }, elementRef);
 
-    return () => ctx.revert();
+    const refreshTimeout = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+
+    return () => {
+      ctx.revert();
+      clearTimeout(refreshTimeout);
+    };
   }, [direction, delay, duration, once, stagger]);
 
   return elementRef;
 };
-
 export default useGsapAnimation;
 
 
@@ -147,7 +158,7 @@ export const useGsapSlideAnimation = (data: unknown[]) => {
       ScrollTrigger.create({
         trigger: el,
         start: "top top",
-        end: () => `+=${sections * window.innerHeight}`, // dynamic
+        end: () => `+=${sections * window.innerHeight}`,
         scrub: 0.5,
         pin: true,
         anticipatePin: 1,
@@ -169,59 +180,39 @@ export const useGsapSlideAnimation = (data: unknown[]) => {
 // useGsapTimelineAnimation - sequential header/hero animation
 export const useGsapTimelineAnimation = <T extends HTMLElement = HTMLElement>(
   refs: React.RefObject<T | null>[],
-  delay = 0
+  delay = 0,
+  enabled = true,
+  isHome = true
 ) => {
   useEffect(() => {
-    const validRefs = refs.filter((r) => r?.current) as React.RefObject<T>[];
-    if (validRefs.length === 0) return;
+    if (!enabled) return;
+
+    // Filter out nulls
+    const elements = refs
+      .map((r) => r.current)
+      .filter((el): el is T => el !== null);
+
+    if (!elements.length) return;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay });
+      const tl = gsap.timeline({ delay: delay });
 
-      if (validRefs[0])
-        tl.fromTo(
-          validRefs[0].current,
-          { y: -80, opacity: 0, pointerEvents: "none" }, // 👈 ensure hidden & disabled
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1.1,
-            ease: "power3.out",
-            onComplete: () => {
-              // restore interactivity after animation
-              if (validRefs[0]?.current) {
-                (validRefs[0].current as HTMLElement).style.pointerEvents = "auto";
-              }
-            },
-          }
-        );
-
-      if (validRefs[1])
-        tl.fromTo(
-          validRefs[1].current,
-          { x: "20%", y: "-50%", opacity: 0, scale: 0.8 },
-          { x: 0, y: 0, opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" },
-          "-=0.8"
-        );
-
-      if (validRefs[2])
-        tl.fromTo(
-          validRefs[2].current,
-          { x: "20%", y: "-50%", opacity: 0, scale: 0.8 },
-          { x: 0, y: 0, opacity: 1, scale: 1, duration: 1.1, ease: "power3.out" },
-          "-=0.7"
-        );
+      if (elements[1]) {
+        tl.fromTo(elements[1], { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1 });
+      }
+      if (elements[2]) {
+        tl.fromTo(elements[2], { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, "-=0.6");
+      }
     });
 
     return () => ctx.revert();
-  }, [refs, delay]);
+  }, [refs, delay, enabled, isHome]);
 };
-
 
 // useGsapCounterAnimation - Track Record counters
 export const useGsapCounterAnimation = (
   refs: React.MutableRefObject<(HTMLDivElement | null)[]>,
-  data: { total: number; suffix: string }[]
+  data: { total: number; suffix: string; prefix?: string }[]
 ) => {
   useEffect(() => {
     if (!refs.current.length) return;
@@ -230,33 +221,48 @@ export const useGsapCounterAnimation = (
       refs.current.forEach((el, index) => {
         if (!el) return;
 
-        const { total: finalValue, suffix } = data[index];
+        const { total: finalValue, suffix, prefix = "" } = data[index];
+
+        // Initial State
+        el.textContent = `${prefix}0${suffix}`;
+
         const counter = { value: 0 };
 
-        gsap.fromTo(
-          counter,
-          { value: 0 },
-          {
-            value: finalValue,
-            duration: 2,
-            ease: "power1.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 85%",
-              once: true,
-            },
-            onUpdate: () => {
-              if (!el) return;
-              if (finalValue > 1000) {
-                el.textContent = `${Math.floor(counter.value).toLocaleString()}${suffix}`;
-              } else if (finalValue < 10) {
-                el.textContent = `${counter.value.toFixed(1)}${suffix}`;
-              } else {
-                el.textContent = `${Math.floor(counter.value)}${suffix}`;
-              }
-            },
+        gsap.to(counter, {
+          value: finalValue,
+          duration: 3, // Slightly faster for better UX, kept identical for all
+          ease: "power2.out", // Changed for better synchronization
+          scrollTrigger: {
+            trigger: el,
+            start: "top 95%",
+            once: true,
+          },
+          onUpdate: () => {
+            if (!el) return;
+
+            let formattedNumber: string;
+
+            // Use a consistent formatting logic during the animation
+            if (finalValue >= 1000) {
+              formattedNumber = Math.floor(counter.value).toLocaleString();
+            } else if (finalValue % 1 !== 0) {
+              // Handle decimals (e.g., 6.2)
+              formattedNumber = counter.value.toFixed(1);
+            } else {
+              formattedNumber = Math.floor(counter.value).toString();
+            }
+
+            el.textContent = `${prefix}${formattedNumber}${suffix}`;
+          },
+          onComplete: () => {
+            if (!el) return;
+            // Force the exact final string on completion to handle rounding edge cases
+            const finalString = finalValue >= 1000
+              ? finalValue.toLocaleString()
+              : (finalValue % 1 !== 0 ? finalValue.toFixed(1) : finalValue.toString());
+            el.textContent = `${prefix}${finalString}${suffix}`;
           }
-        );
+        });
       });
     });
 

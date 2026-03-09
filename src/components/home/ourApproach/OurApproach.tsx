@@ -1,27 +1,31 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ContentWrapper,
-  DiscoverButton,
   NumberTypography,
   OurApproachContainer,
   RightBottomBox,
-  SubContainer,
   SubContentWrapper,
   SubTitle,
   TitleText,
   DescriptionText,
+  FullBleedGrid,
 } from "./OurApproach.style";
 import { Box } from "@mui/material";
-import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import useGsapAnimation, { useGsapSlideAnimation } from "@/hooks/useGsapAnimation";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import PageContainer from "@/components/common/PageContainer";
+import DiscoverButton from "@/components/ui/DiscoverButton";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const OurApproach = () => {
+interface Props {
+  onComplete?: () => void;
+}
+
+const OurApproach = ({ onComplete }: Props) => {
   const data = [
     {
       number: "01",
@@ -55,109 +59,114 @@ const OurApproach = () => {
     },
   ];
 
-  // Hook controlling slide-based section progress
-  const { elementRef, activeIndex } = useGsapSlideAnimation(data);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  // Individual element animations (safe and auto-cleaned by internal gsap.context)
-  const numberRef = useGsapAnimation({
-    direction: "left",
-    delay: 0.4,
-    duration: 1,
-  });
-  const titleRef = useGsapAnimation({
-    direction: "top",
-    delay: 0.5,
-    duration: 1,
-  });
-  const descriptionRef = useGsapAnimation({
-    direction: "fade",
-    delay: 0.6,
-    duration: 1,
-  });
-  const buttonRef = useGsapAnimation<HTMLButtonElement>({
-    direction: "bottom",
-    delay: 0.7,
-    duration: 1,
-  });
+  const containerRef = useRef<HTMLDivElement>(null);
+  const numberRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const descRef = useRef<HTMLParagraphElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
-  //  Additional gsap.context for safe ScrollTrigger + video mount cleanup
+  // Animation logic for content changes
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Optional: Add subtle fade-in for entire section background video or container
-      gsap.fromTo(
-        elementRef.current,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: elementRef.current,
-            start: "top 85%",
-            once: true,
-          },
-        }
-      );
-    }, elementRef);
+    const targets = [numberRef.current, titleRef.current, descRef.current, buttonRef.current];
+    if (targets.some(el => !el)) return;
 
-    // Cleanup: revert GSAP safely on unmount
-    return () => ctx.revert();
-  }, [elementRef]);
+    // Kill existing and reset
+    gsap.killTweensOf(targets);
+
+    // Entrance animation
+    gsap.fromTo(
+      targets,
+      { opacity: 0, y: 30, filter: "blur(10px)" },
+      {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        stagger: 0.1,
+        duration: 0.8,
+        ease: "power3.out",
+        overwrite: true
+      }
+    );
+  }, [activeIndex]);
+
+  // SCROLL TRIGGER 
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const totalSteps = data.length;
+
+    const trigger = ScrollTrigger.create({
+      trigger: containerRef.current,
+      start: "top top",
+      // Increased multiplier slightly for smoother transition between steps
+      end: () => `+=${window.innerHeight * (totalSteps + 1)}`,
+      scrub: 1, // Increased scrub for smoother "magnetic" feel
+      pin: true,
+      pinSpacing: true,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        // More robust index calculation to prevent jumping at the ends
+        const rawIndex = Math.floor(self.progress * totalSteps);
+        const index = Math.max(0, Math.min(totalSteps - 1, rawIndex));
+
+        // Only update if index actually changed to prevent re-renders
+        setActiveIndex((prev) => (prev !== index ? index : prev));
+      },
+      onLeave: () => {
+        onComplete?.();
+      },
+    });
+
+    return () => {
+      trigger.kill();
+    };
+  }, [data.length, onComplete])
 
   return (
-    <OurApproachContainer ref={elementRef}>
+    <OurApproachContainer ref={containerRef}>
+      <Box className="topBlur" />
+      <Box className="bottomBlur" />
+
       <video autoPlay loop muted playsInline>
         <source
-          src="https://res.cloudinary.com/dqvzaju7x/video/upload/approachbg_g7xwx5.mp4"
+          src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770893375/liquid-gradient-abstract-background_qpknyp.webm"
           type="video/mp4"
-          key="our-approach-section-video"
         />
-        Your browser does not support the video tag.
       </video>
 
-      <SubContainer>
-        <TitleText variant="h1">Our Approach</TitleText>
+      <PageContainer>
+        <TitleText variant="h5">Our Approach</TitleText>
+      </PageContainer>
 
-        <ContentWrapper>
-          <SubContentWrapper>
-            <Box>
-              <NumberTypography ref={numberRef}>
-                {data[activeIndex].number}
-              </NumberTypography>
-              <SubTitle ref={titleRef} variant="h1">
-                {data[activeIndex].title}
-              </SubTitle>
-            </Box>
-          </SubContentWrapper>
+      <FullBleedGrid>
+        <PageContainer>
+          <ContentWrapper>
+            <SubContentWrapper>
+              <Box>
+                <NumberTypography ref={numberRef}>{data[activeIndex].number}</NumberTypography>
 
-          <Box
-            sx={{
-              borderLeft: "0.4px solid #B4B4B4",
-              borderBottom: "0.4px solid #B4B4B4",
-              height: "100%",
-              display: { xs: "none", md: "block" },
-            }}
-          />
-          <Box
-            sx={{
-              height: "100%",
-              display: { xs: "none", md: "block" },
-            }}
-          />
+                <SubTitle ref={titleRef} variant="h1">
+                  {data[activeIndex].title}
+                </SubTitle>
+              </Box>
+            </SubContentWrapper>
 
-          <RightBottomBox>
-            <DescriptionText ref={descriptionRef} variant="h5">
-              {data[activeIndex].description}
-            </DescriptionText>
-            <DiscoverButton ref={buttonRef as React.RefObject<HTMLButtonElement>}>
-              Discover
-              <ArrowOutwardIcon
-                sx={{ fontSize: "17px", marginLeft: "6px" }}
-              />
-            </DiscoverButton>
-          </RightBottomBox>
-        </ContentWrapper>
-      </SubContainer>
+            <RightBottomBox>
+              <DescriptionText ref={descRef} variant="h5">
+                {data[activeIndex].description}
+              </DescriptionText>
+              <Link href="/contact" passHref style={{ textDecoration: 'none' }}>
+                <DiscoverButton ref={buttonRef} sx={{ mt: { xs: "20px", lg: "20px", xl: "20px" } }}>
+                  Discover
+                </DiscoverButton>
+              </Link>
+            </RightBottomBox>
+          </ContentWrapper>
+        </PageContainer>
+      </FullBleedGrid>
     </OurApproachContainer>
   );
 };

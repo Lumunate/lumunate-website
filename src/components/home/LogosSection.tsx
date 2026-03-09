@@ -1,12 +1,26 @@
+"use client";
+
 import Image from "next/image";
-import { Typography } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import {
     LogosRoot,
-    LogosRow,
     LogoItem,
+    LogosTrack,
 } from "./LogosSection.styles";
+import PageContainer from "../common/PageContainer";
 
-const logos = [
+interface Logo {
+    src: string;
+    label?: string;
+}
+
+interface LogosSectionProps {
+    title?: string;
+    logos?: Logo[];
+}
+
+// Default logos for the homepage 
+const DEFAULT_LOGOS: Logo[] = [
     { src: "/logos/nextjs.svg", label: "" },
     { src: "/logos/reactjs.svg", label: "" },
     { src: "/logos/tailwindcss.svg", label: "" },
@@ -17,25 +31,43 @@ const logos = [
     { src: "/logos/vuejs.svg", label: "" },
 ];
 
-export default function LogosSection() {
+export default function LogosSection({
+    title,
+    logos = DEFAULT_LOGOS
+}: LogosSectionProps) {
     return (
         <LogosRoot>
-            <LogosRow>
-                {logos.map((logo) => (
-                    <LogoItem key={logo.src}>
-                        <Image
-                            src={logo.src}
-                            alt={logo.label || "logo"}
-                            width={60}
-                            height={60}
-                            style={{ objectFit: "contain" }}
-                        />
-                        <Typography variant="body2" sx={{ mt: 1, color: "text.secondary" }}>
-                            {logo.label}
-                        </Typography>
-                    </LogoItem>
-                ))}
-            </LogosRow>
+            <PageContainer>
+                {/* Optional Title */}
+                {title && (
+                    <Typography
+                        variant="h5"
+                        sx={{
+                            textAlign: 'start',
+                            mb: 6,
+                            fontWeight: 400,
+                            color: 'text.primary'
+                        }}
+                    >
+                        {title}
+                    </Typography>
+                )}
+
+                <LogosTrack>
+                    {/* Double the logos for a seamless infinite scroll loop */}
+                    {[...logos, ...logos].map((logo, index) => (
+                        <LogoItem key={`${logo.src}-${index}`}>
+                            <Image
+                                src={logo.src}
+                                alt={logo.label || "logo"}
+                                width={93}
+                                height={93}
+                                style={{ objectFit: "contain" }}
+                            />
+                        </LogoItem>
+                    ))}
+                </LogosTrack>
+            </PageContainer>
         </LogosRoot>
     );
 }

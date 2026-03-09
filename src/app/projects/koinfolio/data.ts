@@ -2,7 +2,7 @@ export const koinfolioData = {
     header: {
         background: {
             kind: "video" as const,
-            src: "/videos/koinfolio-bg.mp4",
+            src: "https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770906021/Case_study_hero_jjcnzp.webm",
             poster: "/images/koinfolio-poster.jpg",
         },
         title: "Koinfolio",
@@ -28,7 +28,7 @@ export const koinfolioData = {
         title: "Challenges",
         description:
             "Crypto investors lacked a centralized, user-friendly tool to manage portfolios, compare assets, and stay updated with market insights. The challenge was to build a scalable, secure, and data-driven solution that could handle real-time updates and integrations with third-party services.",
-        imageSrc: "/case-studies/koinfolio-1.svg",
+        imageSrc: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770906416/Copy_of_Koinfolio_1__11zon_m17esw.webp",
     },
 
     impact: {
@@ -42,7 +42,7 @@ export const koinfolioData = {
     success: {
         story:
             "The team at Lumunate is simply the best. They do the best jobs as always and have brought our idea for Koinfolio to life. Will continue the work with them for sure!",
-        name: "Ebrahim",
+        name: "// Ebrahim",
         role: "CEO, Koinfolio",
     },
 };

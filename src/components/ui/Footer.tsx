@@ -1,74 +1,109 @@
 "use client";
-import { IconButton } from "@mui/material";
+import { Box, Theme } from "@mui/material";
 import Image from "next/image";
-
 import {
     FooterRoot,
     FooterTop,
     FooterNavItem,
     FooterBottom,
-    FooterSection,
     FooterText,
-    FooterIconBox,
+    FooterSpacer,
+    IconWrapper,
+    NoiseOverlay,
 } from "./Footer.styles";
 
 export default function Footer() {
+    const year = new Date().getFullYear();
+
     return (
         <FooterRoot>
-            <FooterTop>
-                <FooterNavItem href="/terms" className="left-item">
-                    Terms & Services
+            {/* MD/LG Screen View */}
+            <Box sx={{
+                display: { xs: "none", sm: "flex" },
+                height: 56,
+                borderBottom: "1px solid",
+                borderColor: "divider",
+            }}>
+                <FooterSpacer sx={{ borderLeft: 'none' }} />
+                <FooterNavItem href="/terms-&-conditions">Terms & Services</FooterNavItem>
+
+                <Box sx={{
+                    display: "flex",
+                    flex: 1,
+                    justifyContent: "center",
+                    position: "relative",
+                }}>
+                    <NoiseOverlay />
+
+                    <Box sx={{ display: "flex", zIndex: 1 }}>
+                        <IconWrapper component="a" href="tel:+923310200888">
+                            <Image src="/icons/phone.svg" alt="Call" width={20} height={20} />
+                        </IconWrapper>
+
+                        <FooterSpacer size="small" />
+
+                        <IconWrapper component="a" href="mailto:info@lumunate.com">
+                            <Image src="/icons/mail.svg" alt="Mail" width={20} height={20} />
+                        </IconWrapper>
+
+                        <FooterSpacer size="small" />
+
+                        {/* LinkedIn Icon */}
+                        <IconWrapper
+                            component="a"
+                            href="https://www.linkedin.com/company/lumunate/"
+                            target="_blank"
+                        >
+                            <Image src="/icons/linkedin.svg" alt="LinkedIn" width={20} height={20} />
+                        </IconWrapper>
+
+                        <Box sx={{ borderLeft: (theme) => `1px solid ${theme.palette.divider}`, height: '100%' }} />
+                    </Box>
+                </Box>
+
+                <FooterNavItem href="/privacy-policy" sx={{ borderLeft: 'none' }}>
+                    Privacy Policy
                 </FooterNavItem>
-                <FooterNavItem href="/digital-transformation" className="right-item">
-                    Digital Transformation
-                </FooterNavItem>
-            </FooterTop>
+                <FooterSpacer />
+            </Box>
 
-            <FooterBottom>
-                <FooterSection className="left-icons">
-                    <IconButton size="small" color="inherit" className="icon-item">
-                        <Image src="/icons/phone.svg" alt="Call" width={20} height={20} />
-                    </IconButton>
-                    <IconButton size="small" color="inherit" className="icon-item">
-                        <Image src="/icons/mail.svg" alt="Mail" width={20} height={20} />
-                    </IconButton>
-                </FooterSection>
+            {/* SM Screen View */}
+            <Box sx={{ display: { xs: "block", sm: "none" } }}>
+                <FooterTop sx={{ justifyContent: "space-around" }}>
+                    <FooterNavItem href="/terms-&-conditions">Terms & Services</FooterNavItem>
+                    <FooterNavItem href="/privacy-policy">Privacy Policy</FooterNavItem>
+                </FooterTop>
 
-                <FooterText>
-                    LUMUNATE &copy; {new Date().getFullYear()} All rights reserved
-                </FooterText>
-
-
-                <FooterIconBox className="right-icons">
-                    <IconButton
-                        size="small"
-                        color="inherit"
-                        href="https://www.instagram.com/company/lumunate/"
-                        target="_blank"
-                        className="icon-item"
-                    >
-                        <Image
-                            src="/icons/instagram.svg"
-                            alt="Instagram"
-                            width={20}
-                            height={20}
-                        />
-                    </IconButton>
-                    <IconButton
-                        size="small"
-                        color="inherit"
+                <Box sx={{
+                    display: "flex",
+                    height: 56,
+                    px: "32px",
+                    borderBottom: "1px solid",
+                    borderColor: "divider",
+                    justifyContent: "center"
+                }}>
+                    <IconWrapper component="a" href="tel:+923310200888" className="mobile-icon" sx={{ borderLeft: 'none' }}>
+                        <Image src="/icons/phone.svg" alt="Call" width={24} height={24} />
+                    </IconWrapper>
+                    <IconWrapper component="a" href="mailto:info@lumunate.com" className="mobile-icon">
+                        <Image src="/icons/mail.svg" alt="Mail" width={24} height={24} />
+                    </IconWrapper>
+                    <IconWrapper
+                        component="a"
                         href="https://www.linkedin.com/company/lumunate/"
                         target="_blank"
-                        className="icon-item"
+                        className="mobile-icon"
                     >
-                        <Image
-                            src="/icons/linkedin.svg"
-                            alt="LinkedIn"
-                            width={20}
-                            height={20}
-                        />
-                    </IconButton>
-                </FooterIconBox>
+                        <Image src="/icons/linkedin.svg" alt="LinkedIn" width={24} height={24} />
+                    </IconWrapper>
+
+                </Box>
+            </Box>
+
+            <FooterBottom>
+                <FooterText>
+                    LUMUNATE © {year} All rights reserved
+                </FooterText>
             </FooterBottom>
         </FooterRoot>
     );

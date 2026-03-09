@@ -1,72 +1,54 @@
 "use client";
 
-import { Box, styled } from "@mui/material";
+import { Box, styled, alpha } from "@mui/material";
 
-// ✅ Full-width outer container
 export const NavBarContainer = styled(Box)(({ theme }) => ({
-    display: "flex",
-    width: "100vw", // spans full viewport
-    backgroundColor: "#181818",
-    borderTop: "1px solid #333",
-    borderBottom: "1px solid #333",
-    overflow: "hidden",
-    margin: 0,
-    padding: 0,
-    boxSizing: "border-box",
-
-    [theme.breakpoints.down("md")]: {
-        overflowX: "auto",
-        overflowY: "hidden",
-        whiteSpace: "nowrap",
-        scrollbarWidth: "none",
-        "&::-webkit-scrollbar": {
-            display: "none",
-        },
-    },
+    width: "100%",
+    backgroundColor: theme.palette.navbar.cardsNavBg,
+    borderTop: `1px solid ${theme.palette.divider}`,
+    borderBottom: `1px solid ${theme.palette.divider}`,
+    position: "sticky",
+    zIndex: 1100,
+    top: "80px",
 }));
 
-// ✅ Individual nav item
-export const NavItem = styled(Box)(({ theme }) => ({
-    flex: 1,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: `${theme.spacing(1.4)} ${theme.spacing(1.5)}`,
-    cursor: "pointer",
-    color: "#BDBDBD",
-    fontSize: "0.95rem",
-    fontWeight: 400,
-    borderLeft: "1px solid #333",
-    transition: "background-color 0.3s ease, color 0.3s ease",
-    whiteSpace: "nowrap",
-    textAlign: "center",
-    userSelect: "none",
-    lineHeight: 1.3,
 
-    "&:hover": {
-        backgroundColor: "rgba(255,255,255,0.05)",
-        color: "#fff",
+
+export const NavItem = styled(Box)(({ theme }) => ({
+    flexShrink: 0,
+    padding: "20px 32px",
+    cursor: "pointer",
+    color: theme.palette.text.secondary,
+    opacity: 0.6,
+    fontSize: "16px",
+    transition: "all 0.3s ease",
+    position: "relative",
+    borderLeft: `1px solid ${theme.palette.divider}`,
+
+    "&:last-of-type": {
+        borderRight: `1px solid ${theme.palette.divider}`,
     },
 
     "&.active": {
-        backgroundColor: "#292929",
-        color: "#fff",
-        fontWeight: 500,
+        color: theme.palette.text.primary,
+        opacity: 1,
+        fontWeight: 600,
+
+        background: `linear-gradient(180deg, 
+            ${alpha(theme.palette.navbar.cardsNavActive, 0.10)} 0%, 
+            ${alpha(theme.palette.navbar.cardsNavActive, 0.09)} 100%)`,
+
+        // Inset shadow
+        boxShadow: `inset 0px 1px 1px ${alpha(theme.palette.divider, 0.3)}`,
     },
 
-    "&:first-of-type": {
-        borderLeft: "none",
+    "&:hover": {
+        opacity: 1,
+        backgroundColor: theme.palette.action.hover,
     },
 
     [theme.breakpoints.down("md")]: {
-        minWidth: "150px",
-        fontSize: "0.85rem",
-        padding: `${theme.spacing(1)} ${theme.spacing(1.2)}`,
-    },
-
-    [theme.breakpoints.down("sm")]: {
-        minWidth: "130px",
-        fontSize: "0.8rem",
-        padding: `${theme.spacing(0.8)} ${theme.spacing(1)}`,
+        padding: "16px 20px",
+        fontSize: "14px",
     },
 }));

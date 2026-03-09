@@ -1,6 +1,6 @@
 "use client";
 
-import { styled, Box, Container, Typography } from "@mui/material";
+import { styled, Box } from "@mui/material";
 
 export const SectionRoot = styled(Box, {
   shouldForwardProp: (prop) => prop !== "component",
@@ -8,42 +8,45 @@ export const SectionRoot = styled(Box, {
   position: "relative",
   backgroundColor: theme.palette.background.default,
   color: theme.palette.text.primary,
-  paddingTop: theme.spacing(1),
-  paddingBottom: theme.spacing(1),
+
+  paddingTop: 0,
+  paddingBottom: 0,
+
 }));
 
-export const InnerContainer = styled(Container)(() => ({}));
-
-export const TopStrip = styled(Box)(() => ({
+export const TopStrip = styled(Box)(({ theme }) => ({
   marginBottom: 0,
+  backgroundColor: theme.palette.background.default,
 }));
 
-export const TitleText = styled(Typography)(({ theme }) => ({
-  ...theme.typography.h4,
-  fontFamily: "Montserrat, sans-serif",
-  fontWeight: 400,
-  color: theme.palette.text.primary,
-}));
-
-export const DescText = styled(Typography)(({ theme }) => ({
-  ...theme.typography.body2,
-  fontFamily: "Manrope, sans-serif",
-  fontWeight: 400,
-  color: theme.palette.text.secondary,
-  lineHeight: 1.6,
-}));
-
-export const ImageWrapper = styled(Box)(() => ({
+export const ImageWrapper = styled(Box)(({ theme }) => ({
   position: "relative",
-  width: "100%",
-  height: "100vh",
+  width: "100vw",
+  left: "50%",
+  right: "50%",
+  marginLeft: "-50vw",
+  marginRight: "-50vw",
+
+  aspectRatio: "16 / 9",
+
+  borderRadius: "0px",
   overflow: "hidden",
+
+  "& img": {
+    objectFit: "cover",
+    width: "100%",
+    height: "100%",
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    aspectRatio: "1 / 1",
+  },
 }));
 
 export const ImageGridWrapper = styled(Box)(({ theme }) => ({
   display: "grid",
   gridTemplateColumns: "1fr 1fr",
-  gap: theme.spacing(0),
+  gap: "16px",
   width: "100%",
   marginTop: theme.spacing(2),
 
@@ -51,7 +54,12 @@ export const ImageGridWrapper = styled(Box)(({ theme }) => ({
     width: "100%",
     height: "100%",
     aspectRatio: "19/12",
-    borderRadius: theme.shape.borderRadius,
+    // borderRadius: "12px",
     objectFit: "cover",
+  },
+  [theme.breakpoints.down("sm")]: {
+    gridTemplateColumns: "1fr",
+    gap: theme.spacing(0),
+    borderRadius: "0px",
   },
 }));

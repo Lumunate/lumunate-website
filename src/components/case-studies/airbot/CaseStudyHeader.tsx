@@ -14,6 +14,7 @@ import {
   Title,
   SubTitle,
 } from "./CaseStudyHeader.styles";
+import PageContainer from "@/components/common/PageContainer";
 
 type MetaSimple = { label: string; value: ReactNode };
 type MetaGroupItem = { label?: string; value: ReactNode };
@@ -45,14 +46,14 @@ export default function CaseStudyHeader({
   metaItems = [],
   metaColumnGap = "80px",
   overlayOpacity = 0.4,
-  rightMaxWidth = 900,
+  rightMaxWidth = 823,
 }: CaseStudyHeaderProps) {
   return (
     <HeaderRoot>
       <BackgroundVideo
-      key="case-studies-video"
+        key="case-studies-video"
         component="video"
-        src="https://res.cloudinary.com/dqvzaju7x/video/upload/v1759933021/airbot-header_gx3fsp.mp4"
+        src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770906021/Case_study_hero_jjcnzp.webm"
         autoPlay
         muted
         loop
@@ -60,89 +61,111 @@ export default function CaseStudyHeader({
       />
 
       <HeaderContent overlayopacity={overlayOpacity}>
-        <HeaderLeft>
-          <Title>{title}</Title>
-          {subtitle && <SubTitle>{subtitle}</SubTitle>}
+        <PageContainer>
+          <Box
+            sx={(theme) => ({
+              height: "100%",
+              width: "100%",
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "space-between",
 
-        </HeaderLeft>
-        <HeaderRight sx={{ maxWidth: rightMaxWidth }}>
-          {description && <Description>{description}</Description>}
+              gap: { xs: theme.spacing(3), md: theme.spacing(6), lg: "200px", xl: "298px" },
 
-          {metaItems.length > 0 && (
-            <Box
-              sx={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                columnGap: metaColumnGap,
-              }}
-            >
-              <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                {metaItems.map((metaItem, metaIndex) => {
-                  let marginTop = 0;
-                  if (metaItem.label === "MAUs") marginTop = 4;
-                  if (metaItem.label === "Revenue") marginTop = 1;
+              [theme.breakpoints.down("md")]: {
+                flexDirection: "column",
+                alignItems: "center",
+                textAlign: "center",
+                gap: theme.spacing(3),
+              },
+              [theme.breakpoints.down("sm")]: {
+                alignItems: "flex-start",
+                textAlign: "left",
+              },
+            })}
+          >
+            <HeaderLeft>
+              <Title>{title}</Title>
+              {subtitle && <SubTitle>{subtitle}</SubTitle>}
+            </HeaderLeft>
 
-                  return (
-                    <MetaLabel key={`label-${metaIndex}`} variant="body2" sx={{ mt: marginTop }}>
-                      {metaItem.label}
-                    </MetaLabel>
-                  );
-                })}
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 1,
-                  alignItems: "flex-end",
-                  textAlign: "right",
-                  minWidth: 200,
-                }}
-              >
-                {metaItems.map((metaItem, metaIndex) => {
-                  let marginTop = 0;
-                  if (metaItem.label === "MAUs") marginTop = 1;
-                  if (metaItem.label === "Revenue") marginTop = 0;
+            <HeaderRight sx={{ maxWidth: rightMaxWidth }}>
+              {description && <Description>{description}</Description>}
 
-                  if (!isGroup(metaItem)) {
-                    return (
-                      <MetaValue key={`value-${metaIndex}`} variant="body2" sx={{ mt: marginTop }}>
-                        {metaItem.value}
-                      </MetaValue>
-                    );
-                  }
+              {metaItems.length > 0 && (
+                <Box
+                  className="meta-container"
+                  sx={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr auto",
+                    columnGap: metaColumnGap,
+                    width: "100%",
+                    mt: { xs: "0px", sm: 0 },
+                  }}
+                >
 
-                  return (
-                    <Box
-                      key={`group-${metaIndex}`}
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 0.5,
-                        textAlign: "right",
-                        alignItems: "flex-end",
-                      }}
-                    >
-                      {metaItem.items.map((groupItem, groupItemIndex) => (
+                  <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                    {metaItems.map((metaItem, metaIndex) => (
+                      <MetaLabel key={`label-${metaIndex}`} variant="body2">
+                        {metaItem.label}
+                      </MetaLabel>
+                    ))}
+                  </Box>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 1,
+
+                      alignItems: "flex-end",
+                      textAlign: "right",
+                      justifySelf: "end",
+                    }}
+                  >
+
+                    {metaItems.map((metaItem, metaIndex) => {
+                      if (!isGroup(metaItem)) {
+                        return (
+                          <MetaValue key={`value-${metaIndex}`} variant="body2">
+                            {metaItem.value}
+                          </MetaValue>
+                        );
+                      }
+
+                      return (
                         <Box
-                          key={`group-item-${metaIndex}-${groupItemIndex}`}
-                          sx={{ display: "flex", gap: 0.5, justifyContent: "flex-end" }}
+                          key={`group-${metaIndex}`}
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: 0.5,
+                            textAlign: "right",
+                            alignItems: "flex-end",
+                          }}
                         >
-                          {groupItem.label && (
-                            <MetaLabel variant="body2" sx={{ mr: "4px" }}>
-                              {groupItem.label}
-                            </MetaLabel>
-                          )}
-                          <MetaValue variant="body2">{groupItem.value}</MetaValue>
+                          {metaItem.items.map((groupItem, groupItemIndex) => (
+                            <Box
+                              key={`group-item-${metaIndex}-${groupItemIndex}`}
+                              sx={{ display: "flex", gap: 0.5, justifyContent: "flex-end" }}
+                            >
+                              {groupItem.label && (
+                                <MetaLabel variant="body2" sx={{ mr: "4px" }}>
+                                  {groupItem.label}
+                                </MetaLabel>
+                              )}
+                              <MetaValue variant="body2">{groupItem.value}</MetaValue>
+                            </Box>
+                          ))}
                         </Box>
-                      ))}
-                    </Box>
-                  );
-                })}
-              </Box>
-            </Box>
-          )}
-        </HeaderRight>
+                      );
+                    })}
+                  </Box>
+                </Box>
+              )}
+            </HeaderRight>
+          </Box>
+        </PageContainer>
       </HeaderContent>
     </HeaderRoot>
   );
