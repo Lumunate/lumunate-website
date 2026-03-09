@@ -37,18 +37,14 @@ export default function WorkflowCard({ activeSection }: WorkflowCardProps) {
             const children = textElementsRef.current.querySelectorAll('.animate-text');
             gsap.fromTo(
                 children,
-                {
-                    opacity: 0,
-                    y: 20,
-                    filter: "blur(8px)"
-                },
+                { opacity: 0, y: 15, filter: "blur(6px)" },
                 {
                     opacity: 1,
                     y: 0,
                     filter: "blur(0px)",
-                    duration: 0.8,
-                    stagger: 0.1,
-                    ease: "power3.out",
+                    duration: 0.5,
+                    stagger: 0.05,
+                    ease: "power2.out",
                     overwrite: "auto"
                 }
             );
@@ -56,8 +52,8 @@ export default function WorkflowCard({ activeSection }: WorkflowCardProps) {
 
         gsap.fromTo(
             ".animate-btn",
-            { opacity: 0, scale: 0.9 },
-            { opacity: 1, scale: 1, duration: 0.5, delay: 0.4, ease: "back.out(1.7)" }
+            { opacity: 0, scale: 0.95 },
+            { opacity: 1, scale: 1, duration: 0.4, delay: 0.2, ease: "back.out(1.7)", overwrite: "auto" }
         );
 
     }, [activeSection]);
@@ -98,12 +94,12 @@ export default function WorkflowCard({ activeSection }: WorkflowCardProps) {
                     loop
                     muted
                     playsInline
-                    style={{ opacity: 0, transform: "scale(1.1)" }}
+                    style={{ opacity: 0, transform: "scale(1.05)" }}
                     onLoadedData={(e) => {
                         gsap.to(e.currentTarget, {
                             opacity: 1,
                             scale: 1,
-                            duration: 1.2,
+                            duration: 0.8,
                             ease: "power2.out"
                         });
                     }}

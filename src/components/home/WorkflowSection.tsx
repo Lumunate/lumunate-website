@@ -85,6 +85,7 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const mainTriggerRef = useRef<ScrollTrigger | null>(null);
+  const isManualRef = useRef(false);
 
   const extraStackSpace = useMemo(
     () => STACK_OFFSET * (workflowSections.length - 1),
@@ -99,13 +100,8 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
       else if (width >= 1600) setCardHeight(HEIGHTS.DESKTOP);
       else if (width >= 1024) setCardHeight(HEIGHTS.LAPTOP);
       else {
-
         const navbarH = width < 768 ? 64 : 80;
-        const sectionPaddingTop = 16;
-        const tabsH = 48;
-        const cardMarginTop = 40;
-        const stackSpace = STACK_OFFSET * (workflowSections.length - 1);
-        const available = height - navbarH - sectionPaddingTop - tabsH - cardMarginTop - stackSpace;
+        const available = height - navbarH - 16 - 48 - 40 - extraStackSpace;
         setCardHeight(Math.min(HEIGHTS.MOBILE, Math.max(available, 500)));
       }
     };
@@ -113,8 +109,7 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
     updateDimensions();
     window.addEventListener("resize", updateDimensions);
     return () => window.removeEventListener("resize", updateDimensions);
-  }, []);
-
+  }, [extraStackSpace]);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -126,12 +121,9 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
       trigger: el,
       start: () => {
         const width = window.innerWidth;
-        if (width >= 1025) {
-          return "top top";
-        } else {
-          const navH = width < 768 ? 64 : 80;
-          return `top ${navH}px`;
-        }
+        if (width >= 1025) return "top top";
+        const navH = width < 768 ? 64 : 80;
+        return `top ${navH}px`;
       },
       end: `+=${scrollDistance}`,
       pin: true,
@@ -139,10 +131,13 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
       scrub: 1,
       invalidateOnRefresh: true,
       onUpdate: (self) => {
-        const totalCards = workflowSections.length;
-        let index = Math.floor(self.progress * totalCards);
-        if (index >= totalCards) index = totalCards - 1;
-        setActiveIndex(index);
+        // Only update state if NOT currently navigating via click
+        if (!isManualRef.current) {
+          const totalCards = workflowSections.length;
+          let index = Math.floor(self.progress * (totalCards - 0.01));
+          if (index >= totalCards) index = totalCards - 1;
+          setActiveIndex(index);
+        }
       },
     });
 
@@ -157,14 +152,15 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
       gsap.to(card, {
         opacity: isActive ? 1 : 0,
         y: isActive ? 0 : 20,
-        duration: 0.6,
+        duration: 0.4,
         ease: "power2.out",
         zIndex: isActive ? 50 : 10,
         pointerEvents: isActive ? "auto" : "none",
+        overwrite: "auto",
       });
     });
 
-    // NAVIGATION SYNC WITH PROPER TYPESCRIPT CASTING
+    // Navigation Sync
     const navContainer = sectionRef.current?.querySelector('.nav-bar-scroll-container') as HTMLElement | null;
     if (navContainer) {
       const activeNav = navContainer.querySelector('.active') as HTMLElement | null;
@@ -182,37 +178,37 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
     }
 
     if (activeIndex === workflowSections.length - 1) onComplete?.();
-  }, [activeIndex]);
+  }, [activeIndex, onComplete]);
 
   const scrollToCard = (index: number) => {
     if (!mainTriggerRef.current) return;
+
+    //  Immediately update UI state for instant feedback
+    isManualRef.current = true;
+    setActiveIndex(index);
+
     const trigger = mainTriggerRef.current;
     const targetScroll = trigger.start + ((trigger.end - trigger.start) * (index / workflowSections.length)) + 50;
+
+    //  Scroll the page in background
     gsap.to(window, {
       scrollTo: { y: targetScroll, autoKill: false },
-      duration: 1,
+      duration: 0.6,
       ease: "power3.inOut",
+      onComplete: () => {
+        isManualRef.current = false;
+      },
     });
   };
 
   return (
     <WorkflowSectionRoot ref={sectionRef}>
       <NavBarContainer>
-        <PageContainer
-          sx={{
-            "@media (min-width: 1025px)": {
-              maxWidth: "none",
-              px: 0,
-              display: 'flex',
-              justifyContent: 'center' // Centers the whole nav block
-            },
-          }}
-        >
+        <PageContainer sx={{ "@media (min-width: 1025px)": { maxWidth: "none", px: 0, display: 'flex', justifyContent: 'center' } }}>
           <Box
             className="nav-bar-scroll-container"
             sx={{
               display: "flex",
-              // On desktop, width fit-content ensures the borders wrap the items tightly
               width: { xs: "100%", lg: "fit-content" },
               overflowX: "auto",
               scrollbarWidth: "none",
@@ -232,7 +228,6 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
         </PageContainer>
       </NavBarContainer>
 
-      {/* CARDS SECTION REMAINS THE SAME */}
       <PageContainer>
         <Box sx={{ width: "100%" }}>
           <Box
