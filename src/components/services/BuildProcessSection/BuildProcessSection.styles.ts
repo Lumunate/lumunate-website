@@ -1,13 +1,14 @@
 "use client";
 
-import { Box, styled, Typography, alpha } from "@mui/material";
+import { Box, styled, Typography, alpha, BoxProps } from "@mui/material";
 
 interface RootSectionProps {
     $mediaType: "video" | "image";
 }
 
-interface MediaProps {
+interface MediaProps extends BoxProps {
     $mediaType: "video" | "image";
+    component?: React.ElementType; // allow video/img
 }
 
 export const RootSection = styled(Box)<RootSectionProps>(({ theme, $mediaType }) => ({
@@ -31,7 +32,7 @@ export const RootSection = styled(Box)<RootSectionProps>(({ theme, $mediaType })
         background: `linear-gradient(to bottom, ${theme.palette.background.default} 0%, ${alpha(theme.palette.background.default, 0.8)} 20%, transparent 100%)`,
         zIndex: 2,
         pointerEvents: "none",
-        display: ($mediaType === "video" || $mediaType === "image") ? "block" : "none",
+        display: $mediaType ? "block" : "none",
     },
 
     // BOTTOM SOFT FADE
@@ -45,14 +46,13 @@ export const RootSection = styled(Box)<RootSectionProps>(({ theme, $mediaType })
         background: `linear-gradient(to top, ${theme.palette.background.default} 0%, ${alpha(theme.palette.background.default, 0.8)} 20%, transparent 100%)`,
         zIndex: 2,
         pointerEvents: "none",
-        display: ($mediaType === "video" || $mediaType === "image") ? "block" : "none",
+        display: $mediaType ? "block" : "none",
     }
 }));
 
 export const MediaBackground = styled(Box, {
-    // Prevent $mediaType from being passed to the DOM element
     shouldForwardProp: (prop) => prop !== "$mediaType",
-})<MediaProps>(({ $mediaType }: MediaProps) => ({
+})<MediaProps>(({ $mediaType }) => ({
     position: "absolute",
     top: 0,
     left: 0,
@@ -94,10 +94,10 @@ export const CardWrapper = styled(Box)<MediaProps>(({ theme, $mediaType }) => ({
     "&:hover": {
         backgroundColor: alpha(theme.palette.background.paper, 0.8),
         transform: "translateY(-8px)",
-
-        borderColor: theme.palette.section.processNumber,
+        borderColor: theme.palette.section?.processNumber,
         boxShadow: `0 20px 40px ${alpha(theme.palette.common.black, 0.6)}`,
     },
+
     [theme.breakpoints.down("lg")]: {
         padding: "32px 24px",
     },
