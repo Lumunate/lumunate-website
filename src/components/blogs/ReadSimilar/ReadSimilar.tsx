@@ -9,14 +9,21 @@ import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import Link from "next/link";
 import { BlogCard, BlogDate, BlogTitle, ContentBox, ImageWrapper, ReadNowLink } from "../BlogListing/BlogListing.styles";
 
+interface Blog {
+    slug: string;
+    title: string;
+    image?: string;
+    tag?: string;
+    date?: string | Date;
+}
+
 interface ReadSimilarBlogsProps {
-    initialBlogs: any[];
+    initialBlogs: Blog[];
     currentCategory?: string;
     currentSlug?: string;
 }
 
 const ReadSimilarBlogs = ({ initialBlogs = [], currentCategory, currentSlug }: ReadSimilarBlogsProps) => {
-
     const filteredBlogs = useMemo(() => {
         return initialBlogs
             .filter((blog) => !currentCategory || blog.tag === currentCategory)

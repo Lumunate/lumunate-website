@@ -1,11 +1,10 @@
 "use client";
 
 import { Box, Typography, styled } from "@mui/material";
-import { fontSize } from "@mui/system";
 
 export const TestimonialRoot = styled(Box)(({ theme }) => ({
-    width: "100%", 
-    maxWidth: "100%", 
+    width: "100%",
+    maxWidth: "100%",
     background: theme.palette.background.default,
     display: "flex",
     justifyContent: "center",

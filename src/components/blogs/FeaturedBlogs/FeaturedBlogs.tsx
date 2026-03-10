@@ -7,14 +7,29 @@ import Image from "next/image";
 import * as S from "./FeaturedBlogs.style";
 import Link from "next/link";
 
-interface FeaturedBlogsProps {
-    posts: any[];
+//  Types 
+interface BlogPost {
+    slug: string;
+    title: string;
+    image?: string;
+    tag?: string;
+    date?: string | Date;
 }
 
-const FeaturedBlogs = ({ posts = [] }: FeaturedBlogsProps) => {
-    const theme = useTheme();
+interface FeaturedBlogsProps {
+    posts: BlogPost[];
+}
 
-    const ReadNowButton = ({ fontSize = "14px", isCentered = false, mt = "10px", slug = "" }) => (
+interface ReadNowButtonProps {
+    slug: string;
+    fontSize?: string;
+    isCentered?: boolean;
+    mt?: string;
+}
+
+//  Stable Component 
+const ReadNowButton = ({ slug, fontSize = "14px", isCentered = false, mt = "10px" }: ReadNowButtonProps) => {
+    return (
         <Link href={`/blogs/${slug}`} style={{ textDecoration: 'none', width: isCentered ? "auto" : "100%" }}>
             <Stack
                 direction="row"
@@ -32,6 +47,11 @@ const FeaturedBlogs = ({ posts = [] }: FeaturedBlogsProps) => {
             </Stack>
         </Link>
     );
+};
+
+//  Main Component 
+const FeaturedBlogs = ({ posts = [] }: FeaturedBlogsProps) => {
+    const theme = useTheme();
 
     if (posts.length === 0) return null;
 
@@ -39,7 +59,7 @@ const FeaturedBlogs = ({ posts = [] }: FeaturedBlogsProps) => {
     const sidePosts = posts.slice(1, 3);
     const bottomPost = posts[3];
 
-    const formatDate = (dateStr: string) =>
+    const formatDate = (dateStr?: string | Date) =>
         dateStr ? new Date(dateStr).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }) : "";
 
     return (
@@ -85,7 +105,7 @@ const FeaturedBlogs = ({ posts = [] }: FeaturedBlogsProps) => {
                                                 {blog.title}
                                             </Typography>
                                             <Typography sx={{ fontSize: "16px", color: theme.palette.section.desc }}>
-                                                {formatDate(mainPost?.date)}
+                                                {formatDate(blog.date)}
                                             </Typography>
                                             <ReadNowButton slug={blog.slug} />
                                         </Box>
@@ -103,7 +123,7 @@ const FeaturedBlogs = ({ posts = [] }: FeaturedBlogsProps) => {
                                             {bottomPost.title}
                                         </Typography>
                                         <Typography sx={{ fontSize: "16px", color: theme.palette.section.desc }}>
-                                            {formatDate(mainPost?.date)}
+                                            {formatDate(bottomPost.date)}
                                         </Typography>
                                         <ReadNowButton isCentered slug={bottomPost.slug} />
                                     </Box>

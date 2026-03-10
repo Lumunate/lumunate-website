@@ -12,8 +12,17 @@ import Link from "next/link";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
+// Define a proper type for blogs
+interface Blog {
+    slug: string;
+    title: string;
+    tag: string;
+    date: string;
+    image?: string;
+}
+
 interface BlogListingProps {
-    initialBlogs: any[];
+    initialBlogs: Blog[];
 }
 
 const BlogListing = ({ initialBlogs = [] }: BlogListingProps) => {
@@ -29,11 +38,15 @@ const BlogListing = ({ initialBlogs = [] }: BlogListingProps) => {
 
     const itemsPerPage = isMobile ? 3 : 6;
 
+    // Safe effect: only update state if currentPage !== 1
     useEffect(() => {
-        setCurrentPage(1);
+        if (currentPage !== 1) {
+            setCurrentPage(1);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMobile]);
 
-    // Filtering logic using the prop from Sanity
+    // Filtering logic
     const filteredBlogs = useMemo(() => {
         if (activeCategory.tag === "all") return initialBlogs;
         return initialBlogs.filter((blog) => blog.tag === activeCategory.tag);
@@ -118,7 +131,7 @@ const BlogListing = ({ initialBlogs = [] }: BlogListingProps) => {
                                 <S.BlogCard sx={{ padding: "16px" }}>
                                     <S.ImageWrapper sx={{ position: "relative", width: "100%", aspectRatio: "16/9", overflow: "hidden", borderRadius: "8px", mb: 2 }}>
                                         <Image
-                                            src={blog.image || '/fallback.jpg'} // Added fallback
+                                            src={blog.image || '/fallback.jpg'}
                                             alt={blog.title}
                                             fill
                                             priority={index < 3}

@@ -29,7 +29,7 @@ export const RootSection = styled(Box)<RootSectionProps>(({ theme, $mediaType })
         width: "100%",
         height: "150px",
         background: `linear-gradient(to bottom, ${theme.palette.background.default} 0%, ${alpha(theme.palette.background.default, 0.8)} 20%, transparent 100%)`,
-        zIndex: 2, 
+        zIndex: 2,
         pointerEvents: "none",
         display: ($mediaType === "video" || $mediaType === "image") ? "block" : "none",
     },
@@ -43,13 +43,16 @@ export const RootSection = styled(Box)<RootSectionProps>(({ theme, $mediaType })
         width: "100%",
         height: "150px",
         background: `linear-gradient(to top, ${theme.palette.background.default} 0%, ${alpha(theme.palette.background.default, 0.8)} 20%, transparent 100%)`,
-        zIndex: 2, 
+        zIndex: 2,
         pointerEvents: "none",
         display: ($mediaType === "video" || $mediaType === "image") ? "block" : "none",
     }
 }));
 
-export const MediaBackground = styled(Box)<MediaProps>(({ $mediaType }) => ({
+export const MediaBackground = styled(Box, {
+    // Prevent $mediaType from being passed to the DOM element
+    shouldForwardProp: (prop) => prop !== "$mediaType",
+})<MediaProps>(({ $mediaType }: MediaProps) => ({
     position: "absolute",
     top: 0,
     left: 0,
@@ -58,7 +61,7 @@ export const MediaBackground = styled(Box)<MediaProps>(({ $mediaType }) => ({
     objectFit: "cover",
     zIndex: 0,
     filter: $mediaType === "video" ? "brightness(0.5)" : "none",
-})) as any;
+}));
 
 export const ContentOverlay = styled(Box)({
     position: "relative",

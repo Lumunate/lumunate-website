@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Logo from "./logo";
 import { useEffect, useRef, useState, useMemo } from "react";
-import gsap from "gsap";
 import {
     AppBar,
     Button,

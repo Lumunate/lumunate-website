@@ -1,5 +1,3 @@
-// StartupAnimation.tsx (adjusted)
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -24,7 +22,11 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
         }
 
         sessionStorage.setItem("startupAnimationShown", "true");
-        setVisible(true);
+
+        // Delay state update to avoid synchronous setState in effect
+        const showTimeout = setTimeout(() => {
+            setVisible(true);
+        }, 0);
 
         document.body.classList.add("startup-active");
 
@@ -37,41 +39,31 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
             document.body.classList.remove("startup-active");
         };
 
-        // Delay GSAP animation until DOM nodes exist
         const animate = () => {
             if (!leftRef.current || !centerRef.current || !rightRef.current || !containerRef.current) {
-                return; // wait until refs are ready
+                return;
             }
 
-            const tl = gsap.timeline({
-                defaults: { ease: "power3.out" },
-            });
+            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
             gsap.set(leftRef.current, { y: "100%" });
             gsap.set(rightRef.current, { y: "100%" });
             gsap.set(centerRef.current, { y: "-100%" });
 
-            tl.to([leftRef.current, rightRef.current, centerRef.current], {
-                y: "0%",
-                duration: 1.1,
-            })
+            tl.to([leftRef.current, rightRef.current, centerRef.current], { y: "0%", duration: 1.1 })
                 .to({}, { duration: 0.4 })
-                .to(
-                    [leftRef.current, rightRef.current, centerRef.current],
-                    {
-                        y: "-100%",
-                        duration: 1.1,
-                        ease: "power3.inOut",
-                        onStart: () => {
-                            gsap.to(containerRef.current!, {
-                                backgroundColor: "transparent",
-                                duration: 0.3,
-                                ease: "none",
-                            });
-                        },
+                .to([leftRef.current, rightRef.current, centerRef.current], {
+                    y: "-100%",
+                    duration: 1.1,
+                    ease: "power3.inOut",
+                    onStart: () => {
+                        gsap.to(containerRef.current!, {
+                            backgroundColor: "transparent",
+                            duration: 0.3,
+                            ease: "none",
+                        });
                     },
-                    "+=0.1"
-                )
+                }, "+=0.1")
                 .to(containerRef.current, {
                     autoAlpha: 0,
                     duration: 0.7,
@@ -81,7 +73,9 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
                         if (navbar) {
                             gsap.set(navbar, { opacity: 0, y: -80, pointerEvents: "none" });
                         }
+
                         setVisible(false);
+
                         setTimeout(() => {
                             onComplete();
                             setTimeout(() => {
@@ -98,15 +92,16 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
             };
         };
 
-        // Delay the animation to the next tick to ensure refs exist
         const timeout = setTimeout(animate, 0);
 
         return () => {
             clearTimeout(timeout);
+            clearTimeout(showTimeout);
             cleanup();
         };
     }, [onComplete]);
 
+    if (!visible) return null;
 
     return (
         <Box
