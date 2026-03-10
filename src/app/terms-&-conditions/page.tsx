@@ -7,7 +7,7 @@ export default function TermsPage() {
             <section>
                 <Box className="legal-subtitle">Welcome to Lumunate</Box>
                 <Typography className="legal-body">
-                    These Terms of Service ("Terms") govern your access to and use of our website and services.
+                    These Terms of Service (&quot;Terms&quot;) govern your access to and use of our website and services.
                     By using our services, you agree to comply with and be bound by the following terms.
                 </Typography>
             </section>

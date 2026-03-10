@@ -1,15 +1,20 @@
+import BlogDetailContent from '@/components/blogs/BlogDetailContent/BlogDetailContent';
+import BlogDetailsHero from '@/components/blogs/BlogDetailsHero/BlogDetailsHero';
+import ReadSimilarBlogs from '@/components/blogs/ReadSimilar/ReadSimilar';
+import ExploreSection from '@/components/home/explore/Explore';
+import Ready from '@/components/home/ready/Ready';
+import { client } from '@/sanity/lib/client';
+import { Box } from '@mui/material';
 
-import BlogDetailContent from '@/components/blogs/BlogDetailContent/BlogDetailContent'
-import BlogDetailsHero from '@/components/blogs/BlogDetailsHero/BlogDetailsHero'
-import ReadSimilarBlogs from '@/components/blogs/ReadSimilar/ReadSimilar'
-import ExploreSection from '@/components/home/explore/Explore'
-import Ready from '@/components/home/ready/Ready'
-import { client } from '@/sanity/lib/client'
-import { Box } from '@mui/material'
-
+type Blog = {
+    title: string;
+    slug: string;
+    date: string;
+    image?: string;
+    tag?: string;
+};
 
 export default async function BlogDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
-    //  Await the params object
     const { slug } = await params;
 
     const query = `*[_type == "post"] | order(publishedAt desc) {
@@ -20,10 +25,9 @@ export default async function BlogDetailsPage({ params }: { params: Promise<{ sl
         "tag": category
     }`;
 
-    const allBlogs = await client.fetch(query);
+    const allBlogs: Blog[] = await client.fetch(query);
 
-    //  Used the awaited slug
-    const currentBlog = allBlogs.find((b: any) => b.slug === slug);
+    const currentBlog = allBlogs.find((b: Blog) => b.slug === slug);
 
     if (!currentBlog) {
         return (
