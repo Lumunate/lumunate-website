@@ -24,7 +24,6 @@ import CEOSection from "@/components/home/CEOSection/CEOSection";
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function Home({
-  navRef,
 }: {
   navRef: React.RefObject<HTMLDivElement | null>;
 }) {

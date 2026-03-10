@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Typography, Box } from "@mui/material";
+import { Typography } from "@mui/material";
 import {
     LogosRoot,
     LogoItem,

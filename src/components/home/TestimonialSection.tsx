@@ -9,12 +9,10 @@ import {
     StarsRow,
     TestimonialText,
     AuthorRow,
-    AuthorAvatar,
     AuthorInfo,
     AuthorName,
     AuthorTitle,
 } from "./TestimonialSection.styles";
-import Image from "next/image";
 import useGsapAnimation from "@/hooks/useGsapAnimation";
 import PageContainer from "../common/PageContainer";
 import { useTheme } from "@mui/material/styles";
@@ -61,7 +59,7 @@ export default function TestimonialSection() {
 
                         <AuthorRow>
                             <AuthorInfo>
-                                <AuthorName>// Ebrahim</AuthorName>
+                                <AuthorName>{"// Ebrahim"}</AuthorName>
                                 <AuthorTitle>CEO, Koinfolio</AuthorTitle>
                             </AuthorInfo>
                         </AuthorRow>

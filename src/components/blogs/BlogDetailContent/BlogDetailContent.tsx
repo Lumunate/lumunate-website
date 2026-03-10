@@ -126,7 +126,7 @@ const BlogDetailContent = () => {
                             <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary', lineHeight: 1.8 }}>
                                 The rise of low-code and no-code platforms has sparked one of the most heated debates in the software development world. Are these tools democratizing technology and empowering businesses, or are they creating a dangerous landscape of unmaintainable, insecure applications?
                                 <br /><br />
-                                As a software house that's watched this trend unfold and experimented with these platforms ourselves — we're here to cut through the noise and give you the honest truth about low-code development.
+                                As a software house that&apos;s watched this trend unfold and experimented with these platforms ourselves — we&apos;re here to cut through the noise and give you the honest truth about low-code development.
                             </Typography>
 
                             <Divider sx={{ mb: 4, borderColor: "divider" }} />
@@ -142,9 +142,9 @@ const BlogDetailContent = () => {
 
                             <Divider sx={{ mb: 4, borderColor: "divider" }} />
 
-                            <Typography variant="h4" id="case-for" gutterBottom sx={{ fontSize: { xs: '24px', md: '32px' } }}>The Case FOR Low-Code: Why It's a Friend</Typography>
+                            <Typography variant="h4" id="case-for" gutterBottom sx={{ fontSize: { xs: '24px', md: '32px' } }}>The Case FOR Low-Code: Why It&apos;s a Friend</Typography>
                             <Typography variant="body1" sx={{ mb: 2, color: 'text.secondary' }}>
-                                Let's start with the positives, because there are genuinely compelling reasons businesses are flocking to these platforms:
+                                Let&apos;s start with the positives, because there are genuinely compelling reasons businesses are flocking to these platforms:
                             </Typography>
                             <Box sx={{ color: 'text.secondary', mb: 4 }}>
                                 <Typography variant="body1" sx={{ mb: 2 }}>1. <strong>Speed to Market:</strong> When you need a functional MVP or internal tool yesterday, low-code platforms deliver. What might take weeks in traditional development can be prototype-ready in days.</Typography>
@@ -155,10 +155,10 @@ const BlogDetailContent = () => {
 
                             <Divider sx={{ mb: 4, borderColor: "divider" }} />
 
-                            <Typography variant="h4" id="case-against" gutterBottom sx={{ fontSize: { xs: '24px', md: '32px' } }}>The Case AGAINST Low-Code: Why It's a Foe</Typography>
+                            <Typography variant="h4" id="case-against" gutterBottom sx={{ fontSize: { xs: '24px', md: '32px' } }}>The Case AGAINST Low-Code: Why It&apos;s a Foe</Typography>
                             <Box sx={{ color: 'text.secondary', mb: 4 }}>
-                                <Typography variant="body1" sx={{ mb: 2 }}>1. <strong>The Illusion of Simplicity:</strong> Low-code is easy until it isn't. The moment you need custom logic, you hit a wall.</Typography>
-                                <Typography variant="body1" sx={{ mb: 2 }}>2. <strong>Vendor Lock-In:</strong> Most platforms are proprietary black boxes. You can't easily migrate your application elsewhere.</Typography>
+                                <Typography variant="body1" sx={{ mb: 2 }}>1. <strong>The Illusion of Simplicity:</strong> Low-code is easy until it isn&apos;t. The moment you need custom logic, you hit a wall.</Typography>
+                                <Typography variant="body1" sx={{ mb: 2 }}>2. <strong>Vendor Lock-In:</strong> Most platforms are proprietary black boxes. You can&apos;t easily migrate your application elsewhere.</Typography>
                                 <Typography variant="body1" sx={{ mb: 2 }}>3. <strong>Scalability Concerns:</strong> Low-code platforms often struggle with performance at scale.</Typography>
                                 <Typography variant="body1" sx={{ mb: 2 }}>4. <strong>Security and Compliance Risks:</strong> When non-technical users build applications, they rarely consider security best practices.</Typography>
                                 <Typography variant="body1" sx={{ mb: 2 }}>5. <strong>Technical Debt in Disguise:</strong> Low-code creates a different kind of technical debt—messy visual workflows.</Typography>
@@ -168,16 +168,16 @@ const BlogDetailContent = () => {
 
                             <Typography variant="h4" id="hybrid-approach" gutterBottom sx={{ fontSize: { xs: '24px', md: '32px' } }}>Our Hybrid Approach</Typography>
                             <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary', lineHeight: 1.8 }}>
-                                At Lumunate, we don't see this as an either/or situation. We've successfully used low-code platforms for client admin panels while building the core application logic in custom code.
+                                At Lumunate, we don&apos;t see this as an either/or situation. We&apos;ve successfully used low-code platforms for client admin panels while building the core application logic in custom code.
                             </Typography>
 
                             <Divider sx={{ mb: 4, borderColor: "divider" }} />
 
-                            <Typography variant="h4" id="experience" gutterBottom sx={{ fontSize: { xs: '24px', md: '32px' } }}>What's Your Experience?</Typography>
+                            <Typography variant="h4" id="experience" gutterBottom sx={{ fontSize: { xs: '24px', md: '32px' } }}>What&apos;s Your Experience?</Typography>
                             <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.8 }}>
-                                Have you built with low-code platforms? We'd love to hear your war stories—both the wins and the disasters.
+                                Have you built with low-code platforms? We&apos;d love to hear your war stories—both the wins and the disasters.
                                 <br /><br />
-                                Ready to discuss your next project? Whether it's low-code, custom development, or a hybrid approach, we'll help you choose the right path.
+                                Ready to discuss your next project? Whether it&apos;s low-code, custom development, or a hybrid approach, we&apos;ll help you choose the right path.
                             </Typography>
                         </S.ArticleBody>
                     </Grid>

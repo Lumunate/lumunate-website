@@ -21,12 +21,15 @@ export async function POST(req: NextRequest) {
             message: "Booking confirmation sent!"
         }, { status: 200 });
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Booking API Error:", error);
+
+        const message = error instanceof Error ? error.message : String(error);
+
         return NextResponse.json(
             {
                 message: "Failed to process booking. Please try again later.",
-                details: error.message
+                details: message
             },
             { status: 500 }
         );

@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import theme from "@/theme/theme";
 import CssBaseline from "@mui/material/CssBaseline";
 import Navbar from "@/components/ui/Navbar";

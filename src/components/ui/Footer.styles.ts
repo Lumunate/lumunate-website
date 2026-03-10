@@ -1,13 +1,14 @@
 "use client";
-import { styled, Box, IconButton, Theme } from "@mui/material";
+
 import Link from "next/link";
-import { alpha } from "@mui/material/styles";
+import { IconButton, styled, IconButtonProps, Box } from "@mui/material";
 
 const NAV_SPACER_WIDTH = 64;
 const ICON_CELL_WIDTH = 64;
 const SMALL_SPACER_WIDTH = 32;
 
-const NOISE_SVG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E";
+const NOISE_SVG =
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E";
 
 export const FooterRoot = styled("footer")(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
@@ -23,8 +24,10 @@ export const FooterTop = styled(Box)(({ theme }) => ({
     "&::before": {
         content: '""',
         position: "absolute",
-        top: 0, bottom: 0,
-        left: 0, right: 0,
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
         [theme.breakpoints.up("sm")]: {
             left: NAV_SPACER_WIDTH * 4,
             right: NAV_SPACER_WIDTH * 4,
@@ -35,7 +38,7 @@ export const FooterTop = styled(Box)(({ theme }) => ({
     },
 }));
 
-export const NoiseOverlay = styled(Box)(({ theme }) => ({
+export const NoiseOverlay = styled(Box)({
     position: "absolute",
     top: 0,
     bottom: 0,
@@ -45,7 +48,7 @@ export const NoiseOverlay = styled(Box)(({ theme }) => ({
     opacity: 0.15,
     zIndex: 0,
     pointerEvents: "none",
-}));
+});
 
 export const FooterNavItem = styled(Link)(({ theme }) => ({
     flex: 1,
@@ -72,7 +75,10 @@ export const FooterNavItem = styled(Link)(({ theme }) => ({
     },
 }));
 
-export const IconWrapper = styled(IconButton)<any>(({ theme }) => ({
+
+export const IconWrapper = styled(
+    IconButton
+)<IconButtonProps & { component?: "a" }>(({ theme }) => ({
     width: ICON_CELL_WIDTH,
     height: "100%",
     borderRadius: 0,
@@ -91,10 +97,11 @@ export const IconWrapper = styled(IconButton)<any>(({ theme }) => ({
         opacity: 0,
         transition: "opacity 0.2s ease",
         zIndex: -1,
-        left: '50%',
-        top: '50%',
-        transform: 'translate(-50%, -50%)'
+        left: "50%",
+        top: "50%",
+        transform: "translate(-50%, -50%)",
     },
+
     "&:hover::before": { opacity: 1 },
     "&:hover": { backgroundColor: "transparent" },
 
@@ -104,21 +111,24 @@ export const IconWrapper = styled(IconButton)<any>(({ theme }) => ({
         "&:first-of-type": {
             borderLeft: "none !important",
         },
-    }
-}));
-export const FooterSpacer = styled(Box)<{ size?: "small" }>(({ theme, size }) => ({
-    width: size === "small" ? SMALL_SPACER_WIDTH : NAV_SPACER_WIDTH,
-    height: "100%",
-    borderLeft: `1px solid ${theme.palette.divider}`,
-    backgroundColor: "transparent",
+    },
 }));
 
-export const FooterBottom = styled(Box)(({ theme }) => ({
+export const FooterSpacer = styled(Box)<{ size?: "small" }>(
+    ({ theme, size }) => ({
+        width: size === "small" ? SMALL_SPACER_WIDTH : NAV_SPACER_WIDTH,
+        height: "100%",
+        borderLeft: `1px solid ${theme.palette.divider}`,
+        backgroundColor: "transparent",
+    })
+);
+
+export const FooterBottom = styled(Box)({
     height: 56,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-}));
+});
 
 export const FooterText = styled("span")(({ theme }) => ({
     fontSize: "16px",
