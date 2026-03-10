@@ -39,7 +39,7 @@ const BookCalenderPage = () => {
 
             reset();
             setStep(1);
-        } catch (error) {
+        } catch {
             setToast({ open: true, message: "Failed to book. Please try again.", severity: "error" });
         }
     };

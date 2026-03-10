@@ -73,7 +73,6 @@ export default function Navbar() {
     const isMobile = useMediaQuery(theme.breakpoints.down("xl"));
     const pathname = usePathname();
     const navRef = useNavbarRef();
-    const isHome = pathname === "/";
 
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [projectsAnchor, setProjectsAnchor] = useState<null | HTMLElement>(null);

@@ -9,6 +9,16 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import * as S from "./BlogDetailContent.styles";
 
+const tableOfContents = [
+    { title: "Introduction", id: "introduction" },
+    { title: "What exactly are low code platforms?", id: "what-is-low-code" },
+    { title: "The Case FOR Low-Code: Why It's a Friend", id: "case-for" },
+    { title: "The Case AGAINST Low-Code: Why It's a Foe", id: "case-against" },
+    { title: "Our Hybrid Approach", id: "hybrid-approach" },
+    { title: "What's your experience?", id: "experience" },
+];
+
+
 const BlogDetailContent = () => {
     const sidebarRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -19,14 +29,6 @@ const BlogDetailContent = () => {
     const [sidebarWidth, setSidebarWidth] = useState(0);
     const [activeId, setActiveId] = useState("");
 
-    const tableOfContents = [
-        { title: "Introduction", id: "introduction" },
-        { title: "What exactly are low code platforms?", id: "what-is-low-code" },
-        { title: "The Case FOR Low-Code: Why It's a Friend", id: "case-for" },
-        { title: "The Case AGAINST Low-Code: Why It's a Foe", id: "case-against" },
-        { title: "Our Hybrid Approach", id: "hybrid-approach" },
-        { title: "What's your experience?", id: "experience" },
-    ];
 
     // FIX: Auto-scroll TOC container - ONLY for Desktop (>= 1024px)
     // This prevents the "jumping" issue on mobile/xs screens

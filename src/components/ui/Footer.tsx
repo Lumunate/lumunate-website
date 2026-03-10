@@ -1,5 +1,5 @@
 "use client";
-import { Box, Theme } from "@mui/material";
+import { Box } from "@mui/material";
 import Image from "next/image";
 import {
     FooterRoot,
