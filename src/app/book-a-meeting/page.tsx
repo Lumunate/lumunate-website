@@ -82,7 +82,7 @@ export default function BookCalenderPage() {
 
             setIsSuccessModalOpen(true);
             reset();
-        } catch (err) {
+        } catch {
             setSnackbar({
                 open: true,
                 message: "Network error. Please check your connection.",

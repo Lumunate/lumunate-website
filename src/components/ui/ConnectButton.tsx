@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Typography, styled, useTheme, Box, BoxProps } from "@mui/material";
+import { Typography, styled, Box, BoxProps } from "@mui/material";
 import Link from "next/link";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 
@@ -43,7 +43,6 @@ const StyledButton = styled((props: BoxProps) => (
 }));
 
 export default function ConnectButton({ children, href, onClick }: ConnectButtonProps) {
-    const theme = useTheme();
 
     const content = (
         <Typography
