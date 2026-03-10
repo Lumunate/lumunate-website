@@ -1,7 +1,6 @@
 "use client";
 
-import React from 'react';
-import { Box, Typography, List, ListItem, Stack } from '@mui/material';
+import { Box, Typography, List, Stack } from '@mui/material';
 import Image from 'next/image';
 import {
     SectionContainer,

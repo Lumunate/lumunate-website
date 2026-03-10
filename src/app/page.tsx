@@ -27,21 +27,12 @@ export default function Home({
 }: {
   navRef: React.RefObject<HTMLDivElement | null>;
 }) {
-
   const [preloadDone, setPreloadDone] = useState(false);
   const [startupDone, setStartupDone] = useState(false);
   const [fadeIn, setFadeIn] = useState(false);
-  const [startApproach, setStartApproach] = useState(false);
 
-  // Section refs
-  const logosRef = useRef<HTMLDivElement>(null);
-  const testimonialRef = useRef<HTMLDivElement>(null);
-  const workflowRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
+  // Section refs - Only keeping approachRef as it was the only one used by the observer logic
   const approachRef = useRef<HTMLDivElement>(null);
-  const worksRef = useRef<HTMLDivElement>(null);
-
-  const approachDoneRef = useRef(false);
 
   // Lock scroll initially
   useEffect(() => {
@@ -55,41 +46,6 @@ export default function Home({
       document.body.style.overflow = "";
     };
   }, [preloadDone, startupDone]);
-
-  useEffect(() => {
-    if (!approachRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setStartApproach(true);
-          observer.disconnect(); // run once
-        }
-      },
-      { threshold: 0.4 }
-    );
-
-    observer.observe(approachRef.current);
-
-    return () => observer.disconnect();
-  }, []);
-
-  const wait = (sec: number) =>
-    new Promise((r) => setTimeout(r, sec * 1000));
-
-  const scrollTo = (target: HTMLElement | null, duration = 1.4) =>
-    new Promise<void>((resolve) => {
-      if (!target) return resolve();
-      gsap.to(window, {
-        scrollTo: { y: target, offsetY: 0 },
-        duration,
-        ease: "power2.inOut",
-        onComplete: resolve,
-      });
-    });
-
-  // Startup sequence
-
 
   // Fade in content
   useEffect(() => {
@@ -115,26 +71,19 @@ export default function Home({
         }}
       >
         <HeaderSection animate={startupDone} />
-
         <LogosSection />
-
-
         <TestimonialSection />
-
-
         <WorkflowSection />
-
         <TrackRecord />
-
-        <OurApproach />
+        {/* Added ref back here in case you want to use it for ScrollTrigger later */}
+        <Box ref={approachRef}>
+          <OurApproach />
+        </Box>
       </Box>
 
       <Works />
-
       <HowItWorks />
-
       <CEOSection />
-
       <ExploreSection />
 
       <Ready

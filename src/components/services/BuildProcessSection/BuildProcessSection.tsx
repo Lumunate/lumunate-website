@@ -9,7 +9,6 @@ import {
     CardWrapper,
     CardTitle,
     CardDesc,
-    MediaBackground,
     ContentOverlay
 } from "./BuildProcessSection.styles";
 

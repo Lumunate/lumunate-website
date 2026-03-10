@@ -77,7 +77,7 @@ export const ListItemStyled = styled(ListItem)(({ theme }) => ({
   },
 }));
 
-export const ServicesWrapper = styled(Box)(({ theme }) => ({
+export const ServicesWrapper = styled(Box)(({ }) => ({
   display: "flex",
   gap: "17px",
   flexWrap: "wrap",
