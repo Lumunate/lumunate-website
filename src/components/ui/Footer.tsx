@@ -36,35 +36,30 @@ export default function Footer() {
                     <NoiseOverlay />
 
                     <Box sx={{ display: "flex", zIndex: 1 }}>
-                        <IconWrapper >
-                            <a href="tel:+923310200888">
-                                <IconWrapper>
-                                    <Image src="/icons/phone.svg" alt="Call" width={20} height={20} />
-                                </IconWrapper>
-                            </a>
-                        </IconWrapper>
+                        {/* PHONE */}
+                        <a href="tel:+923310200888">
+                            <IconWrapper>
+                                <Image src="/icons/phone.svg" alt="Call" width={20} height={20} />
+                            </IconWrapper>
+                        </a>
 
                         <FooterSpacer size="small" />
 
-                        <IconWrapper>
-                            <a href="mailto:info@lumunate.com">
-                                <IconWrapper>
-                                    <Image src="/icons/mail.svg" alt="Mail" width={20} height={20} />
-                                </IconWrapper>
-                            </a>
-                        </IconWrapper>
+                        {/* MAIL */}
+                        <a href="mailto:info@lumunate.com">
+                            <IconWrapper>
+                                <Image src="/icons/mail.svg" alt="Mail" width={20} height={20} />
+                            </IconWrapper>
+                        </a>
 
                         <FooterSpacer size="small" />
 
-                        {/* LinkedIn Icon */}
-                        <IconWrapper
-
-                        ><a href="https://www.linkedin.com/company/lumunate/" target="_blank" rel="noopener noreferrer">
-                                <IconWrapper>
-                                    <Image src="/icons/linkedin.svg" alt="LinkedIn" width={20} height={20} />
-                                </IconWrapper>
-                            </a>
-                        </IconWrapper>
+                        {/* LINKEDIN */}
+                        <a href="https://www.linkedin.com/company/lumunate/" target="_blank" rel="noopener noreferrer">
+                            <IconWrapper>
+                                <Image src="/icons/linkedin.svg" alt="LinkedIn" width={20} height={20} />
+                            </IconWrapper>
+                        </a>
 
                         <Box sx={{ borderLeft: (theme) => `1px solid ${theme.palette.divider}`, height: '100%' }} />
                     </Box>
