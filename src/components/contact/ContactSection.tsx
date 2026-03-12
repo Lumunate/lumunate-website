@@ -1,9 +1,13 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Snackbar, Alert, Typography, MenuItem, useTheme, Box, alpha } from "@mui/material";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
+import { z } from "zod";
+
+// Styles & Components
 import {
     VideoHeader,
     BackgroundVideo,
@@ -11,23 +15,14 @@ import {
     ContactForm,
     ContactTextField,
     BottomBlur,
+    FullRow
 } from "./ContactSection.styles";
-import { FullRow } from "./ContactSection.styles";
-
 import Ready from "../home/ready/Ready";
 import ExploreSection from "../home/explore/Explore";
-import { z } from "zod";
 import PageContainer from "../common/PageContainer";
 import DiscoverButton from "../ui/DiscoverButton";
-import { useEffect } from "react";
-import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 
-interface ApiResponse {
-    message?: string;
-    [key: string]: unknown; // for any extra fields
-}
-
-/* Frontend schema (Zod) */
+/*  Validation Logic  */
 const contactSchema = z.object({
     email: z.string().trim().email("Please enter a valid email address"),
     phone: z
@@ -65,8 +60,59 @@ const budgets = [
     "$50,000+",
 ];
 
+/* Custom Status Icon  */
+const StatusIcon = ({ type }: { type: "success" | "error" | "warning" }) => {
+    const theme = useTheme();
+    const iconColor = theme.palette.status[type];
+
+    return (
+        <Box
+            sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                backgroundColor: iconColor,
+                flexShrink: 0,
+            }}
+        >
+            {type === "success" && (
+                <Box
+                    sx={{
+                        width: "12px",
+                        height: "6px",
+                        borderBottom: `2.5px solid #FFFFFF`,
+                        borderLeft: `2.5px solid #FFFFFF`,
+                        transform: "rotate(-45deg) translate(1px, -1px)",
+                    }}
+                />
+            )}
+            {type === "error" && (
+                <Typography sx={{ color: "#FFFFFF", fontSize: "14px", fontWeight: 700, lineHeight: 1 }}>✕</Typography>
+            )}
+            {type === "warning" && (
+                <Typography sx={{ color: "#FFFFFF", fontSize: "18px", fontWeight: 700, lineHeight: 1 }}>!</Typography>
+            )}
+        </Box>
+    );
+};
+
 export default function ContactSection() {
     const theme = useTheme();
+    const [interestOpen, setInterestOpen] = useState(false);
+    const [budgetOpen, setBudgetOpen] = useState(false);
+
+    const [snackbar, setSnackbar] = useState<{
+        open: boolean;
+        type: "success" | "error" | "warning";
+        message: string;
+    }>({
+        open: false,
+        type: "success",
+        message: "",
+    });
 
     const {
         handleSubmit,
@@ -77,101 +123,40 @@ export default function ContactSection() {
         resolver: zodResolver(contactSchema),
         defaultValues: { email: "", phone: "", interest: "", budget: "", project: "" },
         mode: "onSubmit",
-        reValidateMode: "onChange",
     });
 
-    const [snackbar, setSnackbar] = useState<{
-        open: boolean;
-        type: "success" | "error";
-        message: string;
-    }>({
-        open: false,
-        type: "success",
-        message: "",
-    });
-
-    const selectMenuProps = useMemo(
-        () => ({
-            disablePortal: false,
-            disableScrollLock: true,
-            PaperProps: {
-                sx: {
-                    mt: 0,
-                    borderRadius: "12px",
-                    backgroundColor: theme.palette.background.default,
-                    border: `1px solid ${theme.palette.divider}`,
-                    boxShadow: "0 20px 40px rgba(0,0,0,0.6)",
-                    backgroundImage: "none",
-
-                    "& .MuiMenuItem-root": {
-                        fontSize: "14px",
-                        fontFamily: "Montserrat, sans-serif",
-                        color: theme.palette.section.muted,
-                        padding: "12px 16px",
-
-                        "&:hover": {
-                            backgroundColor: alpha(theme.palette.text.primary, 0.08),
-                        },
-                        "&.Mui-selected": {
-                            backgroundColor: alpha(theme.palette.text.primary, 0.12),
-                        },
-                        "&.Mui-selected:hover": {
-                            backgroundColor: alpha(theme.palette.text.primary, 0.16),
-                        },
-                    },
-                },
-            },
-        }),
-        [theme]
-    );
+    // Close menus on scroll logic
+    useEffect(() => {
+        if (!interestOpen && !budgetOpen) return;
+        const closeOnScroll = () => {
+            setInterestOpen(false);
+            setBudgetOpen(false);
+        };
+        window.addEventListener("scroll", closeOnScroll, true);
+        return () => window.removeEventListener("scroll", closeOnScroll, true);
+    }, [interestOpen, budgetOpen]);
 
     const onSubmit = async (data: ContactFormData) => {
         try {
             const res = await fetch("/api/contact", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
             });
 
-            // Check content type
-            const contentType = res.headers.get("content-type");
-            let result: ApiResponse = {};
-
-            if (contentType && contentType.includes("application/json")) {
-                result = await res.json();
-            } else {
-                // For non-JSON responses (like HTML errors)
-                const textError = await res.text();
-                console.error("Non-JSON response received:", textError);
-                throw new Error(`Server returned ${res.status}: ${res.statusText}`);
-            }
-
-            if (!res.ok) {
-                // Use the API message if available
-                throw new Error(result.message ?? `Submission failed with status ${res.status}`);
-            }
+            if (!res.ok) throw new Error("Submission Failed");
 
             setSnackbar({
                 open: true,
                 type: "success",
-                message: "Your form has been submitted successfully!",
+                message: "Form Submitted Successfully",
             });
-            reset(); // Clears the form
-        } catch (error: unknown) {
-            console.error("Form submission error:", error);
-
-            let message = "Something went wrong. Please try again.";
-            if (error instanceof Error) {
-                message = error.message;
-            }
-
+            reset();
+        } catch (error) {
             setSnackbar({
                 open: true,
                 type: "error",
-                message,
+                message: "Submission Failed",
             });
         }
     };
@@ -179,60 +164,48 @@ export default function ContactSection() {
     const onError = () => {
         setSnackbar({
             open: true,
-            type: "error",
-            message: "Please fix the errors before submitting.",
+            type: "warning",
+            message: "Please Fill All Necessary Fields Before Submission",
         });
     };
 
-    const [interestOpen, setInterestOpen] = useState(false);
-    const [budgetOpen, setBudgetOpen] = useState(false);
-
-    useEffect(() => {
-        if (!interestOpen && !budgetOpen) return;
-
-        const closeOnScroll = () => {
-            setInterestOpen(false);
-            setBudgetOpen(false);
-        };
-
-        window.addEventListener("scroll", closeOnScroll, true);
-        return () => window.removeEventListener("scroll", closeOnScroll, true);
-    }, [interestOpen, budgetOpen]);
+    const selectMenuProps = useMemo(() => ({
+        disablePortal: false,
+        disableScrollLock: true,
+        PaperProps: {
+            sx: {
+                borderRadius: "12px",
+                backgroundColor: theme.palette.background.default,
+                border: `1px solid ${theme.palette.divider}`,
+                backgroundImage: "none",
+                "& .MuiMenuItem-root": {
+                    fontSize: "14px",
+                    fontFamily: "Montserrat, sans-serif",
+                    color: theme.palette.section.muted,
+                    padding: "12px 16px",
+                    "&:hover": { backgroundColor: alpha(theme.palette.text.primary, 0.08) },
+                },
+            },
+        },
+    }), [theme]);
 
     const renderSelectPlaceholder = (selected: unknown) => {
         const value = (selected ?? "") as string;
-
-        if (!value) {
-            return (
-                <span
-                    style={{
-                        color: alpha(theme.palette.text.primary, 0.55),
-                    }}
-                >
-                    --Select--
-                </span>
-            );
-        }
-
+        if (!value) return <span style={{ color: alpha(theme.palette.text.primary, 0.55) }}>--Select--</span>;
         return value;
     };
-
 
     return (
         <>
             <VideoHeader>
                 <BackgroundVideo autoPlay muted loop playsInline>
-                    <source
-                        src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770897842/Contact_Us_h2snzh.webm"
-                        type="video/mp4"
-                    />
+                    <source src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770897842/Contact_Us_h2snzh.webm" type="video/mp4" />
                 </BackgroundVideo>
                 <BottomBlur />
                 <HeroContent>
                     <PageContainer>
                         <Typography
                             variant="h2"
-                            component="h2"
                             sx={{
                                 fontWeight: 400,
                                 fontFamily: "Montserrat",
@@ -246,7 +219,6 @@ export default function ContactSection() {
                         </Typography>
 
                         <ContactForm onSubmit={handleSubmit(onSubmit, onError)}>
-                            {/* Email */}
                             <Controller
                                 name="email"
                                 control={control}
@@ -255,7 +227,6 @@ export default function ContactSection() {
                                         {...field}
                                         variant="standard"
                                         label="Your Email"
-                                        type="email"
                                         placeholder="you@email.com"
                                         fullWidth
                                         InputLabelProps={{ shrink: true }}
@@ -265,7 +236,6 @@ export default function ContactSection() {
                                 )}
                             />
 
-                            {/* Phone */}
                             <Controller
                                 name="phone"
                                 control={control}
@@ -274,7 +244,6 @@ export default function ContactSection() {
                                         {...field}
                                         variant="standard"
                                         label="Your Phone"
-                                        type="tel"
                                         placeholder="123-456-7890"
                                         fullWidth
                                         InputLabelProps={{ shrink: true }}
@@ -284,7 +253,6 @@ export default function ContactSection() {
                                 )}
                             />
 
-                            {/* Interest */}
                             <Controller
                                 name="interest"
                                 control={control}
@@ -300,26 +268,20 @@ export default function ContactSection() {
                                             open: interestOpen,
                                             onOpen: () => setInterestOpen(true),
                                             onClose: () => setInterestOpen(false),
-
                                             MenuProps: selectMenuProps,
-
                                             displayEmpty: true,
                                             renderValue: renderSelectPlaceholder,
-
                                             IconComponent: KeyboardArrowDownRoundedIcon,
                                         }}
                                         error={!!errors.interest}
                                         helperText={errors.interest?.message}
                                     >
                                         {interests.map((item) => (
-                                            <MenuItem key={item} value={item}>
-                                                {item}
-                                            </MenuItem>
+                                            <MenuItem key={item} value={item}>{item}</MenuItem>
                                         ))}
                                     </ContactTextField>
                                 )}
                             />
-
 
                             <Controller
                                 name="budget"
@@ -336,28 +298,21 @@ export default function ContactSection() {
                                             open: budgetOpen,
                                             onOpen: () => setBudgetOpen(true),
                                             onClose: () => setBudgetOpen(false),
-
                                             MenuProps: selectMenuProps,
-
                                             displayEmpty: true,
                                             renderValue: renderSelectPlaceholder,
-
                                             IconComponent: KeyboardArrowDownRoundedIcon,
                                         }}
                                         error={!!errors.budget}
                                         helperText={errors.budget?.message}
                                     >
                                         {budgets.map((item) => (
-                                            <MenuItem key={item} value={item}>
-                                                {item}
-                                            </MenuItem>
+                                            <MenuItem key={item} value={item}>{item}</MenuItem>
                                         ))}
                                     </ContactTextField>
                                 )}
                             />
 
-
-                            {/* Project */}
                             <FullRow>
                                 <Controller
                                     name="project"
@@ -379,40 +334,55 @@ export default function ContactSection() {
                                 />
                             </FullRow>
 
-                            {/* Submit */}
-                            <Box
-                                sx={{
-                                    gridColumn: { xs: "auto", md: "1 / -1" },
-                                    display: "flex",
-                                    justifyContent: "flex-start",
-                                }}
-                            >
-                                <DiscoverButton
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    sx={{
-                                        mt: { xs: "40px", md: "43px" },
-                                        minHeight: "auto",
-                                        minWidth: "auto",
-                                    }}
-                                >
+                            <Box sx={{ gridColumn: { xs: "auto", md: "1 / -1" }, display: "flex", justifyContent: "flex-start" }}>
+                                <DiscoverButton type="submit" disabled={isSubmitting} sx={{ mt: { xs: "40px", md: "43px" } }}>
                                     {isSubmitting ? "Submitting..." : "Submit"}
                                 </DiscoverButton>
-
                             </Box>
                         </ContactForm>
                     </PageContainer>
                 </HeroContent>
             </VideoHeader>
 
-            {/* Top-right toast */}
+            {/* Top-right Snackbar */}
             <Snackbar
                 open={snackbar.open}
                 autoHideDuration={4000}
                 onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
                 anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                sx={{ mt: 2, mr: 2 }}
             >
-                <Alert severity={snackbar.type} variant="filled" sx={{ width: "100%", fontSize: "16px", backgroundColor: theme.palette.button.discoverBg, }}>
+                <Alert
+                    onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
+                    severity={snackbar.type}
+                    variant="outlined"
+                    iconMapping={{
+                        success: <StatusIcon type="success" />,
+                        error: <StatusIcon type="error" />,
+                        warning: <StatusIcon type="warning" />,
+                    }}
+                    sx={{
+                        width: "100%",
+                        minWidth: { sm: "380px" },
+                        fontSize: "12px",
+                        fontWeight: 500,
+                        fontFamily: "Montserrat, sans-serif",
+                        borderRadius: "14px",
+                        display: "flex",
+                        alignItems: "center",
+                        color: theme.palette.text.primary,
+                        backgroundColor: theme.palette.status[`${snackbar.type}Bg` as keyof typeof theme.palette.status],
+                        borderColor: theme.palette.status[snackbar.type],
+                        "& .MuiAlert-icon": {
+                            padding: 0,
+                            display: "flex",
+                            alignItems: "center",
+                            mr: 2
+                        },
+                        "& .MuiAlert-message": { padding: "12px 12px" },
+                        "& .MuiAlert-action": { color: "inherit" }
+                    }}
+                >
                     {snackbar.message}
                 </Alert>
             </Snackbar>

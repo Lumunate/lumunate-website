@@ -32,6 +32,14 @@ declare module "@mui/material/styles" {
       discoverBg: string;
       CancelBg: string;
     };
+    status: {
+      success: string;
+      successBg: string;
+      error: string;
+      errorBg: string;
+      warning: string;
+      warningBg: string;
+    };
   }
   interface PaletteOptions {
     navbar?: Partial<Palette["navbar"]>;
@@ -39,6 +47,7 @@ declare module "@mui/material/styles" {
     button?: {
       discoverBg?: string;
     };
+    status?: Partial<Palette["status"]>;
   }
 }
 
@@ -72,6 +81,14 @@ export const TOKENS = {
   button: {
     discoverBg: "#015B3F",
     CancelBg: "#2C2F32",
+  },
+  status: {
+    success: "#1DB954",
+    successBg: "#22C55E33",
+    error: "#FF1F1F",
+    errorBg: "#FB2C3633",
+    warning: "#D78C00",
+    warningBg: "#D78C0033",
   },
 };
 
@@ -118,6 +135,7 @@ const theme = createTheme({
     navbar: TOKENS.navbar,
     section: TOKENS.section,
     button: TOKENS.button,
+    status: TOKENS.status,
   },
 
   breakpoints,
@@ -149,3 +167,5 @@ const theme = createTheme({
 });
 
 export default theme;
+
+
