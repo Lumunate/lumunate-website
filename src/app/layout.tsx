@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Geist, Geist_Mono } from "next/font/google";
-import LayoutClient from "@/components/LayoutClient"; //  client wrapper
+import LayoutClient from "@/components/LayoutClient";
 
 import { Montserrat } from "next/font/google";
 
