@@ -47,6 +47,21 @@ export const NavItem = styled(Box)(({ theme }) => ({
     position: "relative",
     borderLeft: `1px solid ${theme.palette.divider}`,
 
+    // Keep width consistent 
+    display: "inline-flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+
+    "&::after": {
+        display: "block",
+        content: "attr(data-text)",
+        fontWeight: 600,
+        height: 0,
+        overflow: "hidden",
+        visibility: "hidden",
+    },
+
     "&:last-of-type": {
         borderRight: `1px solid ${theme.palette.divider}`,
     },
@@ -55,14 +70,10 @@ export const NavItem = styled(Box)(({ theme }) => ({
         color: theme.palette.text.primary,
         opacity: 1,
         fontWeight: 600,
-
         background: `linear-gradient(180deg, 
             ${alpha(theme.palette.common.white, 0.09)} 0%, 
             ${theme.palette.navbar.cardsNavActive} 100%)`,
-
         backgroundColor: theme.palette.navbar.cardsNavActive,
-
-        // Inset shadow 
         boxShadow: `inset 0px 1px 1px ${alpha(theme.palette.common.white, 0.1)}`,
     },
 
