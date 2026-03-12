@@ -218,6 +218,7 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
             {workflowSections.map((section, i) => (
               <NavItem
                 key={section.title}
+                data-text={section.title}
                 className={`${activeIndex === i ? "active" : ""}`}
                 onClick={() => scrollToCard(i)}
               >
