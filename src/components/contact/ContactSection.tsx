@@ -83,17 +83,17 @@ const StatusIcon = ({ type }: { type: "success" | "error" | "warning" }) => {
                     sx={{
                         width: "12px",
                         height: "6px",
-                        borderBottom: `2.5px solid #FFFFFF`,
-                        borderLeft: `2.5px solid #FFFFFF`,
+                        borderBottom: `2.5px solid ${theme.palette.common.white}`,
+                        borderLeft: `2.5px solid ${theme.palette.common.white}`,
                         transform: "rotate(-45deg) translate(1px, -1px)",
                     }}
                 />
             )}
             {type === "error" && (
-                <Typography sx={{ color: "#FFFFFF", fontSize: "14px", fontWeight: 700, lineHeight: 1 }}>✕</Typography>
+                <Typography sx={{ color: theme.palette.common.white, fontSize: "14px", fontWeight: 700, lineHeight: 1 }}>✕</Typography>
             )}
             {type === "warning" && (
-                <Typography sx={{ color: "#FFFFFF", fontSize: "18px", fontWeight: 700, lineHeight: 1 }}>!</Typography>
+                <Typography sx={{ color: theme.palette.common.white, fontSize: "14px", fontWeight: 700, lineHeight: 1 }}>!</Typography>
             )}
         </Box>
     );
@@ -362,25 +362,34 @@ export default function ContactSection() {
                         warning: <StatusIcon type="warning" />,
                     }}
                     sx={{
-                        width: "100%",
-                        minWidth: { sm: "380px" },
-                        fontSize: "12px",
-                        fontWeight: 500,
+                        minWidth: { xs: "100%", sm: "380px" },
+                        fontSize: "14px",
                         fontFamily: "Montserrat, sans-serif",
-                        borderRadius: "14px",
+                        borderRadius: "16px",
                         display: "flex",
                         alignItems: "center",
                         color: theme.palette.text.primary,
                         backgroundColor: theme.palette.status[`${snackbar.type}Bg` as keyof typeof theme.palette.status],
-                        borderColor: theme.palette.status[snackbar.type],
+                        borderColor: snackbar.type === "success"
+                            ? theme.palette.status.successBorder
+                            : theme.palette.status[snackbar.type],
+
+                        px: 2,
                         "& .MuiAlert-icon": {
                             padding: 0,
+                            mr: 2,
                             display: "flex",
                             alignItems: "center",
-                            mr: 2
                         },
-                        "& .MuiAlert-message": { padding: "12px 12px" },
-                        "& .MuiAlert-action": { color: "inherit" }
+                        "& .MuiAlert-message": {
+                            padding: "12px 0",
+                            mr: 1,
+                        },
+                        "& .MuiAlert-action": {
+                            padding: 0,
+                            mr: -0.5,
+                            color: "inherit"
+                        }
                     }}
                 >
                     {snackbar.message}

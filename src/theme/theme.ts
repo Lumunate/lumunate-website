@@ -35,6 +35,7 @@ declare module "@mui/material/styles" {
     status: {
       success: string;
       successBg: string;
+      successBorder: string;
       error: string;
       errorBg: string;
       warning: string;
@@ -85,6 +86,7 @@ export const TOKENS = {
   status: {
     success: "#1DB954",
     successBg: "#22C55E33",
+    successBorder: "#FFFFFF05",
     error: "#FF1F1F",
     errorBg: "#FB2C3633",
     warning: "#D78C00",
