@@ -355,7 +355,7 @@ export default function ContactSection() {
                 <Alert
                     onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
                     severity={snackbar.type}
-                    variant="outlined"
+                    variant="outlined" // Keep outlined to maintain your custom background logic
                     iconMapping={{
                         success: <StatusIcon type="success" />,
                         error: <StatusIcon type="error" />,
@@ -365,19 +365,18 @@ export default function ContactSection() {
                         minWidth: { xs: "100%", sm: "380px" },
                         fontSize: "14px",
                         fontFamily: "Montserrat, sans-serif",
-                        borderRadius: "16px",
+                        borderRadius: "14px",
                         display: "flex",
                         alignItems: "center",
                         color: theme.palette.text.primary,
                         backgroundColor: theme.palette.status[`${snackbar.type}Bg` as keyof typeof theme.palette.status],
-                        borderColor: snackbar.type === "success"
-                            ? theme.palette.status.successBorder
-                            : theme.palette.status[snackbar.type],
+
+                        borderColor: "transparent",
 
                         px: 2,
                         "& .MuiAlert-icon": {
                             padding: 0,
-                            mr: 2,
+                            mr: "12px",
                             display: "flex",
                             alignItems: "center",
                         },
