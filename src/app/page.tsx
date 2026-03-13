@@ -23,54 +23,60 @@ import CEOSection from "@/components/home/CEOSection/CEOSection";
 
 gsap.registerPlugin(ScrollToPlugin);
 
-export default function Home({
-}: {
-  navRef: React.RefObject<HTMLDivElement | null>;
-}) {
+export default function Home() {
   const [preloadDone, setPreloadDone] = useState(false);
   const [startupDone, setStartupDone] = useState(false);
-  const [fadeIn, setFadeIn] = useState(false);
-
-  // Section refs - Only keeping approachRef as it was the only one used by the observer logic
   const approachRef = useRef<HTMLDivElement>(null);
 
-  // Lock scroll initially
   useEffect(() => {
-    if (!preloadDone || !startupDone) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    const hasSeenIntro = sessionStorage.getItem("introFinished");
+
+    if (hasSeenIntro === "true") {
+      setPreloadDone(true);
+      setStartupDone(true);
+
+      // Force Navbar show if we are skipping animations
+      const navbar = document.querySelector(".main-navbar") as HTMLElement;
+      if (navbar) {
+        navbar.style.display = "flex";
+        navbar.style.opacity = "1";
+      }
     }
+  }, []);
 
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [preloadDone, startupDone]);
+  // Update the onComplete of Startup to save the state
+  const handleStartupComplete = () => {
+    sessionStorage.setItem("introFinished", "true");
+    setStartupDone(true);
+  };
 
-  // Fade in content
   useEffect(() => {
-    if (!startupDone) return;
-
-    setFadeIn(true);
-    setTimeout(() => {
-      import("gsap/ScrollTrigger").then(({ ScrollTrigger }) =>
-        ScrollTrigger.refresh()
-      );
-    }, 200);
-  }, [startupDone]);
+    // Only lock scroll if we are actually playing the animations
+    const isAnimating = !preloadDone || !startupDone;
+    document.body.style.overflow = isAnimating ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [preloadDone, startupDone]);
 
   return (
     <>
-      {!preloadDone && <PreloadAnimation onComplete={() => setPreloadDone(true)} />}
-      {preloadDone && !startupDone && <StartupAnimation onComplete={() => setStartupDone(true)} />}
+      {!preloadDone && (
+        <PreloadAnimation onComplete={() => setPreloadDone(true)} />
+      )}
+
+      {preloadDone && !startupDone && (
+        <StartupAnimation onComplete={handleStartupComplete} />
+      )}
 
       <Box
         sx={{
-          opacity: fadeIn ? 1 : 0,
-          transition: "opacity 1s ease",
+          // If animations are done, show immediately; 
+          // If we just finished them, snap into view.
+          opacity: startupDone ? 1 : 0,
+          visibility: startupDone ? "visible" : "hidden",
         }}
       >
         <HeaderSection animate={startupDone} />
+
         <LogosSection />
         <TestimonialSection />
         <WorkflowSection />

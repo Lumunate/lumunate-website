@@ -25,13 +25,15 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
 
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
+  const btnRef = useRef<HTMLDivElement>(null);
   const socialRef = useRef<HTMLDivElement>(null);
 
   const pathname = usePathname();
   const isHome = pathname === "/";
 
+  // Added btnRef to the sequence
   useGsapTimelineAnimation(
-    [navRef, titleRef, descRef, socialRef],
+    [navRef, titleRef, descRef, btnRef, socialRef],
     0,
     animate && isHome
   );
@@ -63,7 +65,6 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
               we&apos;re the technology partner that turns vision into velocity.
             </StyledParagraph>
 
-
             <Link
               href="/contact"
               passHref
@@ -73,34 +74,25 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
                 width: "100%",
               }}
             >
-              <Box ref={descRef}>
+              {/* Changed ref here to btnRef */}
+              <Box ref={btnRef}>
                 <DiscoverButton
-
                   sx={{
                     mt: "40px",
                     width: "fit-content",
-
                     alignSelf: {
                       xs: "flex-start",
                       md: "center",
                       lg: "flex-end",
                     },
-
                     display: {
                       xs: "inline-flex",
                       sm: "inline-flex",
                       md: "none",
                     },
-
-                    px: {
-                      xs: "16px",
-                    },
-                    py: {
-                      xs: "12px",
-                    },
-                    gap: {
-                      xs: "8px",
-                    },
+                    px: { xs: "16px" },
+                    py: { xs: "12px" },
+                    gap: { xs: "8px" },
                   }}
                 >
                   Get Started
