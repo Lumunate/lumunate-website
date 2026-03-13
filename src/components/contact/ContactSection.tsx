@@ -152,7 +152,7 @@ export default function ContactSection() {
                 message: "Form Submitted Successfully",
             });
             reset();
-        } catch (error) {
+        } catch {
             setSnackbar({
                 open: true,
                 type: "error",
