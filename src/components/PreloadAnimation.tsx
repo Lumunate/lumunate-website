@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Box } from "@mui/material";
+import gsap from "gsap";
 
 interface PreloadAnimationProps {
     onComplete?: () => void;
@@ -12,10 +13,10 @@ const PreloadAnimation = ({ onComplete }: PreloadAnimationProps) => {
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
-        const hasVisited = sessionStorage.getItem("preloadShown");
-        if (hasVisited) {
-            onComplete?.(); // Skip animation
-            return;
+        // Target the class we just added
+        const navbar = document.querySelector(".main-navbar");
+        if (navbar) {
+            (navbar as HTMLElement).style.display = "none";
         }
 
         sessionStorage.setItem("preloadShown", "true");

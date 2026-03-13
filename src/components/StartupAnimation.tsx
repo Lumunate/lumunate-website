@@ -3,102 +3,53 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { Box } from "@mui/material";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const leftRef = useRef<HTMLDivElement>(null);
     const centerRef = useRef<HTMLDivElement>(null);
     const rightRef = useRef<HTMLDivElement>(null);
-    const [visible, setVisible] = useState(false);
+    const [visible, setVisible] = useState(true);
 
     useEffect(() => {
-        const hasRun = sessionStorage.getItem("startupAnimationShown");
-        if (hasRun) {
-            onComplete();
-            return;
-        }
+        const navbar = document.querySelector(".main-navbar") as HTMLElement;
 
-        sessionStorage.setItem("startupAnimationShown", "true");
-
-        // Delay state update to avoid synchronous setState in effect
-        const showTimeout = setTimeout(() => {
-            setVisible(true);
-        }, 0);
-
-        document.body.classList.add("startup-active");
-
-        const navbar = document.querySelector("header.MuiAppBar-root") as HTMLElement | null;
+        // Hide initially
         if (navbar) {
-            gsap.set(navbar, { opacity: 0, y: -80, pointerEvents: "none" });
+            gsap.set(navbar, { opacity: 0, visibility: "hidden", display: "none" });
         }
 
-        const cleanup = () => {
-            document.body.classList.remove("startup-active");
-        };
+        const tl = gsap.timeline({
+            defaults: { ease: "power4.inOut" },
+            onComplete: () => {
+                const navbar = document.querySelector(".main-navbar") as HTMLElement;
+                if (navbar) {
+                    // Force it to show immediately with no transition
+                    navbar.style.setProperty("display", "flex", "important");
+                    navbar.style.setProperty("opacity", "1", "important");
+                    navbar.style.setProperty("visibility", "visible", "important");
+                }
 
-        const animate = () => {
-            if (!leftRef.current || !centerRef.current || !rightRef.current || !containerRef.current) {
-                return;
+                sessionStorage.setItem("introFinished", "true");
+                setVisible(false);
+                onComplete();
             }
+        });
 
-            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        // Initial state
+        gsap.set(leftRef.current, { y: "100%" });
+        gsap.set(rightRef.current, { y: "100%" });
+        gsap.set(centerRef.current, { y: "-100%" });
 
-            gsap.set(leftRef.current, { y: "100%" });
-            gsap.set(rightRef.current, { y: "100%" });
-            gsap.set(centerRef.current, { y: "-100%" });
+        // Simple Entrance Animation ONLY
+        tl.to([leftRef.current, centerRef.current, rightRef.current], {
+            y: "0%",
+            duration: 1.1,
+            stagger: 0.1
+        })
+            .to({}, { duration: 0.2 }); 
 
-            tl.to([leftRef.current, rightRef.current, centerRef.current], { y: "0%", duration: 1.1 })
-                .to({}, { duration: 0.4 })
-                .to([leftRef.current, rightRef.current, centerRef.current], {
-                    y: "-100%",
-                    duration: 1.1,
-                    ease: "power3.inOut",
-                    onStart: () => {
-                        gsap.to(containerRef.current!, {
-                            backgroundColor: "transparent",
-                            duration: 0.3,
-                            ease: "none",
-                        });
-                    },
-                }, "+=0.1")
-                .to(containerRef.current, {
-                    autoAlpha: 0,
-                    duration: 0.7,
-                    ease: "power2.inOut",
-                    onComplete: () => {
-                        containerRef.current!.style.display = "none";
-                        if (navbar) {
-                            gsap.set(navbar, { opacity: 0, y: -80, pointerEvents: "none" });
-                        }
-
-                        setVisible(false);
-
-                        setTimeout(() => {
-                            onComplete();
-                            setTimeout(() => {
-                                cleanup();
-                                ScrollTrigger.refresh(true);
-                            }, 700);
-                        }, 300);
-                    },
-                });
-
-            return () => {
-                cleanup();
-                tl.kill();
-            };
-        };
-
-        const timeout = setTimeout(animate, 0);
-
-        return () => {
-            clearTimeout(timeout);
-            clearTimeout(showTimeout);
-            cleanup();
-        };
+        return () => { tl.kill(); };
     }, [onComplete]);
 
     if (!visible) return null;
@@ -109,46 +60,14 @@ const StartupAnimation = ({ onComplete }: { onComplete: () => void }) => {
             sx={{
                 position: "fixed",
                 inset: 0,
-                zIndex: 9999,
+                zIndex: 10001, 
                 display: "flex",
-                width: "100%",
-                height: "100vh",
-                overflow: "hidden",
-                background: "#000",
-                willChange: "opacity, transform",
-                pointerEvents: "none",
+                background: "black",
             }}
         >
-            <Box
-                ref={leftRef}
-                sx={{
-                    flex: "1 1 33.33%",
-                    backgroundImage: "url('/startup/left-startup.svg')",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                }}
-            />
-            <Box
-                ref={centerRef}
-                sx={{
-                    flex: "1 1 33.33%",
-                    backgroundImage: "url('/startup/center-startup.svg')",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                }}
-            />
-            <Box
-                ref={rightRef}
-                sx={{
-                    flex: "1 1 33.33%",
-                    backgroundImage: "url('/startup/right-startup.svg')",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                }}
-            />
+            <Box ref={leftRef} sx={{ flex: 1, backgroundImage: "url('/startup/left-startup.svg')", backgroundSize: 'cover', backgroundPosition: 'center' }} />
+            <Box ref={centerRef} sx={{ flex: 1, backgroundImage: "url('/startup/center-startup.svg')", backgroundSize: 'cover', backgroundPosition: 'center' }} />
+            <Box ref={rightRef} sx={{ flex: 1, backgroundImage: "url('/startup/right-startup.svg')", backgroundSize: 'cover', backgroundPosition: 'center' }} />
         </Box>
     );
 };

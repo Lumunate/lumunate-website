@@ -20,3 +20,9 @@ body.startup-active footer {
   font-style: normal;
   font-display: swap;
 }
+
+/* Only hide it if the intro hasn't finished yet */
+body:not(.intro-done) .main-navbar {
+  opacity: 0;
+  visibility: hidden;
+}
