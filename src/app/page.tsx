@@ -22,20 +22,25 @@ import ScrollToPlugin from "gsap/ScrollToPlugin";
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function Home() {
-  const [introDone, setIntroDone] = useState(false);
+  const [introDone, setIntroDone] = useState(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("introFinished") === "true";
+    }
+    return false;
+  });
+
   const approachRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const hasSeenIntro = sessionStorage.getItem("introFinished");
-    if (hasSeenIntro === "true") {
-      setIntroDone(true);
+    // If intro was already done, ensure navbar is visible immediately
+    if (introDone) {
       const navbar = document.querySelector(".main-navbar") as HTMLElement;
       if (navbar) {
         navbar.style.display = "flex";
         navbar.style.opacity = "1";
       }
     }
-  }, []);
+  }, [introDone]);
 
   const handleIntroComplete = () => {
     sessionStorage.setItem("introFinished", "true");
@@ -44,7 +49,6 @@ export default function Home() {
 
   return (
     <>
-      {/* The unified component handles the handoff internally to prevent black gaps */}
       {!introDone && <IntroAnimation onComplete={handleIntroComplete} />}
 
       <Box
