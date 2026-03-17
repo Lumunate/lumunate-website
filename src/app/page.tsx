@@ -13,91 +13,73 @@ import Works from "@/components/home/work/Works";
 import ExploreSection from "@/components/home/explore/Explore";
 import Ready from "@/components/home/ready/Ready";
 import HowItWorks from "@/components/home/HowItWorks/HowItWorks";
-
-import PreloadAnimation from "@/components/PreloadAnimation";
-import StartupAnimation from "@/components/StartupAnimation";
+import CEOSection from "@/components/home/CEOSection/CEOSection";
+import IntroAnimation from "@/components/IntroAnimation";
 
 import gsap from "gsap";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
-import CEOSection from "@/components/home/CEOSection/CEOSection";
 
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function Home() {
-  const [preloadDone, setPreloadDone] = useState(false);
-  const [startupDone, setStartupDone] = useState(false);
+  const [introDone, setIntroDone] = useState(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("introFinished") === "true";
+    }
+    return false;
+  });
+
   const approachRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const hasSeenIntro = sessionStorage.getItem("introFinished");
-
-    if (hasSeenIntro === "true") {
-      setPreloadDone(true);
-      setStartupDone(true);
-
-      // Force Navbar show if we are skipping animations
+    // If intro was already done, ensure navbar is visible immediately
+    if (introDone) {
       const navbar = document.querySelector(".main-navbar") as HTMLElement;
       if (navbar) {
         navbar.style.display = "flex";
         navbar.style.opacity = "1";
       }
     }
-  }, []);
+  }, [introDone]);
 
-  // Update the onComplete of Startup to save the state
-  const handleStartupComplete = () => {
+  const handleIntroComplete = () => {
     sessionStorage.setItem("introFinished", "true");
-    setStartupDone(true);
+    setIntroDone(true);
   };
-
-  useEffect(() => {
-    // Only lock scroll if we are actually playing the animations
-    const isAnimating = !preloadDone || !startupDone;
-    document.body.style.overflow = isAnimating ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [preloadDone, startupDone]);
 
   return (
     <>
-      {!preloadDone && (
-        <PreloadAnimation onComplete={() => setPreloadDone(true)} />
-      )}
-
-      {preloadDone && !startupDone && (
-        <StartupAnimation onComplete={handleStartupComplete} />
-      )}
+      {!introDone && <IntroAnimation onComplete={handleIntroComplete} />}
 
       <Box
         sx={{
-          // If animations are done, show immediately; 
-          // If we just finished them, snap into view.
-          opacity: startupDone ? 1 : 0,
-          visibility: startupDone ? "visible" : "hidden",
+          opacity: introDone ? 1 : 0,
+          visibility: introDone ? "visible" : "hidden",
+          transition: "opacity 0.8s ease",
         }}
       >
-        <HeaderSection animate={startupDone} />
-
+        <HeaderSection animate={introDone} />
         <LogosSection />
         <TestimonialSection />
         <WorkflowSection />
         <TrackRecord />
-        {/* Added ref back here in case you want to use it for ScrollTrigger later */}
+
         <Box ref={approachRef}>
           <OurApproach />
         </Box>
+
+        <Works />
+        <HowItWorks />
+        <CEOSection />
+        <ExploreSection />
+
+        <Ready
+          title="Ready to Build What's Next?"
+          description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions."
+          linkText="Let's Connect"
+          linkHref="/contact"
+        />
       </Box>
-
-      <Works />
-      <HowItWorks />
-      <CEOSection />
-      <ExploreSection />
-
-      <Ready
-        title="Ready to Build What's Next?"
-        description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions."
-        linkText="Let's Connect"
-        linkHref="/contact"
-      />
     </>
   );
 }
