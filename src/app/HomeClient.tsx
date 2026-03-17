@@ -6,11 +6,11 @@ import dynamic from "next/dynamic";
 import gsap from "gsap";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
 
-// Critical Components (Load immediately)
+// Critical Components
 import IntroAnimation from "@/components/IntroAnimation";
 import HeaderSection from "@/components/home/HeaderSection";
 
-// Dynamic Imports (Code splitting)
+// Dynamic Imports
 const LogosSection = dynamic(() => import("@/components/home/LogosSection"));
 const TestimonialSection = dynamic(() => import("@/components/home/TestimonialSection"));
 const WorkflowSection = dynamic(() => import("@/components/home/WorkflowSection"));
@@ -22,8 +22,6 @@ const Ready = dynamic(() => import("@/components/home/ready/Ready"));
 const HowItWorks = dynamic(() => import("@/components/home/HowItWorks/HowItWorks"));
 const CEOSection = dynamic(() => import("@/components/home/CEOSection/CEOSection"));
 
-const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
-
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function HomeClient() {
@@ -31,15 +29,20 @@ export default function HomeClient() {
     const approachRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        // Check session storage on mount
         const finished = sessionStorage.getItem("introFinished") === "true";
+
         if (finished) {
-            setIntroDone(true);
-            const navbar = document.querySelector(".main-navbar") as HTMLElement;
-            if (navbar) {
-                navbar.style.display = "flex";
-                navbar.style.opacity = "1";
-            }
+            //  Wrap in requestAnimationFrame to avoid synchronous cascading renders
+            requestAnimationFrame(() => {
+                setIntroDone(true);
+
+                // Handle navbar visibility after state update
+                const navbar = document.querySelector(".main-navbar") as HTMLElement;
+                if (navbar) {
+                    navbar.style.display = "flex";
+                    navbar.style.opacity = "1";
+                }
+            });
         }
     }, []);
 
@@ -53,16 +56,15 @@ export default function HomeClient() {
             {!introDone && <IntroAnimation onComplete={handleIntroComplete} />}
 
             <Box
-                component="main" // Better for SEO/Accessibility
+                component="main"
                 sx={{
                     opacity: introDone ? 1 : 0,
                     visibility: introDone ? "visible" : "hidden",
-                    transition: "opacity 0.8s ease",
+                    transition: "opacity 0.5s ease-in-out",
                 }}
             >
                 <HeaderSection animate={introDone} />
 
-                {/* Only render these when the intro is actually done to save CPU */}
                 {introDone && (
                     <>
                         <LogosSection />

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Box } from "@mui/material";
 import gsap from "gsap";
 import Lottie from "lottie-react";
@@ -16,25 +16,7 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
     const centerRef = useRef<HTMLDivElement>(null);
     const rightRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const navbar = document.querySelector(".main-navbar") as HTMLElement;
-        if (navbar) {
-            gsap.set(navbar, { opacity: 0, visibility: "hidden", display: "none" });
-        }
-
-        gsap.set(leftRef.current, { y: "100%" });
-        gsap.set(rightRef.current, { y: "100%" });
-        gsap.set(centerRef.current, { y: "-100%" });
-
-        // Reduced time
-        const preloadTimer = setTimeout(() => {
-            handleStartupAnimation();
-        }, 1800);
-
-        return () => clearTimeout(preloadTimer);
-    }, []);
-
-    const handleStartupAnimation = () => {
+    const handleStartupAnimation = useCallback(() => {
         setPreloadFinished(true);
 
         const tl = gsap.timeline({
@@ -55,7 +37,24 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
             duration: 1.1,
             stagger: 0.1,
         });
-    };
+    }, [onComplete]);
+
+    useEffect(() => {
+        const navbar = document.querySelector(".main-navbar") as HTMLElement;
+        if (navbar) {
+            gsap.set(navbar, { opacity: 0, visibility: "hidden", display: "none" });
+        }
+
+        gsap.set(leftRef.current, { y: "100%" });
+        gsap.set(rightRef.current, { y: "100%" });
+        gsap.set(centerRef.current, { y: "-100%" });
+
+        const preloadTimer = setTimeout(() => {
+            handleStartupAnimation();
+        }, 1800);
+
+        return () => clearTimeout(preloadTimer);
+    }, [handleStartupAnimation]);
 
     return (
         <Box sx={{ position: "fixed", inset: 0, zIndex: 10000, backgroundColor: "black", overflow: "hidden" }}>
