@@ -133,7 +133,7 @@ export default function BookCalenderPage() {
 
                         <Button
                             variant="outlined"
-                            startIcon={<Image src="/troubleshooting.svg" alt="" width={18} height={18} />}
+                            startIcon={<Image src="/troubleshooting.svg" alt="Troubleshooting icon" width={18} height={18} />}
                             sx={{
                                 mt: 2,
                                 color: theme.palette.section.heading,

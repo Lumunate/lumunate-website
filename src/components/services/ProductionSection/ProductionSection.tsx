@@ -50,9 +50,10 @@ export default function ProductionSection() {
 
                             <Image
                                 src="/services/build-prod.svg"
-                                alt="Production Icon"
+                                alt="Software product development service icon"
                                 fill
                                 style={{ objectFit: 'contain' }}
+                                loading="lazy"
                             />
                         </Box>
 

@@ -42,7 +42,7 @@ const ReadNowButton = ({ slug, fontSize = "14px", isCentered = false, mt = "10px
                     Read Now
                 </Typography>
                 <Box sx={{ width: 16, height: 16, position: "relative" }}>
-                    <Image src="/blogs/arrow-up-right.svg" alt="arrow" fill style={{ objectFit: "contain" }} />
+                    <Image src="/blogs/arrow-up-right.svg" alt="" fill style={{ objectFit: "contain" }} />
                 </Box>
             </Stack>
         </Link>
@@ -72,7 +72,7 @@ const FeaturedBlogs = ({ posts = [] }: FeaturedBlogsProps) => {
                         <S.MainFeaturedCard>
                             <Image
                                 src={mainPost?.image || "/fallback.jpg"}
-                                alt={mainPost?.title}
+                                alt={mainPost?.title ? `Main featured blog: ${mainPost.title}` : "Featured blog post"}
                                 fill
                                 priority
                                 style={{ objectFit: "cover", zIndex: 0, opacity: 0.5 }}
@@ -98,7 +98,7 @@ const FeaturedBlogs = ({ posts = [] }: FeaturedBlogsProps) => {
                                 {sidePosts.map((blog) => (
                                     <S.SmallBlogBox key={blog.slug}>
                                         <S.OverlappingThumb>
-                                            <Image src={blog.image || "/fallback.jpg"} alt={blog.title} fill style={{ objectFit: 'cover', borderRadius: '50%' }} />
+                                            <Image src={blog.image || "/fallback.jpg"} alt={`Thumbnail for ${blog.title}`} fill style={{ objectFit: 'cover', borderRadius: '50%' }} />
                                         </S.OverlappingThumb>
                                         <Box sx={{ ml: { xs: "16px", lg: "80px" }, flex: 1 }}>
                                             <Typography sx={{ fontSize: "18px", mb: "4px", fontWeight: 500 }}>
@@ -115,7 +115,7 @@ const FeaturedBlogs = ({ posts = [] }: FeaturedBlogsProps) => {
 
                             {bottomPost && (
                                 <S.BottomFeaturedCard>
-                                    <Image src={bottomPost.image || "/fallback.jpg"} alt={bottomPost.title} fill style={{ objectFit: "cover", zIndex: 0, opacity: 0.5 }} />
+                                    <Image src={bottomPost.image || "/fallback.jpg"} alt={`Highlight blog: ${bottomPost.title}`} fill style={{ objectFit: "cover", zIndex: 0, opacity: 0.5 }} />
                                     <S.CardOverlaySolid />
                                     <Box sx={{ position: "relative", zIndex: 2, px: 2, textAlign: 'center' }}>
                                         <S.RoleTag label={bottomPost.tag || "Insight"} />

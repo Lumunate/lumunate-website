@@ -59,10 +59,11 @@ export default function LogosSection({
                         <LogoItem key={`${logo.src}-${index}`}>
                             <Image
                                 src={logo.src}
-                                alt={logo.label || "logo"}
+                                alt={logo.label ? `${logo.label} partner logo` : "Partner brand logo"}
                                 width={93}
                                 height={93}
                                 style={{ objectFit: "contain" }}
+                                loading="lazy"
                             />
                         </LogoItem>
                     ))}

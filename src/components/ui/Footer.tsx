@@ -37,27 +37,32 @@ export default function Footer() {
 
                     <Box sx={{ display: "flex", zIndex: 1 }}>
                         {/* PHONE */}
-                        <a href="tel:+923310200888">
+                        <a href="tel:+923310200888" aria-label="Call Lumunate at +92 331 0200888">
                             <IconWrapper>
-                                <Image src="/icons/phone.svg" alt="Call" width={20} height={20} />
+                                <Image src="/icons/phone.svg" alt="" width={20} height={20} />
                             </IconWrapper>
                         </a>
 
                         <FooterSpacer size="small" />
 
                         {/* MAIL */}
-                        <a href="mailto:info@lumunate.com">
+                        <a href="mailto:info@lumunate.com" aria-label="Send an email to info@lumunate.com">
                             <IconWrapper>
-                                <Image src="/icons/mail.svg" alt="Mail" width={20} height={20} />
+                                <Image src="/icons/mail.svg" alt="" width={20} height={20} />
                             </IconWrapper>
                         </a>
 
                         <FooterSpacer size="small" />
 
                         {/* LINKEDIN */}
-                        <a href="https://www.linkedin.com/company/lumunate/" target="_blank" rel="noopener noreferrer">
+                        <a
+                            href="https://www.linkedin.com/company/lumunate/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Visit Lumunate's LinkedIn profile"
+                        >
                             <IconWrapper>
-                                <Image src="/icons/linkedin.svg" alt="LinkedIn" width={20} height={20} />
+                                <Image src="/icons/linkedin.svg" alt="" width={20} height={20} />
                             </IconWrapper>
                         </a>
 
@@ -88,15 +93,15 @@ export default function Footer() {
                         justifyContent: "center",
                     }}
                 >
-                    <a href="tel:+923310200888" style={{ textDecoration: "none" }}>
+                    <a href="tel:+923310200888" style={{ textDecoration: "none" }} aria-label="Call us">
                         <IconWrapper className="mobile-icon" sx={{ borderLeft: "none" }}>
-                            <Image src="/icons/phone.svg" alt="Call" width={24} height={24} />
+                            <Image src="/icons/phone.svg" alt="" width={24} height={24} />
                         </IconWrapper>
                     </a>
 
-                    <a href="mailto:info@lumunate.com" style={{ textDecoration: "none" }}>
+                    <a href="mailto:info@lumunate.com" style={{ textDecoration: "none" }} aria-label="Email us">
                         <IconWrapper className="mobile-icon">
-                            <Image src="/icons/mail.svg" alt="Mail" width={24} height={24} />
+                            <Image src="/icons/mail.svg" alt="" width={24} height={24} />
                         </IconWrapper>
                     </a>
 
@@ -105,9 +110,10 @@ export default function Footer() {
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{ textDecoration: "none" }}
+                        aria-label="LinkedIn"
                     >
                         <IconWrapper className="mobile-icon">
-                            <Image src="/icons/linkedin.svg" alt="LinkedIn" width={24} height={24} />
+                            <Image src="/icons/linkedin.svg" alt="" width={24} height={24} />
                         </IconWrapper>
                     </a>
                 </Box>

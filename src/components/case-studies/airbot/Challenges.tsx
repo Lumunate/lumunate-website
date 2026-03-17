@@ -23,7 +23,7 @@ export default function Challenges({
     title = "Challenges",
     description,
     imageSrc,
-    imageAlt = "Section Illustration",
+    imageAlt = "Visual representation of project challenges",
     imageLeftSrc,
     imageRightSrc,
 }: ChallengesProps) {
@@ -55,6 +55,7 @@ export default function Challenges({
                         })}
                     >
                         <Typography
+                            component="h2"
                             sx={{
                                 fontSize: { xs: "30px", md: "33px" },
                                 fontWeight: 400,
@@ -91,14 +92,25 @@ export default function Challenges({
                         fill
                         style={{ objectFit: "cover" }}
                         priority
+                        sizes="100vw"
                     />
                 </ImageWrapper>
             )}
 
             {imageLeftSrc && imageRightSrc && (
                 <ImageGridWrapper>
-                    <Image src={imageLeftSrc} alt="Left Illustration" width={1200} height={800} />
-                    <Image src={imageRightSrc} alt="Right Illustration" width={1200} height={800} />
+                    <Image
+                        src={imageLeftSrc}
+                        alt={`${title} - analysis view`}
+                        width={1200}
+                        height={800}
+                    />
+                    <Image
+                        src={imageRightSrc}
+                        alt={`${title} - technical implementation`}
+                        width={1200}
+                        height={800}
+                    />
                 </ImageGridWrapper>
             )}
         </SectionRoot>
