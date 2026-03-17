@@ -65,10 +65,11 @@ export default function UIUXSection() {
                 <ImageBox>
                     <Image
                         src="https://res.cloudinary.com/dlhe4iq8c/image/upload/v1771570940/8ab5449b7e2c8ae6bdfdbeb310157548886eb33c_11zon_mn8zqf.webp"
-                        alt="Dashboard Overview"
+                        alt="Lumunate digital platform dashboard overview showing analytics and property data"
                         width={713}
                         height={460}
                         style={{ width: '100%', height: 'auto', borderRadius: '12px' }}
+                        loading="lazy"
                     />
                 </ImageBox>
 

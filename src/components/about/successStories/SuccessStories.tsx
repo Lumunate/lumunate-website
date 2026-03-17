@@ -113,7 +113,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
             {logoUrl && (
               <Image
                 src={logoUrl}
-                alt={`${name} Logo`}
+                alt={`${name || 'Company'} brand logo`}
                 width={30}
                 height={30}
                 style={{
@@ -129,7 +129,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
             {flagUrl && (
               <Image
                 src={flagUrl}
-                alt={`${name} Flag`}
+                alt={`${name || 'Location'} origin flag`}
                 width={30}
                 height={30}
                 style={{

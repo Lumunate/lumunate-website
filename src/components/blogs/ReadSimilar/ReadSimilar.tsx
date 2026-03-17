@@ -47,8 +47,9 @@ const ReadSimilarBlogs = ({ initialBlogs = [], currentCategory, currentSlug }: R
                                 <ImageWrapper sx={{ position: "relative", width: "100%", aspectRatio: "16/9", overflow: "hidden", borderRadius: "8px", mb: 2 }}>
                                     <Image
                                         src={blog.image || '/fallback.jpg'}
-                                        alt={blog.title}
+                                        alt={blog.title ? `Featured image for blog: ${blog.title}` : "Lumunate blog post preview"}
                                         fill
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                         style={{ objectFit: "cover", borderRadius: "8px" }}
                                     />
                                 </ImageWrapper>

@@ -21,13 +21,11 @@ const Hero = ({
   descFontSize,
 }: HeroProps) => {
   const theme = useTheme();
-
-  // If subtitle is an empty string, we use the Blog layout
   const isBlog = subtitle === "";
 
   return (
     <HeroContainer>
-      <BackgroundVideo autoPlay muted loop playsInline>
+      <BackgroundVideo autoPlay muted loop playsInline aria-hidden="true">
         <source src={videoSrc} type="video/mp4" />
         Your browser does not support the video tag.
       </BackgroundVideo>
@@ -37,17 +35,17 @@ const Hero = ({
           <Box
             sx={{
               display: "flex",
-
               flexDirection: { xs: "column", md: "row" },
               justifyContent: "space-between",
               width: "100%",
               alignItems: { xs: "flex-start", md: "center" },
-
               gap: { xs: 0, md: isBlog ? 0 : "100px", lg: isBlog ? 0 : "150px" },
             }}
           >
             <Box>
+
               <Typography
+                component="h1"
                 sx={{
                   fontSize: { xs: "40px", md: "60px", xl: "90px" },
                   color: theme.palette.text.primary,
@@ -58,7 +56,6 @@ const Hero = ({
                 {title}
               </Typography>
 
-              {/* ABOUT PAGE */}
               {!isBlog && (
                 <Typography
                   sx={{
@@ -66,13 +63,13 @@ const Hero = ({
                     color: theme.palette.text.secondary,
                     mt: "16px",
                   }}
-                  variant="h5"
+
+                  variant="h2"
                 >
                   {subtitle}
                 </Typography>
               )}
 
-              {/* BLOG PAGE*/}
               {isBlog && (
                 <Typography
                   sx={{
@@ -88,13 +85,8 @@ const Hero = ({
               )}
             </Box>
 
-            {/* ABOUT PAGE */}
             {!isBlog && (
-              <Box
-                sx={{
-                  mt: { xs: "60px", md: 0 },
-                }}
-              >
+              <Box sx={{ mt: { xs: "60px", md: 0 } }}>
                 <Typography
                   sx={{
                     maxWidth: "668px",
@@ -118,11 +110,12 @@ const Hero = ({
           width: "100%",
           height: "auto",
           zIndex: 4,
+          pointerEvents: "none",
         }}
         src="/blure.png"
-        alt="blur"
-        width={100}
-        height={100}
+        alt=""
+        width={1920}
+        height={500}
       />
       <BottomBlurOverlay />
     </HeroContainer>

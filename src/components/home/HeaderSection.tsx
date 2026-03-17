@@ -53,7 +53,7 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
       <PageContainer>
         <ContentBox>
           <LeftBox>
-            <StyledH1 ref={titleRef}>
+            <StyledH1 ref={titleRef} sx={{ priority: "high" }}>
               Your digital <br /> evolution <br /> partner
             </StyledH1>
           </LeftBox>
@@ -105,8 +105,10 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
                 size="small"
                 href="https://www.linkedin.com/company/lumunate/"
                 target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit Lumunate's LinkedIn profile"
               >
-                <Image src="/icons/linkedin.svg" alt="LinkedIn" width={25} height={25} />
+                <Image src="/icons/linkedin.svg" alt="" width={25} height={25} />
               </IconButton>
             </SocialStack>
           </RightBox>

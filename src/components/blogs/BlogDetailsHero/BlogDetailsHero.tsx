@@ -25,7 +25,7 @@ const BlogDetailsHero = ({ imgSrc, title }: BlogDetailsHeroProps) => {
                 <Image
                     key={imgSrc}
                     src={imgSrc}
-                    alt={title}
+                    alt={`Featured image for: ${title}`}
                     fill
                     priority
                     style={{ objectFit: "cover" }}
@@ -55,6 +55,7 @@ const BlogDetailsHero = ({ imgSrc, title }: BlogDetailsHeroProps) => {
                 <PageContainer>
                     <Box sx={{ width: "100%", textAlign: { xs: "left", md: "center" } }}>
                         <Typography
+                            component="h1"
                             sx={{
                                 fontSize: { xs: "36px", md: "54px", lg: "72px" },
                                 fontWeight: 400,
@@ -80,7 +81,7 @@ const BlogDetailsHero = ({ imgSrc, title }: BlogDetailsHeroProps) => {
                     pointerEvents: "none",
                 }}
                 src="/blure.png"
-                alt="blur"
+                alt=""
                 width={1920}
                 height={500}
             />

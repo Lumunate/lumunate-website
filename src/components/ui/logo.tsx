@@ -9,20 +9,23 @@ export default function Logo() {
         <Box
             component={Link}
             href="/"
-            aria-label="Lumunate"
+            aria-label="Lumunate Home"
             sx={{
                 display: "inline-flex",
-                flexShrink: 0,         
-                alignItems: "center",  
+                flexShrink: 0,
+                alignItems: "center",
                 textDecoration: "none",
+                width: { xs: "150px", md: "259px" },
+                height: "auto",
             }}
         >
             <Image
                 src="/lumunate-logo.svg"
-                alt="Lumunate Portfolio - Logo"
+                alt=""
                 width={259}
                 height={85}
                 priority
+                fetchPriority="high"
             />
         </Box>
     );

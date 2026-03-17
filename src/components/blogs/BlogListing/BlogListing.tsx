@@ -132,7 +132,7 @@ const BlogListing = ({ initialBlogs = [] }: BlogListingProps) => {
                                     <S.ImageWrapper sx={{ position: "relative", width: "100%", aspectRatio: "16/9", overflow: "hidden", borderRadius: "8px", mb: 2 }}>
                                         <Image
                                             src={blog.image || '/fallback.jpg'}
-                                            alt={blog.title}
+                                            alt={blog.title ? `Blog post: ${blog.title}` : "Lumunate blog post featured image"}
                                             fill
                                             priority={index < 3}
                                             style={{ objectFit: "cover", borderRadius: "8px" }}

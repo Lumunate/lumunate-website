@@ -55,15 +55,19 @@ const Works = ({ title = "Work", includedTitles, limit }: WorksProps) => {
       <ImageContainer>
         <Image
           src={project.imageSrc}
-          alt={project.title}
+          alt={`Showcase of project: ${project.title}`}
           fill
           sizes="(max-width: 600px) 100vw, 50vw"
           className="hoverImage"
           style={{ objectFit: 'cover' }}
+          loading="lazy"
         />
-        <Link href={project.url}>
-          <ViewButton className="viewButton">
-            View <ArrowOutwardIcon sx={{ fontSize: "17px", ml: "6px" }} />
+        <Link href={project.url} passHref>
+          <ViewButton
+            className="viewButton"
+            aria-label={`View details for ${project.title}`}
+          >
+            View <ArrowOutwardIcon sx={{ fontSize: "17px", ml: "6px" }} aria-hidden="true" />
           </ViewButton>
         </Link>
       </ImageContainer>
