@@ -3,6 +3,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box } from "@mui/material";
 import gsap from "gsap";
+import Lottie from "lottie-react";
+import dotsData from "../../public/startup/dots.json";
 
 interface IntroAnimationProps {
     onComplete: () => void;
@@ -15,7 +17,6 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
     const rightRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        // Initial Setup: Hide navbar and position panels outside the view
         const navbar = document.querySelector(".main-navbar") as HTMLElement;
         if (navbar) {
             gsap.set(navbar, { opacity: 0, visibility: "hidden", display: "none" });
@@ -25,9 +26,10 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
         gsap.set(rightRef.current, { y: "100%" });
         gsap.set(centerRef.current, { y: "-100%" });
 
+        // Reduced time
         const preloadTimer = setTimeout(() => {
             handleStartupAnimation();
-        }, 2000);
+        }, 1800);
 
         return () => clearTimeout(preloadTimer);
     }, []);
@@ -35,7 +37,6 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
     const handleStartupAnimation = () => {
         setPreloadFinished(true);
 
-        // Startup Panel Animation (GSAP)
         const tl = gsap.timeline({
             defaults: { ease: "power4.inOut" },
             onComplete: () => {
@@ -53,22 +54,13 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
             y: "0%",
             duration: 1.1,
             stagger: 0.1,
-        }).to({}, { duration: 0.2 });
+        });
     };
 
     return (
-        <Box
-            sx={{
-                position: "fixed",
-                inset: 0,
-                zIndex: 10000,
-                backgroundColor: "black",
-                overflow: "hidden",
-                width: "100vw",
-                height: "100vh",
-            }}
-        >
-            {/* PRELOAD PHASE (GIF) */}
+        <Box sx={{ position: "fixed", inset: 0, zIndex: 10000, backgroundColor: "black", overflow: "hidden" }}>
+
+            {/* PRELOAD PHASE (Lottie JSON) */}
             {!preloadFinished && (
                 <Box
                     sx={{
@@ -78,66 +70,33 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
+                        px: 2,
                     }}
                 >
                     <Box
-                        component="img"
-                        src="/startup/preload-new.gif"
-                        alt="loading animation"
                         sx={{
-                            width: "120px",
-                            height: "auto",
-                            // Keep the dots sharp for that HD look
-                            imageRendering: "pixelated",
-                            pointerEvents: "none",
+                            width: {
+                                xs: "180px",
+                                sm: "250px",
+                                md: "400px",
+                            },
+                            height: "auto"
                         }}
-                    />
+                    >
+                        <Lottie
+                            animationData={dotsData}
+                            loop={true}
+                            style={{ width: "100%", height: "100%" }}
+                        />
+                    </Box>
                 </Box>
             )}
 
-            {/* STARTUP PHASE (SVG PANELS) */}
-            <Box
-                sx={{
-                    display: "flex",
-                    width: "100%",
-                    height: "100%",
-                    position: "absolute",
-                    inset: 0,
-                    zIndex: 1,
-                }}
-            >
-                <Box
-                    ref={leftRef}
-                    sx={{
-                        flex: 1,
-                        backgroundImage: "url('/startup/left-startup.svg')",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        bgcolor: "black",
-                    }}
-                />
-
-                <Box
-                    ref={centerRef}
-                    sx={{
-                        flex: 1,
-                        backgroundImage: "url('/startup/center-startup.svg')",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        bgcolor: "black",
-                    }}
-                />
-
-                <Box
-                    ref={rightRef}
-                    sx={{
-                        flex: 1,
-                        backgroundImage: "url('/startup/right-startup.svg')",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        bgcolor: "black",
-                    }}
-                />
+            {/* STARTUP PHASE (Panels)  */}
+            <Box sx={{ display: "flex", width: "100%", height: "100%", position: "absolute", inset: 0, zIndex: 1 }}>
+                <Box ref={leftRef} sx={{ flex: 1, backgroundImage: "url('/startup/left-startup.svg')", backgroundSize: "cover", bgcolor: "black" }} />
+                <Box ref={centerRef} sx={{ flex: 1, backgroundImage: "url('/startup/center-startup.svg')", backgroundSize: "cover", bgcolor: "black" }} />
+                <Box ref={rightRef} sx={{ flex: 1, backgroundImage: "url('/startup/right-startup.svg')", backgroundSize: "cover", bgcolor: "black" }} />
             </Box>
         </Box>
     );
