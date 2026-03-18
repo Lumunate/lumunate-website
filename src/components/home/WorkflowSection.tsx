@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useMemo } from "react";
+import dynamic from "next/dynamic"; 
 import WorkflowCard from "./WorkflowCard";
 import {
   NavBarContainer,
@@ -78,7 +79,7 @@ const HEIGHTS = {
   XL: 850
 };
 
-export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
+function WorkflowSection({ onComplete }: WorkflowSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [cardHeight, setCardHeight] = useState(HEIGHTS.LAPTOP);
 
@@ -131,7 +132,6 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
       scrub: 1,
       invalidateOnRefresh: true,
       onUpdate: (self) => {
-        // Only update state if NOT currently navigating via click
         if (!isManualRef.current) {
           const totalCards = workflowSections.length;
           let index = Math.floor(self.progress * (totalCards - 0.01));
@@ -160,7 +160,6 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
       });
     });
 
-    // Navigation Sync
     const navContainer = sectionRef.current?.querySelector('.nav-bar-scroll-container') as HTMLElement | null;
     if (navContainer) {
       const activeNav = navContainer.querySelector('.active') as HTMLElement | null;
@@ -183,14 +182,12 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
   const scrollToCard = (index: number) => {
     if (!mainTriggerRef.current) return;
 
-    //  Immediately update UI state for instant feedback
     isManualRef.current = true;
     setActiveIndex(index);
 
     const trigger = mainTriggerRef.current;
     const targetScroll = trigger.start + ((trigger.end - trigger.start) * (index / workflowSections.length)) + 50;
 
-    //  Scroll the page in background
     gsap.to(window, {
       scrollTo: { y: targetScroll, autoKill: false },
       duration: 0.6,
@@ -261,3 +258,8 @@ export default function WorkflowSection({ onComplete }: WorkflowSectionProps) {
     </WorkflowSectionRoot>
   );
 }
+
+//  Export as a dynamic component with SSR disabled
+export default dynamic(() => Promise.resolve(WorkflowSection), {
+  ssr: false
+});

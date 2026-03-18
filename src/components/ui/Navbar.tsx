@@ -156,12 +156,11 @@ export default function Navbar() {
 
     return (
 
-        <AppBar
+     <AppBar
             ref={navRef}
             elevation={0}
             className="main-navbar"
             sx={{
-                // Sticky on desktop (lg and up), Fixed on mobile
                 position: { xs: "fixed", lg: "sticky" },
                 top: 0,
                 left: 0,
@@ -170,8 +169,6 @@ export default function Navbar() {
                 backgroundColor: theme.palette.navbar.bg,
                 borderTop: `1px solid ${theme.palette.navbar.border}`,
                 borderBottom: `1px solid ${theme.palette.navbar.border}`,
-
-                // Ensure it is visible by default once the 'display' is turned on
                 opacity: 1,
                 visibility: "visible",
                 transition: "transform 0.3s ease-in-out",

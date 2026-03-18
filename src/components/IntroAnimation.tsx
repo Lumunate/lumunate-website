@@ -55,9 +55,9 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
                 </Box>
             )}
             <Box sx={{ display: "flex", width: "100%", height: "100%", position: "absolute", inset: 0 }}>
-                <Box ref={leftRef} sx={{ flex: 1, backgroundImage: "url('/startup/left-startup.svg')", backgroundSize: "cover", bgcolor: "black" }} />
-                <Box ref={centerRef} sx={{ flex: 1, backgroundImage: "url('/startup/center-startup.svg')", backgroundSize: "cover", bgcolor: "black" }} />
-                <Box ref={rightRef} sx={{ flex: 1, backgroundImage: "url('/startup/right-startup.svg')", backgroundSize: "cover", bgcolor: "black" }} />
+                <Box ref={leftRef} sx={{ flex: 1, backgroundImage: "url('/startup/left-startup.svg')", backgroundSize: "cover", bgcolor: "transparent" }} />
+                <Box ref={centerRef} sx={{ flex: 1, backgroundImage: "url('/startup/center-startup.svg')", backgroundSize: "cover", bgcolor: "transparent" }} />
+                <Box ref={rightRef} sx={{ flex: 1, backgroundImage: "url('/startup/right-startup.svg')", backgroundSize: "cover", bgcolor: "transparent" }} />
             </Box>
         </Box>
     );

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react"; 
 import StarIcon from "@mui/icons-material/Star";
 import {
     TestimonialRoot,
@@ -16,11 +17,16 @@ import {
 import useGsapAnimation from "@/hooks/useGsapAnimation";
 import PageContainer from "../common/PageContainer";
 import { useTheme } from "@mui/material/styles";
+import { Box } from "@mui/material";
 
 export default function TestimonialSection() {
     const theme = useTheme();
+    const [mounted, setMounted] = useState(false);
 
-    // Using GSAP-safe hook that internally uses gsap.context()
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     const headingRef = useGsapAnimation({
         direction: "fade",
         delay: 0.4,
@@ -36,35 +42,44 @@ export default function TestimonialSection() {
     return (
         <TestimonialRoot>
             <PageContainer>
-                <TestimonialContent>
-                    <TestimonialHeading ref={headingRef}>
-                        Solutions crafted for your digital ambitions
-                    </TestimonialHeading>
+              
+                {mounted ? (
+                    <TestimonialContent>
+                        <TestimonialHeading ref={headingRef}>
+                            Solutions crafted for your digital ambitions
+                        </TestimonialHeading>
 
-                    <TestimonialBox ref={boxRef}>
-                        <StarsRow>
-                            {Array.from({ length: 5 }).map((_, i) => (
-                                <StarIcon
-                                    key={i}
-                                    sx={{ color: theme.palette.section.star, fontSize: 24 }}
-                                />
-                            ))}
-                        </StarsRow>
+                        <TestimonialBox ref={boxRef}>
+                            <StarsRow>
+                                {Array.from({ length: 5 }).map((_, i) => (
+                                    <StarIcon
+                                        key={i}
+                                        sx={{ 
+                                            color: theme.palette.section?.star || "#FFD700", 
+                                            fontSize: 24 
+                                        }}
+                                    />
+                                ))}
+                            </StarsRow>
 
-                        <TestimonialText>
-                            The team at Lumunate is simply the best. They do the best jobs as always
-                            and have brought our idea for Koinfolio to life. Will continue the work
-                            with them for sure!
-                        </TestimonialText>
+                            <TestimonialText>
+                                The team at Lumunate is simply the best. They do the best jobs as always
+                                and have brought our idea for Koinfolio to life. Will continue the work
+                                with them for sure!
+                            </TestimonialText>
 
-                        <AuthorRow>
-                            <AuthorInfo>
-                                <AuthorName>{"// Ebrahim"}</AuthorName>
-                                <AuthorTitle>CEO, Koinfolio</AuthorTitle>
-                            </AuthorInfo>
-                        </AuthorRow>
-                    </TestimonialBox>
-                </TestimonialContent>
+                            <AuthorRow>
+                                <AuthorInfo>
+                                    <AuthorName>{"// Ebrahim"}</AuthorName>
+                                    <AuthorTitle>CEO, Koinfolio</AuthorTitle>
+                                </AuthorInfo>
+                            </AuthorRow>
+                        </TestimonialBox>
+                    </TestimonialContent>
+                ) : (
+                    /* Invisible placeholder to maintain layout height during hydration */
+                    <Box sx={{ minHeight: "400px" }} />
+                )}
             </PageContainer>
         </TestimonialRoot>
     );

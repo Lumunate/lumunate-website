@@ -1,7 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Typography } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import {
     LogosRoot,
     LogoItem,
@@ -19,7 +20,6 @@ interface LogosSectionProps {
     logos?: Logo[];
 }
 
-// Default logos for the homepage 
 const DEFAULT_LOGOS: Logo[] = [
     { src: "/logos/nextjs.svg", label: "" },
     { src: "/logos/reactjs.svg", label: "" },
@@ -35,39 +35,51 @@ export default function LogosSection({
     title,
     logos = DEFAULT_LOGOS
 }: LogosSectionProps) {
-    return (
-        <LogosRoot>
-            <PageContainer>
-                {/* Optional Title */}
-                {title && (
-                    <Typography
-                        variant="h5"
-                        sx={{
-                            textAlign: 'start',
-                            mb: 6,
-                            fontWeight: 400,
-                            color: 'text.primary'
-                        }}
-                    >
-                        {title}
-                    </Typography>
-                )}
+    const [mounted, setMounted] = useState(false);
 
-                <LogosTrack>
-                    {/* Double the logos for a seamless infinite scroll loop */}
-                    {[...logos, ...logos].map((logo, index) => (
-                        <LogoItem key={`${logo.src}-${index}`}>
-                            <Image
-                                src={logo.src}
-                                alt={logo.label ? `${logo.label} partner logo` : "Partner brand logo"}
-                                width={93}
-                                height={93}
-                                style={{ objectFit: "contain" }}
-                                loading="lazy"
-                            />
-                        </LogoItem>
-                    ))}
-                </LogosTrack>
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    return (
+        <LogosRoot suppressHydrationWarning>
+            <PageContainer>
+                
+                {mounted ? (
+                    <>
+                        {title && (
+                            <Typography
+                                variant="h5"
+                                sx={{
+                                    textAlign: 'start',
+                                    mb: 6,
+                                    fontWeight: 400,
+                                    color: 'text.primary'
+                                }}
+                            >
+                                {title}
+                            </Typography>
+                        )}
+
+                        <LogosTrack>
+                            {[...logos, ...logos].map((logo, index) => (
+                                <LogoItem key={`${logo.src}-${index}`}>
+                                    <Image
+                                        src={logo.src}
+                                        alt={logo.label ? `${logo.label} partner logo` : "Partner brand logo"}
+                                        width={93}
+                                        height={93}
+                                        style={{ objectFit: "contain" }}
+                                        loading="lazy"
+                                    />
+                                </LogoItem>
+                            ))}
+                        </LogosTrack>
+                    </>
+                ) : (
+                    /* Placeholder with the same height to avoid layout shift */
+                    <Box sx={{ height: title ? '200px' : '100px' }} />
+                )}
             </PageContainer>
         </LogosRoot>
     );

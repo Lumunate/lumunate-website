@@ -26,7 +26,6 @@ const CEOSection = () => {
         duration: 0.8,
     });
 
-    // The Content Wrapper Animation (The Stack containing the cards)
     const contentRef = useGsapAnimation<HTMLDivElement>({
         direction: "bottom",
         delay: 0.5,
@@ -35,17 +34,19 @@ const CEOSection = () => {
 
     return (
         <S.SectionWrapper>
-            <S.VideoBackground
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="none"
-                poster="/ceo-poster-mobile.webp"
-            >
-                <source src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1772440694/16296848-hd_1920_1080_24fps_vp2tgd.webm" type="video/mp4" />
-            </S.VideoBackground>
-
+          <S.VideoBackground
+    autoPlay
+    muted
+    loop
+    playsInline
+    poster="https://res.cloudinary.com/dlhe4iq8c/video/upload/q_auto,f_auto,w_1280/v1772440694/16296848-hd_1920_1080_24fps_vp2tgd.webp"
+    preload="metadata" 
+    >
+    <source 
+        src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1772440694/16296848-hd_1920_1080_24fps_vp2tgd.webm" 
+        type="video/webm" 
+    />
+         </S.VideoBackground>
             <S.Overlay />
 
             <Box sx={{ position: "relative", zIndex: 2, width: "100%" }}>
