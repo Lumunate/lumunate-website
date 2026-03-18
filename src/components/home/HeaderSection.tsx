@@ -31,7 +31,6 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
-  // Added btnRef to the sequence
   useGsapTimelineAnimation(
     [navRef, titleRef, descRef, btnRef, socialRef],
     0,
@@ -42,18 +41,25 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
     <HeaderRoot>
       <SvgBg>
         <video
-          src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770892986/tva-timedoor_1_hcvelf.webm"
+          preload="metadata"
+          poster="/header-poster.webp"
           autoPlay
           loop
           muted
           playsInline
-        />
+          style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+        >
+          <source
+            src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770892986/tva-timedoor_1_hcvelf.webm"
+            type="video/webm"
+          />
+        </video>
       </SvgBg>
 
       <PageContainer>
         <ContentBox>
           <LeftBox>
-            <StyledH1 ref={titleRef} sx={{ priority: "high" }}>
+            <StyledH1 ref={titleRef}>
               Your digital <br /> evolution <br /> partner
             </StyledH1>
           </LeftBox>
@@ -74,9 +80,9 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
                 width: "100%",
               }}
             >
-              {/* Changed ref here to btnRef */}
               <Box ref={btnRef}>
                 <DiscoverButton
+                  label="Get started with your project"
                   sx={{
                     mt: "40px",
                     width: "fit-content",
@@ -108,7 +114,13 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
                 rel="noopener noreferrer"
                 aria-label="Visit Lumunate's LinkedIn profile"
               >
-                <Image src="/icons/linkedin.svg" alt="" width={25} height={25} />
+                <Image
+                  src="/icons/linkedin.svg"
+                  alt="LinkedIn"
+                  width={25}
+                  height={25}
+                  priority
+                />
               </IconButton>
             </SocialStack>
           </RightBox>

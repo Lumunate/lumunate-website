@@ -27,33 +27,35 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
     zIndex: 1,
     border: "none",
     backgroundColor: "#015B3F",
+    willChange: "transform, opacity",
     transition: "all 0.4s ease",
+
     [theme.breakpoints.down("md")]: {
         padding: "8px 18px",
         gap: "8px",
     },
-    // Snake rotating gradient layer
+
     "&::before": {
         content: '""',
         position: "absolute",
         zIndex: -2,
         backgroundImage: `conic-gradient(
-      from 0deg,
-      transparent 0%,
-      transparent 10%, 
-      #8EFFAC 25%, 
-      transparent 40%,
-      transparent 100%
-    )`,
+          from 0deg,
+          transparent 0%,
+          transparent 10%, 
+          #8EFFAC 25%, 
+          transparent 40%,
+          transparent 100%
+        )`,
         opacity: 0,
         transition: "opacity 0.3s ease",
         width: "200%",
         height: "200%",
         left: "-50%",
         top: "-50%",
+        animationPlayState: "paused",
     },
 
-    // Inner base layer
     "&::after": {
         content: '""',
         position: "absolute",
@@ -68,32 +70,35 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
         backgroundColor: "#002419",
         transform: "translateY(-1px)",
 
-        // Outer drop shadow
         boxShadow: `
-      0 8px 20px rgba(0, 0, 0, 0.6),
-      0 0 25px 2px ${alpha("#8EFFAC", 0.25)}
-    `,
+          0 8px 20px rgba(0, 0, 0, 0.6),
+          0 0 25px 2px ${alpha("#8EFFAC", 0.25)}
+        `,
 
-        // Snake animation layer
         "&::before": {
             opacity: 1,
             animation: `${rotateSnake} 1.8s linear infinite`,
+            animationPlayState: "running",
         },
 
-        // Inner shadow layer + radial gradient for depth
         "&::after": {
             inset: "3px",
             borderRadius: "12px",
             background: `radial-gradient(circle, #135f48 0%, #002B1E 100%)`,
             boxShadow: `
-        inset 0 2px 6px rgba(0,0,0,0.6),
-        inset 0 -2px 6px rgba(0,0,0,0.6)
-      `,
+              inset 0 2px 6px rgba(0,0,0,0.6),
+              inset 0 -2px 6px rgba(0,0,0,0.6)
+            `,
         },
 
         "& .MuiButton-endIcon": {
             transform: "translate(3px, -3px)",
         },
+    },
+
+    "&:focus-visible": {
+        outline: `2px solid #8EFFAC`,
+        outlineOffset: "2px",
     },
 
     "& .MuiButton-endIcon": {
@@ -108,14 +113,16 @@ const StyledDiscoverButton = styled(Button)(({ theme }) => ({
 
 interface DiscoverButtonProps extends ButtonProps {
     hideIcon?: boolean;
+    label?: string;
 }
 
-export default function DiscoverButton({ hideIcon = false, ...props }: DiscoverButtonProps) {
+export default function DiscoverButton({ hideIcon = false, label, ...props }: DiscoverButtonProps) {
     return (
         <StyledDiscoverButton
             variant="contained"
             disableElevation
-            endIcon={hideIcon ? null : <ArrowOutwardIcon />}
+            aria-label={label || (typeof props.children === 'string' ? props.children : "Discover")}
+            endIcon={hideIcon ? null : <ArrowOutwardIcon aria-hidden="true" />}
             {...props}
         >
             {props.children || "Discover"}

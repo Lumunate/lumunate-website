@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, memo } from "react";
 import {
   ReadyContainer,
   TextWrapper,
@@ -36,18 +36,9 @@ const Ready = ({
 
     return () => {
       if (videoEl) {
-        try {
-          videoEl.pause();
-
-          videoEl.removeAttribute("src");
-          while (videoEl.firstChild) {
-            videoEl.removeChild(videoEl.firstChild);
-          }
-
-          videoEl.load();
-        } catch (error) {
-          console.warn("Video cleanup error:", error);
-        }
+        videoEl.pause();
+        videoEl.src = "";
+        videoEl.load();
       }
     };
   }, []);
@@ -55,9 +46,15 @@ const Ready = ({
   return (
     <ReadyContainer>
       <BackgroundVideo
-        key="ready-section-video"
-        ref={videoRef} autoPlay muted loop playsInline>
-        <source src={videoSrc} type="video/mp4" />
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        style={{ willChange: "transform" }}
+      >
+        <source src={videoSrc} type="video/webm" />
         Your browser does not support the video tag.
       </BackgroundVideo>
 
@@ -91,7 +88,6 @@ const Ready = ({
           >
             {description}
           </Typography>
-
 
           <Box sx={{ marginTop: "38px" }}>
             <Link
@@ -127,4 +123,5 @@ const Ready = ({
   );
 };
 
-export default Ready;
+// Wrap with memo to prevent unnecessary re-renders if parent state changes
+export default memo(Ready);

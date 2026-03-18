@@ -21,8 +21,17 @@ body.startup-active footer {
   font-display: swap;
 }
 
-/* Only hide it if the intro hasn't finished yet */
+/*  Hide navbar ONLY when the intro is actively running */
 body:not(.intro-done) .main-navbar {
-  opacity: 0;
-  visibility: hidden;
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Force navbar to stay visible on refresh and after animation */
+body.intro-done .main-navbar {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transition: opacity 0.5s ease-in-out;
 }
