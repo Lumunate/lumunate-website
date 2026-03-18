@@ -11,34 +11,37 @@ import IntroAnimation from "@/components/IntroAnimation";
 import HeaderSection from "@/components/home/HeaderSection";
 
 // Dynamic Imports
-const LogosSection = dynamic(() => import("@/components/home/LogosSection"), { ssr: false });
-const TestimonialSection = dynamic(() => import("@/components/home/TestimonialSection"), { ssr: false });
-const WorkflowSection = dynamic(() => import("@/components/home/WorkflowSection"), { ssr: false });
-const TrackRecord = dynamic(() => import("@/components/home/trackRecord/TrackRecord"), { ssr: false });
-const OurApproach = dynamic(() => import("@/components/home/ourApproach/OurApproach"), { ssr: false });
-const Works = dynamic(() => import("@/components/home/work/Works"), { ssr: false });
-const ExploreSection = dynamic(() => import("@/components/home/explore/Explore"), { ssr: false });
-const Ready = dynamic(() => import("@/components/home/ready/Ready"), { ssr: false });
-const HowItWorks = dynamic(() => import("@/components/home/HowItWorks/HowItWorks"), { ssr: false });
-const CEOSection = dynamic(() => import("@/components/home/CEOSection/CEOSection"), { ssr: false });
+const LogosSection = dynamic(() => import("@/components/home/LogosSection"));
+const TestimonialSection = dynamic(() => import("@/components/home/TestimonialSection"));
+const WorkflowSection = dynamic(() => import("@/components/home/WorkflowSection"));
+const TrackRecord = dynamic(() => import("@/components/home/trackRecord/TrackRecord"));
+const OurApproach = dynamic(() => import("@/components/home/ourApproach/OurApproach"));
+const Works = dynamic(() => import("@/components/home/work/Works"));
+const ExploreSection = dynamic(() => import("@/components/home/explore/Explore"));
+const Ready = dynamic(() => import("@/components/home/ready/Ready"));
+const HowItWorks = dynamic(() => import("@/components/home/HowItWorks/HowItWorks"));
+const CEOSection = dynamic(() => import("@/components/home/CEOSection/CEOSection"));
 
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function HomeClient() {
-    const [introDone, setIntroDone] = useState(false);
-    const [isMounted, setIsMounted] = useState(false);
+    // 1. Initialize state directly to avoid the 'useEffect' cascading render error.
+    // We check if we are in the browser first to avoid SSR errors.
+    const [introDone, setIntroDone] = useState(() => {
+        if (typeof window !== "undefined") {
+            return sessionStorage.getItem("introFinished") === "true";
+        }
+        return false;
+    });
 
     const approachRef = useRef<HTMLDivElement>(null);
 
+    // 2. We still need this to ensure the 'body' class is applied on refresh
     useEffect(() => {
-        setIsMounted(true);
-        
-        const finished = sessionStorage.getItem("introFinished") === "true";
-        if (finished) {
-            setIntroDone(true);
+        if (introDone) {
             document.body.classList.add("intro-done");
         }
-    }, []);
+    }, [introDone]);
 
     const handleIntroComplete = () => {
         sessionStorage.setItem("introFinished", "true");
@@ -46,14 +49,12 @@ export default function HomeClient() {
         document.body.classList.add("intro-done");
     };
 
-    if (!isMounted) return null;
-
     return (
         <>
-            {/* Intro Animation Layer */}
+            {/* 1. Intro Animation Layer */}
             {!introDone && <IntroAnimation onComplete={handleIntroComplete} />}
 
-            {/* Optimized Main Container */}
+            {/* 2. Optimized Main Container */}
             <Box
                 component="main"
                 sx={{
@@ -66,7 +67,7 @@ export default function HomeClient() {
             >
                 <HeaderSection animate={introDone} />
 
-                {/* Deferred Loading Strategy */}
+                {/* 3. Deferred Loading Strategy */}
                 {introDone && (
                     <>
                         <LogosSection />
