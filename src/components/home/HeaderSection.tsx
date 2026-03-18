@@ -41,19 +41,19 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
     <HeaderRoot>
       <SvgBg>
         <video
-          preload="metadata"
-          poster="/header-poster.webp"
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-        >
-          <source
-            src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770892986/tva-timedoor_1_hcvelf.webm"
-            type="video/webm"
-          />
-        </video>
+  preload="metadata"
+  poster="https://res.cloudinary.com/dlhe4iq8c/video/upload/q_auto,f_auto,w_1280/v1770892986/tva-timedoor_1_hcvelf.webp"
+  autoPlay
+  loop
+  muted
+  playsInline
+  style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+>
+  <source
+    src="https://res.cloudinary.com/dlhe4iq8c/video/upload/q_auto,f_auto,w_1280,br_1500k/v1770892986/tva-timedoor_1_hcvelf.webm"
+    type="video/webm"
+  />
+</video>
       </SvgBg>
 
       <PageContainer>
