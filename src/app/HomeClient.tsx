@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useLayoutEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Box } from "@mui/material";
 import dynamic from "next/dynamic";
 import gsap from "gsap";
@@ -10,7 +10,7 @@ import ScrollToPlugin from "gsap/ScrollToPlugin";
 import IntroAnimation from "@/components/IntroAnimation";
 import HeaderSection from "@/components/home/HeaderSection";
 
-// Dynamic Imports (Keep these as they help TBT)
+// Dynamic Imports
 const LogosSection = dynamic(() => import("@/components/home/LogosSection"));
 const TestimonialSection = dynamic(() => import("@/components/home/TestimonialSection"));
 const WorkflowSection = dynamic(() => import("@/components/home/WorkflowSection"));
@@ -25,16 +25,23 @@ const CEOSection = dynamic(() => import("@/components/home/CEOSection/CEOSection
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function HomeClient() {
-    const [introDone, setIntroDone] = useState(false);
+    // 1. Initialize state directly to avoid the 'useEffect' cascading render error.
+    // We check if we are in the browser first to avoid SSR errors.
+    const [introDone, setIntroDone] = useState(() => {
+        if (typeof window !== "undefined") {
+            return sessionStorage.getItem("introFinished") === "true";
+        }
+        return false;
+    });
+
     const approachRef = useRef<HTMLDivElement>(null);
 
-    useLayoutEffect(() => {
-        const finished = sessionStorage.getItem("introFinished") === "true";
-        if (finished) {
-            setIntroDone(true);
+    // 2. We still need this to ensure the 'body' class is applied on refresh
+    useEffect(() => {
+        if (introDone) {
             document.body.classList.add("intro-done");
         }
-    }, []);
+    }, [introDone]);
 
     const handleIntroComplete = () => {
         sessionStorage.setItem("introFinished", "true");
@@ -51,25 +58,16 @@ export default function HomeClient() {
             <Box
                 component="main"
                 sx={{
-                    /* CRITICAL FIX: We use a tiny opacity (0.01) instead of 0.
-                       This allows the browser to 'see' the LCP elements (videos/text) 
-                       immediately for SEO and Performance scores, while remaining 
-                       virtually invisible to the user until the panels slide away.
-                    */
                     opacity: introDone ? 1 : 0.01,
-                    visibility: "visible", // Never set to 'hidden' for the main wrapper
+                    visibility: "visible",
                     transition: "opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
                     position: "relative",
                     zIndex: 1,
                 }}
             >
-                {/* HeaderSection is the most likely LCP candidate. 
-            We pass introDone so it can start internal animations. */}
                 <HeaderSection animate={introDone} />
 
-                {/* 3. Deferred Loading Strategy: 
-            Only render heavy sections once the intro is finished. 
-            This drastically reduces Total Blocking Time (TBT). */}
+                {/* 3. Deferred Loading Strategy */}
                 {introDone && (
                     <>
                         <LogosSection />
