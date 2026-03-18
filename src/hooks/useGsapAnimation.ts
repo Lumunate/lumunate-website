@@ -169,11 +169,11 @@ export const useGsapCounterAnimation = (
       refs.current.forEach((el, index) => {
         if (!el) return;
         const { total: finalValue, suffix, prefix = "" } = data[index];
-        const counter = { value: 0 };
+        const obj = { value: 0 };
 
-        gsap.to(counter, {
+        gsap.to(obj, {
           value: finalValue,
-          duration: 3,
+          duration: 2.5,
           ease: "power2.out",
           scrollTrigger: {
             trigger: el,
@@ -182,18 +182,19 @@ export const useGsapCounterAnimation = (
           },
           onUpdate: () => {
             if (!el) return;
-            let formatted: string;
+            let displayVal: string;
+
             if (finalValue >= 1000) {
-              formatted = Math.floor(counter.value).toLocaleString();
+              displayVal = Math.floor(obj.value).toLocaleString();
             } else if (finalValue % 1 !== 0) {
-              formatted = counter.value.toFixed(1);
+              displayVal = obj.value.toFixed(1);
             } else {
-              formatted = Math.floor(counter.value).toString();
+              displayVal = Math.floor(obj.value).toString();
             }
-            el.textContent = `${prefix}${formatted}${suffix}`;
+
+            el.textContent = `${prefix}${displayVal}${suffix}`;
           },
           onComplete: () => {
-            if (!el) return;
             const final = finalValue >= 1000
               ? finalValue.toLocaleString()
               : (finalValue % 1 !== 0 ? finalValue.toFixed(1) : finalValue.toString());
@@ -204,7 +205,7 @@ export const useGsapCounterAnimation = (
     });
 
     return () => ctx.revert();
-  }, [refs, data]);
+  }, [data]);
 };
 
 export default useGsapAnimation;

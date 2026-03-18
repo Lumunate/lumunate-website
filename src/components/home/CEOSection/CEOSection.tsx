@@ -35,7 +35,14 @@ const CEOSection = () => {
 
     return (
         <S.SectionWrapper>
-            <S.VideoBackground autoPlay muted loop playsInline>
+            <S.VideoBackground
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="none"
+                poster="/ceo-poster-mobile.webp"
+            >
                 <source src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1772440694/16296848-hd_1920_1080_24fps_vp2tgd.webm" type="video/mp4" />
             </S.VideoBackground>
 
