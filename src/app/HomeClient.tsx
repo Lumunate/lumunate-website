@@ -11,78 +11,91 @@ import IntroAnimation from "@/components/IntroAnimation";
 import HeaderSection from "@/components/home/HeaderSection";
 
 // Dynamic Imports
-const LogosSection = dynamic(() => import("@/components/home/LogosSection"));
-const TestimonialSection = dynamic(() => import("@/components/home/TestimonialSection"));
-const WorkflowSection = dynamic(() => import("@/components/home/WorkflowSection"));
-const TrackRecord = dynamic(() => import("@/components/home/trackRecord/TrackRecord"));
-const OurApproach = dynamic(() => import("@/components/home/ourApproach/OurApproach"));
-const Works = dynamic(() => import("@/components/home/work/Works"));
-const ExploreSection = dynamic(() => import("@/components/home/explore/Explore"));
-const Ready = dynamic(() => import("@/components/home/ready/Ready"));
-const HowItWorks = dynamic(() => import("@/components/home/HowItWorks/HowItWorks"));
-const CEOSection = dynamic(() => import("@/components/home/CEOSection/CEOSection"));
+const LogosSection = dynamic(() => import("@/components/home/LogosSection"), { ssr: false });
+const TestimonialSection = dynamic(() => import("@/components/home/TestimonialSection"), { ssr: false });
+const WorkflowSection = dynamic(() => import("@/components/home/WorkflowSection"), { ssr: false });
+const TrackRecord = dynamic(() => import("@/components/home/trackRecord/TrackRecord"), { ssr: false });
+const OurApproach = dynamic(() => import("@/components/home/ourApproach/OurApproach"), { ssr: false });
+const Works = dynamic(() => import("@/components/home/work/Works"), { ssr: false });
+const ExploreSection = dynamic(() => import("@/components/home/explore/Explore"), { ssr: false });
+const Ready = dynamic(() => import("@/components/home/ready/Ready"), { ssr: false });
+const HowItWorks = dynamic(() => import("@/components/home/HowItWorks/HowItWorks"), { ssr: false });
+const CEOSection = dynamic(() => import("@/components/home/CEOSection/CEOSection"), { ssr: false });
 
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function HomeClient() {
-    // 1. Initialize state directly to avoid the 'useEffect' cascading render error.
-    // We check if we are in the browser first to avoid SSR errors.
-    const [introDone, setIntroDone] = useState(() => {
-        if (typeof window !== "undefined") {
-            return sessionStorage.getItem("introFinished") === "true";
-        }
-        return false;
-    });
+    // 1. Initialize to false ALWAYS. This matches the server.
+    const [introDone, setIntroDone] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
 
     const approachRef = useRef<HTMLDivElement>(null);
 
-    // 2. We still need this to ensure the 'body' class is applied on refresh
     useEffect(() => {
-        if (introDone) {
+        setIsMounted(true);
+        // 2. Check sessionStorage ONLY after mounting on the client
+        const finished = sessionStorage.getItem("introFinished") === "true";
+        if (finished) {
+            setIntroDone(true);
+            // This class will show the footer if the intro was already skipped
             document.body.classList.add("intro-done");
+        } else {
+            // Ensure footer stays hidden if the intro is about to start
+            document.body.classList.remove("intro-done");
         }
-    }, [introDone]);
+    }, []);
 
     const handleIntroComplete = () => {
         sessionStorage.setItem("introFinished", "true");
         setIntroDone(true);
+        // This triggers the CSS rule to show the footer globally
         document.body.classList.add("intro-done");
     };
 
+    // Prevent rendering anything until mounted to ensure hydration matches
+    if (!isMounted) return null;
+
     return (
         <>
-            {/* 1. Page renders immediately (LCP happens here) - no blocking */}
+            {/* 1. Intro Animation Layer */}
+            {!introDone && <IntroAnimation onComplete={handleIntroComplete} />}
+
+            {/* 2. Optimized Main Container */}
             <Box
                 component="main"
                 sx={{
+                    opacity: introDone ? 1 : 0.01,
+                    visibility: "visible",
+                    transition: "opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
                     position: "relative",
                     zIndex: 1,
                 }}
             >
                 <HeaderSection animate={introDone} />
 
-                {/* 3. Deferred Loading Strategy - always render, just lazy-load heavy sections */}
-                <LogosSection />
-                <TestimonialSection />
-                <WorkflowSection />
-                <TrackRecord />
-                <Box ref={approachRef}>
-                    <OurApproach />
-                </Box>
-                <Works />
-                <HowItWorks />
-                <CEOSection />
-                <ExploreSection />
-                <Ready
-                    title="Ready to Build What's Next?"
-                    description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions."
-                    linkText="Let's Connect"
-                    linkHref="/contact"
-                />
+                {/* 3. Deferred Loading Strategy */}
+                {introDone && (
+                    <>
+                        <LogosSection />
+                        <TestimonialSection />
+                        <WorkflowSection />
+                        <TrackRecord />
+                        <Box ref={approachRef}>
+                            <OurApproach />
+                        </Box>
+                        <Works />
+                        <HowItWorks />
+                        <CEOSection />
+                        <ExploreSection />
+                        <Ready
+                            title="Ready to Build What's Next?"
+                            description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions."
+                            linkText="Let's Connect"
+                            linkHref="/contact"
+                        />
+                    </>
+                )}
             </Box>
-
-            {/* 2. Intro Animation Overlay - does NOT block rendering */}
-            {!introDone && <IntroAnimation onComplete={handleIntroComplete} />}
         </>
     );
 }

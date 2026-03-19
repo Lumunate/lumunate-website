@@ -36,3 +36,21 @@ body.intro-done .main-navbar {
   visibility: visible !important;
   transition: opacity 0.5s ease-in-out;
 }
+
+
+/* Hide the footer by default */
+footer, 
+.footer-container {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.8s ease-in-out;
+}
+
+/* Show the footer only when the intro is complete */
+body.intro-done footer,
+body.intro-done .footer-container {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
