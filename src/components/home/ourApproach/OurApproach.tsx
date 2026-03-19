@@ -143,7 +143,8 @@ const OurApproach = ({ onComplete }: Props) => {
         loop
         muted
         playsInline
-        preload="auto"
+        preload="none"
+        aria-hidden="true"
         style={{ willChange: "transform" }}
       >
         <source
@@ -153,7 +154,9 @@ const OurApproach = ({ onComplete }: Props) => {
       </video>
 
       <PageContainer>
-        <TitleText variant="h5">Our Approach</TitleText>
+        <TitleText variant="h5" component="h2">
+          Our Approach
+        </TitleText>
       </PageContainer>
 
       <FullBleedGrid>
@@ -166,26 +169,34 @@ const OurApproach = ({ onComplete }: Props) => {
                   {data[activeIndex].number}
                 </NumberTypography>
 
-                <SubTitle ref={titleRef} variant="h1">
+                <SubTitle ref={titleRef} variant="h1" component="h3">
                   {data[activeIndex].title}
                 </SubTitle>
               </Box>
             </SubContentWrapper>
 
             <RightBottomBox>
-              <DescriptionText ref={descRef} variant="h5">
+              <DescriptionText ref={descRef} variant="h5" component="p">
                 {data[activeIndex].description}
               </DescriptionText>
               <Link
                 href="/contact"
                 passHref
-                style={{ textDecoration: "none" }}
-                aria-label="Contact us to discover our portfolio"
+                style={{
+                  textDecoration: "none",
+                  display: "inline-block",
+                  padding: "4px",
+                }}
+                aria-label="Contact us to discover our full portfolio of services"
               >
                 <DiscoverButton
-                  aria-label="Discover our full range of services"
                   ref={buttonRef}
-                  sx={{ mt: { xs: "20px", lg: "20px", xl: "20px" } }}
+                  sx={{
+                    mt: { xs: "20px", lg: "20px", xl: "20px" },
+                    minHeight: "48px",
+                    minWidth: "120px",
+                    m: "8px",
+                  }}
                 >
                   Discover
                 </DiscoverButton>

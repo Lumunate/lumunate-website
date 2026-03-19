@@ -7,7 +7,9 @@ import {
   BackgroundVideo,
   StarsWrapper,
 } from "./SuccessStories.style";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
+import { Typography } from "@mui/material";
+import { useTheme } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import PageContainer from "@/components/common/PageContainer";
 import Image from "next/image";
@@ -18,7 +20,7 @@ type SuccessStoriesProps = {
   role: string;
   showStars?: boolean;
   flagUrl?: string;
-  logoUrl?: string
+  logoUrl?: string;
 };
 
 const SuccessStories: React.FC<SuccessStoriesProps> = ({
@@ -113,7 +115,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
             {logoUrl && (
               <Image
                 src={logoUrl}
-                alt={`${name || 'Company'} brand logo`}
+                alt={`${name || "Company"} brand logo`}
                 width={30}
                 height={30}
                 style={{
@@ -129,7 +131,7 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
             {flagUrl && (
               <Image
                 src={flagUrl}
-                alt={`${name || 'Location'} origin flag`}
+                alt={`${name || "Location"} origin flag`}
                 width={30}
                 height={30}
                 style={{

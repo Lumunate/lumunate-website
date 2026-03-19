@@ -1,5 +1,5 @@
 "use client";
-import { Box, styled, Typography } from "@mui/material";
+import { Box, styled, Typography, TypographyProps } from "@mui/material";
 
 export const TrackContainer = styled(Box)({
   width: "100%",
@@ -14,7 +14,7 @@ export const TitleWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const TitleText = styled(Typography)(({ theme }) => ({
+export const TitleText = styled(Typography)<TypographyProps>(({ theme }) => ({
   fontSize: "56px",
   marginBottom: "16px",
   color: theme.palette.text.primary,
@@ -26,15 +26,17 @@ export const TitleText = styled(Typography)(({ theme }) => ({
   },
 }));
 
-export const DescriptionText = styled(Typography)(({ theme }) => ({
-  color: theme.palette.text.secondary,
-  fontSize: "22px",
-  fontWeight: 400,
-  marginTop: "6px",
-  [theme.breakpoints.down("sm")]: {
-    fontSize: "16px",
-  },
-}));
+export const DescriptionText = styled(Typography)<TypographyProps>(
+  ({ theme }) => ({
+    color: theme.palette.text.secondary,
+    fontSize: "22px",
+    fontWeight: 400,
+    marginTop: "6px",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "16px",
+    },
+  }),
+);
 
 export const StatusWrapper = styled(Box)(({ theme }) => ({
   marginTop: "44px",
@@ -60,7 +62,7 @@ export const StatusCard = styled(Box)(({ theme }) => ({
   boxSizing: "border-box",
   display: "flex",
   flexDirection: "column",
-  // justifyContent: "center", 
+  // justifyContent: "center",
   [theme.breakpoints.down("sm")]: {
     height: "250px",
     padding: "30px 20px 80px 20px",

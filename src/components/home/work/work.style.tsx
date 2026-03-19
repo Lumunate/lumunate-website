@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, styled } from "@mui/material";
+import { Box, Button, styled, TypographyProps } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 
 export const WorkWrapper = styled(Box)(({ theme }) => ({
@@ -16,7 +16,7 @@ export const WorkWrapper = styled(Box)(({ theme }) => ({
       width: "100%",
       margin: 0,
       paddingBottom: 0,
-    }
+    },
   },
 
   "& .swiper-pagination": {
@@ -25,7 +25,7 @@ export const WorkWrapper = styled(Box)(({ theme }) => ({
     justifyContent: "center",
     alignItems: "center",
     gap: "12px",
-    marginTop: "12px"
+    marginTop: "12px",
   },
 
   "& .swiper-pagination-bullet": {
@@ -43,7 +43,7 @@ export const WorkWrapper = styled(Box)(({ theme }) => ({
     borderRadius: "50%",
     backgroundColor: theme.palette.text.primary,
     boxShadow: `0px 0px 10px ${alpha(theme.palette.text.primary, 0.5)}`,
-  }
+  },
 }));
 
 export const TitleWrapper = styled(Box)(({ theme }) => ({
@@ -55,9 +55,10 @@ export const TitleWrapper = styled(Box)(({ theme }) => ({
   backgroundColor: alpha(theme.palette.background.default, 0.72),
   boxShadow: `
     0px 4px 14.8px ${alpha("#000", 0.9)},
-    inset 0px 4px 18.1px ${theme.palette.mode === "dark"
-      ? alpha(theme.palette.text.primary, 0.22)
-      : alpha("#000", 0.1)
+    inset 0px 4px 18.1px ${
+      theme.palette.mode === "dark"
+        ? alpha(theme.palette.text.primary, 0.22)
+        : alpha("#000", 0.1)
     }
   `,
 
@@ -67,7 +68,7 @@ export const TitleWrapper = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.up("sm")]: {
     borderRadius: (theme.shape.borderRadius as number) * 1.5,
-  }
+  },
 }));
 
 export const ImageContainer = styled(Box)(({ theme }) => ({
@@ -109,7 +110,7 @@ export const ImageContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const ViewButton = styled(Button)(({ theme }) => ({
+export const ViewButton = styled(Button)<TypographyProps>(({ theme }) => ({
   position: "absolute",
   top: "13%",
   right: "10%",

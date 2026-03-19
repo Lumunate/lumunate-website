@@ -1,10 +1,14 @@
 "use client";
 
-import { Box, Typography, Avatar, Stack } from "@mui/material";
+import { Box } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Avatar } from "@mui/material";
+import { Stack } from "@mui/material";
 import * as S from "./CEOSection.styles";
 import PageContainer from "@/components/common/PageContainer";
 import DiscoverButton from "@/components/ui/DiscoverButton";
 import useGsapAnimation from "@/hooks/useGsapAnimation";
+import Image from "next/image";
 
 const CEOSection = () => {
   // Heading Animation
@@ -69,13 +73,15 @@ const CEOSection = () => {
               justifyContent="center"
             >
               {/* Animated Avatar Wrapper */}
-              <Box ref={avatarRef} sx={{ display: "inline-flex" }}>
-                <Avatar
+              <Avatar sx={{ width: 100, height: 100, bgcolor: "transparent" }}>
+                <Image
                   src="/ceo-img.svg"
                   alt="Saad Javaid"
-                  sx={{ width: 100, height: 100 }}
+                  width={100}
+                  height={100}
+                  priority
                 />
-              </Box>
+              </Avatar>
 
               {/* Animated Stack for Cards */}
               <Stack

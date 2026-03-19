@@ -7,7 +7,9 @@ import {
   BackgroundVideo,
   Overlay,
 } from "./Ready.style";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
+import { Typography } from "@mui/material";
+import { useTheme } from "@mui/material";
 import Link from "next/link";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import PageContainer from "@/components/common/PageContainer";
@@ -51,7 +53,8 @@ const Ready = ({
         muted
         loop
         playsInline
-        preload="auto"
+        preload="none"
+        aria-hidden="true"
         style={{ willChange: "transform" }}
       >
         <source src={videoSrc} type="video/webm" />
@@ -62,24 +65,32 @@ const Ready = ({
       <PageContainer>
         <TextWrapper>
           <Typography
+            variant="h2"
             sx={{
-              fontSize: { xs: "30px", sm: "56px", md: "60px", lg: "60px", xl: "78px" },
+              fontSize: {
+                xs: "30px",
+                sm: "56px",
+                md: "60px",
+                lg: "60px",
+                xl: "78px",
+              },
               color: theme.palette.text.primary,
               fontWeight: 400,
-              fontFamily: 'Montserrat',
-              lineHeight: "100%"
+              fontFamily: "Montserrat",
+              lineHeight: "100%",
             }}
           >
             {title}
           </Typography>
           <Typography
             variant="body2"
+            component="p"
             sx={{
               color: theme.palette.text.secondary,
               mt: { xs: 2.5, sm: 4 },
               fontFamily: "Montserrat",
               fontWeight: 400,
-              lineHeight: "100%",
+              lineHeight: "1.5",
               letterSpacing: "-0.2px",
               maxWidth: "1098px",
               mx: "auto",
@@ -94,11 +105,14 @@ const Ready = ({
               style={{
                 color: theme.palette.text.primary,
                 textDecoration: "none",
+                display: "inline-block",
+                padding: "10px",
               }}
               href={linkHref}
             >
               <Typography
                 variant="h4"
+                component="span"
                 sx={{
                   fontSize: { xs: "20px", sm: "28px" },
                   display: "inline-flex",

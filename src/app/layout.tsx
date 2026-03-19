@@ -40,11 +40,12 @@ export default function RootLayout({
       <head>
         {/* PRELOAD the NEW .WOFF2 FONT (Crucial for Speed Index) */}
         <link
-          rel="font"
+          rel="preload"
           href="/fonts/NeueMontreal-Light.woff2"
           type="font/woff2"
           crossOrigin="anonymous"
         />
+        <link rel="preconnect" href="https://res.cloudinary.com" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased ${montserrat.className}`}

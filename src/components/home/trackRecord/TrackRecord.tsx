@@ -36,8 +36,10 @@ const TrackRecord: React.FC = () => {
     <TrackContainer>
       <PageContainer>
         <TitleWrapper>
-          <TitleText variant="h1">Proven Track Record</TitleText>
-          <DescriptionText variant="h5">
+          <TitleText variant="h1" component="h2">
+            Proven Track Record
+          </TitleText>
+          <DescriptionText variant="h5" component="p">
             We&apos;re not just developers. We&apos;re your growth partners from
             concept to scale.
           </DescriptionText>
@@ -47,12 +49,7 @@ const TrackRecord: React.FC = () => {
             style={{ textDecoration: "none" }}
             aria-label="Discover our agency details"
           >
-            <DiscoverButton
-              aria-label="Discover our full range of services"
-              sx={{ mt: "32px" }}
-            >
-              Discover
-            </DiscoverButton>
+            <DiscoverButton sx={{ mt: "32px" }}>Discover</DiscoverButton>
           </Link>
         </TitleWrapper>
 
@@ -102,11 +99,16 @@ const TrackRecord: React.FC = () => {
                 ref={(el: HTMLDivElement | null) => {
                   numberRefs.current[index] = el;
                 }}
+                aria-live="polite"
               >
                 {item.prefix || ""}0{item.suffix || ""}
               </NumberText>
 
-              <DescriptionText sx={{ color: "text.primary" }} variant="h5">
+              <DescriptionText
+                sx={{ color: "text.primary" }}
+                variant="h5"
+                component="p"
+              >
                 {item.title}
               </DescriptionText>
             </StatusCard>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, styled, Typography } from "@mui/material";
+import { Box, styled, Typography, TypographyProps } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 
 export const OurApproachContainer = styled(Box)(({ theme }) => ({
@@ -60,7 +60,6 @@ export const OurApproachContainer = styled(Box)(({ theme }) => ({
     height: "auto",
     minHeight: "100vh",
     paddingBottom: theme.spacing(10),
-
   },
   [theme.breakpoints.down("lg")]: {
     height: "100vh",
@@ -93,7 +92,7 @@ export const FullBleedGrid = styled(Box)(({ theme }) => ({
     transform: "translateX(-0.5px)",
   },
 
-  // HORIZONTAL LINE 
+  // HORIZONTAL LINE
   "&::after": {
     content: '""',
     position: "absolute",
@@ -164,7 +163,7 @@ export const SubContentWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const SubTitle = styled(Typography)(({ theme }) => ({
+export const SubTitle = styled(Typography)<TypographyProps>(({ theme }) => ({
   marginTop: theme.spacing(2),
   fontSize: theme.typography.h3.fontSize,
   fontWeight: theme.typography.h3.fontWeight,
@@ -181,7 +180,8 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
     width: "100%",
   },
 }));
-export const TitleText = styled(Typography)(({ theme }) => ({
+
+export const TitleText = styled(Typography)<TypographyProps>(({ theme }) => ({
   position: "relative",
   zIndex: 3,
   color: theme.palette.text.primary,
@@ -230,40 +230,43 @@ export const RightBottomBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const NumberTypography = styled(Typography)(({ theme }) => ({
-  fontSize: "260px",
-  lineHeight: 0.8,
-  fontWeight: 400,
-  background: `linear-gradient(to bottom, ${alpha(theme.palette.text.primary, 0.35)} 0%, ${alpha(theme.palette.background.default, 0.35)} 100%)`,
-  WebkitBackgroundClip: "text",
-  WebkitTextFillColor: "transparent",
-  backgroundClip: "text",
-  color: "transparent",
+export const NumberTypography = styled(Typography)<TypographyProps>(
+  ({ theme }) => ({
+    fontSize: "260px",
+    lineHeight: 0.8,
+    fontWeight: 400,
+    background: `linear-gradient(to bottom, ${alpha(theme.palette.text.primary, 0.35)} 0%, ${alpha(theme.palette.background.default, 0.35)} 100%)`,
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    backgroundClip: "text",
+    color: "transparent",
 
-  [theme.breakpoints.down("xl")]: {
-    fontSize: "180px",
-    textAlign: "left",
-  },
-  [theme.breakpoints.down("sm")]: {
-    fontSize: "100px",
-    textAlign: "left",
-  },
-}));
+    [theme.breakpoints.down("xl")]: {
+      fontSize: "180px",
+      textAlign: "left",
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "100px",
+      textAlign: "left",
+    },
+  }),
+);
 
-export const DescriptionText = styled(Typography)(({ theme }) => ({
-  color: theme.palette.text.secondary,
-  fontSize: theme.typography.h5.fontSize,
-  lineHeight: 1.6,
-  maxWidth: "900px",
-  [theme.breakpoints.down("xl")]: {
-    fontSize: theme.typography.h6.fontSize,
+export const DescriptionText = styled(Typography)<TypographyProps>(
+  ({ theme }) => ({
+    color: theme.palette.text.secondary,
+    fontSize: theme.typography.h5.fontSize,
+    lineHeight: 1.6,
+    maxWidth: "900px",
+    [theme.breakpoints.down("xl")]: {
+      fontSize: theme.typography.h6.fontSize,
+    },
 
-  },
-
-  [theme.breakpoints.down("lg")]: {
-    fontSize: "14px",
-    textAlign: "right",
-    maxWidth: "280px",
-    marginBottom: "16px !important",
-  },
-}));
+    [theme.breakpoints.down("lg")]: {
+      fontSize: "14px",
+      textAlign: "right",
+      maxWidth: "280px",
+      marginBottom: "16px !important",
+    },
+  }),
+);
