@@ -26,33 +26,41 @@ interface Props {
 }
 
 const OurApproach = ({ onComplete }: Props) => {
-  const data = useMemo(() => [
-    {
-      number: "01",
-      title: "Visual Identity & Branding",
-      description: "Define your digital presence with distinctive branding that resonates and converts.",
-    },
-    {
-      number: "02",
-      title: "Design & Research",
-      description: "Transform ideas into user-centered designs through research, prototypes, and validation.",
-    },
-    {
-      number: "03",
-      title: "Development & Testing",
-      description: "Build scalable solutions with clean architecture, rigorous testing, and modern frameworks.",
-    },
-    {
-      number: "04",
-      title: "Launch & Iteration",
-      description: "Deploy with secure infrastructure and stay invested in continuous optimization.",
-    },
-    {
-      number: "05",
-      title: "Digital Transformation",
-      description: "Drive growth with SEO, targeted campaigns, and data-driven marketing strategies.",
-    },
-  ], []);
+  const data = useMemo(
+    () => [
+      {
+        number: "01",
+        title: "Visual Identity & Branding",
+        description:
+          "Define your digital presence with distinctive branding that resonates and converts.",
+      },
+      {
+        number: "02",
+        title: "Design & Research",
+        description:
+          "Transform ideas into user-centered designs through research, prototypes, and validation.",
+      },
+      {
+        number: "03",
+        title: "Development & Testing",
+        description:
+          "Build scalable solutions with clean architecture, rigorous testing, and modern frameworks.",
+      },
+      {
+        number: "04",
+        title: "Launch & Iteration",
+        description:
+          "Deploy with secure infrastructure and stay invested in continuous optimization.",
+      },
+      {
+        number: "05",
+        title: "Digital Transformation",
+        description:
+          "Drive growth with SEO, targeted campaigns, and data-driven marketing strategies.",
+      },
+    ],
+    [],
+  );
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -64,7 +72,12 @@ const OurApproach = ({ onComplete }: Props) => {
 
   // Animation logic for content changes
   useEffect(() => {
-    const targets = [numberRef.current, titleRef.current, descRef.current, buttonRef.current].filter(Boolean);
+    const targets = [
+      numberRef.current,
+      titleRef.current,
+      descRef.current,
+      buttonRef.current,
+    ].filter(Boolean);
     if (targets.length === 0) return;
 
     const ctx = gsap.context(() => {
@@ -78,15 +91,15 @@ const OurApproach = ({ onComplete }: Props) => {
           stagger: 0.1,
           duration: 0.8,
           ease: "power3.out",
-          overwrite: "auto"
-        }
+          overwrite: "auto",
+        },
       );
     });
 
     return () => ctx.revert();
   }, [activeIndex]);
 
-  // SCROLL TRIGGER 
+  // SCROLL TRIGGER
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -103,7 +116,10 @@ const OurApproach = ({ onComplete }: Props) => {
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         const progress = self.progress;
-        const index = Math.min(totalSteps - 1, Math.floor(progress * totalSteps));
+        const index = Math.min(
+          totalSteps - 1,
+          Math.floor(progress * totalSteps),
+        );
         setActiveIndex((prev) => (prev !== index ? index : prev));
       },
       onLeave: () => {
@@ -122,7 +138,14 @@ const OurApproach = ({ onComplete }: Props) => {
       <Box className="bottomBlur" />
 
       {/* OPTIMIZED VIDEO: Fixed type and added preload */}
-      <video autoPlay loop muted playsInline preload="auto" style={{ willChange: "transform" }}>
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        style={{ willChange: "transform" }}
+      >
         <source
           src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1770893375/liquid-gradient-abstract-background_qpknyp.webm"
           type="video/webm"
@@ -139,7 +162,9 @@ const OurApproach = ({ onComplete }: Props) => {
             <SubContentWrapper>
               <Box>
                 {/* Reference the data directly to ensure the UI is in sync with state */}
-                <NumberTypography ref={numberRef}>{data[activeIndex].number}</NumberTypography>
+                <NumberTypography ref={numberRef}>
+                  {data[activeIndex].number}
+                </NumberTypography>
 
                 <SubTitle ref={titleRef} variant="h1">
                   {data[activeIndex].title}
@@ -151,8 +176,17 @@ const OurApproach = ({ onComplete }: Props) => {
               <DescriptionText ref={descRef} variant="h5">
                 {data[activeIndex].description}
               </DescriptionText>
-              <Link href="/contact" passHref style={{ textDecoration: 'none' }}>
-                <DiscoverButton ref={buttonRef} sx={{ mt: { xs: "20px", lg: "20px", xl: "20px" } }}>
+              <Link
+                href="/contact"
+                passHref
+                style={{ textDecoration: "none" }}
+                aria-label="Contact us to discover our portfolio"
+              >
+                <DiscoverButton
+                  aria-label="Discover our full range of services"
+                  ref={buttonRef}
+                  sx={{ mt: { xs: "20px", lg: "20px", xl: "20px" } }}
+                >
                   Discover
                 </DiscoverButton>
               </Link>

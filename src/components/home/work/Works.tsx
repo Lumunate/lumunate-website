@@ -1,7 +1,12 @@
 "use client";
 
 import React from "react";
-import { TitleWrapper, WorkWrapper, ImageContainer, ViewButton } from "./work.style";
+import {
+  TitleWrapper,
+  WorkWrapper,
+  ImageContainer,
+  ViewButton,
+} from "./work.style";
 import { Typography, Box, useMediaQuery, useTheme } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
@@ -25,15 +30,39 @@ const Works = ({ title = "Work", includedTitles, limit }: WorksProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const projects = [
-    { title: "AirBot", year: 2025, imageSrc: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770893373/Airbot_nagyon.webp", url: "/projects/airbot" },
-    { title: "Allfred", year: 2025, imageSrc: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770898186/Allfred-Home_11zon_t92k4g.webp", url: "/projects/allfred" },
-    { title: "Koinfolio", year: 2024, imageSrc: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770898186/Koinfolio_1__11zon_gdiwkt.webp", url: "/projects/koinfolio" },
-    { title: "CutConnect", year: 2025, imageSrc: "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770898378/Cut_connect_1_ysrdaf.webp", url: "/projects/cut-connect" },
+    {
+      title: "AirBot",
+      year: 2025,
+      imageSrc:
+        "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770893373/Airbot_nagyon.webp",
+      url: "/projects/airbot",
+    },
+    {
+      title: "Allfred",
+      year: 2025,
+      imageSrc:
+        "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770898186/Allfred-Home_11zon_t92k4g.webp",
+      url: "/projects/allfred",
+    },
+    {
+      title: "Koinfolio",
+      year: 2024,
+      imageSrc:
+        "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770898186/Koinfolio_1__11zon_gdiwkt.webp",
+      url: "/projects/koinfolio",
+    },
+    {
+      title: "CutConnect",
+      year: 2025,
+      imageSrc:
+        "https://res.cloudinary.com/dlhe4iq8c/image/upload/v1770898378/Cut_connect_1_ysrdaf.webp",
+      url: "/projects/cut-connect",
+    },
   ];
 
   // Filter by specific titles if provided
   let displayedProjects = includedTitles
-    ? projects.filter(p => includedTitles.includes(p.title))
+    ? projects.filter((p) => includedTitles.includes(p.title))
     : projects;
 
   // Apply the limit if provided
@@ -41,7 +70,7 @@ const Works = ({ title = "Work", includedTitles, limit }: WorksProps) => {
     displayedProjects = displayedProjects.slice(0, limit);
   }
 
-  const renderProjectCard = (project: typeof projects[0], index: number) => (
+  const renderProjectCard = (project: (typeof projects)[0], index: number) => (
     <Box key={index}>
       <TitleWrapper>
         <Typography sx={{ fontSize: { xs: "32px", sm: "38px" } }} variant="h3">
@@ -59,15 +88,23 @@ const Works = ({ title = "Work", includedTitles, limit }: WorksProps) => {
           fill
           sizes="(max-width: 600px) 100vw, 50vw"
           className="hoverImage"
-          style={{ objectFit: 'cover' }}
+          style={{ objectFit: "cover" }}
           loading="lazy"
         />
-        <Link href={project.url} passHref>
+        <Link
+          href={project.url}
+          passHref
+          aria-label={`View project details for ${project.title}`}
+        >
           <ViewButton
             className="viewButton"
             aria-label={`View details for ${project.title}`}
           >
-            View <ArrowOutwardIcon sx={{ fontSize: "17px", ml: "6px" }} aria-hidden="true" />
+            View{" "}
+            <ArrowOutwardIcon
+              sx={{ fontSize: "17px", ml: "6px" }}
+              aria-hidden="true"
+            />
           </ViewButton>
         </Link>
       </ImageContainer>
@@ -86,28 +123,33 @@ const Works = ({ title = "Work", includedTitles, limit }: WorksProps) => {
               spaceBetween={16}
               slidesPerView={1}
               pagination={{ clickable: true }}
-              style={{
-                width: "100%",
-                "--swiper-pagination-color": theme.palette.text.primary,
-                "--swiper-pagination-bullet-inactive-color": theme.palette.text.secondary,
-                "--swiper-pagination-bullet-inactive-opacity": "0.4",
-              } as React.CSSProperties}
+              style={
+                {
+                  width: "100%",
+                  "--swiper-pagination-color": theme.palette.text.primary,
+                  "--swiper-pagination-bullet-inactive-color":
+                    theme.palette.text.secondary,
+                  "--swiper-pagination-bullet-inactive-opacity": "0.4",
+                } as React.CSSProperties
+              }
             >
               {displayedProjects.map((project, index) => (
                 <SwiperSlide key={index}>
-                  <Box sx={{ px: 0 }}>
-                    {renderProjectCard(project, index)}
-                  </Box>
+                  <Box sx={{ px: 0 }}>{renderProjectCard(project, index)}</Box>
                 </SwiperSlide>
               ))}
             </Swiper>
           ) : (
-            <Box sx={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              gap: "32px 16px"
-            }}>
-              {displayedProjects.map((project, index) => renderProjectCard(project, index))}
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, 1fr)",
+                gap: "32px 16px",
+              }}
+            >
+              {displayedProjects.map((project, index) =>
+                renderProjectCard(project, index),
+              )}
             </Box>
           )}
         </Box>
