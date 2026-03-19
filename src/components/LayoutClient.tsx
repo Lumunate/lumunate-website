@@ -17,7 +17,10 @@ export default function LayoutClient({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const raf = requestAnimationFrame(() => {
+      setMounted(true);
+    });
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   return (
@@ -25,14 +28,14 @@ export default function LayoutClient({
       <CssBaseline />
       <NavbarProvider>
         <TransitionWrapper>
-          {mounted ? (
+          {!mounted ? (
+            <Box style={{ opacity: 0 }}>{children}</Box>
+          ) : (
             <>
               <Navbar />
               {children}
               <Footer />
             </>
-          ) : (
-            <Box style={{ opacity: 0 }}>{children}</Box>
           )}
         </TransitionWrapper>
       </NavbarProvider>

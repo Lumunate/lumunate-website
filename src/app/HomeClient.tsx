@@ -58,12 +58,16 @@ export default function HomeClient() {
   const approachRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setIsMounted(true);
-    const finished = sessionStorage.getItem("introFinished") === "true";
-    if (finished) {
-      setIntroDone(true);
-      document.body.classList.add("intro-done");
-    }
+    const raf = requestAnimationFrame(() => {
+      setIsMounted(true);
+      const finished = sessionStorage.getItem("introFinished") === "true";
+      if (finished) {
+        setIntroDone(true);
+        document.body.classList.add("intro-done");
+      }
+    });
+
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   const handleIntroComplete = () => {

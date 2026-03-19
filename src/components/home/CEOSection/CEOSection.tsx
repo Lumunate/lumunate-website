@@ -73,7 +73,10 @@ const CEOSection = () => {
               justifyContent="center"
             >
               {/* Animated Avatar Wrapper */}
-              <Avatar sx={{ width: 100, height: 100, bgcolor: "transparent" }}>
+              <Avatar
+                ref={avatarRef}
+                sx={{ width: 100, height: 100, bgcolor: "transparent" }}
+              >
                 <Image
                   src="/ceo-img.svg"
                   alt="Saad Javaid"
