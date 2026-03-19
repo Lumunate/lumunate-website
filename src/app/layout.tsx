@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import "./globals.css";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -11,7 +10,6 @@ export const montserrat = Montserrat({
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
-
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,14 +40,16 @@ export default function RootLayout({
       <head>
         {/* PRELOAD the NEW .WOFF2 FONT (Crucial for Speed Index) */}
         <link
-          rel="preload"
+          rel="font"
           href="/fonts/NeueMontreal-Light.woff2"
-          as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased ${montserrat.className}`} suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased ${montserrat.className}`}
+        suppressHydrationWarning
+      >
         {/* Wrapped the client logic here */}
         <LayoutClient>{children}</LayoutClient>
       </body>
