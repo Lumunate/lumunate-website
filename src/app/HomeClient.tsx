@@ -51,45 +51,38 @@ export default function HomeClient() {
 
     return (
         <>
-            {/* 1. Intro Animation Layer */}
-            {!introDone && <IntroAnimation onComplete={handleIntroComplete} />}
-
-            {/* 2. Optimized Main Container */}
+            {/* 1. Page renders immediately (LCP happens here) - no blocking */}
             <Box
                 component="main"
                 sx={{
-                    opacity: introDone ? 1 : 0.01,
-                    visibility: "visible",
-                    transition: "opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
                     position: "relative",
                     zIndex: 1,
                 }}
             >
                 <HeaderSection animate={introDone} />
 
-                {/* 3. Deferred Loading Strategy */}
-                {introDone && (
-                    <>
-                        <LogosSection />
-                        <TestimonialSection />
-                        <WorkflowSection />
-                        <TrackRecord />
-                        <Box ref={approachRef}>
-                            <OurApproach />
-                        </Box>
-                        <Works />
-                        <HowItWorks />
-                        <CEOSection />
-                        <ExploreSection />
-                        <Ready
-                            title="Ready to Build What's Next?"
-                            description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions."
-                            linkText="Let's Connect"
-                            linkHref="/contact"
-                        />
-                    </>
-                )}
+                {/* 3. Deferred Loading Strategy - always render, just lazy-load heavy sections */}
+                <LogosSection />
+                <TestimonialSection />
+                <WorkflowSection />
+                <TrackRecord />
+                <Box ref={approachRef}>
+                    <OurApproach />
+                </Box>
+                <Works />
+                <HowItWorks />
+                <CEOSection />
+                <ExploreSection />
+                <Ready
+                    title="Ready to Build What's Next?"
+                    description="Every great product starts with a conversation. Let's discuss how we can accelerate your digital transformation and turn your ideas into scalable solutions."
+                    linkText="Let's Connect"
+                    linkHref="/contact"
+                />
             </Box>
+
+            {/* 2. Intro Animation Overlay - does NOT block rendering */}
+            {!introDone && <IntroAnimation onComplete={handleIntroComplete} />}
         </>
     );
 }

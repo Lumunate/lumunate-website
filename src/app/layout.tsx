@@ -39,6 +39,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* PRELOAD the NEW .WOFF2 FONT (Crucial for Speed Index) */}
+        <link
+          rel="preload"
+          href="/fonts/NeueMontreal-Light.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased ${montserrat.className}`} suppressHydrationWarning>
         {/* Wrapped the client logic here */}
         <LayoutClient>{children}</LayoutClient>

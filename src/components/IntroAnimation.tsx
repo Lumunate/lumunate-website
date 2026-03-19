@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Box } from "@mui/material";
 import gsap from "gsap";
 import dynamic from "next/dynamic";
-import dotsData from "../../public/startup/dots.json";
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
@@ -14,6 +13,8 @@ interface IntroAnimationProps {
 
 const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
     const [preloadFinished, setPreloadFinished] = useState(false);
+    const [dotsData, setDotsData] = useState<any | null>(null);
+    const [hasStarted, setHasStarted] = useState(false);
     const leftRef = useRef<HTMLDivElement>(null);
     const centerRef = useRef<HTMLDivElement>(null);
     const rightRef = useRef<HTMLDivElement>(null);
@@ -35,22 +36,48 @@ const IntroAnimation = ({ onComplete }: IntroAnimationProps) => {
     }, [onComplete]);
 
     useEffect(() => {
+        let cancelled = false;
+
+        fetch("/startup/dots.json")
+            .then((res) => res.json())
+            .then((data) => {
+                if (!cancelled) setDotsData(data);
+            })
+            .catch((error) => {
+                // If the JSON fails to load, we still want the app to continue.
+                console.error("Failed to load intro animation data", error);
+            });
+
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    useEffect(() => {
         const panels = [leftRef.current, centerRef.current, rightRef.current];
         gsap.set(panels, { willChange: "transform" });
         gsap.set(leftRef.current, { y: "100%" });
         gsap.set(rightRef.current, { y: "100%" });
         gsap.set(centerRef.current, { y: "-100%" });
+    }, []);
 
-        const timer = setTimeout(handleStartupAnimation, 1200);
-        return () => clearTimeout(timer);
-    }, [handleStartupAnimation]);
+    useEffect(() => {
+        if (!dotsData || hasStarted) return;
+
+        const timer = window.setTimeout(() => {
+            handleStartupAnimation();
+            setHasStarted(true);
+        }, 1200);
+
+        return () => window.clearTimeout(timer);
+    }, [dotsData, hasStarted, handleStartupAnimation]);
 
     return (
         <Box component="section" sx={{ position: "fixed", inset: 0, zIndex: 10000, bgcolor: "black" }}>
             {!preloadFinished && (
                 <Box sx={{ position: "absolute", inset: 0, zIndex: 2, display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <Box sx={{ width: { xs: "180px", md: "400px" } }}>
-                        <Lottie animationData={dotsData} loop={true} />
+                        {dotsData ? <Lottie animationData={dotsData} loop={true} /> : null}
                     </Box>
                 </Box>
             )}
