@@ -177,7 +177,7 @@ export default function Navbar() {
             <Toolbar sx={{ opacity: 1, visibility: "visible" }}>
                 <NavContainer ref={navContainerRef}>
                     <StyledToolbar disableGutters>
-                        <LogoBox ref={logoBoxRef}><Logo /></LogoBox>
+                        <LogoBox ref={logoBoxRef} aria-label="Lumunate Home"><Logo /></LogoBox>
 
                         {!isMobile && (
                             <MenuBox>
@@ -387,7 +387,9 @@ export default function Navbar() {
 
                         <RightBox>
                             {isMobile && (
-                                <IconButton onClick={toggleDrawer(!drawerOpen)} sx={{ color: theme.palette.section.heading, p: 1, zIndex: 1400 }}>
+                                <IconButton onClick={toggleDrawer(!drawerOpen)}
+                                aria-label={drawerOpen ? "Close menu" : "Open menu"}
+                                 sx={{ color: theme.palette.section.heading, p: 1, zIndex: 1400 }}>
                                     {drawerOpen ? <CloseIcon /> : <MenuIcon />}
                                 </IconButton>
                             )}
@@ -431,7 +433,9 @@ export default function Navbar() {
                             bgcolor: theme.palette.navbar.bg,
                         }}>
                             <LogoBox><Logo /></LogoBox>
-                            <IconButton onClick={() => setDrawerOpen(false)} sx={{ color: theme.palette.section.heading }}><CloseIcon /></IconButton>
+                            <IconButton onClick={() => setDrawerOpen(false)} 
+                            aria-label="Close navigation drawer"
+                            sx={{ color: theme.palette.section.heading }}><CloseIcon /></IconButton>
                         </Box>
 
                         <List sx={{ px: 2, py: 0, flexGrow: 1, bgcolor: theme.palette.navbar.bg }}>
