@@ -107,6 +107,7 @@ export default function WorkflowCard({ activeSection }: WorkflowCardProps) {
           loop
           muted
           playsInline
+          preload="metadata"
           style={{ opacity: 0, transform: "scale(1.05)" }}
           onLoadedData={(e) => {
             gsap.to(e.currentTarget, {

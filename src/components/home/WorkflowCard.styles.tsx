@@ -1,6 +1,9 @@
 "use client";
 
-import { Box, Typography, TypographyProps, styled } from "@mui/material";
+import { Box } from "@mui/material";
+import { Typography } from "@mui/material";
+import { TypographyProps } from "@mui/material";
+import { styled } from "@mui/material";
 
 export const WorkflowCardRoot = styled(Box)(({ theme }) => ({
   display: "flex",

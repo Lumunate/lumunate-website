@@ -76,7 +76,11 @@ const Works = ({ title = "Work", includedTitles, limit }: WorksProps) => {
         <Typography sx={{ fontSize: { xs: "32px", sm: "38px" } }} variant="h3">
           {project.title}
         </Typography>
-        <Typography variant="h5" sx={{ color: "text.secondary" }}>
+        <Typography
+          variant="h5"
+          component="span"
+          sx={{ color: "text.secondary" }}
+        >
           {project.year}
         </Typography>
       </TitleWrapper>
@@ -95,11 +99,9 @@ const Works = ({ title = "Work", includedTitles, limit }: WorksProps) => {
           href={project.url}
           passHref
           aria-label={`View project details for ${project.title}`}
+          style={{ display: "inline-block" }}
         >
-          <ViewButton
-            className="viewButton"
-            aria-label={`View details for ${project.title}`}
-          >
+          <ViewButton className="viewButton" component="span">
             View{" "}
             <ArrowOutwardIcon
               sx={{ fontSize: "17px", ml: "6px" }}
@@ -114,7 +116,9 @@ const Works = ({ title = "Work", includedTitles, limit }: WorksProps) => {
   return (
     <WorkWrapper>
       <PageContainer>
-        <Typography variant="h5">{title}</Typography>
+        <Typography variant="h5" component="h2">
+          {title}
+        </Typography>
 
         <Box sx={{ marginTop: "32px" }}>
           {isMobile ? (

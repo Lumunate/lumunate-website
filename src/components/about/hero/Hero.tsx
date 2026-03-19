@@ -1,7 +1,14 @@
 "use client";
 
-import { ContentContainer, HeroContainer, BackgroundVideo, BottomBlurOverlay } from "./Hero.style";
-import { Box, Typography, useTheme } from "@mui/material";
+import {
+  ContentContainer,
+  HeroContainer,
+  BackgroundVideo,
+  BottomBlurOverlay,
+} from "./Hero.style";
+import { Box } from "@mui/material";
+import { Typography } from "@mui/material";
+import { useTheme } from "@mui/material";
 import Image from "next/image";
 import PageContainer from "@/components/common/PageContainer";
 
@@ -39,11 +46,14 @@ const Hero = ({
               justifyContent: "space-between",
               width: "100%",
               alignItems: { xs: "flex-start", md: "center" },
-              gap: { xs: 0, md: isBlog ? 0 : "100px", lg: isBlog ? 0 : "150px" },
+              gap: {
+                xs: 0,
+                md: isBlog ? 0 : "100px",
+                lg: isBlog ? 0 : "150px",
+              },
             }}
           >
             <Box>
-
               <Typography
                 component="h1"
                 sx={{
@@ -63,7 +73,6 @@ const Hero = ({
                     color: theme.palette.text.secondary,
                     mt: "16px",
                   }}
-
                   variant="h2"
                 >
                   {subtitle}

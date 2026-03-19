@@ -17,6 +17,7 @@ export const ExploreWrapper = styled(Box)(({ theme }) => ({
 
 export const ExploreText = styled(Typography)(({ theme }) => ({
     width: "100%",
+    display: "block",
     textAlign: "center",
     fontWeight: 300,
     fontFamily: "Neue Montreal",
