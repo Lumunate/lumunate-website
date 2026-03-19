@@ -20,9 +20,9 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import DiscoverButton from "../ui/DiscoverButton";
 
-declare module 'react' {
+declare module "react" {
   interface VideoHTMLAttributes<T> extends React.HTMLAttributes<T> {
-    fetchPriority?: 'high' | 'low' | 'auto';
+    fetchPriority?: "high" | "low" | "auto";
   }
 }
 
@@ -40,7 +40,7 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
   useGsapTimelineAnimation(
     [navRef, titleRef, descRef, btnRef, socialRef],
     0,
-    animate && isHome
+    animate && isHome,
   );
 
   return (
@@ -54,7 +54,7 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
           loop
           muted
           playsInline
-          style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+          style={{ objectFit: "cover", width: "100%", height: "100%" }}
         >
           <source
             src="https://res.cloudinary.com/dlhe4iq8c/video/upload/q_auto,f_auto,w_1280,br_1500k/v1770892986/tva-timedoor_1_hcvelf.webm"
@@ -86,10 +86,11 @@ export default function HeaderSection({ animate }: { animate: boolean }) {
                 display: "flex",
                 width: "100%",
               }}
+              aria-label="Get started with your project"
             >
               <Box ref={btnRef}>
                 <DiscoverButton
-                  label="Get started with your project"
+                  aria-label="Get started with your custom project"
                   sx={{
                     mt: "40px",
                     width: "fit-content",
