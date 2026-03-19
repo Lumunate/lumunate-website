@@ -29,6 +29,7 @@ interface GsapOptions {
   direction?: Direction;
   delay?: number;
   duration?: number;
+  distance?: number;
   once?: boolean;
   stagger?: number;
 }
