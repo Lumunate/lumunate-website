@@ -39,7 +39,7 @@ const CEOSection = () => {
         loop
         playsInline
         poster="https://res.cloudinary.com/dlhe4iq8c/video/upload/q_auto,f_auto,w_1280/v1772440694/16296848-hd_1920_1080_24fps_vp2tgd.webp"
-        preload="metadata"
+        preload="none"
       >
         <source
           src="https://res.cloudinary.com/dlhe4iq8c/video/upload/v1772440694/16296848-hd_1920_1080_24fps_vp2tgd.webm"
