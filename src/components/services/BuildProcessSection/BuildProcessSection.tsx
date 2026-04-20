@@ -31,6 +31,11 @@ export default function BuildProcessSection({
     const isVideo = bgImageUrl?.match(/\.(webm|mp4|ogg|mov)$/i);
     const mediaType = isVideo ? "video" : "image";
 
+    const [mounted, setMounted] = React.useState(false);
+    React.useEffect(() => setMounted(true), []);
+
+    if (!mounted) return <RootSection $mediaType={mediaType} />;
+
     return (
         <RootSection $mediaType={mediaType}>
             {bgImageUrl && (

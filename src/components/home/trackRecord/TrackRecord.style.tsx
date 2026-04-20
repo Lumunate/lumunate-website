@@ -17,7 +17,9 @@ export const TitleWrapper = styled(Box)(({ theme }) => ({
 export const TitleText = styled(Typography)(({ theme }) => ({
   fontSize: "56px",
   marginBottom: "16px",
-  color: theme.palette.text.primary,
+  color: theme.palette.mode === 'light'
+    ? theme.palette.section.lightThemeTitle
+    : theme.palette.text.primary,
   [theme.breakpoints.down("md")]: {
     fontSize: "42px",
   },
@@ -27,7 +29,9 @@ export const TitleText = styled(Typography)(({ theme }) => ({
 }));
 
 export const DescriptionText = styled(Typography)(({ theme }) => ({
-  color: theme.palette.text.secondary,
+  color: theme.palette.mode === 'light'
+    ? theme.palette.section.muted
+    : theme.palette.text.secondary,
   fontSize: "22px",
   fontWeight: 400,
   marginTop: "6px",
@@ -71,7 +75,9 @@ export const StatusCard = styled(Box)(({ theme }) => ({
 export const NumberText = styled(Box)(({ theme }) => ({
   fontSize: "85px",
   fontWeight: 400,
-  color: theme.palette.text.primary,
+  color: theme.palette.mode === 'light'
+    ? theme.palette.section.heading
+    : theme.palette.text.primary,
   fontFamily: "'Manrope', sans-serif",
   whiteSpace: "nowrap",
   display: "inline-block",

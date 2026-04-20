@@ -51,6 +51,9 @@ export const TitleWrapper = styled(Box)(({ theme }) => ({
   justifyContent: "space-between",
   alignItems: "center",
   padding: theme.spacing(1.5, 2),
+  color: theme.palette.mode === 'light'
+    ? theme.palette.section.lightThemeTitle
+    : theme.palette.text.primary,
 
   backgroundColor: alpha(theme.palette.background.default, 0.72),
   boxShadow: `

@@ -11,7 +11,9 @@ interface MediaProps extends BoxProps {
     component?: React.ElementType; // allow video/img
 }
 
-export const RootSection = styled(Box)<RootSectionProps>(({ theme, $mediaType }) => ({
+export const RootSection = styled(Box, {
+    shouldForwardProp: (prop) => prop !== "$mediaType",
+})<RootSectionProps>(({ theme, $mediaType }) => ({
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing(12, 0),
     color: theme.palette.text.primary,
@@ -32,7 +34,8 @@ export const RootSection = styled(Box)<RootSectionProps>(({ theme, $mediaType })
         background: `linear-gradient(to bottom, ${theme.palette.background.default} 0%, ${alpha(theme.palette.background.default, 0.8)} 20%, transparent 100%)`,
         zIndex: 2,
         pointerEvents: "none",
-        display: $mediaType ? "block" : "none",
+        display: ($mediaType === "video" || $mediaType === "image") ? "block" : "none",
+
     },
 
     // BOTTOM SOFT FADE
@@ -80,7 +83,9 @@ export const SectionTitle = styled(Typography)(({ theme }) => ({
     },
 }));
 
-export const CardWrapper = styled(Box)<MediaProps>(({ theme, $mediaType }) => ({
+export const CardWrapper = styled(Box, {
+    shouldForwardProp: (prop) => prop !== "$mediaType",
+})<MediaProps>(({ theme, $mediaType }) => ({
     backgroundColor: alpha(theme.palette.background.paper, 0.4),
     backdropFilter: $mediaType === "video" ? "blur(12px)" : "none",
     border: `1px solid ${alpha(theme.palette.divider, 0.9)}`,

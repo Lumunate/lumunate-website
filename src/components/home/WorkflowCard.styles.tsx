@@ -129,13 +129,17 @@ export const WorkflowVideo = styled("video")(({ theme }) => ({
 }));
 
 export const TopText = styled(Typography)(({ theme }) => ({
-    color: theme.palette.text.secondary,
+    color: theme.palette.mode === 'light'
+        ? theme.palette.section.desc
+        : theme.palette.text.secondary,
     fontSize: "16px",
     marginBottom: theme.spacing(2),
 }));
 
 export const Title = styled(Typography)(({ theme }) => ({
-    color: theme.palette.text.primary,
+    color: theme.palette.mode === 'light'
+        ? theme.palette.section.desc
+        : theme.palette.text.primary,
     fontSize: "48px",
     fontWeight: 500,
     marginBottom: theme.spacing(2),
@@ -146,7 +150,9 @@ export const Title = styled(Typography)(({ theme }) => ({
 
 export const Description = styled(Typography)(({ theme }) => ({
     maxWidth: "542px",
-    color: theme.palette.text.secondary,
+    color: theme.palette.mode === 'light'
+        ? theme.palette.section.desc
+        : theme.palette.text.secondary,
     marginBottom: theme.spacing(4),
     [theme.breakpoints.down("sm")]: {
         fontSize: "14px",

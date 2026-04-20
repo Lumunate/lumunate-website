@@ -168,7 +168,9 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
   marginTop: theme.spacing(2),
   fontSize: theme.typography.h3.fontSize,
   fontWeight: theme.typography.h3.fontWeight,
-  color: theme.palette.text.primary,
+  color: theme.palette.mode === 'light'
+    ? theme.palette.section.desc
+    : theme.palette.text.primary,
   textAlign: "center",
 
   [theme.breakpoints.down("xl")]: {
@@ -184,7 +186,9 @@ export const SubTitle = styled(Typography)(({ theme }) => ({
 export const TitleText = styled(Typography)(({ theme }) => ({
   position: "relative",
   zIndex: 3,
-  color: theme.palette.text.primary,
+  color: theme.palette.mode === 'light'
+    ? theme.palette.section.heading
+    : theme.palette.text.primary,
   fontSize: theme.typography.h5.fontSize,
   fontWeight: 400,
   marginTop: theme.spacing(3),
@@ -251,7 +255,10 @@ export const NumberTypography = styled(Typography)(({ theme }) => ({
 }));
 
 export const DescriptionText = styled(Typography)(({ theme }) => ({
-  color: theme.palette.text.secondary,
+  color: theme.palette.mode === 'light'
+    ? theme.palette.section.lightThemeTitle
+    : theme.palette.text.secondary,
+
   fontSize: theme.typography.h5.fontSize,
   lineHeight: 1.6,
   maxWidth: "900px",

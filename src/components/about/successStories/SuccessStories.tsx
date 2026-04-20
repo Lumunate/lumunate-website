@@ -69,7 +69,9 @@ const SuccessStories: React.FC<SuccessStoriesProps> = ({
                 <StarIcon
                   key={idx}
                   sx={{
-                    color: theme.palette.warning.main,
+                    color: theme.palette.mode === 'light'
+                      ? theme.palette.section.star
+                      : theme.palette.warning.main,
                     fontSize: 32,
                   }}
                 />
