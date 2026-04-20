@@ -1,6 +1,5 @@
 "use client";
 
-import { Box } from "@mui/material";
 import PageContainer from "@/components/common/PageContainer";
 import {
     SectionRoot,

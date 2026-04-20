@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Grid } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import PageContainer from "@/components/common/PageContainer";
 import {
     RootSection,
@@ -9,7 +9,6 @@ import {
     CardWrapper,
     CardTitle,
     CardDesc,
-    MediaBackground,
     ContentOverlay
 } from "./BuildProcessSection.styles";
 
@@ -41,25 +40,42 @@ export default function BuildProcessSection({
         <RootSection $mediaType={mediaType}>
             {bgImageUrl && (
                 isVideo ? (
-                    <MediaBackground
+                    <Box
                         key="video-bg"
-                        $mediaType={mediaType} // Pass prop here
                         component="video"
-                        src={bgImageUrl}
                         autoPlay
                         muted
                         loop
                         playsInline
-                        sx={{ width: '100%', height: '100%' }}
-                    />
+                        sx={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            position: 'absolute',
+                            inset: 0,
+                            zIndex: 0,
+                            pointerEvents: 'none',
+                            filter: mediaType === 'video' ? 'brightness(0.5)' : 'none', // apply mediaType styling here
+                        }}
+                    >
+                        <source src={bgImageUrl} type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </Box>
                 ) : (
-                    <MediaBackground
+                    <Box
                         key="image-bg"
-                        $mediaType={mediaType} // Pass prop here
                         component="img"
                         src={bgImageUrl}
                         alt="background image"
-                        sx={{ width: '100%', height: '100%' }}
+                        sx={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            position: 'absolute',
+                            inset: 0,
+                            zIndex: 0,
+                            filter: mediaType === 'video' ? 'brightness(0.5)' : 'none', // apply mediaType styling here
+                        }}
                     />
                 )
             )}
@@ -71,7 +87,6 @@ export default function BuildProcessSection({
                     <Grid container spacing="32px" justifyContent="center">
                         {steps.map((step, index) => (
                             <Grid key={index} size={{ xs: 12, md: 4 }}>
-                                {/* Pass prop here to toggle backdropFilter */}
                                 <CardWrapper $mediaType={mediaType}>
                                     <CardTitle>{step.title}</CardTitle>
                                     <CardDesc>{step.desc}</CardDesc>

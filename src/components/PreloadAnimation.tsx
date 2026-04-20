@@ -12,19 +12,20 @@ const PreloadAnimation = ({ onComplete }: PreloadAnimationProps) => {
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
-        // Check if preload has already been shown
         const hasVisited = sessionStorage.getItem("preloadShown");
         if (hasVisited) {
             onComplete?.(); // Skip animation
             return;
         }
 
-        // Mark preload as shown
         sessionStorage.setItem("preloadShown", "true");
-        setVisible(true);
 
-        // Fade out after 3.5s
-        const timer = setTimeout(() => {
+        // Defer state update to next tick to avoid synchronous setState in effect
+        const showTimeout = setTimeout(() => {
+            setVisible(true);
+        }, 0);
+
+        const fadeTimer = setTimeout(() => {
             if (containerRef.current) {
                 containerRef.current.style.transition = "opacity 0.8s ease";
                 containerRef.current.style.opacity = "0";
@@ -36,7 +37,10 @@ const PreloadAnimation = ({ onComplete }: PreloadAnimationProps) => {
             }
         }, 3500);
 
-        return () => clearTimeout(timer);
+        return () => {
+            clearTimeout(showTimeout);
+            clearTimeout(fadeTimer);
+        };
     }, [onComplete]);
 
     if (!visible) return null;

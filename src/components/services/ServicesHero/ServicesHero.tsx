@@ -32,8 +32,6 @@ export interface ServicesHeroProps {
     rightMaxWidth?: number | string;
 }
 
-const isGroup = (metaItem: Meta): metaItem is MetaGroup =>
-    (metaItem as MetaGroup).items !== undefined;
 
 export default function ServicesHero({
     title,

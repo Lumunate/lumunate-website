@@ -73,7 +73,6 @@ export default function Navbar() {
     const isMobile = useMediaQuery(theme.breakpoints.down("xl"));
     const pathname = usePathname();
     const navRef = useNavbarRef();
-    const isHome = pathname === "/";
 
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [projectsAnchor, setProjectsAnchor] = useState<null | HTMLElement>(null);
@@ -164,6 +163,7 @@ export default function Navbar() {
         <AppBar
             ref={navRef}
             elevation={0}
+            component="div"
             sx={{
                 position: { xs: "fixed", xl: "sticky" },
                 top: 0,
@@ -641,7 +641,7 @@ export default function Navbar() {
                     </List>
 
                     <Box sx={{ p: 4, textAlign: "center", bgcolor: theme.palette.navbar.bg }}>
-                        <Typography sx={{ color: theme.palette.section.muted, fontFamily: "Montserrat", fontSize: "13px" }}>
+                        <Typography suppressHydrationWarning sx={{ color: theme.palette.section.muted, fontFamily: "Montserrat", fontSize: "13px" }}>
                             LUMUNATE &copy; {new Date().getFullYear()} All rights reserved
                         </Typography>
                     </Box>

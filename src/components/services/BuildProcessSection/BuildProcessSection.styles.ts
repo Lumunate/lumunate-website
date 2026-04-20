@@ -1,13 +1,14 @@
 "use client";
 
-import { Box, styled, Typography, alpha } from "@mui/material";
+import { Box, styled, Typography, alpha, BoxProps } from "@mui/material";
 
 interface RootSectionProps {
     $mediaType: "video" | "image";
 }
 
-interface MediaProps {
+interface MediaProps extends BoxProps {
     $mediaType: "video" | "image";
+    component?: React.ElementType; // allow video/img
 }
 
 export const RootSection = styled(Box, {
@@ -48,7 +49,7 @@ export const RootSection = styled(Box, {
         background: `linear-gradient(to top, ${theme.palette.background.default} 0%, ${alpha(theme.palette.background.default, 0.8)} 20%, transparent 100%)`,
         zIndex: 2,
         pointerEvents: "none",
-        display: ($mediaType === "video" || $mediaType === "image") ? "block" : "none",
+        display: $mediaType ? "block" : "none",
     }
 }));
 
@@ -63,7 +64,7 @@ export const MediaBackground = styled(Box, {
     objectFit: "cover",
     zIndex: 0,
     filter: $mediaType === "video" ? "brightness(0.5)" : "none",
-})) as any;
+}));
 
 export const ContentOverlay = styled(Box)({
     position: "relative",
@@ -98,10 +99,10 @@ export const CardWrapper = styled(Box, {
     "&:hover": {
         backgroundColor: alpha(theme.palette.background.paper, 0.8),
         transform: "translateY(-8px)",
-
-        borderColor: theme.palette.section.processNumber,
+        borderColor: theme.palette.section?.processNumber,
         boxShadow: `0 20px 40px ${alpha(theme.palette.common.black, 0.6)}`,
     },
+
     [theme.breakpoints.down("lg")]: {
         padding: "32px 24px",
     },

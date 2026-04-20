@@ -1,5 +1,5 @@
 "use client";
-import { Box, Theme } from "@mui/material";
+import { Box } from "@mui/material";
 import Image from "next/image";
 import {
     FooterRoot,
@@ -36,26 +36,30 @@ export default function Footer() {
                     <NoiseOverlay />
 
                     <Box sx={{ display: "flex", zIndex: 1 }}>
-                        <IconWrapper component="a" href="tel:+923310200888">
-                            <Image src="/icons/phone.svg" alt="Call" width={20} height={20} />
-                        </IconWrapper>
+                        {/* PHONE */}
+                        <a href="tel:+923310200888">
+                            <IconWrapper>
+                                <Image src="/icons/phone.svg" alt="Call" width={20} height={20} />
+                            </IconWrapper>
+                        </a>
 
                         <FooterSpacer size="small" />
 
-                        <IconWrapper component="a" href="mailto:info@lumunate.com">
-                            <Image src="/icons/mail.svg" alt="Mail" width={20} height={20} />
-                        </IconWrapper>
+                        {/* MAIL */}
+                        <a href="mailto:info@lumunate.com">
+                            <IconWrapper>
+                                <Image src="/icons/mail.svg" alt="Mail" width={20} height={20} />
+                            </IconWrapper>
+                        </a>
 
                         <FooterSpacer size="small" />
 
-                        {/* LinkedIn Icon */}
-                        <IconWrapper
-                            component="a"
-                            href="https://www.linkedin.com/company/lumunate/"
-                            target="_blank"
-                        >
-                            <Image src="/icons/linkedin.svg" alt="LinkedIn" width={20} height={20} />
-                        </IconWrapper>
+                        {/* LINKEDIN */}
+                        <a href="https://www.linkedin.com/company/lumunate/" target="_blank" rel="noopener noreferrer">
+                            <IconWrapper>
+                                <Image src="/icons/linkedin.svg" alt="LinkedIn" width={20} height={20} />
+                            </IconWrapper>
+                        </a>
 
                         <Box sx={{ borderLeft: (theme) => `1px solid ${theme.palette.divider}`, height: '100%' }} />
                     </Box>
@@ -74,29 +78,38 @@ export default function Footer() {
                     <FooterNavItem href="/privacy-policy">Privacy Policy</FooterNavItem>
                 </FooterTop>
 
-                <Box sx={{
-                    display: "flex",
-                    height: 56,
-                    px: "32px",
-                    borderBottom: "1px solid",
-                    borderColor: "divider",
-                    justifyContent: "center"
-                }}>
-                    <IconWrapper component="a" href="tel:+923310200888" className="mobile-icon" sx={{ borderLeft: 'none' }}>
-                        <Image src="/icons/phone.svg" alt="Call" width={24} height={24} />
-                    </IconWrapper>
-                    <IconWrapper component="a" href="mailto:info@lumunate.com" className="mobile-icon">
-                        <Image src="/icons/mail.svg" alt="Mail" width={24} height={24} />
-                    </IconWrapper>
-                    <IconWrapper
-                        component="a"
+                <Box
+                    sx={{
+                        display: "flex",
+                        height: 56,
+                        px: "32px",
+                        borderBottom: "1px solid",
+                        borderColor: "divider",
+                        justifyContent: "center",
+                    }}
+                >
+                    <a href="tel:+923310200888" style={{ textDecoration: "none" }}>
+                        <IconWrapper className="mobile-icon" sx={{ borderLeft: "none" }}>
+                            <Image src="/icons/phone.svg" alt="Call" width={24} height={24} />
+                        </IconWrapper>
+                    </a>
+
+                    <a href="mailto:info@lumunate.com" style={{ textDecoration: "none" }}>
+                        <IconWrapper className="mobile-icon">
+                            <Image src="/icons/mail.svg" alt="Mail" width={24} height={24} />
+                        </IconWrapper>
+                    </a>
+
+                    <a
                         href="https://www.linkedin.com/company/lumunate/"
                         target="_blank"
-                        className="mobile-icon"
+                        rel="noopener noreferrer"
+                        style={{ textDecoration: "none" }}
                     >
-                        <Image src="/icons/linkedin.svg" alt="LinkedIn" width={24} height={24} />
-                    </IconWrapper>
-
+                        <IconWrapper className="mobile-icon">
+                            <Image src="/icons/linkedin.svg" alt="LinkedIn" width={24} height={24} />
+                        </IconWrapper>
+                    </a>
                 </Box>
             </Box>
 
@@ -105,6 +118,6 @@ export default function Footer() {
                     LUMUNATE © {year} All rights reserved
                 </FooterText>
             </FooterBottom>
-        </FooterRoot>
+        </FooterRoot >
     );
 }

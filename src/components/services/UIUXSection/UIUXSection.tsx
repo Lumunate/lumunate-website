@@ -1,7 +1,6 @@
 "use client";
 
-import React from 'react';
-import { Box, Typography, List, ListItem, Stack } from '@mui/material';
+import { Box, Typography, List, Stack } from '@mui/material';
 import Image from 'next/image';
 import {
     SectionContainer,
@@ -25,7 +24,7 @@ export default function UIUXSection() {
                     </Typography>
 
                     <Typography variant="body1" className="desc">
-                        We've moved away from rigid, step-by-step UX workflows. Instead, we use a
+                        We&apos;ve moved away from rigid, step-by-step UX workflows. Instead, we use a
                         more integrated process where design, engineering, QA, and GenAI tools
                         work in parallel. This helps us explore ideas faster, test assumptions
                         early, and reduce unnecessary back-and-forth later in the build.

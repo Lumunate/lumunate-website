@@ -75,7 +75,7 @@ export const StepNumber = styled(Typography)(({ theme }) => ({
     fontSize: "130px",
     fontWeight: 700,
     lineHeight: 1,
-    color: (theme.palette as any).section.processNumber,
+    color: theme.palette.section.processNumber,
     [theme.breakpoints.down("md")]: {
         fontSize: "80px",
     },

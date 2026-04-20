@@ -95,8 +95,8 @@ export const StepItem = styled(Box, {
         width: "15px",
         height: "15px",
         borderRadius: "50%",
-        backgroundColor: active ? (theme.palette as any).section?.processNumber : alpha(theme.palette.text.primary, 0.2),
-        boxShadow: active ? `0 0 15px ${(theme.palette as any).section?.processNumber}` : "none",
+        backgroundColor: active ? theme.palette.section.processNumber : alpha(theme.palette.text.primary, 0.2),
+        boxShadow: active ? `0 0 15px ${theme.palette.section.processNumber}` : "none",
         transition: "all 0.4s ease",
         zIndex: 2,
     },
@@ -107,7 +107,7 @@ export const StepTitle = styled(Typography, {
 })<{ active?: boolean }>(({ theme, active }) => ({
     fontSize: "24px",
     fontWeight: 400,
-    color: active ? (theme.palette as any).section?.processNumber : alpha(theme.palette.text.primary, 0.3),
+    color: active ? theme.palette.section.processNumber : alpha(theme.palette.text.primary, 0.3),
     transition: "color 0.4s ease",
     lineHeight: "24px",
     display: "block",
@@ -126,7 +126,7 @@ export const DescriptionBox = styled(Box)({
 });
 
 export const ActiveContentTitle = styled(Typography)(({ theme }) => ({
-    color: (theme.palette as any).section?.heading,
+    color: theme.palette.section.heading,
     marginBottom: "32px",
     fontSize: "24px",
     fontWeight: 400,

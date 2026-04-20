@@ -90,7 +90,7 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section>
-                <Box className="legal-point">9. Children's Privacy</Box>
+                <Box className="legal-point">9. Children&apos;s Privacy</Box>
                 <ul>
                     <li>Our services are not directed to children under 18 years old.</li>
                     <li>If you believe we have collected data from a minor, please contact us.</li>

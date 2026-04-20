@@ -3,7 +3,6 @@ import ExploreSection from "@/components/home/explore/Explore";
 import Ready from "@/components/home/ready/Ready";
 import Works from "@/components/home/work/Works";
 import BuildProcessSection from "@/components/services/BuildProcessSection/BuildProcessSection";
-import ProcessStepsSection from "@/components/services/ProcessStepsSection/ProcessStepsSection";
 import ServiceOverview from "@/components/services/ServiceOverview/ServiceOverview";
 import ServicesHero from "@/components/services/ServicesHero/ServicesHero";
 import { Box } from "@mui/material";

@@ -22,6 +22,11 @@ import DiscoverButton from "../ui/DiscoverButton";
 import { useEffect } from "react";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 
+interface ApiResponse {
+    message?: string;
+    [key: string]: unknown; // for any extra fields
+}
+
 /* Frontend schema (Zod) */
 const contactSchema = z.object({
     email: z.string().trim().email("Please enter a valid email address"),
@@ -120,18 +125,55 @@ export default function ContactSection() {
         [theme]
     );
 
-    /* Success submit: show toast + reset */
     const onSubmit = async (data: ContactFormData) => {
-        // simulate frontend submit (replace with API call later if needed)
-        console.log("Form Submitted ✅:", data);
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
 
-        setSnackbar({
-            open: true,
-            type: "success",
-            message: "Your form has been submitted successfully!",
-        });
+            // Check content type
+            const contentType = res.headers.get("content-type");
+            let result: ApiResponse = {};
 
-        reset();
+            if (contentType && contentType.includes("application/json")) {
+                result = await res.json();
+            } else {
+                // For non-JSON responses (like HTML errors)
+                const textError = await res.text();
+                console.error("Non-JSON response received:", textError);
+                throw new Error(`Server returned ${res.status}: ${res.statusText}`);
+            }
+
+            if (!res.ok) {
+                // Use the API message if available
+                throw new Error(result.message ?? `Submission failed with status ${res.status}`);
+            }
+
+            setSnackbar({
+                open: true,
+                type: "success",
+                message: "Your form has been submitted successfully!",
+            });
+            reset(); // Clears the form
+        } catch (error: unknown) {
+            console.error("Form submission error:", error);
+
+            let message = "Something went wrong. Please try again.";
+            if (error instanceof Error) {
+                message = error.message;
+            }
+
+            setSnackbar({
+                open: true,
+                type: "error",
+                message,
+            });
+        }
     };
 
     const onError = () => {
